@@ -165,13 +165,22 @@ function calcChangingDistance(datasets) {
 function getDeltaDistance(distanceArray) {
     let result = distanceArray.slice();
     let order = []
-
-    for (let i = 0; i < distanceArray.length; i++) {
-        if (distanceArray[i] > kappa[0] && distanceArray[i] <= kappa[1])
-            result[i] = Math.exp(distanceArray[i]);
-        else if (distanceArray[i] <= kappa[0] || distanceArray[i] > kappa[1])
-            result[i] = -1;
-        order.push([i, result[i]])
+    if (choosed_emphasized_clusters.length > 0) {
+        for (let i = 0; i < distanceArray.length; i++) {
+            if (distanceArray[i] > 0)
+                result[i] = Math.exp(distanceArray[i]);
+            else
+                result[i] = -1;
+            order.push([i, result[i]])
+        }
+    } else {
+        for (let i = 0; i < distanceArray.length; i++) {
+            if (distanceArray[i] > kappa[0] && distanceArray[i] <= kappa[1])
+                result[i] = Math.exp(distanceArray[i]);
+            else if (distanceArray[i] <= kappa[0] || distanceArray[i] > kappa[1])
+                result[i] = -1;
+            order.push([i, result[i]])
+        }
     }
 
     // re-order the clusters by the delta distance

@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Comparison</title>
+  <title>C3-palette</title>
   <link rel="shortcut icon" href="favicon.ico">
 
   <script type="text/javascript" src="js/lib/jquery-3.2.1.min.js"></script>
@@ -197,7 +197,7 @@
             <ul class="sub" style="display: block;">
               <li>
                 <div class="menu-sidebar-div" style="padding-left: 32px;height: 100px;">
-                  <label style="font-size: 16px;font-weight: bold;"><input type="radio" name="generationMode"
+                  <label style="font-size: 16px;font-weight: bold;"><input type="radio" name="generationMode" id="caRatioId"
                       value="colorAssignment" checked>&nbsp;&nbsp;Color
                     Assignment</label><br>
                   <select class="form-control paletteFnt" style="width: 120px;float: left;">
@@ -212,7 +212,7 @@
               </li>
               <li>
                 <div class="menu-sidebar-div" style="padding-left: 32px;">
-                  <label style="font-size: 16px;font-weight: bold;"><input type="radio" name="generationMode"
+                  <label style="font-size: 16px;font-weight: bold;"><input type="radio" name="generationMode" id="pgRatioId"
                       value="paletteGeneration">&nbsp;&nbsp;Palette
                     Generation</label>
                 </div>
@@ -330,8 +330,8 @@
             <ul class="sub">
               <li>
                 <div class="menu-sidebar-div" style="padding-left: 32px;">
-                  <input type="checkbox" name="specified" id="specified">
-                  <label for="specified"><strong>&nbsp;&nbsp;Specify?</strong></label>
+                  <input type="checkbox" name="assignName2Target" id="assignName2Target">
+                  <label for="assignName2Target"><strong>&nbsp;&nbsp;Assign to target classes?</strong></label>
                   <br><br>
                   <label><strong>Color Names: &nbsp; </strong> </label>
                   <div id="color-names-div">
@@ -366,9 +366,10 @@
             <div class="panel-body-svg">
               <div style="margin-top: 10px;display: inline-block;">
                 <label>
-                  <h4><strong>Choosed clusters to emphasize:</strong></h4>
+                  <h4><strong>Click on the point to choose clusters to emphasize:</strong></h4>
                 </label><br>
                 <div id="choosedDiv"></div>
+                <h4><strong>Click on the rect to delete.</strong></h4>
               </div>
               <br>
               <div id="outputDiv" style="margin-top: 10px;display: none;">
@@ -415,6 +416,10 @@
                   <i><img class="icon_quality" id="qual_icon" title="High Quality" onclick="saMode(1)"></i>
                 </a> -->
                 <img src="img/loading.gif" id="running" class="hide">
+                <div style="margin-left: 50px;display: none;" id="specifyDiv">
+                  <input type="checkbox" name="specified" id="specified">
+                  <label for="specified"><strong>&nbsp;&nbsp;Fix Hue?</strong></label>
+                </div>
 
                 <div class="panel-actions">
                   <!-- <a href="#" class="btn-setting" onclick="changeBgcolor()">

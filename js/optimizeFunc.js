@@ -39,9 +39,17 @@ function doColorization() {
             }
         }
     }
-    console.log(delta_difference);
 
     color_names_checked = collectColorNames();
+    if (color_names_checked.length > 0) {
+        // document.getElementById("caRatioId").checked = false;
+        document.getElementById("pgRatioId").checked = true;
+        generation_mode = 0;
+        document.getElementById("slider_1").value = 50;
+        changeSlider("slider_1", 50)
+        document.getElementById("slider_3").value = 50;
+        changeSlider("slider_3", 50)
+    }
     let best_color, best_color_array = new Array(1);
 
     if (generation_mode && color_names_checked.length === 0) {
@@ -52,18 +60,14 @@ function doColorization() {
         if (palette_text)
             palette = palette_text.split("[")[1].split("]")[0].split(",");
         if ($("input[name='specified']").is(":checked") && choosed_emphasized_clusters.length > 0 && palette.length > 0) {
-            console.log("hue");
-            // palette = ["#79706e", "#d7b5a6", "#a0cbe8", "#bab0ac", "#fabfd2", "#f1ce63", "#8cd17d", "#86bcb6", "#ffbe7d", "#4e79a7"]
-            palette = ["#73fd42", "#edbd1a", "#b03bee", "#3fa8fe", "#ff2a4d"]
             best_color = hueConstraintSA(palette, (new_palette) => evaluatePalette(new_palette), colors_scope);
         } else {
-            console.log("assign");
             let input_palette_text = d3.select("#inputPaletteText").property("value");
             input_palette_text = input_palette_text.replace(/\"/g, '');
             assignment_palette = input_palette_text.split("[")[1].split("]")[0].split(",");
             best_color = doColorAssignment(assignment_palette, class_number, palette);
         }
-    } else if ($("input[name='specified']").is(":checked") && color_names_checked.length > 0) {
+    } else if ($("input[name='assignName2Target']").is(":checked") && color_names_checked.length > 0) {
         // assign name to desired clusters
         best_color = specifyColorNamePalette(class_number, (new_palette) => evaluatePalette(new_palette), colors_scope);
     }
@@ -78,7 +82,6 @@ function doColorization() {
         best_color = completePalette(origin_palette, blank_pos, (new_palette) => evaluatePalette(new_palette), colors_scope);
     }
 
-    console.log(best_color.score);
     let used_palette = new Array(class_number);
     for (let i = 0; i < class_number; i++) {
         used_palette[i] = best_color.id[i];
@@ -101,7 +104,7 @@ function doColorization() {
  */
 let count_global = 0;
 function evaluatePalette(palette) {
-    if (color_names_checked != undefined && color_names_checked.length > 0 && !$("input[name='specified']").is(":checked")) {
+    if (color_names_checked != undefined && color_names_checked.length > 0 && !$("input[name='assignName2Target']").is(":checked")) {
         let count = 0;
         for (let i = 0; i < palette.length; i++) {
             let c = getColorNameIndex(d3.rgb(palette[i])),
@@ -112,6 +115,16 @@ function evaluatePalette(palette) {
         }
         if (count > 2) // if there are more than two colors that are not in selected color names, then discard this palette
             return -1000000;
+    }
+    if ($("input[name='assignName2Target']").is(":checked") && color_names_checked.length > 0) {
+        for (let i = 0; i < palette.length; i++) {
+            if (delta_change_distance[i] <= 0) continue;
+            let c = getColorNameIndex(d3.rgb(palette[i])),
+                t = c3.color.relatedTerms(c, 1);
+            if (t[0] === undefined || color_names_checked.indexOf(c3.terms[t[0].index]) === -1) {
+                return -1000000;
+            }
+        }
     }
 
 
@@ -333,7 +346,6 @@ function completePalette(origin_palette, blank_pos, evaluateFunc, colors_scope =
     },
         preferredObj = o;
 
-    color_names_checked = collectColorNames();
     while (cur_temper > end_temper) {
         for (let i = 0; i < 1; i++) {//disturb at each temperature
             iterate_times++;
@@ -491,7 +503,6 @@ function doColorAssignment(palette, class_number, pre_palette) {
         }
     }
 
-    color_names_checked = collectColorNames();
     while (cur_temper > end_temper) {
         for (let i = 0; i < 1; i++) {//disturb at each temperature
             iterate_times++;
@@ -569,9 +580,6 @@ function specifyColorNamePalette(palette_size, evaluateFunc, colors_scope = { "h
             changeless_part.push(i)
         }
     }
-
-    color_names_checked = collectColorNames();
-    console.log(color_names_checked);
 
     //generate a totally random palette
     let color_palette = getColorPaletteRandom(palette_size);//Tableau_10_palette.slice(0, palette_size);
@@ -745,8 +753,6 @@ function hueConstraintGeneration(ori_palette, changed_part, changeless_part, col
 }
 
 function hueConstraintSA(palette, evaluateFunc, colors_scope = { "hue_scope": [0, 360], "lumi_scope": [25, 85] }) {
-    console.log(colors_scope);
-    console.log(palette);
     let iterate_times = 0;
     //default parameters
     let max_temper = 100000,
@@ -764,9 +770,6 @@ function hueConstraintSA(palette, evaluateFunc, colors_scope = { "hue_scope": [0
             changeless_part.push(i)
         }
     }
-
-    console.log(changed_part, changeless_part);
-
 
     //generate a totally random palette
     let color_palette = palette.slice();

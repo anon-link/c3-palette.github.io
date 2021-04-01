@@ -205,7 +205,8 @@ function processScatterData(datasets) {
 
     calculateKNNGDistance(datasets);
     calculateClassCenterDistance(datasets);
-    calcChangingDistance(datasets);
+    if (datasets.length > 1)
+        calcChangingDistance(datasets);
     delta_change_distance = getDeltaDistance(change_distance);
 
     let cluster_num = Object.keys(labelToClass).length;

@@ -219,10 +219,10 @@
 
 <script>
   function saveTable(name) {
-    d3.text("./data/" + name + "-0.csv", function (error, text) { //interleaved_100_200_10d_25_cramped_rotated-PCA
+    d3.text("./data/" + name + "-0.csv", function (error, text) { 
       if (error) throw error;
       downloadFile(name + "-0.csv", text);
-      d3.text("./data/" + name + "-1.csv", function (error, text) { //interleaved_100_200_10d_25_cramped_rotated-PCA
+      d3.text("./data/" + name + "-1.csv", function (error, text) {
         if (error) throw error;
         downloadFile(name + "-1.csv", text);
       });
