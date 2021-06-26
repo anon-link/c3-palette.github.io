@@ -163,109 +163,107 @@ function renderResult() {
 }
 
 function appendScatterplot() {
-  let used_palettes = doColorization();
+  let used_palette = doColorization();
   // used_palette = ["#76b7b2", "#59a14f", "#ff9da7", "#edc948", "#e15759", "#b07aa1", "#bab0ac", "#4e79a7"]// tableau 20 optimized: -1.13
   // used_palette = shuffle(Tableau_10_palette.slice(0,used_palette.length));
-  for (let j = 0; j < 2; j++)
-    for (let i = 0; i < source_datasets.length; i++) {
-      let used_palette = used_palettes[j]
-      let scatterplot_svg = d3.select("#renderDiv").append("svg")
-        .attr("width", SVGWIDTH).attr("height", SVGHEIGHT);
-      let scatterplot = scatterplot_svg.style("background-color", bgcolor).append("g")
-        .attr("transform", "translate(" + svg_margin.left + "," + svg_margin.top + ")");
-      // draw dots
-      let dots = scatterplot.append("g").selectAll(".dot")
-        .data(source_datasets[i])
-        .enter().append("circle")
-        .attr("class", "dot")
-        .attr("id", function (d) {
-          return "class_" + labelToClass[cValue(d)];
-        })
-        .attr("r", radius)
-        .attr("cx", xMap)
-        .attr("cy", yMap)
-        .attr("fill", function (d, i) {
-          return used_palette[labelToClass[cValue(d)]];
-        });
-      // add the x Axis
-      scatterplot.append("g")
-        .attr("transform", "translate(0," + svg_height + ")")
-        .call(d3.axisBottom(xScale).tickFormat(""));
-
-      // add the y Axis
-      scatterplot.append("g")
-        .call(d3.axisLeft(yScale).tickFormat(""));
-
-
-      let circle = scatterplot.append("circle")
-        .attr("id", "choosed_cluster")
-        .attr("r", 0)
-        .style("stroke", bgcolor)
-        .style("stroke-width", "1.5px");
-
-      scatterplot_svg.on("mousemove", function () {
-        let mouse_pos = [d3.mouse(this)[0] - svg_margin.left, d3.mouse(this)[1] - svg_margin.top];
-        // check all points to find the desired
-        let min_dis = 10000000000, desired_point = null;
-        for (let d of source_datasets[i]) {
-          let point_pos = [xMap(d), yMap(d)];
-          let dis = (point_pos[0] - mouse_pos[0]) * (point_pos[0] - mouse_pos[0]) + (point_pos[1] - mouse_pos[1]) * (point_pos[1] - mouse_pos[1]);
-          if (min_dis >= dis) {
-            min_dis = dis;
-            desired_point = d;
-          }
-        }
-        if (min_dis > 100) {
-          circle.attr("r", 0);
-        } else {
-          let id = cValue(desired_point);
-          circle.attr("cx", mouse_pos[0])
-            .attr("cy", mouse_pos[1])
-            .attr("fill", used_palette[labelToClass[id]])
-            .attr("r", 10)
-            .attr("display", "block")
-            .on("click", function () {
-              for (let i = 0; i < choosed_emphasized_clusters.length; i++) {
-                if (+choosed_emphasized_clusters[i].attr("clusterId") === labelToClass[id]) {
-                  return;
-                }
-              }
-              let div = d3.select("#choosedDiv");
-              let span = div.append("span").attr("class", "rect").attr("id", "choosedCluster-" + labelToClass[id]).attr("clusterId", labelToClass[id])
-                .style("width", "30px").style("height", "30px").style("display", "inline-block")
-                .style("margin-left", "10px").style("padding", "5px").style("background", used_palette[labelToClass[id]]).style("text-align", "center");
-              // append lock and unlock sign
-              let img = span.append("img").attr("class", "icon_delete").style("display", "none")
-                .on("click", function () {
-                  let j = 0;
-                  for (j = 0; j < choosed_emphasized_clusters.length; j++) {
-                    if (+choosed_emphasized_clusters[j].attr("clusterId") === labelToClass[id]) {
-                      break;
-                    }
-                  }
-                  choosed_emphasized_clusters.splice(j, 1);
-                  span.remove();
-                  if (choosed_emphasized_clusters.length === 0) {
-                    d3.select("#specifyDiv").style("display", "none");
-                  }
-                });
-              span.on("mouseover", function () {
-                d3.select(this).select("img").style("display", "block");
-              })
-                .on("mouseout", function () {
-                  d3.select(this).select("img").style("display", "none");
-                })
-
-              choosed_emphasized_clusters.push(span)
-              d3.select("#specifyDiv").style("display", "inline-block");
-            });
-        }
-
+  for (let i = 0; i < source_datasets.length; i++) {
+    let scatterplot_svg = d3.select("#renderDiv").append("svg")
+      .attr("width", SVGWIDTH).attr("height", SVGHEIGHT);
+    let scatterplot = scatterplot_svg.style("background-color", bgcolor).append("g")
+      .attr("transform", "translate(" + svg_margin.left + "," + svg_margin.top + ")");
+    // draw dots
+    let dots = scatterplot.append("g").selectAll(".dot")
+      .data(source_datasets[i])
+      .enter().append("circle")
+      .attr("class", "dot")
+      .attr("id", function (d) {
+        return "class_" + labelToClass[cValue(d)];
+      })
+      .attr("r", radius)
+      .attr("cx", xMap)
+      .attr("cy", yMap)
+      .attr("fill", function (d, i) {
+        return used_palette[labelToClass[cValue(d)]];
       });
+    // add the x Axis
+    scatterplot.append("g")
+      .attr("transform", "translate(0," + svg_height + ")")
+      .call(d3.axisBottom(xScale).tickFormat(""));
 
-      scatterplot_svg.append("text").attr("x", 0).attr("y", 20).text(source_datasets_names[i]);
+    // add the y Axis
+    scatterplot.append("g")
+      .call(d3.axisLeft(yScale).tickFormat(""));
 
-    }
+
+    let circle = scatterplot.append("circle")
+      .attr("id", "choosed_cluster")
+      .attr("r", 0)
+      .style("stroke", bgcolor)
+      .style("stroke-width", "1.5px");
+
+    scatterplot_svg.on("mousemove", function () {
+      let mouse_pos = [d3.mouse(this)[0] - svg_margin.left, d3.mouse(this)[1] - svg_margin.top];
+      // check all points to find the desired
+      let min_dis = 10000000000, desired_point = null;
+      for (let d of source_datasets[i]) {
+        let point_pos = [xMap(d), yMap(d)];
+        let dis = (point_pos[0] - mouse_pos[0]) * (point_pos[0] - mouse_pos[0]) + (point_pos[1] - mouse_pos[1]) * (point_pos[1] - mouse_pos[1]);
+        if (min_dis >= dis) {
+          min_dis = dis;
+          desired_point = d;
+        }
+      }
+      if (min_dis > 100) {
+        circle.attr("r", 0);
+      } else {
+        let id = cValue(desired_point);
+        circle.attr("cx", mouse_pos[0])
+          .attr("cy", mouse_pos[1])
+          .attr("fill", used_palette[labelToClass[id]])
+          .attr("r", 10)
+          .attr("display", "block")
+          .on("click", function () {
+            for (let i = 0; i < choosed_emphasized_clusters.length; i++) {
+              if (+choosed_emphasized_clusters[i].attr("clusterId") === labelToClass[id]) {
+                return;
+              }
+            }
+            let div = d3.select("#choosedDiv");
+            let span = div.append("span").attr("class", "rect").attr("id", "choosedCluster-" + labelToClass[id]).attr("clusterId", labelToClass[id])
+              .style("width", "30px").style("height", "30px").style("display", "inline-block")
+              .style("margin-left", "10px").style("padding", "5px").style("background", used_palette[labelToClass[id]]).style("text-align", "center");
+            // append lock and unlock sign
+            let img = span.append("img").attr("class", "icon_delete").style("display", "none")
+              .on("click", function () {
+                let j = 0;
+                for (j = 0; j < choosed_emphasized_clusters.length; j++) {
+                  if (+choosed_emphasized_clusters[j].attr("clusterId") === labelToClass[id]) {
+                    break;
+                  }
+                }
+                choosed_emphasized_clusters.splice(j, 1);
+                span.remove();
+                if (choosed_emphasized_clusters.length === 0) {
+                  d3.select("#specifyDiv").style("display", "none");
+                }
+              });
+            span.on("mouseover", function () {
+              d3.select(this).select("img").style("display", "block");
+            })
+              .on("mouseout", function () {
+                d3.select(this).select("img").style("display", "none");
+              })
+
+            choosed_emphasized_clusters.push(span)
+            d3.select("#specifyDiv").style("display", "inline-block");
+          });
+      }
+
+    });
+
+    scatterplot_svg.append("text").attr("x", 0).attr("y", 20).text(source_datasets_names[i]);
+
+  }
   return used_palette;
 }
 

@@ -203,3 +203,240 @@ function getDeltaDistance(distanceArray) {
 
     return result;
 }
+
+
+/**
+ * alpha-Shape graph Implementation
+ * using Philippe Rivière’s bl.ocks.org/1b7ddbcd71454d685d1259781968aefc 
+ * voronoi.find(x,y) finds the nearest cell to the point (x,y).
+ * extent is like: [[30, 30], [width - 30, height - 30]]
+ */
+function calculateAlphaShape(data, extent) {
+    let voronoi = d3.voronoi().x(function (d) { return xMap(d); }).y(function (d) { return yMap(d); })
+        .extent(extent);
+    let diagram = voronoi(data);
+    let cells = diagram.cells;
+    let alpha = 25 * 2;
+    let distanceDict = {}, background_distanceDict = {};
+    for (let cell of cells) {
+        if (cell === undefined) continue;
+        let label = labelToClass[cell.site.data.label];
+        let dist_arr = []
+        cell.halfedges.forEach(function (e) {
+            let edge = diagram.edges[e];
+            let ea = edge.left;
+            if (ea === cell.site || !ea) {
+                ea = edge.right;
+            }
+            if (ea) {
+                let ea_label = labelToClass[ea.data.label];
+                let dx, dy, dist;
+                dx = cell.site[0] - ea[0];
+                dy = cell.site[1] - ea[1];
+                dist = Math.sqrt(dx * dx + dy * dy);
+                if (label != ea_label) {
+                    if (alpha > dist) {
+                        if (distanceDict[label] === undefined)
+                            distanceDict[label] = {};
+                        if (distanceDict[label][ea_label] === undefined)
+                            distanceDict[label][ea_label] = [];
+                        distanceDict[label][ea_label].push(inverseFunc(dist));
+                    }
+                }
+                dist_arr.push(dist);
+            }
+        });
+        if (background_distanceDict[label] === undefined)
+            background_distanceDict[label] = [];
+        background_distanceDict[label].push(d3.sum(dist_arr) / dist_arr.length)
+    }
+    // console.log("distanceDict:", distanceDict);
+
+
+    alphaShape_distance = new TupleDictionary();
+    for (var i in distanceDict) {
+        for (var j in distanceDict[i]) {
+            i = +i, j = +j;
+            var dist;
+            if (distanceDict[j] === undefined || distanceDict[j][i] === undefined)
+                dist = 2 * d3.sum(distanceDict[i][j]);
+            else
+                dist = d3.sum(distanceDict[i][j]) + d3.sum(distanceDict[j][i]);
+            if (i < j)
+                alphaShape_distance.put([i, j], dist);
+            else
+                alphaShape_distance.put([j, i], dist);
+        }
+    }
+    console.log("alphaShape_distance:", alphaShape_distance);
+    let cluster_num = Object.keys(labelToClass).length;
+    background_distance = new Array(cluster_num).fill(0);
+    for (var i in background_distanceDict) {
+        background_distance[i] = d3.sum(background_distanceDict[i]) / background_distanceDict[i].length;
+    }
+    console.log("background_distance:", background_distance);
+
+    // return distanceOf2Clusters;
+}
+
+/**
+ * alpha-Shape graph Implementation
+ * using Philippe Rivière’s bl.ocks.org/1b7ddbcd71454d685d1259781968aefc 
+ * voronoi.find(x,y) finds the nearest cell to the point (x,y).
+ * extent is like: [[30, 30], [width - 30, height - 30]]
+ */
+function showVoronoi(data, extent) {
+    let as_svg = d3.select("#renderDiv").append("svg").attr("id", "asIllustration")
+        .attr("width", SVGWIDTH).attr("height", SVGHEIGHT);
+    let svg_width = SVGWIDTH - svg_margin.left - svg_margin.right,
+        svg_height = SVGHEIGHT - svg_margin.top - svg_margin.bottom;
+
+    let asIllu = as_svg.style("background-color", bgcolor)
+        .append("g")
+        .attr("transform", "translate(" + svg_margin.left + "," + svg_margin.top + ")");
+    xScale = d3.scaleLinear().range([0, svg_width]), // value -> display
+        xMap = function (d) {
+            return xScale(xValue(d));
+        }, // data -> display
+        xAxis = d3.axisBottom().scale(xScale).ticks(0);
+    yScale = d3.scaleLinear().range([svg_height, 0]), // value -> display
+        yMap = function (d) {
+            return yScale(yValue(d));
+        }, // data -> display
+        yAxis = d3.axisLeft().scale(yScale).ticks(0);
+
+    xScale.domain([d3.min(data, xValue), d3.max(data, xValue)]);
+    yScale.domain([d3.min(data, yValue), d3.max(data, yValue)]);
+
+    // construct the data
+    var voronoi = d3.voronoi().x(function (d) { return xMap(d); }).y(function (d) { return yMap(d); })
+        .extent(extent);
+    var polygon = asIllu.append("g")
+        .attr("class", "polygons")
+        .attr("style", "fill:none;stroke:#000")
+        .selectAll("path")
+        .data(voronoi.polygons(data))
+        .enter().append("path")
+        .call(redrawPolygon);
+    var diagram = voronoi(data);
+    // console.log(diagram);
+
+    // voronoi.find is included in [d3 v4.3.0](https://github.com/d3/d3/releases/v4.3.0)
+    // the following lines just add coloring
+    diagram.find = function (x, y, radius) {
+        var i, next = diagram.find.found || Math.floor(Math.random() * diagram.cells.length);
+        var cell = diagram.cells[next] || diagram.cells[next = 0];
+        var dx = x - cell.site[0],
+            dy = y - cell.site[1],
+            dist = dx * dx + dy * dy;
+
+        do {
+            cell = diagram.cells[i = next];
+            next = null;
+            polygon._groups[0][i].setAttribute('fill', '#f5a61d');
+            cell.halfedges.forEach(function (e) {
+                var edge = diagram.edges[e];
+                var ea = edge.left;
+                if (ea === cell.site || !ea) {
+                    ea = edge.right;
+                }
+                if (ea) {
+                    if (polygon._groups[0][ea.index].getAttribute('fill') != '#f5a61d') {
+                        polygon._groups[0][ea.index].setAttribute('fill', '#fbe8ab');
+                    }
+                    var dx = x - ea[0],
+                        dy = y - ea[1],
+                        ndist = dx * dx + dy * dy;
+                    if (ndist < dist) {
+                        dist = ndist;
+                        next = ea.index;
+                        return;
+                    }
+                }
+            });
+
+        } while (next !== null);
+
+        diagram.find.found = i;
+        if (!radius || dist < radius * radius) return cell.site;
+    }
+
+    // findcell([extent[1][0] / 2, extent[1][1] / 2]);
+
+    function moved() {
+        // findcell(d3.mouse(this));
+    }
+
+    function findcell(m) {
+        polygon.attr('fill', '');
+        var found = diagram.find(m[0], m[1], 50);
+        if (found) {
+            polygon._groups[0][found.index].setAttribute('fill', 'red');
+        }
+    }
+
+    function redrawPolygon(polygon) {
+        polygon
+            .attr("d", function (d) { return d ? "M" + d.join("L") + "Z" : null; });
+    }
+    // draw dots
+    // let dots = scatterplot.append("g").selectAll(".dot")
+    //     .data(data)
+    //     .enter().append("circle")
+    //     .attr("class", "dot")
+    //     .attr("id", function (d) {
+    //         return "class_" + labelToClass[cValue(d)];
+    //     })
+    //     .attr("r", radius)
+    //     .attr("cx", xMap)
+    //     .attr("cy", yMap)
+    //     .attr("fill", function (d, i) {
+    //         return Tableau_20_palette[labelToClass[cValue(d)]];
+    //     });
+    let cells = diagram.cells;
+    let alpha = 25 * 25 * 2;
+    for (let cell of cells) {
+        let label = labelToClass[cell.site.data.label];
+        cell.halfedges.forEach(function (e) {
+            let edge = diagram.edges[e];
+            let ea = edge.left;
+            if (ea === cell.site || !ea) {
+                ea = edge.right;
+            }
+            if (ea) {
+                let ea_label = labelToClass[ea.data.label];
+                if (label != ea_label) {
+                    let dx = cell.site[0] - ea[0],
+                        dy = cell.site[1] - ea[1],
+                        dist = dx * dx + dy * dy;
+                    if (alpha > dist) {
+                        polygon._groups[0][ea.index].setAttribute('fill', '#fbe8ab');
+                    }
+                }
+            }
+        });
+    }
+
+    asIllu.selectAll(".dot2").append("g")
+        .data(data)
+        .enter().append("circle") // Uses the enter().append() method
+        .attr("class", "dot2") // Assign a class for styling
+        .attr("r", function (d) {
+            if (d.terminal === 0) {
+                return radius - 1;
+            } else {
+                return radius;
+            }
+        })
+        .attr("cx", xMap)
+        .attr("cy", yMap)
+        // .style("stroke", function (d) {
+        //     if (d.terminal === 0) {
+        //         return "#fff";
+        //     } else {
+        //         return "#fff";
+        //     }
+        // })
+        .style("fill", function (d) { return Tableau_10_palette[labelToClass[cValue(d)]] });
+
+}

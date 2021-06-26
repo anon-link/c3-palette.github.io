@@ -20,7 +20,7 @@ score_importance_weight[3] = document.getElementById("slider_3").value / 100;
 
 let generation_mode = 1;
 let source_datasets, source_datasets_names, labelToClass, assignment_palette;
-let knng_distance, dsc_distance, change_distance, delta_change_distance, cosaliency_distance, alphaShape_distance, background_distance;
+let knng_distance, dsc_distance, change_distance, delta_change_distance, cosaliency_distance;
 let kappa = [0.1, 1], delta_difference;
 let xScale, xMap, xAxis, yScale, yMap, yAxis;
 let bgcolor = "#fff";
