@@ -212,70 +212,82 @@ function getDeltaDistance(distanceArray) {
  * extent is like: [[30, 30], [width - 30, height - 30]]
  */
 function calculateAlphaShape(data, extent) {
-    let voronoi = d3.voronoi().x(function (d) { return xMap(d); }).y(function (d) { return yMap(d); })
-        .extent(extent);
-    let diagram = voronoi(data);
-    let cells = diagram.cells;
-    let alpha = 25 * 2;
-    let distanceDict = {}, background_distanceDict = {};
-    for (let cell of cells) {
-        if (cell === undefined) continue;
-        let label = labelToClass[cell.site.data.label];
-        let dist_arr = []
-        cell.halfedges.forEach(function (e) {
-            let edge = diagram.edges[e];
-            let ea = edge.left;
-            if (ea === cell.site || !ea) {
-                ea = edge.right;
-            }
-            if (ea) {
-                let ea_label = labelToClass[ea.data.label];
-                let dx, dy, dist;
-                dx = cell.site[0] - ea[0];
-                dy = cell.site[1] - ea[1];
-                dist = Math.sqrt(dx * dx + dy * dy);
-                if (label != ea_label) {
-                    if (alpha > dist) {
-                        if (distanceDict[label] === undefined)
-                            distanceDict[label] = {};
-                        if (distanceDict[label][ea_label] === undefined)
-                            distanceDict[label][ea_label] = [];
-                        distanceDict[label][ea_label].push(inverseFunc(dist));
-                    }
-                }
-                dist_arr.push(dist);
-            }
-        });
-        if (background_distanceDict[label] === undefined)
-            background_distanceDict[label] = [];
-        background_distanceDict[label].push(d3.sum(dist_arr) / dist_arr.length)
-    }
-    // console.log("distanceDict:", distanceDict);
-
-
     alphaShape_distance = new TupleDictionary();
-    for (var i in distanceDict) {
-        for (var j in distanceDict[i]) {
-            i = +i, j = +j;
-            var dist;
-            if (distanceDict[j] === undefined || distanceDict[j][i] === undefined)
-                dist = 2 * d3.sum(distanceDict[i][j]);
-            else
-                dist = d3.sum(distanceDict[i][j]) + d3.sum(distanceDict[j][i]);
-            if (i < j)
-                alphaShape_distance.put([i, j], dist);
-            else
-                alphaShape_distance.put([j, i], dist);
-        }
-    }
-    console.log("alphaShape_distance:", alphaShape_distance);
     let cluster_num = Object.keys(labelToClass).length;
     background_distance = new Array(cluster_num).fill(0);
-    for (var i in background_distanceDict) {
-        background_distance[i] = d3.sum(background_distanceDict[i]) / background_distanceDict[i].length;
+    tmp_distance = new Array(cluster_num);
+    for (let i = 0; i < cluster_num; i++) {
+        tmp_distance[i] = new Array(cluster_num);
     }
-    console.log("background_distance:", background_distance);
+    for (let m = 0; m < datasets.length; m++) {
 
+        let voronoi = d3.voronoi().x(function (d) { return xMap(d); }).y(function (d) { return yMap(d); })
+            .extent(extent);
+        let diagram = voronoi(data);
+        let cells = diagram.cells;
+        let alpha = 25 * 2;
+        let distanceDict = {}, background_distanceDict = {};
+        for (let cell of cells) {
+            if (cell === undefined) continue;
+            let label = labelToClass[cell.site.data.label];
+            let dist_arr = []
+            cell.halfedges.forEach(function (e) {
+                let edge = diagram.edges[e];
+                let ea = edge.left;
+                if (ea === cell.site || !ea) {
+                    ea = edge.right;
+                }
+                if (ea) {
+                    let ea_label = labelToClass[ea.data.label];
+                    let dx, dy, dist;
+                    dx = cell.site[0] - ea[0];
+                    dy = cell.site[1] - ea[1];
+                    dist = Math.sqrt(dx * dx + dy * dy);
+                    if (label != ea_label) {
+                        if (alpha > dist) {
+                            if (distanceDict[label] === undefined)
+                                distanceDict[label] = {};
+                            if (distanceDict[label][ea_label] === undefined)
+                                distanceDict[label][ea_label] = [];
+                            distanceDict[label][ea_label].push(inverseFunc(dist));
+                        }
+                    }
+                    dist_arr.push(dist);
+                }
+            });
+            if (background_distanceDict[label] === undefined)
+                background_distanceDict[label] = [];
+            background_distanceDict[label].push(d3.sum(dist_arr) / dist_arr.length)
+        }
+        // console.log("distanceDict:", distanceDict);
+
+
+        for (var i in distanceDict) {
+            for (var j in distanceDict[i]) {
+                i = +i, j = +j;
+                var dist;
+                if (distanceDict[j] === undefined || distanceDict[j][i] === undefined)
+                    dist = 2 * d3.sum(distanceDict[i][j]);
+                else
+                    dist = d3.sum(distanceDict[i][j]) + d3.sum(distanceDict[j][i]);
+
+                tmp_distance[i][j] += dist;
+            }
+        }
+        console.log("alphaShape_distance:", alphaShape_distance);
+        for (var i in background_distanceDict) {
+            background_distance[i] += d3.sum(background_distanceDict[i]) / background_distanceDict[i].length;
+        }
+        console.log("background_distance:", background_distance);
+
+    }
+    for (let i = 0; i < cluster_num; i++) {
+        for (let j = i + 1; j < cluster_num; j++) {
+            if (tmp_distance[i][j] != undefined && tmp_distance[j][i] != undefined) {
+                alphaShape_distance.put([i, j], tmp_distance[i][j] + tmp_distance[j][i]);
+            }
+        }
+    }
     // return distanceOf2Clusters;
 }
 

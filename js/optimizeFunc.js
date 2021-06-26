@@ -880,26 +880,15 @@ function optimizeByHsl(palette, isColorBlindness) {
     let _evaluatePalette = function (p) {
 
         let cosaliency_score = 0;
-        let tmp_pd = 0, tmp_cb = 0
-        let dis;
-        for (let i = 0; i < p.length; i++) {
-            tmp_pd = 0;
-            for (let j = 0; j < p.length; j++) {
-                if (i === j) continue;
-                dis = color_dis[i][j]
-                tmp_pd += cosaliency_distance[i][j] * dis;
-            }
-            dis = bg_contrast_array[i]
-            tmp_cb = delta_change_distance[i] * dis;
-            cosaliency_score += (1 - score_importance_weight[0]) * tmp_pd * 10 + score_importance_weight[0] * tmp_cb;
-        }
-
+        let tmp_pds = new Array(p.length).fill(0), tmp_cb = 0
         for (var l of alphaShape_distance.keys()) {
             var [i, j] = l.split(',');
-            var color_pair = sigma[i] < sigma[j] ? [sigma[i], sigma[j]] : [sigma[j], sigma[i]];
-            score += lambda * alphaShape_distance.get([i, j]) * distanceOf2Colors.get(color_pair);
+            tmp_pds[i] = alphaShape_distance.get([i, j]) * color_dis[i][j];
         }
-
+        for (let i = 0; i < p.length; i++) {
+            tmp_cb = delta_change_distance[i] * bg_contrast_array[i] * background_distance[i];
+            cosaliency_score += (1 - score_importance_weight[0]) * tmp_pds[i] + score_importance_weight[0] * tmp_cb;
+        }
 
         if (criterion_cd === -1)
             criterion_cd = Math.abs(cosaliency_score);
