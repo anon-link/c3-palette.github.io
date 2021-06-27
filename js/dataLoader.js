@@ -203,8 +203,7 @@ function processScatterData(datasets) {
     xScale.domain(d3.extent(dataset, xValue));
     yScale.domain(d3.extent(dataset, yValue));
 
-    calculateAlphaShape(datasets[0], [[0, 0], [svg_width, svg_height]]);
-    calculateAlphaShape(datasets[1], [[0, 0], [svg_width, svg_height]]);
+    calculateAlphaShape(datasets, [[0, 0], [svg_width, svg_height]]);
     showVoronoi(datasets[0], [[0, 0], [svg_width, svg_height]]);
     showVoronoi(datasets[1], [[0, 0], [svg_width, svg_height]]);
 

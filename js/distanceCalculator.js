@@ -211,7 +211,7 @@ function getDeltaDistance(distanceArray) {
  * voronoi.find(x,y) finds the nearest cell to the point (x,y).
  * extent is like: [[30, 30], [width - 30, height - 30]]
  */
-function calculateAlphaShape(data, extent) {
+function calculateAlphaShape(datasets, extent) {
     alphaShape_distance = new TupleDictionary();
     let cluster_num = Object.keys(labelToClass).length;
     background_distance = new Array(cluster_num).fill(0);
@@ -223,7 +223,7 @@ function calculateAlphaShape(data, extent) {
 
         let voronoi = d3.voronoi().x(function (d) { return xMap(d); }).y(function (d) { return yMap(d); })
             .extent(extent);
-        let diagram = voronoi(data);
+        let diagram = voronoi(datasets[m]);
         let cells = diagram.cells;
         let alpha = 25 * 2;
         let distanceDict = {}, background_distanceDict = {};
