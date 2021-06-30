@@ -98,10 +98,10 @@ function doColorization() {
         used_palette[i] = best_color.id[i];
     }
     let used_palette2 = new Array(class_number);
-    // best_color = optimizeByHsl(used_palette)
-    // for (let i = 0; i < class_number; i++) {
-    //     used_palette2[i] = best_color.id[i];
-    // }
+    best_color = optimizeByHsl(used_palette)
+    for (let i = 0; i < class_number; i++) {
+        used_palette2[i] = best_color.id[i];
+    }
     // if already have a svg, then insert it to the history
     addToHistory();
 
@@ -882,6 +882,7 @@ let _isNotSameColorName = function (c_origin, c_change) {
  */
 let _findBestSuitableColor = function (c, origin, isHighlight) {
     let min_nd = 100000, result = c;
+    let bg_contrast = d3_ciede2000(d3.lab(origin), d3.lab(d3.rgb(bgcolor)))
     // get new color through saturation
     let color = d3.hsl(c.h, (0 + c.s) / 2, c.l)
     let nd = getNameDifference(color, origin);
@@ -889,8 +890,9 @@ let _findBestSuitableColor = function (c, origin, isHighlight) {
         min_nd = nd;
         result = color;
     }
-    let contrast = d3_ciede2000(color, d3.rgb(bgcolor))
-    if (nd < 0.5 && (isHighlight && contrast > bg_contrast || !isHighlight && contrast < bg_contrast)) {
+    let contrast = d3_ciede2000(d3.lab(color), d3.lab(d3.rgb(bgcolor)))
+    console.log(1, nd, contrast, bg_contrast);
+    if (nd < 0.5 && (isHighlight && contrast >= bg_contrast || !isHighlight && contrast <= bg_contrast)) {
         return color;
     }
     color = d3.hsl(c.h, (c.s + 1) / 2, c.l)
@@ -899,8 +901,9 @@ let _findBestSuitableColor = function (c, origin, isHighlight) {
         min_nd = nd;
         result = color;
     }
-    contrast = d3_ciede2000(color, d3.rgb(bgcolor))
-    if (nd < 0.5 && (isHighlight && contrast > bg_contrast || !isHighlight && contrast < bg_contrast)) {
+    contrast = d3_ciede2000(d3.lab(color), d3.lab(d3.rgb(bgcolor)))
+    console.log(2, nd, contrast, bg_contrast);
+    if (nd < 0.5 && (isHighlight && contrast >= bg_contrast || !isHighlight && contrast <= bg_contrast)) {
         return color;
     }
     // get new color through luminance
@@ -910,8 +913,9 @@ let _findBestSuitableColor = function (c, origin, isHighlight) {
         min_nd = nd;
         result = color;
     }
-    contrast = d3_ciede2000(color, d3.rgb(bgcolor))
-    if (nd < 0.5 && (isHighlight && contrast > bg_contrast || !isHighlight && contrast < bg_contrast)) {
+    contrast = d3_ciede2000(d3.lab(color), d3.lab(d3.rgb(bgcolor)))
+    console.log(3, nd, contrast, bg_contrast);
+    if (nd < 0.5 && (isHighlight && contrast >= bg_contrast || !isHighlight && contrast <= bg_contrast)) {
         return color;
     }
     color = d3.hsl(c.h, c.s, (c.l + 1) / 2)
@@ -920,10 +924,13 @@ let _findBestSuitableColor = function (c, origin, isHighlight) {
         min_nd = nd;
         result = color;
     }
-    contrast = d3_ciede2000(color, d3.rgb(bgcolor))
-    if (nd < 0.5 && (isHighlight && contrast > bg_contrast || !isHighlight && contrast < bg_contrast)) {
+    contrast = d3_ciede2000(d3.lab(color), d3.lab(d3.rgb(bgcolor)))
+    console.log(4, nd, contrast, bg_contrast);
+    if (nd < 0.5 && (isHighlight && contrast >= bg_contrast || !isHighlight && contrast <= bg_contrast)) {
         return color;
     }
+
+    console.log(min_nd);
 
     return result;
 }
@@ -990,6 +997,7 @@ function optimizeByHsl(palette, isColorBlindness) {
 
         let color_palette = _palette.slice();
         criterion_cd = -1.0;
+        initial_scores = [-1,-1]
         //evaluate the default palette
         let o = {
             id: color_palette,
@@ -997,6 +1005,12 @@ function optimizeByHsl(palette, isColorBlindness) {
         },
             preferredObj = o;
 
+            let lineChart_data = [];
+            lineChart_data.push({
+                id: iterate_times,
+                score: o.score,
+                palette: o.id.slice()
+            });
         while (cur_temper > end_temper) {
             for (let i = 0; i < 1; i++) {//disturb at each temperature
                 iterate_times++;
@@ -1010,6 +1024,10 @@ function optimizeByHsl(palette, isColorBlindness) {
                     id: color_palette_cur,
                     score: _evaluatePalette(color_palette_cur)
                 };
+                lineChart_data.push({
+                    id: iterate_times,
+                    score: o2.score
+                });
 
                 let delta_score = o.score - o2.score;
                 if (delta_score <= 0 || delta_score > 0 && Math.random() <= Math.exp((-delta_score) / cur_temper)) {
