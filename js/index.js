@@ -203,7 +203,7 @@ function appendScatterplot() {
         .style("stroke", bgcolor)
         .style("stroke-width", "1.5px");
 
-      scatterplot_svg.on("mousemove", function () {
+      scatterplot_svg.on("mousemove2", function () {
         let mouse_pos = [d3.mouse(this)[0] - svg_margin.left, d3.mouse(this)[1] - svg_margin.top];
         // check all points to find the desired
         let min_dis = 10000000000, desired_point = null;

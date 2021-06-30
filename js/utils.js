@@ -34,6 +34,8 @@ function inverseFunc(x) {
     //return Math.exp(-x);
     x = x == 0 ? 1 : x;
     return 1 / x;
+    return maximal_svg_distance - x;
+    // return x;
 }
 
 //convert rgb to hex

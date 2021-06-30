@@ -11,6 +11,7 @@ let svg_margin = {
 
 let svg_width = SVGWIDTH - svg_margin.left - svg_margin.right,
     svg_height = SVGHEIGHT - svg_margin.top - svg_margin.bottom;
+let maximal_svg_distance = Math.sqrt(svg_width * svg_width + svg_height * svg_height);
 
 let score_importance_weight = new Array(3);
 score_importance_weight[0] = document.getElementById("slider_0").value / 100;
@@ -30,6 +31,7 @@ let Tableau_10_palette = ["#4E79A7", "#F28E2B", "#E15759", "#76B7B2", "#59A14F",
 assignment_palette = Tableau_20_palette;
 let CIEDE2000_scope = [0.026370677103770744, 118.6699864811677];
 let criterion_cd = -1.0;
+let initial_scores = [-1, -1]
 let locked_pos, data_changed_sign = false;
 let color_names_checked;
 let choosed_emphasized_clusters = [];
