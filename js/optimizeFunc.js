@@ -997,7 +997,7 @@ function optimizeByHsl(palette, isColorBlindness) {
 
         let color_palette = _palette.slice();
         criterion_cd = -1.0;
-        initial_scores = [-1,-1]
+        initial_scores = [-1, -1]
         //evaluate the default palette
         let o = {
             id: color_palette,
@@ -1005,12 +1005,11 @@ function optimizeByHsl(palette, isColorBlindness) {
         },
             preferredObj = o;
 
-            let lineChart_data = [];
-            lineChart_data.push({
-                id: iterate_times,
-                score: o.score,
-                palette: o.id.slice()
-            });
+        let lineChart_data = [];
+        lineChart_data.push({
+            id: iterate_times,
+            score: o.score
+        });
         while (cur_temper > end_temper) {
             for (let i = 0; i < 1; i++) {//disturb at each temperature
                 iterate_times++;
@@ -1043,6 +1042,7 @@ function optimizeByHsl(palette, isColorBlindness) {
 
             cur_temper *= dec;
         }
+        drawLineChart(lineChart_data, "linechart")
         return preferredObj;
     }
 

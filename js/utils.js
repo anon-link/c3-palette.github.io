@@ -317,7 +317,7 @@ function drawLineChart(data, svgId) {
     // append the svg obgect to the body of the page
     // appends a 'group' element to 'svg'
     // moves the 'group' element to the top left margin
-    let linechart_svg = d3.select(".main").append("svg")
+    let linechart_svg = d3.select("#renderDiv").append("svg")
         .attr("id", svgId)
         .attr("width", width + svg_margin.left + svg_margin.right)
         .attr("height", height + svg_margin.top + svg_margin.bottom)
