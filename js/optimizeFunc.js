@@ -881,35 +881,51 @@ let _isNotSameColorName = function (c_origin, c_change) {
  * 3. smaller or larger contrast to the background compared with original color
  */
 let _findBestSuitableColor = function (c, origin, isHighlight) {
-    
+    let min_nd = 100000, result = c;
     // get new color through saturation
-    let color = d3.hsl(c.h, (0 + c.s) / 2, cur.l)
+    let color = d3.hsl(c.h, (0 + c.s) / 2, c.l)
     let nd = getNameDifference(color, origin);
+    if (nd < min_nd) {
+        min_nd = nd;
+        result = color;
+    }
     let contrast = d3_ciede2000(color, d3.rgb(bgcolor))
     if (nd < 0.5 && (isHighlight && contrast > bg_contrast || !isHighlight && contrast < bg_contrast)) {
         return color;
     }
-    color = d3.hsl(c.h, (c.s + 1) / 2, cur.l)
+    color = d3.hsl(c.h, (c.s + 1) / 2, c.l)
     nd = getNameDifference(color, origin);
+    if (nd < min_nd) {
+        min_nd = nd;
+        result = color;
+    }
     contrast = d3_ciede2000(color, d3.rgb(bgcolor))
     if (nd < 0.5 && (isHighlight && contrast > bg_contrast || !isHighlight && contrast < bg_contrast)) {
         return color;
     }
     // get new color through luminance
-    color = d3.hsl(c.h, cur.s, (c.l + 0) / 2)
+    color = d3.hsl(c.h, c.s, (c.l + 0) / 2)
     nd = getNameDifference(color, origin);
+    if (nd < min_nd) {
+        min_nd = nd;
+        result = color;
+    }
     contrast = d3_ciede2000(color, d3.rgb(bgcolor))
     if (nd < 0.5 && (isHighlight && contrast > bg_contrast || !isHighlight && contrast < bg_contrast)) {
         return color;
     }
-    color = d3.hsl(c.h, cur.s, (c.l + 1) / 2)
+    color = d3.hsl(c.h, c.s, (c.l + 1) / 2)
     nd = getNameDifference(color, origin);
+    if (nd < min_nd) {
+        min_nd = nd;
+        result = color;
+    }
     contrast = d3_ciede2000(color, d3.rgb(bgcolor))
     if (nd < 0.5 && (isHighlight && contrast > bg_contrast || !isHighlight && contrast < bg_contrast)) {
         return color;
     }
 
-    return c;
+    return result;
 }
 
 function optimizeByHsl(palette, isColorBlindness) {
@@ -920,9 +936,6 @@ function optimizeByHsl(palette, isColorBlindness) {
     }
     console.log(_palette);
 
-    let _disturbValue = function (c) {
-        return normScope(c + getRandomIntInclusive(-100, 100) / 100.0, [0, 1]);
-    }
     // calcualte color distance of given palette
     let color_dis = new Array(_palette.length)
     for (let i = 0; i < _palette.length; i++)
@@ -932,66 +945,9 @@ function optimizeByHsl(palette, isColorBlindness) {
     for (let i = 0; i < _palette.length; i++) {
         for (let j = i + 1; j < _palette.length; j++) {
             color_dis[i][j] = color_dis[j][i] = d3_ciede2000(d3.lab(_palette[i]), d3.lab(_palette[j]));
-            color_discrimination_constraint = (color_discrimination_constraint > color_dis[i][j]) ? color_dis[i][j] : color_discrimination_constraint;
-            while (color_discrimination_constraint < 1) {
-                // // log the two color
-                // {
-                //     console.log(_palette[i], _palette[j], color_discrimination_constraint);
-                //     // draw these two colors
-                //     let span = d3.select("#renderDiv").append("span").attr("class", "rect")
-                //         .style("width", "30px").style("height", "30px").style("display", "inline-block")
-                //         .style("margin-left", "10px").style("padding", "5px").style("background", _palette[i]).style("text-align", "center");
-                //     let c0 = getColorNameIndex(_palette[i]),
-                //         t0 = c3.color.relatedTerms(c0, 1);
-                //     d3.select("#renderDiv").append("span").text(c3.terms[t0[0].index])
-
-                //     d3.select("#renderDiv").append("span").attr("class", "rect")
-                //         .style("width", "30px").style("height", "30px").style("display", "inline-block")
-                //         .style("margin-left", "10px").style("padding", "5px").style("background", _palette[j]).style("text-align", "center");
-                //     c0 = getColorNameIndex(_palette[j])
-                //     t0 = c3.color.relatedTerms(c0, 1);
-                //     d3.select("#renderDiv").append("span").text(c3.terms[t0[0].index])
-
-                //     for (let k = 0; k < 10; k++) {
-                //         for (let t = 0; t < 10; t++) {
-                //             let color = d3.hsl(_palette[j].h, k * 0.1, t * 0.1);
-                //             d3.select("#renderDiv").append("span").attr("class", "rect")
-                //                 .style("width", "30px").style("height", "30px").style("display", "inline-block")
-                //                 .style("margin-left", "10px").style("padding", "5px").style("background", color).style("text-align", "center");
-                //             c0 = getColorNameIndex(color)
-                //             t0 = c3.color.relatedTerms(c0, 1);
-                //             d3.select("#renderDiv").append("span").text(c3.terms[t0[0].index])
-                //         }
-                //     }
-                //     return;
-                // }
-                let color = d3.hsl(_palette[j].h, _disturbValue(_palette[j].s), _disturbValue(_palette[j].l));
-                while (_isNotSameColorName(_palette[j], color)) {
-                    color = d3.hsl(_palette[j].h, _disturbValue(_palette[j].s), _disturbValue(_palette[j].l));
-                }
-                // console.log(color);
-                _palette[j] = color
-                color_dis[i][j] = color_dis[j][i] = d3_ciede2000(d3.lab(_palette[i]), d3.lab(_palette[j]));
-                color_discrimination_constraint = (color_discrimination_constraint > color_dis[i][j]) ? color_dis[i][j] : color_discrimination_constraint;
-            }
-            // console.log(_palette[i], d3.lab(_palette[i]), _palette[j], d3.lab(_palette[j]), color_dis[i][j], color_discrimination_constraint);
         }
         bg_contrast_array[i] = d3_ciede2000(d3.lab(_palette[i]), d3.lab(d3.rgb(bgcolor)));
-        color_discrimination_constraint = (color_discrimination_constraint > bg_contrast_array[i]) ? bg_contrast_array[i] : color_discrimination_constraint;
-        while (color_discrimination_constraint < 1) {
-            let color = d3.hsl(_palette[i].h, _disturbValue(_palette[i].s), _disturbValue(_palette[i].l));
-            while (_isNotSameColorName(_palette[i], color)) {
-                color = d3.hsl(_palette[i].h, _disturbValue(_palette[i].s), _disturbValue(_palette[i].l));
-            }
-            _palette[i] = color
-            bg_contrast_array[i] = d3_ciede2000(d3.lab(_palette[i]), d3.lab(d3.rgb(bgcolor)));
-            color_discrimination_constraint = (color_discrimination_constraint > bg_contrast_array[i]) ? bg_contrast_array[i] : color_discrimination_constraint;
-        }
-        // console.log(d3.rgb(bgcolor), d3.lab(d3.rgb(bgcolor)), bg_contrast_array[i], color_discrimination_constraint);
     }
-    console.log("color_discrimination_constraint", color_discrimination_constraint);
-    // disturb the most similar colors until the discrimination larger than 10
-
     // split to changed and changeless
     let changed_part = [], changeless_part = [];
     for (let i = 0; i < delta_change_distance.length; i++) {
@@ -1023,15 +979,6 @@ function optimizeByHsl(palette, isColorBlindness) {
         console.log(tmp_pd / initial_scores[0], tmp_cb / Math.abs(initial_scores[1]), cosaliency_score);
         return cosaliency_score;
     }
-    let _disturbSL = function (c, isHighlight) {
-        // maintain the color name
-        let color = d3.hsl(c.h, _disturbValue(c.s), _disturbValue(c.l));
-        // let bg_diff = d3_ciede2000(d3.lab(c), d3.lab(d3.rgb(bgcolor)));
-        while (_isNotSameColorName(c, color)) {
-            color = d3.hsl(c.h, _disturbValue(c.s), _disturbValue(c.l));
-        }
-        return color;
-    }
     let _optimizeSL = function () {
         let iterate_times = 0;
         //default parameters
@@ -1057,18 +1004,7 @@ function optimizeByHsl(palette, isColorBlindness) {
                 color_palette_cur = o.id.slice();
                 // get disturb index
                 let disturb_index = getRandomIntInclusive(0, color_palette_cur.length - 1)
-                do {
-                    color_palette_cur[disturb_index] = _disturbSL(color_palette_cur[disturb_index], changed_part.indexOf(disturb_index))
-                    // update color distance matrix
-                    for (let i = 0; i < color_palette_cur.length; i++) {
-                        if (i === disturb_index) continue;
-                        color_dis[i][disturb_index] = color_dis[disturb_index][i] = d3_ciede2000(d3.lab(color_palette_cur[i]), d3.lab(color_palette_cur[disturb_index]));
-                        color_discrimination_constraint = (color_discrimination_constraint > color_dis[i][disturb_index]) ? color_dis[i][disturb_index] : color_discrimination_constraint;
-                    }
-                    bg_contrast_array[disturb_index] = d3_ciede2000(d3.lab(color_palette_cur[disturb_index]), d3.lab(d3.rgb(bgcolor)));
-                    color_discrimination_constraint = (color_discrimination_constraint > bg_contrast_array[disturb_index]) ? bg_contrast_array[disturb_index] : color_discrimination_constraint;
-
-                } while (color_discrimination_constraint < 1)
+                color_palette_cur[disturb_index] = _findBestSuitableColor(color_palette_cur[disturb_index], _palette[disturb_index], changed_part.indexOf(disturb_index) >= 0 ? true : false)
 
                 let o2 = {
                     id: color_palette_cur,
