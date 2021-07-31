@@ -75,18 +75,20 @@ function loadData(text, labelSet) {
     });
     return source_data;
 }
-function getLabelToClassMapping(labelSet) {
-    var i = 0;
-    var label2class = {};
-    for (let e of labelSet.values()) {
-        label2class[e] = i++;
-    }
-    return label2class;
-}
+// function getLabelToClassMapping(labelSet) {
+//     var i = 0;
+//     var label2class = {};
+//     for (let e of labelSet.values()) {
+//         label2class[e] = i++;
+//     }
+//     return label2class;
+// }
 
 let test_time, start_time, result;
-function drawScatterplot(data, palette, task_id, change_info, sign = false) {
-    let change_ids = change_info.map(function (d) { return d["cluster_id"] })
+function drawScatterplot(data, palette, task_id, change_info, sign) {
+    let change_ids = []
+    if (change_info)
+        change_ids = change_info.map(function (d) { return d["cluster_id"] })
     // add the graph canvas to the body of the webpage
     let scatterplot_svg = d3.select("#renderDiv").append("svg").style("margin-left", 20)
         .attr("width", SVGWIDTH).attr("height", SVGHEIGHT).style("background-color", bgcolor);
@@ -143,7 +145,8 @@ function drawScatterplot(data, palette, task_id, change_info, sign = false) {
         let mouse_pos = [d3.mouse(this)[0] - svg_margin.left, d3.mouse(this)[1] - svg_margin.top];
         // check all points to find the desired
         let min_dis = 10000000000, desired_point = null;
-        for (let d of data) {
+        for (let i = 0; i < data.length; i++) {
+            let d = data[i]
             let point_pos = [xMap(d), yMap(d)];
             let dis = (point_pos[0] - mouse_pos[0]) * (point_pos[0] - mouse_pos[0]) + (point_pos[1] - mouse_pos[1]) * (point_pos[1] - mouse_pos[1]);
             if (min_dis >= dis) {
@@ -207,7 +210,8 @@ function reorderData(change_info, cluster_num, source_datasets) {
     }
     order = order.concat(change_ids);
     var clusters = {};
-    for (let d of source_datasets) {
+    for (let i = 0; i < source_datasets.length; i++) {
+        let d = source_datasets[i]
         if (clusters[d.label] == undefined)
             clusters[d.label] = [];
         clusters[d.label].push(d);
@@ -216,6 +220,6 @@ function reorderData(change_info, cluster_num, source_datasets) {
     for (let j = 0; j < order.length; j++) {
         data = data.concat(clusters[order[j]])
     }
-    source_datasets = data;
+    return data;
 
 }

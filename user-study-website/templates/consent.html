@@ -105,8 +105,8 @@
             // read the workers list
             d3.csv("/static/data/userList.csv", function (error, data) {
                 let workers = [];
-                for (let w of data) {
-                    workers.push(w.workerId);
+                for (let w = 0; w < data.length; w++) {
+                    workers.push(data[w].workerId);
                 }
 
                 if (workers.indexOf(workerId) == -1) {

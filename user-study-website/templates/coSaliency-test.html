@@ -177,7 +177,6 @@
         result = [];
         let time_limit_interval;
         let timer_value = +d3.select("#timerSpan").text();
-        console.log("timer_value", timer_value);
 
         // 1. loading data
         d3.text("/static/data/raw/" + trial_data["file_name"] + "-ref.csv", function (error, text) {
@@ -196,8 +195,8 @@
                 if (trial_data["assignmentId"] === 2) {
                     sign = true;
                 }
-                reorderData(changeInfo, labelSet.size, ref_data)
-                reorderData(changeInfo, labelSet.size, comp_data)
+				ref_data = reorderData(changeInfo, labelSet.size, ref_data)
+				comp_data = reorderData(changeInfo, labelSet.size, comp_data)
                 drawScatterplot(ref_data, used_palette, 0, changeInfo, sign);
                 drawScatterplot(comp_data, used_palette, 0, changeInfo, sign);
 

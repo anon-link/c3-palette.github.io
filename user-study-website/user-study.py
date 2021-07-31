@@ -13,7 +13,7 @@ from flask import Flask, request, render_template, redirect, url_for, make_respo
 app = Flask(__name__)
 executor = ThreadPoolExecutor(2)
 
-taskId = 0
+taskId = 1
 taskNames = ["coSaliency", "coSeparability"]
 
 groupId = 0  # random.randint(0, len(pairs_array)-1)
@@ -212,7 +212,7 @@ def write_result_to_disk2():
 @app.route('/experiment/2/<int:test_id>')
 def experiment2(test_id=1):
     if test_id == 21:
-        return render_template('shortBreak.html', expId=1, testId=test_id+1)
+        return render_template('shortBreak.html', expId=2, testId=test_id+1)
     if test_id > len(scatterplot_shuffle_order):
         return render_template('form.html')
 
@@ -220,7 +220,7 @@ def experiment2(test_id=1):
     trial_data = scatterplots_data[trial_id]
     test_num = len(scatterplots_data)
 
-    return render_template('test2.html', test_id=test_id,
+    return render_template('coSeparability-test.html', test_id=test_id,
                            trialData=trial_data,
                            options=scatterplot_options,
                            test_num=test_num)

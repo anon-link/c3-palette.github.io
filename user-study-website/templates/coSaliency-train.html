@@ -98,7 +98,6 @@
 			correct_result.push(changeInfo[i]["cluster_id"]);
 		}
 		correct_result.sort(function (a, b) { return a - b; });
-		console.log(correct_result);
 	</script>
 
 	<!-- scatterplot -->
@@ -118,8 +117,8 @@
 				xScale.domain(d3.extent(dataset, xValue));
 				yScale.domain(d3.extent(dataset, yValue));
 
-				reorderData(changeInfo, labelSet.size, ref_data)
-				reorderData(changeInfo, labelSet.size, comp_data)
+				ref_data = reorderData(changeInfo, labelSet.size, ref_data)
+				comp_data = reorderData(changeInfo, labelSet.size, comp_data)
 
 				drawScatterplot(ref_data, used_palette, 0);
 				drawScatterplot(comp_data, used_palette, 0);
