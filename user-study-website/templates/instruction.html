@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>
+		Instruction
+	</title>
+	<script type="text/javascript" src="/static/js/lib/jquery-3.2.1.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="/static/css/style.css">
+	<style type="text/css">
+		h2 {
+			font-size: 30px;
+		}
+
+		li {
+			font-size: 20px;
+			line-height: 30px;
+			border: none ! important;
+			list-style-type: circle;
+		}
+
+		#user_guide {
+			margin-top: 20px;
+			text-align: center;
+		}
+	</style>
+	<script>
+		/*
+		$.get('/is_color_blindness', function(d){
+			alert(d);
+		});
+		*/
+	</script>
+</head>
+
+<body>
+	<div id="usr_info" class="usr_info">
+		<h2>Instruction</h2><br /><br />
+		{% if taskName=="coSaliency" %}
+		<ul>
+			<li>This task contains <b>{{ trialsNum }}</b> trials.</li>
+			<li>Each time, we will show you two scatterplots with each class of points assigned with a unique color.
+				<b>Please find all clusters that have been changed.</b></li>
+			<li>We will first show you an exemplary task trial, followed by 3 practice trials. Then there will be
+				<b>{{ trialsNum }}</b>
+				trials.</li>
+		</ul>
+		<div id="user_guide">
+			<a class="a_button" href="/userguide/1">Have fun!</a>
+		</div>
+		{% endif %}
+		{% if taskName=="coSeparability" %}
+		<ul>
+			<li>This task contains <b>{{ trialsNum }}</b> scatterplots.</li>
+			<li>Each time, we will show you a scatterplot with each class of points assigned with a unique color.
+				<b>Please point the center of the specified class.</b></li>
+			<li>We will first show you an example task trial, followed by 2 practice trials. Then there will be
+				<b>{{ trialsNum }}</b> trials.</li>
+		</ul>
+		<div id="user_guide">
+			<a class="a_button" href="/userguide/2">Have fun!</a>
+		</div>
+		{% endif %}
+
+	</div>
+</body>
+
+</html>

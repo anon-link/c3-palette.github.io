@@ -34,8 +34,6 @@ function inverseFunc(x) {
     //return Math.exp(-x);
     x = x == 0 ? 1 : x;
     return 1 / x;
-    return maximal_svg_distance - x;
-    // return x;
 }
 
 //convert rgb to hex
@@ -294,67 +292,4 @@ function delCookie(cookName) {
     exp.setTime(exp.getTime());
     var cval = 0;
     document.cookie = cookName + "=" + cval + ";expires=" + exp.toGMTString();
-}
-
-
-
-function drawLineChart(data, svgId) {
-    d3.select("#" + svgId).remove();
-    let width = 600, height = 400;
-    // set the ranges
-    var axis_x = d3.scaleLinear().range([0, width]);
-    var axis_y = d3.scaleLinear().range([height, 0]);
-
-    // define the line
-    var valueline = d3.line()
-        .x(function (d) {
-            return axis_x(d.id);
-        })
-        .y(function (d) {
-            return axis_y(d.score);
-        });//.curve(d3.curveCardinal);
-
-    // append the svg obgect to the body of the page
-    // appends a 'group' element to 'svg'
-    // moves the 'group' element to the top left margin
-    let linechart_svg = d3.select("#renderDiv").append("svg")
-        .attr("id", svgId)
-        .attr("width", width + svg_margin.left + svg_margin.right)
-        .attr("height", height + svg_margin.top + svg_margin.bottom)
-        .style("background-color", bgcolor)
-        .append("g")
-        .attr("transform",
-            "translate(" + svg_margin.left + "," + svg_margin.top + ")");
-
-    linechart_svg.append("text")
-        .attr("x", 10).attr("y", 20)
-        .attr("font-family", "sans-serif").attr("font-size", "20px").attr("fill", "red")
-        .text(svgId);
-
-    // Scale the range of the data
-    axis_x.domain(d3.extent(data, function (d) {
-        return d.id;
-    }));
-    axis_y.domain(d3.extent(data, function (d) {
-        return d.score;
-    }));
-
-    // Add the valueline path.
-    linechart_svg.append("path")
-        .data([data])
-        .attr("class", "line")
-        .attr("d", valueline)
-        .attr("fill", "none")
-        .attr("stroke", "steelblue")
-        .style("stroke-width", "2px");
-
-    // Add the X Axis
-    linechart_svg.append("g")
-        .attr("transform", "translate(0," + height + ")")
-        .call(d3.axisBottom(axis_x));
-
-    // Add the Y Axis
-    linechart_svg.append("g")
-        .call(d3.axisLeft(axis_y));
-
 }

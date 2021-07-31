@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<style>
+		body {
+			font: 11px sans-serif;
+			background: #eee;
+			text-align: center;
+		}
+
+		.axis path,
+		.axis line {
+			fill: none;
+			stroke: rgba(0, 0, 0, 0.3);
+			shape-rendering: crispEdges;
+		}
+
+		.submit {
+			background: #555;
+			color: #eee;
+			border: none;
+			border-radius: 5px;
+			width: 50px;
+			padding: 10px;
+			text-align: center;
+			font-size: x-large;
+			text-decoration: none;
+			box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.2);
+			text-shadow: 3px 3px 3px rgba(0, 0, 0, 0.3);
+		}
+
+		.submit:hover {
+			background: #333;
+			color: #ccc;
+			box-shadow: 0 0 0 rgba(0, 0, 0, 0.2);
+			text-shadow: 0 0 0 rgba(0, 0, 0, 0.3);
+		}
+
+		img.icon_lock {
+			background-image: url("/static/img/check.png");
+			background-size: cover;
+			width: 30px;
+			height: 30px;
+			cursor: pointer;
+		}
+
+		img.icon_delete {
+			background-image: url("/static/img/delete.png");
+			background-size: cover;
+			width: 30px;
+			height: 30px;
+			cursor: pointer;
+		}
+	</style>
+	<script src="/static/js/lib/d3.v4.min.js"></script>
+	<script src="/static/js/lib/jquery-3.2.1.min.js"></script>
+	<script src="/static/js/utils.js"></script>
+</head>
+
+<body>
+	<div style="width: 200px;">
+		<h1>Training trials: <b>{{ training_id }}</b>/{{ training_num }}</h1>
+	</div>
+	<h1 id="change_info_label">
+		In this trial, <b style="color: red;">3 clusters</b> have been changed. Please find
+		them as accurately as possible.
+		<!-- Please find the <b style="color: red;">3</b> changed clusters as accurately as possible. -->
+	</h1>
+	<div id="renderDiv" style="text-align:center;width: 100%;height:450px;">
+	</div>
+	<div id="user_study_div" style="text-align:center;">
+		<h1>Your answer is:</h1>
+	</div>
+	<div style="width: 100%;text-align:center;">
+		<input class="submit" type="button" name="result" value="Confirm" style="width: 150px;margin-top: 30px;" />
+	</div>
+	<br>
+	<span id="show_result" style="color: red;font-size: large;"></span>
+	<br>
+	<div id="result_div" style="text-align:center;">
+
+	</div>
+	<br />
+
+	<a id="next_button" href="/experiment/1/training/{{ training_id+1 }}" class="submit">
+		{% if training_id==training_num %}Start Experiment! {% else %}Next{% endif %}
+	</a>
+	<script>
+		trial_data = {{ trialData | safe }};
+		// console.log(trial_data);
+		changeInfo = trial_data["change_info"];
+		let used_palette = trial_data["options"];
+
+		let correct_result = [];
+		for (let i = 0; i < changeInfo.length; i++) {
+			correct_result.push(changeInfo[i]["cluster_id"]);
+		}
+		correct_result.sort(function (a, b) { return a - b; });
+		console.log(correct_result);
+	</script>
+
+	<!-- scatterplot -->
+	<script>
+		result = [];
+		let time_limit_interval;
+		// 1. loading data
+		d3.text("/static/data/raw/" + trial_data["file_name"] + "-ref.csv", function (error, text) {
+			if (error) throw error;
+			let labelSet = new Set();
+			let ref_data = loadData(text, labelSet);
+
+			d3.text("/static/data/raw/" + trial_data["file_name"] + "-comp.csv", function (error, text) {
+				if (error) throw error;
+				let comp_data = loadData(text, labelSet);
+				let dataset = ref_data.concat(comp_data);
+				xScale.domain(d3.extent(dataset, xValue));
+				yScale.domain(d3.extent(dataset, yValue));
+
+				reorderData(changeInfo, labelSet.size, ref_data)
+				reorderData(changeInfo, labelSet.size, comp_data)
+
+				drawScatterplot(ref_data, used_palette, 0);
+				drawScatterplot(comp_data, used_palette, 0);
+
+				// start timer
+				test_time = new Date();
+				start_time = test_time;
+			});
+		});
+
+
+		$('#next_button').hide();
+		$('.submit').click(function (event) {
+			div = d3.select("#result_div");
+			div.selectAll("span").remove();
+
+			if (result.length != correct_result.length) {
+				alert("There're " + correct_result.length + " clusters have been changed, please find them.")
+				return;
+			}
+			if (result.length === 0) return;
+			// Stop form from submitting normally
+			let result_flag = 1;
+			for (let i = 0; i < result.length; i++) {
+				if (result_flag && correct_result.indexOf(result[i][0]) === -1) {
+					result_flag = 0;
+				}
+			}
+			if (correct_result.length != result.length) result_flag = 0;
+
+			if (!result_flag) {
+				$('#show_result').text("The correct answer is:").css("color", "red");
+				for (let i = 0; i < used_palette.length; i++) {
+					let span = div.append("span").attr("class", "rect")
+						.style("width", "40px").style("height", "40px").style("display", "inline-block")
+						.style("margin-left", "10px").style("background", used_palette[i]).style("text-align", "center");
+					// append lock and unlock sign
+					let img;
+					if (correct_result.indexOf(i) >= 0)
+						img = span.append("img").attr("class", "icon_lock").style("display", "block").style("padding", "5px")
+				}
+			} else {
+				$('#show_result').text("You are right!").css("color", "green");
+			}
+
+			$('#show_result').show();
+			$('#next_button').show();
+		});
+	</script>
+</body>
+
+</html>

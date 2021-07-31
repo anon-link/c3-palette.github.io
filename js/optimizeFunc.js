@@ -47,60 +47,44 @@ function doColorization() {
         generation_mode = 0;
         document.getElementById("slider_1").value = 50;
         changeSlider("slider_1", 50)
-        document.getElementById("slider_3").value = 50;
-        changeSlider("slider_3", 50)
+        document.getElementById("slider_3").value = 25;
+        changeSlider("slider_3", 25)
     }
     let best_color, best_color_array = new Array(1);
 
-    // if (generation_mode && color_names_checked.length === 0) {
-    //     // get current palette
-    //     let palette_text = d3.select("#paletteText").property('value');
-    //     palette_text = palette_text.replace(/\"/g, '');
-    //     let palette = []
-    //     if (palette_text)
-    //         palette = palette_text.split("[")[1].split("]")[0].split(",");
-    //     if ($("input[name='specified']").is(":checked") && choosed_emphasized_clusters.length > 0 && palette.length > 0) {
-    //         best_color = hueConstraintSA(palette, (new_palette) => evaluatePalette(new_palette), colors_scope);
-    //     } else {
-    //         let input_palette_text = d3.select("#inputPaletteText").property("value");
-    //         input_palette_text = input_palette_text.replace(/\"/g, '');
-    //         assignment_palette = input_palette_text.split("[")[1].split("]")[0].split(",");
-    //         best_color = doColorAssignment(assignment_palette, class_number, palette);
-    //     }
-    // } else if ($("input[name='assignName2Target']").is(":checked") && color_names_checked.length > 0) {
-    //     // assign name to desired clusters
-    //     best_color = specifyColorNamePalette(class_number, (new_palette) => evaluatePalette(new_palette), colors_scope);
-    // }
-    // else if (blank_pos.length === 0 || blank_pos.length === class_number) {
-    //     for (let i = 0; i < best_color_array.length; i++)
-    //         best_color_array[i] = simulatedAnnealing2FindBestPalette(class_number, (new_palette) => evaluatePalette(new_palette), colors_scope);
+    if (generation_mode && color_names_checked.length === 0) {
+        // get current palette
+        let palette_text = d3.select("#paletteText").property('value');
+        palette_text = palette_text.replace(/\"/g, '');
+        let palette = []
+        if (palette_text)
+            palette = palette_text.split("[")[1].split("]")[0].split(",");
+        if ($("input[name='specified']").is(":checked") && choosed_emphasized_clusters.length > 0 && palette.length > 0) {
+            best_color = hueConstraintSA(palette, (new_palette) => evaluatePalette(new_palette), colors_scope);
+        } else {
+            let input_palette_text = d3.select("#inputPaletteText").property("value");
+            input_palette_text = input_palette_text.replace(/\"/g, '');
+            assignment_palette = input_palette_text.split("[")[1].split("]")[0].split(",");
+            best_color = doColorAssignment(assignment_palette, class_number, palette);
+        }
+    } else if ($("input[name='assignName2Target']").is(":checked") && color_names_checked.length > 0) {
+        // assign name to desired clusters
+        best_color = specifyColorNamePalette(class_number, (new_palette) => evaluatePalette(new_palette), colors_scope);
+    }
+    else if (blank_pos.length === 0 || blank_pos.length === class_number) {
+        for (let i = 0; i < best_color_array.length; i++)
+            best_color_array[i] = simulatedAnnealing2FindBestPalette(class_number, (new_palette) => evaluatePalette(new_palette), colors_scope);
 
-    //     best_color_array.sort(function (a, b) { return b.score - a.score })
-    //     best_color = best_color_array[0]
-    // }
-    // else {
-    //     best_color = completePalette(origin_palette, blank_pos, (new_palette) => evaluatePalette(new_palette), colors_scope);
-    // }
-
-    // get current palette
-    let palette_text = d3.select("#paletteText").property('value');
-    palette_text = palette_text.replace(/\"/g, '');
-    let palette = []
-    if (palette_text)
-        palette = palette_text.split("[")[1].split("]")[0].split(",");
-    let input_palette_text = d3.select("#inputPaletteText").property("value");
-    input_palette_text = input_palette_text.replace(/\"/g, '');
-    assignment_palette = input_palette_text.split("[")[1].split("]")[0].split(",");
-    best_color = doColorAssignment(assignment_palette, class_number, palette);
+        best_color_array.sort(function (a, b) { return b.score - a.score })
+        best_color = best_color_array[0]
+    }
+    else {
+        best_color = completePalette(origin_palette, blank_pos, (new_palette) => evaluatePalette(new_palette), colors_scope);
+    }
 
     let used_palette = new Array(class_number);
     for (let i = 0; i < class_number; i++) {
         used_palette[i] = best_color.id[i];
-    }
-    let used_palette2 = new Array(class_number);
-    best_color = optimizeByHsl(used_palette)
-    for (let i = 0; i < class_number; i++) {
-        used_palette2[i] = best_color.id[i];
     }
     // if already have a svg, then insert it to the history
     addToHistory();
@@ -112,7 +96,7 @@ function doColorization() {
         }
     }
     drawTransferFunction(used_palette);
-    return [used_palette, used_palette2];
+    return used_palette;
 }
 
 /**
@@ -219,7 +203,7 @@ function simulatedAnnealing2FindBestPalette(palette_size, evaluateFunc, colors_s
     //evaluate the default palette
     let o = {
         id: color_palette,
-        score: evaluateFunc(color_palette)
+        score: _evaluatePaletteTmp(color_palette)
     },
         preferredObj = o;
 
@@ -231,7 +215,7 @@ function simulatedAnnealing2FindBestPalette(palette_size, evaluateFunc, colors_s
             let color_palette_2 = color_palette.slice();
             let o2 = {
                 id: color_palette_2,
-                score: evaluateFunc(color_palette_2)
+                score: _evaluatePaletteTmp(color_palette_2)
             };
 
             let delta_score = o.score - o2.score;
@@ -533,7 +517,7 @@ function doColorAssignment(palette, class_number, pre_palette) {
                 }
                 if (Math.random() < 0.5) {
                     idx_0 = tmpA[getRandomIntInclusive(0, tmpA.length - 1)];
-                    idx_1 = getRandomIntInclusive(class_number, color_palette.length - 1);
+                    idx_1 = getRandomIntInclusive(class_number + 1, color_palette.length - 1);
                 }
             } else {
                 idx_0 = getRandomIntInclusive(0, class_number - 1);
@@ -543,7 +527,7 @@ function doColorAssignment(palette, class_number, pre_palette) {
                 }
                 if (Math.random() < 0.5) {
                     idx_0 = getRandomIntInclusive(0, class_number - 1);
-                    idx_1 = getRandomIntInclusive(class_number, color_palette.length - 1);
+                    idx_1 = getRandomIntInclusive(class_number + 1, color_palette.length - 1);
                 }
             }
 
@@ -825,14 +809,19 @@ function hueConstraintSA(palette, evaluateFunc, colors_scope = { "hue_scope": [0
 
 let _evaluatePaletteTmp = function (p) {
     let color_dis = new Array(p.length)
-    let bg_contrast_array = new Array(p.length)
-    for (let i = 0; i < p.length; i++) {
+    for (let i = 0; i < p.length; i++)
         color_dis[i] = new Array(p.length)
-        for (let j = 0; j < p.length; j++) {
-            if (i === j) continue;
-            color_dis[i][j] = d3_ciede2000(d3.lab(p[i]), d3.lab(p[j]));
+    let bg_contrast_array = new Array(p.length)
+    let name_difference = 0,
+        color_discrimination_constraint = 100000;
+    for (let i = 0; i < p.length; i++) {
+        for (let j = i + 1; j < p.length; j++) {
+            color_dis[i][j] = color_dis[j][i] = d3_ciede2000(d3.lab(p[i]), d3.lab(p[j]));
+            name_difference += getNameDifference(p[i], p[j]);
+            color_discrimination_constraint = (color_discrimination_constraint > color_dis[i][j]) ? color_dis[i][j] : color_discrimination_constraint;
         }
         bg_contrast_array[i] = d3_ciede2000(d3.lab(p[i]), d3.lab(d3.rgb(bgcolor)));
+        color_discrimination_constraint = (color_discrimination_constraint > bg_contrast_array[i]) ? bg_contrast_array[i] : color_discrimination_constraint;
     }
     let cosaliency_score = 0;
     let tmp_pd = 0, tmp_cb = 0
@@ -841,210 +830,18 @@ let _evaluatePaletteTmp = function (p) {
             if (i === j) continue;
             tmp_pd += alphaShape_distance[i][j] * color_dis[i][j] * Math.exp(change_distance[i]) / p.length;
         }
-        tmp_cb += delta_change_distance[i] * bg_contrast_array[i] * background_distance[i] / p.length;
+        tmp_cb += delta_change_distance[i] * bg_contrast_array[i] / p.length;
     }
     if (initial_scores[0] === -1) {
         initial_scores[0] = tmp_pd;
         initial_scores[1] = tmp_cb;
-        cosaliency_score = 1;
-    } else {
-        cosaliency_score = (1 - score_importance_weight[0]) * tmp_pd / initial_scores[0] + score_importance_weight[0] * tmp_cb / Math.abs(initial_scores[1]);
     }
+    cosaliency_score = (1 - score_importance_weight[0]) * tmp_pd / initial_scores[0] + score_importance_weight[0] * tmp_cb / Math.abs(initial_scores[1]);
+    // console.log(tmp_pd / initial_scores[0], tmp_cb / Math.abs(initial_scores[1]), cosaliency_score);
+    name_difference /= p.length * (p.length - 1) * 0.25;
+    color_discrimination_constraint *= 0.1;
+    // console.log(cosaliency_score, name_difference, color_discrimination_constraint);
 
-    // console.log(tmp_pd / initial_scores[0], tmp_cb / initial_scores[1], cosaliency_score);
-
-    // if (criterion_cd === -1)
-    //     criterion_cd = Math.abs(cosaliency_score);
-    // cosaliency_score /= criterion_cd;
-    // console.log(cosaliency_score);
-    return cosaliency_score;
-}
-let _isNotSameColorName = function (c_origin, c_change) {
-    let c0 = getColorNameIndex(c_origin),
-        t0 = c3.color.relatedTerms(c0, 1);
-    let c1 = getColorNameIndex(c_change),
-        t1 = c3.color.relatedTerms(c1, 1);
-    if (t0[0] === undefined || t1[0] === undefined || c3.terms[t1[0].index] != c3.terms[t0[0].index]) {
-        // console.log(c_origin, c_change, t0[0], t1[0]);
-        return true;
-    } else {
-        return false;
-    }
+    return cosaliency_score + score_importance_weight[1] * name_difference + score_importance_weight[3] * color_discrimination_constraint;
 }
 
-/**
- * 
- * @param {*} c 
- * target: 
- * 1. larger color discrimination constraint: baseline is larger than 10, if all<10, then choose the largest
- * 2. most similar color name
- * 3. smaller or larger contrast to the background compared with original color
- */
-let _findBestSuitableColor = function (c, origin, isHighlight) {
-    let min_nd = 100000, result = c;
-    let bg_contrast = d3_ciede2000(d3.lab(origin), d3.lab(d3.rgb(bgcolor)))
-    // get new color through saturation
-    let color = d3.hsl(c.h, (0 + c.s) / 2, c.l)
-    let nd = getNameDifference(color, origin);
-    if (nd < min_nd) {
-        min_nd = nd;
-        result = color;
-    }
-    let contrast = d3_ciede2000(d3.lab(color), d3.lab(d3.rgb(bgcolor)))
-    console.log(1, nd, contrast, bg_contrast);
-    if (nd < 0.5 && (isHighlight && contrast >= bg_contrast || !isHighlight && contrast <= bg_contrast)) {
-        return color;
-    }
-    color = d3.hsl(c.h, (c.s + 1) / 2, c.l)
-    nd = getNameDifference(color, origin);
-    if (nd < min_nd) {
-        min_nd = nd;
-        result = color;
-    }
-    contrast = d3_ciede2000(d3.lab(color), d3.lab(d3.rgb(bgcolor)))
-    console.log(2, nd, contrast, bg_contrast);
-    if (nd < 0.5 && (isHighlight && contrast >= bg_contrast || !isHighlight && contrast <= bg_contrast)) {
-        return color;
-    }
-    // get new color through luminance
-    color = d3.hsl(c.h, c.s, (c.l + 0) / 2)
-    nd = getNameDifference(color, origin);
-    if (nd < min_nd) {
-        min_nd = nd;
-        result = color;
-    }
-    contrast = d3_ciede2000(d3.lab(color), d3.lab(d3.rgb(bgcolor)))
-    console.log(3, nd, contrast, bg_contrast);
-    if (nd < 0.5 && (isHighlight && contrast >= bg_contrast || !isHighlight && contrast <= bg_contrast)) {
-        return color;
-    }
-    color = d3.hsl(c.h, c.s, (c.l + 1) / 2)
-    nd = getNameDifference(color, origin);
-    if (nd < min_nd) {
-        min_nd = nd;
-        result = color;
-    }
-    contrast = d3_ciede2000(d3.lab(color), d3.lab(d3.rgb(bgcolor)))
-    console.log(4, nd, contrast, bg_contrast);
-    if (nd < 0.5 && (isHighlight && contrast >= bg_contrast || !isHighlight && contrast <= bg_contrast)) {
-        return color;
-    }
-
-    console.log(min_nd);
-
-    return result;
-}
-
-function optimizeByHsl(palette, isColorBlindness) {
-    // convert palette to HSL format
-    let _palette = [];
-    for (let c of palette) {
-        _palette.push(d3.hsl(c));
-    }
-    console.log(_palette);
-
-    // calcualte color distance of given palette
-    let color_dis = new Array(_palette.length)
-    for (let i = 0; i < _palette.length; i++)
-        color_dis[i] = new Array(_palette.length)
-    let bg_contrast_array = new Array(_palette.length)
-    let color_discrimination_constraint = 100000;
-    for (let i = 0; i < _palette.length; i++) {
-        for (let j = i + 1; j < _palette.length; j++) {
-            color_dis[i][j] = color_dis[j][i] = d3_ciede2000(d3.lab(_palette[i]), d3.lab(_palette[j]));
-        }
-        bg_contrast_array[i] = d3_ciede2000(d3.lab(_palette[i]), d3.lab(d3.rgb(bgcolor)));
-    }
-    // split to changed and changeless
-    let changed_part = [], changeless_part = [];
-    for (let i = 0; i < delta_change_distance.length; i++) {
-        if (delta_change_distance[i] > 0) {
-            changed_part.push(i)
-        } else {
-            changeless_part.push(i)
-        }
-    }
-
-    let _evaluatePalette = function (p) {
-
-        let cosaliency_score = 0;
-        let tmp_pd = 0, tmp_cb = 0
-        for (let i = 0; i < p.length; i++) {
-            for (let j = 0; j < p.length; j++) {
-                if (i === j) continue;
-                tmp_pd += alphaShape_distance[i][j] * color_dis[i][j] * Math.exp(change_distance[i]) / p.length;
-            }
-            tmp_cb += delta_change_distance[i] * bg_contrast_array[i] * background_distance[i] / p.length;
-        }
-        if (initial_scores[0] === -1) {
-            initial_scores[0] = tmp_pd;
-            initial_scores[1] = tmp_cb;
-            cosaliency_score = 1;
-        } else {
-            cosaliency_score = (1 - score_importance_weight[0]) * tmp_pd / initial_scores[0] + score_importance_weight[0] * tmp_cb / Math.abs(initial_scores[1]);
-        }
-        console.log(tmp_pd / initial_scores[0], tmp_cb / Math.abs(initial_scores[1]), cosaliency_score);
-        return cosaliency_score;
-    }
-    let _optimizeSL = function () {
-        let iterate_times = 0;
-        //default parameters
-        let max_temper = 100000,
-            dec = decline_rate,
-            max_iteration_times = 10000000,
-            end_temper = 0.001;
-        cur_temper = max_temper;
-
-        let color_palette = _palette.slice();
-        criterion_cd = -1.0;
-        initial_scores = [-1, -1]
-        //evaluate the default palette
-        let o = {
-            id: color_palette,
-            score: _evaluatePalette(color_palette)
-        },
-            preferredObj = o;
-
-        let lineChart_data = [];
-        lineChart_data.push({
-            id: iterate_times,
-            score: o.score
-        });
-        while (cur_temper > end_temper) {
-            for (let i = 0; i < 1; i++) {//disturb at each temperature
-                iterate_times++;
-                // copy the palette
-                color_palette_cur = o.id.slice();
-                // get disturb index
-                let disturb_index = getRandomIntInclusive(0, color_palette_cur.length - 1)
-                color_palette_cur[disturb_index] = _findBestSuitableColor(color_palette_cur[disturb_index], _palette[disturb_index], changed_part.indexOf(disturb_index) >= 0 ? true : false)
-
-                let o2 = {
-                    id: color_palette_cur,
-                    score: _evaluatePalette(color_palette_cur)
-                };
-                lineChart_data.push({
-                    id: iterate_times,
-                    score: o2.score
-                });
-
-                let delta_score = o.score - o2.score;
-                if (delta_score <= 0 || delta_score > 0 && Math.random() <= Math.exp((-delta_score) / cur_temper)) {
-                    o = o2;
-                    if (preferredObj.score - o.score < 0) {
-                        preferredObj = o;
-                    }
-                }
-                if (iterate_times > max_iteration_times) {
-                    break;
-                }
-            }
-
-            cur_temper *= dec;
-        }
-        drawLineChart(lineChart_data, "linechart")
-        return preferredObj;
-    }
-
-    return _optimizeSL();
-}

@@ -11,7 +11,6 @@ let svg_margin = {
 
 let svg_width = SVGWIDTH - svg_margin.left - svg_margin.right,
     svg_height = SVGHEIGHT - svg_margin.top - svg_margin.bottom;
-let maximal_svg_distance = Math.sqrt(svg_width * svg_width + svg_height * svg_height);
 
 let score_importance_weight = new Array(3);
 score_importance_weight[0] = document.getElementById("slider_0").value / 100;
@@ -21,8 +20,8 @@ score_importance_weight[3] = document.getElementById("slider_3").value / 100;
 
 let generation_mode = 1;
 let source_datasets, source_datasets_names, labelToClass, assignment_palette;
-let knng_distance, dsc_distance, change_distance, delta_change_distance, cosaliency_distance, alphaShape_distance, background_distance;
-let kappa = [0.1, 1], delta_difference;
+let knng_distance, dsc_distance, change_distance, delta_change_distance, cosaliency_distance, alphaShape_distance;
+let kappa = [0.01, 1], delta_difference;
 let xScale, xMap, xAxis, yScale, yMap, yAxis;
 let bgcolor = "#fff";
 let DATATYPE = "SCATTERPLOT";

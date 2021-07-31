@@ -204,9 +204,7 @@ function processScatterData(datasets) {
     yScale.domain(d3.extent(dataset, yValue));
 
     calculateAlphaShape(datasets, [[0, 0], [svg_width, svg_height]]);
-    showVoronoi(datasets[0], [[0, 0], [svg_width, svg_height]]);
-    showVoronoi(datasets[1], [[0, 0], [svg_width, svg_height]]);
-
+    
     calculateKNNGDistance(datasets);
     calculateClassCenterDistance(datasets);
     if (datasets.length > 1)
