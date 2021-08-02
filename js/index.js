@@ -165,6 +165,7 @@ function renderResult() {
 function appendScatterplot() {
   let used_palette = doColorization();
   // used_palette = ["#76b7b2", "#59a14f", "#ff9da7", "#edc948", "#e15759", "#b07aa1", "#bab0ac", "#4e79a7"]// tableau 20 optimized: -1.13
+  used_palette = Tableau_10_palette
   // used_palette = shuffle(Tableau_10_palette.slice(0,used_palette.length));
   for (let i = 0; i < source_datasets.length; i++) {
     let scatterplot_svg = d3.select("#renderDiv").append("svg")

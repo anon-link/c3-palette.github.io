@@ -182,6 +182,7 @@ function getDeltaDistance(distanceArray) {
             order.push([i, result[i]])
         }
     }
+    return result;
 
     // re-order the clusters by the delta distance
     order.sort(function (a, b) {

@@ -29,40 +29,152 @@ class RenderOrder {
         // split the svg to grid
         let x_grid = Math.ceil(this._svgWidth / this._gridWidth),
             y_grid = Math.ceil(this._svgHeight / this._gridWidth);
-        let hash_table = new Array(x_grid * y_grid);
+        let hash_table = {};
         // first loop used to get the hash table 
         let point, x_id, y_id;
         for (let i = 0; i < this._data.length; i++) {
             point = this._data[i]
-            x_id = Math.floor(point.x / this._gridWidth)
-            y_id = Math.floor(point.y / this._gridWidth)
-            if (hash_table[x_id * y_grid + y_id]) hash_table[x_id * y_grid + y_id] = []
+            x_id = Math.floor(xMap(point) / this._gridWidth)
+            y_id = Math.floor(yMap(point) / this._gridWidth)
+            if (!hash_table[x_id * y_grid + y_id]) hash_table[x_id * y_grid + y_id] = []
             hash_table[x_id * y_grid + y_id].push(point)
         }
-        let top_points = new Array(x_grid * y_grid);
+        // console.log(hash_table);
+        let area_width = 4;
+        let all_points = []
         // second loop used to determine the order
-        for (let i = 0; i < x_grid; i += 4) {
-            for (let j = 0; j < y_grid; j += 4) {
-                // get the density of each class in local area
-                let local_points = new Array(8).fill(0);
-                for (let m = 0; m < 4; m++) {
-                    for (let n = 0; n < 4; n++) {
+        for (let i = 0; i < x_grid; i += area_width) {
+            for (let j = 0; j < y_grid; j += area_width) {
+                // 1. get the density of each class in local area
+                let local_points_values = {}
+                let existed_points_grid = {}
+                for (let m = 0; m < area_width; m++) {
+                    for (let n = 0; n < area_width; n++) {
                         let id = (i + m) * y_grid + j + n
                         if (hash_table[id] === undefined) continue;
-                        for (let k = 0; k < hash_table[id].length; k++)
-                            local_points[+hash_table[id][k].label] += 1
+                        if (existed_points_grid[id] === undefined) existed_points_grid[id] = {}
+                        for (let k = 0; k < hash_table[id].length; k++) {
+                            if (!local_points_values[+hash_table[id][k].label]) local_points_values[+hash_table[id][k].label] = 0
+                            local_points_values[+hash_table[id][k].label] += 1
+                            if (!existed_points_grid[id][+hash_table[id][k].label]) existed_points_grid[id][+hash_table[id][k].label] = []
+                            existed_points_grid[id][+hash_table[id][k].label].push(hash_table[id][k])
+                        }
                     }
                 }
-                // now calculate how many points should each class preserve
-                let preserved_points_number = new Array(8).fill(0);
-                for (let k = 0; k < local_points.length; k++) {
-                    preserved_points_number[k] = Math.floor(local_points[k] / 16);
+                // 2. calculate how many points should each class preserve
+                let existed_points_length = Object.keys(existed_points_grid).length
+                // console.log("existed_points_length", existed_points_length);
+                if (existed_points_length === 0) continue
+                let preserved_points_number = {}
+                // console.log("local_points_values", local_points_values);
+                let s = this.sumObj(local_points_values)
+                while (s[0] > existed_points_length - Object.keys(preserved_points_number).length) {
+                    // remove value <= 1
+                    for (let i in local_points_values) {
+                        if (local_points_values[i] <= 1) {
+                            if (Object.keys(preserved_points_number).length < existed_points_length)
+                                preserved_points_number[i] = 1
+                            delete local_points_values[i]
+                        }
+                    }
+                    // devide by min points value
+                    for (let i in local_points_values) {
+                        let v = Math.floor(local_points_values[i] / s[1])
+                        local_points_values[i] = (v <= 1) ? 1 : v
+                    }
+                    s = this.sumObj(local_points_values)
+                }
+                for (let i in local_points_values) {
+                    preserved_points_number[i] = (existed_points_length - Object.keys(preserved_points_number).length) * local_points_values[i] / s[0]
+                    preserved_points_number[i] = Math.floor(preserved_points_number[i])
+                    preserved_points_number[i] = (preserved_points_number[i] <= 1) ? 1 : preserved_points_number[i]
+                }
+                // if existed points grid is not filled:
+                s = this.sumObj(preserved_points_number)
+                if (s[0] < existed_points_length) {
+                    preserved_points_number[s[2]] += existed_points_length - s[0]
+                }
+                // console.log("preserved_points_number", preserved_points_number);
+
+                // 3. assign points to each existed_points_grid: the strategy is simple that assign fewer class first
+                let top_points = [];
+                // let order = this.calcAssignOrder(existed_points_grid);
+                // for (let i = 0; i < order.length; i++) {
+                //     // class id: order[i][0]
+                //     // grid id: order[i][1][n][0]
+                //     for (let j = 0; j < preserved_points_number[order[i][0]]; j++) {
+                //         if (j === order[i][1].length) break;
+                //         if (existed_points_grid[order[i][1][j][0]][order[i][0]].length === 0) break;
+                //         top_points.push(existed_points_grid[order[i][1][j][0]][order[i][0]].shift())
+                //     }
+                // }
+                // remain the border
+                let class_id = {}
+                for (let id in existed_points_grid) {
+                    let tmp = Object.keys(existed_points_grid[id])
+                    for (let i = 0; i < tmp.length; i++) {
+                        if (!class_id[tmp[i]]) class_id[tmp[i]] = [];
+                        class_id[tmp[i]].push([id, existed_points_grid[id][tmp[i]].length])
+                    }
+                }
+                for (let i in class_id) {
+                    class_id[i].sort((a, b) => (b[1] - a[1])) // 先分配有最大类密度的格子
+                }
+                for (let id in preserved_points_number) {
+                    for (let j = 0; j < preserved_points_number[id]; j++) {
+                        if (j === class_id[id].length) break;
+                        if (existed_points_grid[class_id[id][j][0]][id].length === 0) break;
+                        top_points.push(existed_points_grid[class_id[id][j][0]][id].shift())
+                    }
                 }
 
-
-
+                // console.log("existed_points_grid", existed_points_grid);
+                // 4. collect all the points
+                for (let id in existed_points_grid) {
+                    for (let c in existed_points_grid[id]) {
+                        all_points = all_points.concat(existed_points_grid[id][c])
+                    }
+                }
+                all_points = all_points.concat(top_points)
+                // console.log(top_points);
             }
         }
+        console.log(`all_points`, all_points);
+        return all_points;
+    }
 
+    sumObj(obj) {
+        let s = 0, min = 100000000, max = -1000000, max_id = 0;
+        for (let i in obj) {
+            s += obj[i]
+            if (obj[i] > 1) {
+                min = (min > obj[i]) ? obj[i] : min;
+                if (max < obj[i]) {
+                    max = obj[i]
+                    max_id = i
+                }
+            }
+
+        }
+        return [s, min, max_id];
+    }
+
+    calcAssignOrder(existed_points_grid) {
+        let order = [], class_id = {}
+        for (let id in existed_points_grid) {
+            let tmp = Object.keys(existed_points_grid[id])
+            for (let i = 0; i < tmp.length; i++) {
+                if (!class_id[tmp[i]]) class_id[tmp[i]] = [];
+                class_id[tmp[i]].push([id, existed_points_grid[id][tmp[i]].length])
+            }
+        }
+        for (let i in class_id) {
+            class_id[i].sort((a, b) => (b[1] - a[1])) // 先分配有最大类密度的格子
+            order.push([i, class_id[i]])
+        }
+        // console.log("order", order);
+        // 先分配占据格子少的类
+        order.sort((a, b) => (a[1].length - b[1].length))
+        return order
     }
 }

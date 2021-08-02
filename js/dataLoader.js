@@ -204,22 +204,27 @@ function processScatterData(datasets) {
     yScale.domain(d3.extent(dataset, yValue));
 
     calculateAlphaShape(datasets, [[0, 0], [svg_width, svg_height]]);
-    
-    calculateKNNGDistance(datasets);
-    calculateClassCenterDistance(datasets);
+
+    // calculateKNNGDistance(datasets);
+    // calculateClassCenterDistance(datasets);
     if (datasets.length > 1)
         calcChangingDistance(datasets);
     delta_change_distance = getDeltaDistance(change_distance);
+    let render_order = new RenderOrder(datasets[0], radius, svg_width, svg_height)
+    console.log(datasets[0].length, datasets[1].length);
+    datasets[0] = render_order.orderedData
+    render_order = new RenderOrder(datasets[1], radius, svg_width, svg_height)
+    datasets[1] = render_order.orderedData
 
-    let cluster_num = Object.keys(labelToClass).length;
-    for (let i = 0; i < cluster_num; i++) {
-        for (let j = 0; j < cluster_num; j++) {
-            let dist = knng_distance[i][j] + 1.0 * dsc_distance[i][j];
-            dist *= Math.exp(change_distance[i]);
-            cosaliency_distance[i][j] = dist / source_datasets.length;
-        }
-    }
-    console.log(knng_distance, dsc_distance, change_distance, cosaliency_distance);
+    // let cluster_num = Object.keys(labelToClass).length;
+    // for (let i = 0; i < cluster_num; i++) {
+    //     for (let j = 0; j < cluster_num; j++) {
+    //         let dist = knng_distance[i][j] + 1.0 * dsc_distance[i][j];
+    //         dist *= Math.exp(change_distance[i]);
+    //         cosaliency_distance[i][j] = dist / source_datasets.length;
+    //     }
+    // }
+    // console.log(knng_distance, dsc_distance, change_distance, cosaliency_distance);
 }
 
 function processBarData(datasets) {
