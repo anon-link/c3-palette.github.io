@@ -293,3 +293,79 @@ function delCookie(cookName) {
     var cval = 0;
     document.cookie = cookName + "=" + cval + ";expires=" + exp.toGMTString();
 }
+
+
+function drawScatterplot(points, neighbors, r) {
+    let used_palette = Tableau_10_palette
+    let scatterplot_svg = d3.select("#renderDiv").append("svg")
+        .attr("width", SVGWIDTH).attr("height", SVGHEIGHT);
+    let scatterplot = scatterplot_svg.style("background-color", bgcolor).append("g")
+        .attr("transform", "translate(" + svg_margin.left + "," + svg_margin.top + ")");
+    // draw dots
+    let dots = scatterplot.append("g").selectAll(".dot")
+        .data(points)
+        .enter().append("circle")
+        .attr("class", "dot")
+        .attr("id", function (d) {
+            return "point-" + d.id;
+        })
+        .attr("r", radius)
+        .attr("cx", d => d.x)
+        .attr("cy", d => d.y)
+        .attr("fill", function (d, i) {
+            return used_palette[labelToClass[cValue(d)]];
+        });
+    // add the x Axis
+    scatterplot.append("g")
+        .attr("transform", "translate(0," + svg_height + ")")
+        .call(d3.axisBottom(xScale).tickFormat(""));
+
+    // add the y Axis
+    scatterplot.append("g")
+        .call(d3.axisLeft(yScale).tickFormat(""));
+
+
+    let circle = scatterplot.append("circle")
+        .attr("id", "choosed_point")
+        .attr("r", 0)
+        .attr("fill", "none")
+        .style("stroke", "red")
+        .style("stroke-width", "1.5px");
+
+    scatterplot_svg.on("mousemove", function () {
+        let mouse_pos = [d3.mouse(this)[0] - svg_margin.left, d3.mouse(this)[1] - svg_margin.top];
+        // check all points to find the desired
+        let min_dis = 10000000000, desired_point = null;
+        for (let d of points) {
+            let point_pos = [d.x, d.y];
+            let dis = (point_pos[0] - mouse_pos[0]) * (point_pos[0] - mouse_pos[0]) + (point_pos[1] - mouse_pos[1]) * (point_pos[1] - mouse_pos[1]);
+            if (min_dis >= dis) {
+                min_dis = dis;
+                desired_point = d;
+            }
+        }
+        if (min_dis > 100) {
+            circle.attr("r", 0);
+            for (let d of neighbors[desired_point.id]) {
+                scatterplot_svg.selectAll(".dot")
+                    .style("stroke", "none");
+            }
+        } else {
+            scatterplot_svg.select("#point-" + desired_point.id)
+                .style("stroke", "red")
+                .style("stroke-width", "3px");
+            circle.attr("cx", mouse_pos[0])
+                .attr("cy", mouse_pos[1])
+                .attr("r", r)
+            for (let d of neighbors[desired_point.id]) {
+                scatterplot_svg.select("#point-" + d)
+                    .style("stroke", "red")
+                    .style("stroke-width", "1.5px");
+            }
+            // show points in radius
+
+        }
+
+    });
+
+}

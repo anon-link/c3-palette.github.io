@@ -281,28 +281,37 @@
                 return yScale(d.y);
             }, // data -> display
             yAxis = d3.axisLeft().scale(yScale).ticks(0);
+
+        function reorderData(change_info, cluster_num, source_datasets) {
+            let change_ids = change_info.map(function (d) { return d["cluster_id"] })
+            let order = []
+            for (let i = 0; i < cluster_num; i++) {
+                if (change_ids.indexOf(i) === -1) {
+                    order.push(i)
+                }
+            }
+            order = order.concat(change_ids);
+            var clusters = {};
+            for (let i = 0; i < source_datasets.length; i++) {
+                let d = source_datasets[i]
+                if (clusters[d.label] == undefined)
+                    clusters[d.label] = [];
+                clusters[d.label].push(d);
+            }
+            let data = []
+            for (let j = 0; j < order.length; j++) {
+                data = data.concat(clusters[order[j]])
+            }
+            return data;
+
+        }
         // draw the two images
         function drawScatterplotsMy(divId, conditionId, options, change_info) {
             let change_ids = change_info.map(function (d) { return d["cluster_id"] })
             let used_palette = options;
-            // switch (conditionId) {
-            //     case 0:
-            //         used_palette = new Array(8);
-            //         for (let i = 0; i < 8; i++) {
-            //             used_palette[i] = Tableau_10_palette[options[i]];
-            //         }
-            //         break;
-            //     case 1:
-            //         used_palette = new Array(8);
-            //         for (let i = 0; i < 8; i++) {
-            //             used_palette[i] = Tableau_20_palette[options[i]];
-            //         }
-            //         break;
-            //     default:
-            //         used_palette = options;
-            //         break;
-            // }
+
             for (let i = 0; i < source_datasets.length; i++) {
+                source_datasets[i] = reorderData(change_info, options.length, source_datasets[i])
                 let scatterplot_svg = d3.select("#" + divId).append("svg")
                     .attr("width", SVGWIDTH).attr("height", SVGHEIGHT);
                 let scatterplot = scatterplot_svg.style("background-color", bgcolor).append("g")
@@ -322,7 +331,7 @@
                         return used_palette[+d.label];
                     })
                     .style("opacity", function (d) {
-                        if (conditionId === 2 && change_ids.indexOf(cValue(d)) === -1) {
+                        if (conditionId === 2 && change_ids.indexOf(+d.label) === -1) {
                             return "0.5";
                         } else {
                             return "1";
@@ -386,12 +395,12 @@
 
             // loading data
             source_datasets = [];
-            d3.text("./" + trial_data["file_name"] + "-ref.csv", function (error, text) {
+            d3.text("./" + trials_data[id]["file_name"] + "-ref.csv", function (error, text) {
                 if (error) throw error;
                 let labelSet = new Set();
                 loadData(text, labelSet);
 
-                d3.text("./" + trial_data["file_name"] + "-comp.csv", function (error, text) {
+                d3.text("./" + trials_data[id]["file_name"] + "-comp.csv", function (error, text) {
                     if (error) throw error;
                     loadData(text, labelSet);
 
@@ -422,7 +431,7 @@
 
             //show data in table
             var dataForm = "";
-            let options = trials_data[id]["options"][4];
+            let options = trials_data[id]["options"][3];
             console.log(options);
             for (let i = 0; i < trials_data[id]["change_info"].length; i++) {
                 dataForm += "<tr style='background-color:" + options[trials_data[id]["change_info"][i]["cluster_id"]] + "\'><td>" + magnitude_str[trials_data[id]["magnitude"]] + "</td><td>" + trials_data[id]["change_info"][i]["cluster_type"] + "</td><td>" + trials_data[id]["change_type"] + "</td></tr>";
@@ -467,12 +476,12 @@
         function drawGroupData(divId, group_data) {
             // loading data
             source_datasets = [];
-            d3.text("./" + trial_data["file_name"] + "-ref.csv", function (error, text) {
+            d3.text("./" + trials_data[group_data_count]["file_name"] + "-ref.csv", function (error, text) {
                 if (error) throw error;
                 let labelSet = new Set();
                 loadData(text, labelSet);
 
-                d3.text("./" + trial_data["file_name"] + "-comp.csv", function (error, text) {
+                d3.text("./" + trials_data[group_data_count]["file_name"] + "-comp.csv", function (error, text) {
                     if (error) throw error;
                     loadData(text, labelSet);
 
@@ -494,15 +503,15 @@
                     if (group_count <= groups_trials_data.length) {
 
                         div = d3.select("#group-" + group_count).append("div").attr("id", "div-group-" + group_count + "-data-" + group_data_count).style("float", "left").style("margin-left", "100px").style("margin-top", "20px");
-                        div.append("div").append("label").text(group_data[group_data_count]["fileId"] + ", " + condition_names[group_data[group_data_count]["assignmentId"]] + ", " + group_data[group_data_count]["change_info"].length + " changed")
+                        div.append("div").append("label").text(group_data[group_data_count]["file_id"] + ", " + condition_names[group_data[group_data_count]["assignmentId"]] + ", " + group_data[group_data_count]["change_info"].length + " changed")
                         drawGroupData("div-group-" + group_count + "-data-" + group_data_count, group_data)
                     }
                 });
             });
         }
         let div = d3.select("#group-" + group_count).append("div").attr("id", "div-group-" + group_count + "-data-" + group_data_count).style("float", "left").style("margin-left", "100px").style("margin-top", "20px");
-        div.append("div").append("label").text(groups_trials_data[group_count - 1][group_data_count]["file_id"] + ", " + condition_names[groups_trials_data[group_count - 1][group_data_count]["assignmentId"]] + ", " + groups_trials_data[group_count - 1][group_data_count]["changeInfo"].length + " changed")
-        // drawGroupData("div-group-" + group_count + "-data-" + group_data_count, groups_trials_data[group_count - 1])
+        div.append("div").append("label").text(groups_trials_data[group_count - 1][group_data_count]["file_id"] + ", " + condition_names[groups_trials_data[group_count - 1][group_data_count]["assignmentId"]] + ", " + groups_trials_data[group_count - 1][group_data_count]["change_info"].length + " changed")
+        drawGroupData("div-group-" + group_count + "-data-" + group_data_count, groups_trials_data[group_count - 1])
     </script>
     <script>
         function openTab(evt, cityName) {

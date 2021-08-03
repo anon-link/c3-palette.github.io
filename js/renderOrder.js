@@ -40,7 +40,7 @@ class RenderOrder {
             hash_table[x_id * y_grid + y_id].push(point)
         }
         // console.log(hash_table);
-        let area_width = 4;
+        let area_width = 6;
         let all_points = []
         // second loop used to determine the order
         for (let i = 0; i < x_grid; i += area_width) {
@@ -112,19 +112,30 @@ class RenderOrder {
                 let class_id = {}
                 for (let id in existed_points_grid) {
                     let tmp = Object.keys(existed_points_grid[id])
+                    let total_len = 0
+                    for (let l in existed_points_grid[id]) total_len += existed_points_grid[id][l].length
                     for (let i = 0; i < tmp.length; i++) {
                         if (!class_id[tmp[i]]) class_id[tmp[i]] = [];
-                        class_id[tmp[i]].push([id, existed_points_grid[id][tmp[i]].length])
+                        class_id[tmp[i]].push([id, existed_points_grid[id][tmp[i]].length / total_len])
                     }
                 }
                 for (let i in class_id) {
-                    class_id[i].sort((a, b) => (b[1] - a[1])) // 先分配有最大类密度的格子
+                    class_id[i].sort((a, b) => (b[1] - a[1])) // 将同一类在不同格子中的密度进行排序,大的在前, 即优先选择密度大的格子
                 }
+                // 先分配点少的类
+                let sorted_preserved_points_number = []
                 for (let id in preserved_points_number) {
-                    for (let j = 0; j < preserved_points_number[id]; j++) {
-                        if (j === class_id[id].length) break;
-                        if (existed_points_grid[class_id[id][j][0]][id].length === 0) break;
-                        top_points.push(existed_points_grid[class_id[id][j][0]][id].shift())
+                    sorted_preserved_points_number.push([id, preserved_points_number[id]])
+                }
+                sorted_preserved_points_number.sort((a, b) => (a[1] - b[1]))
+                let used_grid = []
+                for (let c of sorted_preserved_points_number) {
+                    for (let j = 0; j < c[1]; j++) {
+                        if (j === class_id[c[0]].length) break; // 某类允许保留两个点,但区域内只有一个网格内有该点,那么只分配一个,多余的跳过
+                        if (used_grid.indexOf(class_id[c[0]][j][0]) != -1) continue; // 如果格子已被占用
+                        if (!(c[0] in existed_points_grid[class_id[c[0]][j][0]]) || existed_points_grid[class_id[c[0]][j][0]][c[0]].length === 0) break; // 如果待分配的网格中某类没有点, 那么跳过
+                        top_points.push(existed_points_grid[class_id[c[0]][j][0]][c[0]].shift()) // 分配点后将该点从候选中删除
+                        used_grid.push(class_id[c[0]][j][0]) //格子标记为已占用
                     }
                 }
 
@@ -135,11 +146,11 @@ class RenderOrder {
                         all_points = all_points.concat(existed_points_grid[id][c])
                     }
                 }
-                all_points = all_points.concat(top_points)
+                all_points = all_points.concat(top_points.reverse())
                 // console.log(top_points);
             }
         }
-        console.log(`all_points`, all_points);
+        // console.log(`all_points`, all_points);
         return all_points;
     }
 

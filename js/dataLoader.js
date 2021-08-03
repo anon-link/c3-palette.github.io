@@ -205,13 +205,28 @@ function processScatterData(datasets) {
 
     calculateAlphaShape(datasets, [[0, 0], [svg_width, svg_height]]);
 
+    let points = []
+    datasets[0].forEach((element, id) => {
+        points.push({
+            "x": xMap(element),
+            "y": yMap(element),
+            "label": element.label,
+            "id": id
+        })
+    });
+    let r = 25
+    let frnn = new FRNN(points, r);
+    let neighbors = frnn.neighbors();
+    console.log(neighbors, Object.keys(neighbors).length, points.length);
+    drawScatterplot(points, neighbors, r)
+
     // calculateKNNGDistance(datasets);
     // calculateClassCenterDistance(datasets);
     if (datasets.length > 1)
         calcChangingDistance(datasets);
     delta_change_distance = getDeltaDistance(change_distance);
     let render_order = new RenderOrder(datasets[0], radius, svg_width, svg_height)
-    console.log(datasets[0].length, datasets[1].length);
+    // console.log(datasets[0].length, datasets[1].length);
     datasets[0] = render_order.orderedData
     render_order = new RenderOrder(datasets[1], radius, svg_width, svg_height)
     datasets[1] = render_order.orderedData
