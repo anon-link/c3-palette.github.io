@@ -205,20 +205,20 @@ function processScatterData(datasets) {
 
     calculateAlphaShape(datasets, [[0, 0], [svg_width, svg_height]]);
 
-    let points = []
-    datasets[0].forEach((element, id) => {
-        points.push({
-            "x": xMap(element),
-            "y": yMap(element),
-            "label": element.label,
-            "id": id
-        })
-    });
-    let r = 25
-    let frnn = new FRNN(points, r);
-    let neighbors = frnn.neighbors();
-    console.log(neighbors, Object.keys(neighbors).length, points.length);
-    drawScatterplot(points, neighbors, r)
+    // let points = []
+    // datasets[0].forEach((element, id) => {
+    //     points.push({
+    //         "x": xMap(element),
+    //         "y": yMap(element),
+    //         "label": element.label,
+    //         "id": id
+    //     })
+    // });
+    // let r = 25
+    // let frnn = new FRNN(points, r);
+    // let neighbors = frnn.neighbors();
+    // console.log(neighbors, Object.keys(neighbors).length, points.length);
+    // drawScatterplot(points, neighbors, r)
 
     // calculateKNNGDistance(datasets);
     // calculateClassCenterDistance(datasets);

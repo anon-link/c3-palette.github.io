@@ -6,7 +6,7 @@ let svg_margin = {
     left: 20
 },
     radius = 4,
-    SVGWIDTH = 400,
+    SVGWIDTH = 600,
     SVGHEIGHT = 400;
 
 let svg_width = SVGWIDTH - svg_margin.left - svg_margin.right,

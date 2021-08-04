@@ -183,7 +183,7 @@ function getDeltaDistance(distanceArray) {
         }
     }
 
-    return result;
+    // return result;
     // re-order the clusters by the delta distance
     order.sort(function (a, b) {
         return a[1] - b[1];
@@ -219,6 +219,8 @@ function calculateAlphaShape(datasets, extent) {
         alphaShape_distance[i] = new Array(cluster_num).fill(0);
     }
     for (let m = 0; m < datasets.length; m++) {
+        xScale.domain(d3.extent(datasets[m], xValue));
+        yScale.domain(d3.extent(datasets[m], yValue));
         let voronoi = d3.voronoi().x(function (d) { return xMap(d); }).y(function (d) { return yMap(d); })
             .extent(extent);
         let diagram = voronoi(datasets[m]);
