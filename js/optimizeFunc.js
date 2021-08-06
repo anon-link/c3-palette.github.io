@@ -47,8 +47,8 @@ function doColorization() {
         generation_mode = 0;
         document.getElementById("slider_1").value = 50;
         changeSlider("slider_1", 50)
-        document.getElementById("slider_3").value = 25;
-        changeSlider("slider_3", 25)
+        document.getElementById("slider_2").value = 25;
+        changeSlider("slider_2", 25)
     }
     let best_color, best_color_array = new Array(1);
 
@@ -179,7 +179,7 @@ function evaluatePalette(palette) {
     // console.log("--------------------------------------", criterion_cd, cosaliency_score);
 
     // console.log(cosaliency_score, score_importance_weight[1] * name_difference, score_importance_weight[3] * 0.1 * color_discrimination_constraint);
-    return (cosaliency_score + score_importance_weight[1] * name_difference + score_importance_weight[3] * 0.1 * color_discrimination_constraint);
+    return (cosaliency_score + score_importance_weight[1] * name_difference + score_importance_weight[2] * 0.1 * color_discrimination_constraint);
 }
 
 /**
@@ -200,10 +200,11 @@ function simulatedAnnealing2FindBestPalette(palette_size, evaluateFunc, colors_s
     //generate a totally random palette
     let color_palette = getColorPaletteRandom(palette_size);
     criterion_cd = -1.0;
+    evaluateFunc = getPaletteScore
     //evaluate the default palette
     let o = {
         id: color_palette,
-        score: _evaluatePaletteTmp(color_palette)
+        score: evaluateFunc(color_palette)
     },
         preferredObj = o;
 
@@ -215,7 +216,7 @@ function simulatedAnnealing2FindBestPalette(palette_size, evaluateFunc, colors_s
             let color_palette_2 = color_palette.slice();
             let o2 = {
                 id: color_palette_2,
-                score: _evaluatePaletteTmp(color_palette_2)
+                score: evaluateFunc(color_palette_2)
             };
 
             let delta_score = o.score - o2.score;
@@ -489,10 +490,11 @@ function doColorAssignment(palette, class_number, pre_palette) {
             color_palette[delta_difference[i]] = pre_palette[delta_difference[i]]
         }
     criterion_cd = -1.0;
+    let evaluate_func = getPaletteScore
     //evaluate the default palette
     let o = {
         id: color_palette,
-        score: _evaluatePaletteTmp(color_palette.slice(0, class_number))
+        score: evaluate_func(color_palette.slice(0, class_number))
     },
         preferredObj = o;
 
@@ -536,7 +538,7 @@ function doColorAssignment(palette, class_number, pre_palette) {
             color_palette[idx_1] = tmp;
             let o2 = {
                 id: color_palette,
-                score: _evaluatePaletteTmp(color_palette.slice(0, class_number))
+                score: evaluate_func(color_palette.slice(0, class_number))
             };
 
             let delta_score = o.score - o2.score;
@@ -828,9 +830,9 @@ let _evaluatePaletteTmp = function (p) {
     for (let i = 0; i < p.length; i++) {
         for (let j = 0; j < p.length; j++) {
             if (i === j) continue;
-            tmp_pd += alphaShape_distance[i][j] * color_dis[i][j] * Math.exp(change_distance[i]) / p.length;
+            tmp_pd += alphaShape_distance[i][j] * color_dis[i][j] * Math.exp(change_distance[i]);
         }
-        tmp_cb += delta_change_distance[i] * bg_contrast_array[i] / p.length;
+        tmp_cb += delta_change_distance[i] * bg_contrast_array[i];
     }
     if (initial_scores[0] === -1) {
         initial_scores[0] = tmp_pd;
@@ -842,6 +844,49 @@ let _evaluatePaletteTmp = function (p) {
     color_discrimination_constraint *= 0.1;
     // console.log(cosaliency_score, name_difference, color_discrimination_constraint);
 
-    return cosaliency_score + score_importance_weight[1] * name_difference + score_importance_weight[3] * color_discrimination_constraint;
+    return cosaliency_score + score_importance_weight[1] * name_difference + score_importance_weight[2] * color_discrimination_constraint;
 }
 
+
+function getPaletteScore(p) {
+    let color_dis = new Array(p.length)
+    for (let i = 0; i < p.length; i++)
+        color_dis[i] = new Array(p.length)
+    let bg_contrast_array = new Array(p.length)
+    let name_difference = 0,
+        color_discrimination_constraint = 100000;
+    for (let i = 0; i < p.length; i++) {
+        for (let j = i + 1; j < p.length; j++) {
+            color_dis[i][j] = color_dis[j][i] = d3_ciede2000(d3.lab(p[i]), d3.lab(p[j]));
+            name_difference += getNameDifference(p[i], p[j]);
+            color_discrimination_constraint = (color_discrimination_constraint > color_dis[i][j]) ? color_dis[i][j] : color_discrimination_constraint;
+        }
+        bg_contrast_array[i] = d3_ciede2000(d3.lab(p[i]), d3.lab(d3.rgb(bgcolor)));
+        color_discrimination_constraint = (color_discrimination_constraint > bg_contrast_array[i]) ? bg_contrast_array[i] : color_discrimination_constraint;
+    }
+    let cosaliency_score = 0;
+    let tmp_pd = 0, tmp_cb = 0
+    for (let i = 0; i < p.length; i++) {
+        for (let j = 0; j < p.length; j++) {
+            if (i === j) continue;
+            tmp_pd += alphaShape_distance[i][j] * color_dis[i][j] * Math.exp(change_distance[i]);
+        }
+        if (change_distance[i] > kappa)
+            tmp_cb += non_separability_weights[i] * bg_contrast_array[i] * Math.exp(change_distance[i]);
+        else
+            tmp_cb -= non_separability_weights[i] * bg_contrast_array[i] * Math.exp(change_distance[i]);
+    }
+    if (initial_scores[0] === -1) {
+        initial_scores[0] = tmp_pd;
+        initial_scores[1] = tmp_cb;
+        console.log(initial_scores);
+    }
+    let lam = 0.6;
+    cosaliency_score = (1 - lam) * tmp_pd / initial_scores[0] + lam * tmp_cb / Math.abs(initial_scores[1]);
+    // console.log(tmp_pd / initial_scores[0], tmp_cb / Math.abs(initial_scores[1]), cosaliency_score);
+    name_difference /= p.length * (p.length - 1) * 0.25;
+    color_discrimination_constraint *= 0.1;
+    // console.log(cosaliency_score, name_difference, color_discrimination_constraint);
+
+    return score_importance_weight[0] * cosaliency_score + score_importance_weight[1] * name_difference + score_importance_weight[2] * color_discrimination_constraint;
+}

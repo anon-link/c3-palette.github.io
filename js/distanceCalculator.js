@@ -121,14 +121,8 @@ function calcChangingDistance(datasets) {
     for (let i = 0; i < datasets.length - 1; i++) {
         var ref_clusters = SplitDataByClass(datasets[i], labelToClass),
             comp_clusters = SplitDataByClass(datasets[i + 1], labelToClass);
-        // console.log(ref_clusters, comp_clusters);
-        if (Object.keys(ref_clusters).length < Object.keys(comp_clusters).length) {
-            let tmp = ref_clusters;
-            ref_clusters = comp_clusters;
-            comp_clusters = tmp;
-        }
         // for each cluster, calculate the cost
-        for (let key in ref_clusters) {
+        for (let key in labelToClass) {
             let ref = ref_clusters[key],
                 target = comp_clusters[key];
             if (ref && target) {
@@ -151,12 +145,9 @@ function calcChangingDistance(datasets) {
             }
         }
     }
-    // console.log(change_distance.slice());
     //normalize change_distance
     let change_distance_scale = d3.extent(change_distance);
-    if (change_distance_scale[0] > 0) {
-        change_distance_scale[0] = 0;
-    }
+    change_distance_scale[0] = 0;
     for (let i = 0; i < change_distance.length; i++) {
         change_distance[i] = (change_distance[i] - change_distance_scale[0]) / (change_distance_scale[1] - change_distance_scale[0] + 0.000000001);
     }
@@ -189,6 +180,7 @@ function getDeltaDistance(distanceArray) {
         return a[1] - b[1];
     })
     for (let i = 0; i < source_datasets.length; i++) {
+
         var clusters = {};
         for (let d of source_datasets[i]) {
             if (clusters[labelToClass[d.label]] == undefined)
@@ -197,7 +189,8 @@ function getDeltaDistance(distanceArray) {
         }
         let data = []
         for (let j = 0; j < order.length; j++) {
-            data = data.concat(clusters[order[j][0]])
+            if (clusters[order[j][0]])
+                data = data.concat(clusters[order[j][0]])
         }
         source_datasets[i] = data;
     }
@@ -266,4 +259,81 @@ function calculateAlphaShape(datasets, extent) {
     }
     console.log("alphaShape_distance:", alphaShape_distance);
     // return distanceOf2Clusters;
+}
+
+/**
+ * 1. calculate the separability
+ * 2. calculate the non-separability
+ * @param {*} datasets 
+ * @param {*} extent 
+ */
+function calculateAlphaShapeDistance(datasets, extent) {
+    let cluster_num = Object.keys(labelToClass).length;
+    alphaShape_distance = new Array(cluster_num);
+    for (let i = 0; i < cluster_num; i++) {
+        alphaShape_distance[i] = new Array(cluster_num).fill(0);
+    }
+    let non_separability_weights_tmp = new Array(cluster_num).fill(0);
+    non_separability_weights = new Array(cluster_num).fill(0);
+    for (let m = 0; m < datasets.length; m++) {
+        // xScale.domain(d3.extent(datasets[m], xValue));
+        // yScale.domain(d3.extent(datasets[m], yValue));
+        let voronoi = d3.voronoi().x(function (d) { return xMap(d); }).y(function (d) { return yMap(d); })
+            .extent(extent);
+        let diagram = voronoi(datasets[m]);
+        let cells = diagram.cells;
+        let alpha = 25 * 2;
+        let distanceDict = {};
+        for (let cell of cells) {
+            if (cell === undefined) continue;
+            let label = labelToClass[cell.site.data.label];
+            // console.log(cell.halfedges);
+            let stat = [0, 0];
+            cell.halfedges.forEach(function (e) {
+                let edge = diagram.edges[e];
+                let ea = edge.left;
+                if (ea === cell.site || !ea) {
+                    ea = edge.right;
+                }
+                if (ea) {
+                    let ea_label = labelToClass[ea.data.label];
+                    let dx, dy, dist;
+                    dx = cell.site[0] - ea[0];
+                    dy = cell.site[1] - ea[1];
+                    dist = Math.sqrt(dx * dx + dy * dy);
+                    dist = inverseFunc(dist) / cell.halfedges.length
+                    if (alpha > dist) {
+                        if (label != ea_label) {
+                            if (distanceDict[label] === undefined)
+                                distanceDict[label] = {};
+                            if (distanceDict[label][ea_label] === undefined)
+                                distanceDict[label][ea_label] = [];
+                            distanceDict[label][ea_label].push(dist);
+                            stat[0] += dist;
+                        } else {
+                            stat[1] += dist;
+                        }
+                    }
+                }
+            });
+            non_separability_weights_tmp[label] += (stat[0] - stat[1]);
+        }
+        console.log("distanceDict:", distanceDict);
+
+        for (var i in distanceDict) {
+            for (var j in distanceDict[i]) {
+                i = +i, j = +j;
+                alphaShape_distance[i][j] += d3.sum(distanceDict[i][j]) / Math.pow(cluster_nums[m][i], 2);
+            }
+        }
+        for (let i = 0; i < cluster_num; i++) {
+            non_separability_weights[i] += non_separability_weights_tmp[i] / Math.pow(cluster_nums[m][i], 2);
+        }
+    }
+
+    for (let i = 0; i < cluster_num; i++) {
+        non_separability_weights[i] = Math.exp(non_separability_weights[i]);
+    }
+    console.log("alphaShape_distance:", alphaShape_distance);
+    console.log("non_separability_weights:", non_separability_weights);
 }

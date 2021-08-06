@@ -2,7 +2,7 @@
  * convert scatterplot matrix data to multiple scatterplots used different variables
  * factors = ["Days On Market", "Delinquency", "Year over Year", "Market Health Index"]
  */
-function process() {
+function processSM() {
     // load data
     d3.csv("../data/Scatterplot_Matrix_data.csv", function (data) {
         console.log(data);
@@ -67,4 +67,57 @@ function process() {
         }, 1000)
     })
 }
-process()
+// processSM()
+
+function processAbsent() {
+    // load data
+    d3.csv("../dataGenerator/time-series/Absenteeism_at_work_AAA/Absenteeism_at_work.csv", function (data) {
+        console.log(data);
+        let factors = ["Month of absence", "Day of the week", 'Seasons']
+        let output = {}, stat = {}
+        for (let d of data) {
+            for (let i of factors) {
+                if (!output[i]) output[i] = {}
+                if (!output[i][i + "-" + d[i]]) output[i][i + "-" + d[i]] = []
+                output[i][i + "-" + d[i]].push(d)
+            }
+            if(!stat[d["Reason for absence"]]) stat[d["Reason for absence"]] = []
+            stat[d["Reason for absence"]].push(d)
+        }
+        let tmp = []
+        for (let i in stat){
+            tmp.push([i, stat[i].length])
+        }
+        tmp.sort((a,b)=>(b[1]-a[1]))
+        console.log(output, tmp);
+        tmp = tmp.slice(0,10)
+        let choosed_reasons = []
+        for(let d of tmp){
+            choosed_reasons.push(d[0])
+        }
+        // output to csv
+        let factor_count = 0, file_count = 0
+        let interval = setInterval(function () {
+            if (factor_count === factors.length) clearInterval(interval);
+            let key = factors[factor_count]
+            let keys = Object.keys(output[key])
+            let str = "";
+            for (let d of output[key][keys[file_count]]) {
+                if(choosed_reasons.indexOf(d["Reason for absence"])===-1) continue
+                str += d['Distance from Residence to Work'];
+                str += ",";
+                str += d["Transportation expense"];
+                str += ",";
+                str += d["Reason for absence"];
+                str += "\n";
+            }
+            downloadFile(keys[file_count] + ".csv", str);
+            file_count++
+            if (file_count === keys.length) {
+                file_count = 0
+                factor_count++
+            }
+        }, 1000)
+    })
+}
+processAbsent()

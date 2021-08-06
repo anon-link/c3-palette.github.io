@@ -503,7 +503,7 @@
                     if (group_count <= groups_trials_data.length) {
 
                         div = d3.select("#group-" + group_count).append("div").attr("id", "div-group-" + group_count + "-data-" + group_data_count).style("float", "left").style("margin-left", "100px").style("margin-top", "20px");
-                        div.append("div").append("label").text(group_data[group_data_count]["file_id"] + ", " + condition_names[group_data[group_data_count]["assignmentId"]] + ", " + group_data[group_data_count]["change_info"].length + " changed")
+                        div.append("div").append("label").text(group_data[group_data_count]["file_id"] + ", " + group_data[group_data_count]["file_name"] + ", " + group_data[group_data_count]["change_info"].length + " changed")
                         drawGroupData("div-group-" + group_count + "-data-" + group_data_count, group_data)
                     }
                 });

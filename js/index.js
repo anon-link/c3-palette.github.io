@@ -30,15 +30,15 @@ function changeSlider(name, value) {
     case "slider_2":
       document.getElementById("slider_2_label").innerText = label_value.toFixed(2);
       score_importance_weight[2] = label_value;
-      delta_change_distance = getDeltaDistance(change_distance);
       break;
     case "slider_3":
       document.getElementById("slider_3_label").innerText = label_value.toFixed(2);
-      score_importance_weight[3] = label_value;
+      changeAlpha(label_value);
       break;
     case "slider_4":
       document.getElementById("slider_4_label").innerText = label_value.toFixed(2);
-      changeAlpha(label_value);
+      score_importance_weight[3] = label_value;
+      delta_change_distance = getDeltaDistance(change_distance);
       break;
     default:
 
@@ -51,15 +51,15 @@ $("input[name='generationMode']").change(function () {
     generation_mode = 0;
     document.getElementById("slider_1").value = 50;
     changeSlider("slider_1", 50)
-    document.getElementById("slider_3").value = 25;
-    changeSlider("slider_3", 25)
+    document.getElementById("slider_2").value = 25;
+    changeSlider("slider_2", 25)
   } else {
     d3.select("#inputDiv").style("display", "inline-block");
     generation_mode = 1;
     document.getElementById("slider_1").value = 0;
     changeSlider("slider_1", 0)
-    document.getElementById("slider_3").value = 0;
-    changeSlider("slider_3", 0)
+    document.getElementById("slider_2").value = 0;
+    changeSlider("slider_2", 0)
   }
 });
 
@@ -168,8 +168,8 @@ function appendScatterplot() {
   // used_palette = Tableau_10_palette
   // used_palette = shuffle(Tableau_10_palette.slice(0,used_palette.length));
   for (let i = 0; i < source_datasets.length; i++) {
-    xScale.domain(d3.extent(source_datasets[i], xValue));
-    yScale.domain(d3.extent(source_datasets[i], yValue));
+    // xScale.domain(d3.extent(source_datasets[i], xValue));
+    // yScale.domain(d3.extent(source_datasets[i], yValue));
     let scatterplot_svg = d3.select("#renderDiv").append("svg")
       .attr("width", SVGWIDTH).attr("height", SVGHEIGHT);
     let scatterplot = scatterplot_svg.style("background-color", bgcolor).append("g")
@@ -225,41 +225,41 @@ function appendScatterplot() {
           .attr("fill", used_palette[labelToClass[id]])
           .attr("r", 10)
           .attr("display", "block")
-          .on("click", function () {
-            for (let i = 0; i < choosed_emphasized_clusters.length; i++) {
-              if (+choosed_emphasized_clusters[i].attr("clusterId") === labelToClass[id]) {
-                return;
-              }
-            }
-            let div = d3.select("#choosedDiv");
-            let span = div.append("span").attr("class", "rect").attr("id", "choosedCluster-" + labelToClass[id]).attr("clusterId", labelToClass[id])
-              .style("width", "30px").style("height", "30px").style("display", "inline-block")
-              .style("margin-left", "10px").style("padding", "5px").style("background", used_palette[labelToClass[id]]).style("text-align", "center");
-            // append lock and unlock sign
-            let img = span.append("img").attr("class", "icon_delete").style("display", "none")
-              .on("click", function () {
-                let j = 0;
-                for (j = 0; j < choosed_emphasized_clusters.length; j++) {
-                  if (+choosed_emphasized_clusters[j].attr("clusterId") === labelToClass[id]) {
-                    break;
-                  }
-                }
-                choosed_emphasized_clusters.splice(j, 1);
-                span.remove();
-                if (choosed_emphasized_clusters.length === 0) {
-                  d3.select("#specifyDiv").style("display", "none");
-                }
-              });
-            span.on("mouseover", function () {
-              d3.select(this).select("img").style("display", "block");
-            })
-              .on("mouseout", function () {
-                d3.select(this).select("img").style("display", "none");
-              })
+          // .on("click", function () {
+          //   for (let i = 0; i < choosed_emphasized_clusters.length; i++) {
+          //     if (+choosed_emphasized_clusters[i].attr("clusterId") === labelToClass[id]) {
+          //       return;
+          //     }
+          //   }
+          //   let div = d3.select("#choosedDiv");
+          //   let span = div.append("span").attr("class", "rect").attr("id", "choosedCluster-" + labelToClass[id]).attr("clusterId", labelToClass[id])
+          //     .style("width", "30px").style("height", "30px").style("display", "inline-block")
+          //     .style("margin-left", "10px").style("padding", "5px").style("background", used_palette[labelToClass[id]]).style("text-align", "center");
+          //   // append lock and unlock sign
+          //   let img = span.append("img").attr("class", "icon_delete").style("display", "none")
+          //     .on("click", function () {
+          //       let j = 0;
+          //       for (j = 0; j < choosed_emphasized_clusters.length; j++) {
+          //         if (+choosed_emphasized_clusters[j].attr("clusterId") === labelToClass[id]) {
+          //           break;
+          //         }
+          //       }
+          //       choosed_emphasized_clusters.splice(j, 1);
+          //       span.remove();
+          //       if (choosed_emphasized_clusters.length === 0) {
+          //         d3.select("#specifyDiv").style("display", "none");
+          //       }
+          //     });
+          //   span.on("mouseover", function () {
+          //     d3.select(this).select("img").style("display", "block");
+          //   })
+          //     .on("mouseout", function () {
+          //       d3.select(this).select("img").style("display", "none");
+          //     })
 
-            choosed_emphasized_clusters.push(span)
-            d3.select("#specifyDiv").style("display", "inline-block");
-          });
+          //   choosed_emphasized_clusters.push(span)
+          //   d3.select("#specifyDiv").style("display", "inline-block");
+          // });
       }
 
     });
@@ -545,16 +545,18 @@ function drawTransferFunction(palette) {
     .append("g")
     .attr("transform", "translate(" + (svg_margin.left + 20) + "," + svg_margin.top + ")");
 
-  let m_xScale = d3.scaleLinear().range([0, svg_width]);
-  let m_yScale = d3.scaleLinear().range([svg_height, 0])
+  let m_xScale = d3.scaleBand().range([0, svg_width]);
+  let m_yScale = d3.scaleLinear().range([svg_height - 20, 0])
+
+  let x_labels = Object.keys(labelToClass)
   // Scale the range of the data
-  m_xScale.domain([0, 1.2]);
-  m_yScale.domain([-1.2, Math.exp(1.2)]);
+  m_xScale.domain(x_labels);
+  m_yScale.domain([0, 1]);
 
 
   // Add the X Axis
   tf.append("g")
-    .attr("transform", "translate(0," + svg_height * Math.exp(1.2) / (Math.exp(1.2) + 1.2) + ")")
+    .attr("transform", "translate(0," + (svg_height - 20) + ")")
     .call(d3.axisBottom(m_xScale));
 
   // Add the Y Axis
@@ -564,134 +566,88 @@ function drawTransferFunction(palette) {
 
   let drawLine = function (a, b, c, d, dash = false) {
     let line = tf.append("line")
-      .attr("x1", m_xScale(a))
-      .attr("y1", m_yScale(b))
-      .attr("x2", m_xScale(c))
-      .attr("y2", m_yScale(d))
+      .attr("x1", a)
+      .attr("y1", b)
+      .attr("x2", c)
+      .attr("y2", d)
       .style("stroke", "#000");
     if (dash) {
       line.style("stroke-dasharray", ("3, 3"));
     }
   }
-  if (choosed_emphasized_clusters.length > 0) {
-    let control_points_data = [{ x: 0, y: -1 }, { x: kappa[0], y: -1 }, { x: kappa[0], y: Math.exp(kappa[0]) }, { x: kappa[1], y: Math.exp(kappa[1]) }, { x: kappa[1], y: -1 }, { x: 1, y: -1 }];
-    for (let i = 0; i < delta_change_distance.length; i++) {
-      if (delta_change_distance[i] > 0) {
-        control_points_data.push({ x: 0, y: -1 });
-      }
-    }
-    let tmp = {}
-    for (let i = 0; i < palette.length; i++) {
-      if (!tmp[change_distance[i]]) tmp[change_distance[i]] = 0
-      let rect = tf.append("rect")
-        .attr("x", m_xScale(change_distance[i]) - 10)
-        .attr("y", function () {
-          return svg_height * Math.exp(1.2) / (Math.exp(1.2) + 1.2) - 10 - 25 * tmp[change_distance[i]];
-        })
-        .attr("width", 20)
-        .attr("height", 20)
-        .attr("fill", palette[i]);
-      tmp[change_distance[i]] += 1;
-      let circle = tf.append("circle")
-        .attr("r", 10)
-        .attr("cx", m_xScale(change_distance[i]))
-        .attr("fill", "#000")
-        .style("stroke", "#000");
-      if (delta_change_distance[i] > 0) {
-        circle.attr("cy", m_yScale(1))
-        drawLine(change_distance[i], 0, change_distance[i], 1, true)
-      } else {
-        circle.attr("cy", m_yScale(-1))
-        drawLine(change_distance[i], 0, change_distance[i], -1, true)
-      }
-    }
-  } else {
+  let drag = d3.drag()
+    .on("start", dragstarted)
+    .on("drag", dragged)
+    .on("end", dragended);
+  for (let i = 0; i < x_labels.length; i++) {
     // draw class rects
-    let tmp = {}
-    for (let i = 0; i < palette.length; i++) {
-      if (!tmp[change_distance[i]]) tmp[change_distance[i]] = 0
-      tf.append("rect")
-        .attr("x", m_xScale(change_distance[i]) - 10)
-        .attr("y", function () {
-          return svg_height * Math.exp(1.2) / (Math.exp(1.2) + 1.2) - 10 - 25 * tmp[change_distance[i]];
-        })
-        .attr("width", 20)
-        .attr("height", 20)
-        .attr("fill", palette[i]);
-      tmp[change_distance[i]] += 1;
-    }
-    // interpolate points
-    let control_points_data = [{ x: 0, y: -1 }, { x: kappa[0], y: -1 }, { x: kappa[0], y: Math.exp(kappa[0]) }, { x: kappa[1], y: Math.exp(kappa[1]) }, { x: kappa[1], y: -1 }, { x: 1, y: -1 }];
-    let exp_data = [], step = (kappa[1] - kappa[0]) / 100;
-    for (let i = kappa[0]; i <= kappa[1]; i += step) {
-      exp_data.push({ x: i, y: Math.exp(i) });
-    }
+    tf.append("rect")
+      .attr("x", m_xScale(x_labels[i]) + m_xScale.bandwidth() / 2 - 10)
+      .attr("y", function () {
+        return svg_height;
+      })
+      .attr("width", 20)
+      .attr("height", 20)
+      .attr("fill", palette[labelToClass[x_labels[i]]]);
 
+    if (i < x_labels.length - 1)
+      drawLine(m_xScale(x_labels[i]) + m_xScale.bandwidth() / 2, m_yScale(change_distance[labelToClass[x_labels[i]]]), m_xScale(x_labels[i + 1]) + m_xScale.bandwidth() / 2, m_yScale(change_distance[labelToClass[x_labels[i + 1]]]))
 
-    // draw lines
-    if (control_points_data[1].x > 0)
-      drawLine(control_points_data[0].x, control_points_data[0].y, control_points_data[1].x, control_points_data[1].y)
-    for (let i = 0; i < exp_data.length - 1; i++) {
-      drawLine(exp_data[i].x, exp_data[i].y, exp_data[i + 1].x, exp_data[i + 1].y)
-    }
-    if (control_points_data[4].x < 1)
-      drawLine(control_points_data[4].x, control_points_data[4].y, control_points_data[5].x, control_points_data[5].y)
-
-    let drag = d3.drag()
-      .on("start", dragstarted)
-      .on("drag", dragged)
-      .on("end", dragended);
-    function dragstarted() {
-      //d3.event.sourceEvent.stopPropagation();
-      d3.select(this).attr("stroke", "red").attr("stroke-width", 3);
-      d3.select(this).attr("cx", d3.event.x);
-    }
-
-    function dragged() {
-      d3.select(this).attr("cx", d3.event.x);
-    }
-
-    function dragended() {
-      d3.select(this).attr("stroke", "#000").attr("stroke-width", 0);
-      d3.select(this).attr("cx", d3.event.x);
-      let circle_index = this.id.split("_")[1];
-      if (circle_index == 1)
-        kappa[0] = m_xScale.invert(d3.event.x)
-      if (circle_index == 3)
-        kappa[1] = m_xScale.invert(d3.event.x)
-
-      drawTransferFunction(palette);
-    }
     // draw control points
-    for (let i = 1; i < control_points_data.length - 1; i++) {
-      let circle = tf.append("circle")
-        .attr("id", function () {
-          return "circle_" + i;
-        })
-        .attr("r", 10)
-        .attr("cx", function () {
-          return m_xScale(control_points_data[i].x);
-        })
-        .attr("cy", function () {
-          return m_yScale(control_points_data[i].y);
-        })
-        .style("stroke", "#000");
-      if (i % 2 === 1) {
-        circle.attr("fill", "#000")
-        //.style("stroke", "red").attr("stroke-width", 2);
-      } else {
-        circle.attr("fill", "none")
-        // circle.attr("fill", "#000").style("opacity", 0.5)
-      }
-      if (i == 1 || i == 3)
-        circle.call(drag);
-    }
-    // draw control points to axis: dotted line
-    for (let i = 1; i < control_points_data.length - 1; i++) {
-      drawLine(control_points_data[i].x, control_points_data[i].y, control_points_data[i].x, 0, true);
-    }
+    tf.append("circle")
+      .attr("id", function () {
+        return "circle_" + labelToClass[x_labels[i]];
+      })
+      .attr("r", 10)
+      .attr("cx", function () {
+        return m_xScale(x_labels[i]) + m_xScale.bandwidth() / 2;
+      })
+      .attr("cy", function () {
+        return m_yScale(change_distance[labelToClass[x_labels[i]]]);
+      })
+      .style("stroke", "#000")
+      .attr("fill", () => palette[labelToClass[x_labels[i]]])
+      .call(drag);
+
   }
 
+  // draw control points of kappa
+  tf.append("circle")
+    .attr("id", function () {
+      return "circle_kappa";
+    })
+    .attr("r", 10)
+    .attr("cx", function () {
+      return 0;
+    })
+    .attr("cy", function () {
+      return m_yScale(kappa);
+    })
+    .style("stroke", "#000")
+    .attr("fill", "#000")
+    .call(drag);
+  drawLine(0, m_yScale(kappa), svg_width, m_yScale(kappa), true)
+
+  function dragstarted() {
+    //d3.event.sourceEvent.stopPropagation();
+    d3.select(this).attr("stroke", "red").attr("stroke-width", 3);
+    d3.select(this).attr("cy", d3.event.y);
+  }
+
+  function dragged() {
+    d3.select(this).attr("cy", d3.event.y);
+  }
+
+  function dragended() {
+    d3.select(this).attr("stroke", "#000").attr("stroke-width", 0);
+    d3.select(this).attr("cy", d3.event.y);
+    let circle_index = this.id.split("_")[1];
+    if (circle_index == "kappa")
+      kappa = m_yScale.invert(d3.event.y)
+    else
+      change_distance[circle_index] = m_yScale.invert(d3.event.y)
+    drawTransferFunction(palette);
+  }
 
 }
 

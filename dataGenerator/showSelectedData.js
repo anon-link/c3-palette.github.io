@@ -207,13 +207,13 @@ function showAllData() {
     //     return;
     // }
     let source_datasets = [];
-    d3.text("./selected_data/" + final_data[file_count]["file_name"] + "-ref.csv", function (error, text) {
+    d3.text("./final_selected_data/" + final_data[file_count]["file_name"] + "-ref.csv", function (error, text) {
         if (error) throw error;
         let labelSet = new Set();
         loadData(text, labelSet, source_datasets);
         // downloadFile(final_data[file_count]["file_name"] + "-ref.csv", text);
 
-        d3.text("./selected_data/" + final_data[file_count]["file_name"] + "-comp.csv", function (error2, text2) {
+        d3.text("./final_selected_data/" + final_data[file_count]["file_name"] + "-comp.csv", function (error2, text2) {
             if (error2) throw error2;
             loadData(text2, labelSet, source_datasets);
             // downloadFile(final_data[file_count]["file_name"] + "-comp.csv", text2);
@@ -362,4 +362,4 @@ function addMagnitude() {
     }
     console.log(JSON.stringify(final_data_replaced));
 }
-addMagnitude()
+// addMagnitude()

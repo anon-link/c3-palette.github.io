@@ -203,7 +203,20 @@ function processScatterData(datasets) {
     xScale.domain(d3.extent(dataset, xValue));
     yScale.domain(d3.extent(dataset, yValue));
 
-    calculateAlphaShape(datasets, [[0, 0], [svg_width, svg_height]]);
+    // get cluster number for each class
+    let cluster_num = Object.keys(labelToClass).length;
+    cluster_nums = new Array(datasets.length)
+    for (let i = 0; i < datasets.length; i++) {
+        cluster_nums[i] = new Array(cluster_num).fill(0)
+        var clusters = SplitDataByClass(datasets[i], labelToClass)
+        for (let key in clusters) {
+            if (clusters[key]) {
+                cluster_nums[i][key] = clusters[key].length
+            }
+        }
+    }
+
+    calculateAlphaShapeDistance(datasets, [[0, 0], [svg_width, svg_height]]);
 
     // let points = []
     // datasets[0].forEach((element, id) => {
@@ -225,11 +238,11 @@ function processScatterData(datasets) {
     if (datasets.length > 1)
         calcChangingDistance(datasets);
     delta_change_distance = getDeltaDistance(change_distance);
-    let render_order = new RenderOrder(datasets[0], radius, svg_width, svg_height)
-    // console.log(datasets[0].length, datasets[1].length);
-    datasets[0] = render_order.orderedData
-    render_order = new RenderOrder(datasets[1], radius, svg_width, svg_height)
-    datasets[1] = render_order.orderedData
+    // let render_order = new RenderOrder(datasets[0], radius, svg_width, svg_height)
+    // // console.log(datasets[0].length, datasets[1].length);
+    // datasets[0] = render_order.orderedData
+    // render_order = new RenderOrder(datasets[1], radius, svg_width, svg_height)
+    // datasets[1] = render_order.orderedData
 
     // let cluster_num = Object.keys(labelToClass).length;
     // for (let i = 0; i < cluster_num; i++) {
