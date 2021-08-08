@@ -8,10 +8,10 @@ class C3Palette {
         this.givenPalette = palette;
 
         this.alphaShape_distance = [];
+        this.non_separability_weights = [];
         this.change_distance = []
-        this.delta_change_distance = []
         this.initial_scores = [-1, -1]
-        this.kappa = [0, 1]
+        this.kappa = 0
     }
 
     get run() {
@@ -35,17 +35,15 @@ class C3Palette {
         xScale.domain(d3.extent(dataset, xValue));
         yScale.domain(d3.extent(dataset, yValue));
 
-        this.alphaShape_distance = this.calculateAlphaShape(this.data, [[0, 0], [this.width, this.height]], xMap, yMap);
+        this.calculateAlphaShape(this.data, [[0, 0], [this.width, this.height]], xMap, yMap);
         this.change_distance = this.calcChangingDistance(xMap, yMap);
-        this.delta_change_distance = this.getDeltaDistance(this.change_distance);
         for (let i = 0; i < this.classNumber; i++) {
             for (let j = 0; j < this.classNumber; j++) {
                 if (i === j) continue;
-                this.alphaShape_distance[i][j] *= Math.exp(this.change_distance[i]) / this.classNumber;
+                this.alphaShape_distance[i][j] *= Math.exp(this.change_distance[i]);
             }
-            this.delta_change_distance[i] /= this.classNumber;
         }
-        console.log(this.alphaShape_distance, this.change_distance, this.delta_change_distance);
+        console.log(this.change_distance);
 
         let colors_scope = { "hue_scope": [0, 360], "lumi_scope": [35, 95] };
         let best_color;
@@ -71,11 +69,16 @@ class C3Palette {
      * extent is like: [[30, 30], [width - 30, height - 30]]
      */
     calculateAlphaShape(datasets, extent, xMap, yMap) {
-        let alphaShape_distance = new Array(this.classNumber);
-        for (let i = 0; i < this.classNumber; i++) {
-            alphaShape_distance[i] = new Array(this.classNumber).fill(0);
+        let cluster_num = this.classNumber;
+        this.alphaShape_distance = new Array(cluster_num);
+        for (let i = 0; i < cluster_num; i++) {
+            this.alphaShape_distance[i] = new Array(cluster_num).fill(0);
         }
+        let non_separability_weights_tmp = new Array(cluster_num).fill(0);
+        non_separability_weights = new Array(cluster_num).fill(0);
         for (let m = 0; m < datasets.length; m++) {
+            // xScale.domain(d3.extent(datasets[m], xValue));
+            // yScale.domain(d3.extent(datasets[m], yValue));
             let voronoi = d3.voronoi().x(function (d) { return xMap(d); }).y(function (d) { return yMap(d); })
                 .extent(extent);
             let diagram = voronoi(datasets[m]);
@@ -86,6 +89,7 @@ class C3Palette {
                 if (cell === undefined) continue;
                 let label = labelToClass[cell.site.data.label];
                 // console.log(cell.halfedges);
+                let stat = [0, 0];
                 cell.halfedges.forEach(function (e) {
                     let edge = diagram.edges[e];
                     let ea = edge.left;
@@ -94,34 +98,46 @@ class C3Palette {
                     }
                     if (ea) {
                         let ea_label = labelToClass[ea.data.label];
-                        if (label != ea_label) {
-                            let dx, dy, dist;
-                            dx = cell.site[0] - ea[0];
-                            dy = cell.site[1] - ea[1];
-                            dist = Math.sqrt(dx * dx + dy * dy);
-                            if (alpha > dist) {
+                        let dx, dy, dist;
+                        dx = cell.site[0] - ea[0];
+                        dy = cell.site[1] - ea[1];
+                        dist = Math.sqrt(dx * dx + dy * dy);
+                        dist = inverseFunc(dist) / cell.halfedges.length
+                        if (alpha > dist) {
+                            if (label != ea_label) {
                                 if (distanceDict[label] === undefined)
                                     distanceDict[label] = {};
                                 if (distanceDict[label][ea_label] === undefined)
                                     distanceDict[label][ea_label] = [];
-                                distanceDict[label][ea_label].push(inverseFunc(dist) / cell.halfedges.length);
+                                distanceDict[label][ea_label].push(dist);
+                                stat[0] += dist;
+                            } else {
+                                stat[1] += dist;
                             }
                         }
                     }
                 });
+                non_separability_weights_tmp[label] += (stat[0] - stat[1]);
             }
-            console.log("distanceDict:", distanceDict);
+            // console.log("distanceDict:", distanceDict);
 
             for (var i in distanceDict) {
                 for (var j in distanceDict[i]) {
                     i = +i, j = +j;
-                    alphaShape_distance[i][j] += d3.sum(distanceDict[i][j]);
+                    this.alphaShape_distance[i][j] += d3.sum(distanceDict[i][j]) / Math.pow(cluster_nums[m][i], 2);
                 }
             }
+            for (let i = 0; i < cluster_num; i++) {
+                this.non_separability_weights[i] += non_separability_weights_tmp[i] / Math.pow(cluster_nums[m][i], 2);
+            }
         }
-        console.log("alphaShape_distance:", alphaShape_distance);
 
-        return alphaShape_distance;
+        for (let i = 0; i < cluster_num; i++) {
+            this.non_separability_weights[i] = Math.exp(this.non_separability_weights[i]);
+        }
+        console.log("alphaShape_distance:", this.alphaShape_distance);
+        console.log("non_separability_weights:", this.non_separability_weights);
+
     }
 
     SplitDataByClass(data, xMap, yMap) {
@@ -181,9 +197,7 @@ class C3Palette {
         // console.log(change_distance.slice());
         //normalize change_distance
         let change_distance_scale = d3.extent(change_distance);
-        if (change_distance_scale[0] > 0) {
-            change_distance_scale[0] = 0;
-        }
+        change_distance_scale[0] = 0;
         for (let i = 0; i < change_distance.length; i++) {
             change_distance[i] = (change_distance[i] - change_distance_scale[0]) / (change_distance_scale[1] - change_distance_scale[0] + 0.000000001);
         }
@@ -226,18 +240,25 @@ class C3Palette {
                 if (i === j) continue;
                 tmp_pd += this.alphaShape_distance[i][j] * color_dis[i][j];
             }
-            tmp_cb += this.delta_change_distance[i] * bg_contrast_array[i];
+            if (change_distance[i] > kappa)
+                tmp_cb += this.non_separability_weights[i] * bg_contrast_array[i];
+            else
+                tmp_cb -= this.non_separability_weights[i] * bg_contrast_array[i];
         }
-        if (this.initial_scores[0] === -1) {
-            this.initial_scores[0] = tmp_pd;
-            this.initial_scores[1] = tmp_cb;
+        if (initial_scores[0] === -1) {
+            initial_scores[0] = tmp_pd;
+            initial_scores[1] = tmp_cb;
+            console.log(initial_scores);
         }
-        cosaliency_score = (1 - this.weights[0]) * tmp_pd / this.initial_scores[0] + this.weights[0] * tmp_cb / Math.abs(this.initial_scores[1]);
+        let lam = 0.6;
+        cosaliency_score = (1 - lam) * tmp_pd / initial_scores[0] + lam * tmp_cb / Math.abs(initial_scores[1]);
+        // console.log(tmp_pd / initial_scores[0], tmp_cb / Math.abs(initial_scores[1]), cosaliency_score);
         name_difference /= p.length * (p.length - 1) * 0.25;
         color_discrimination_constraint *= 0.1;
         // console.log(cosaliency_score, name_difference, color_discrimination_constraint);
 
-        return cosaliency_score + this.weights[1] * name_difference + this.weights[2] * color_discrimination_constraint;
+        return this.weights[0] * cosaliency_score + this.weights[1] * name_difference + this.weights[2] * color_discrimination_constraint;
+
     }
 
     doColorAssignment(palette, class_number) {
