@@ -5,3 +5,5 @@ user-study-website/__pycache__
 user-study-website/results
 .DS_Store
 dataGenerator/time-series
+user-study-website/static/data/raw-prev
+dataGenerator/raw

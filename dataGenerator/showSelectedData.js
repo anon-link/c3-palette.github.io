@@ -94,12 +94,12 @@ function calcOneTrial() {
     console.log(file_count);
     trials_data = guide_data
     let source_datasets = [];
-    d3.text("./selected_data/" + trials_data[file_count]["file_name"] + "-ref.csv", function (error, text) {
+    d3.text("./raw/" + trials_data[file_count]["file_name"] + "-ref.csv", function (error, text) {
         if (error) throw error;
         let labelSet = new Set();
         loadData(text, labelSet, source_datasets);
 
-        d3.text("./selected_data/" + trials_data[file_count]["file_name"] + "-comp.csv", function (error2, text2) {
+        d3.text("./raw/" + trials_data[file_count]["file_name"] + "-comp.csv", function (error2, text2) {
             if (error2) throw error2;
             loadData(text2, labelSet, source_datasets);
             labelToClass = getLabelToClassMapping(labelSet);
@@ -108,7 +108,7 @@ function calcOneTrial() {
             cloneTheDiv(file_count)
             reorderData(trials_data[file_count]["change_info"], cluster_num, source_datasets)
 
-            trials_data[file_count]["options"] = new Array(5);
+            trials_data[file_count]["options"] = new Array(6);
             trials_data[file_count]["options"][0] = generateRandomAssignment();
             drawScatterplot(source_datasets[0], "Random Assignment", trials_data[file_count]["options"][0]);
             drawScatterplot(source_datasets[1], "Random Assignment", trials_data[file_count]["options"][0]);
@@ -128,18 +128,19 @@ function calcOneTrial() {
 
             // alpha blending
             generateAlphaBlending(trials_data[file_count]["options"][1], source_datasets, "Alpha Blending", change_info)
+            trials_data[file_count]["options"][2] = trials_data[file_count]["options"][1].slice()
 
-            trials_data[file_count]["options"][2] = generateC3PaletteAssignment(source_datasets)
+            trials_data[file_count]["options"][3] = generateC3PaletteAssignment(source_datasets)
             drawScatterplot(source_datasets[0], "C3-Palette Assignment", trials_data[file_count]["options"][2]);
             drawScatterplot(source_datasets[1], "C3-Palette Assignment", trials_data[file_count]["options"][2]);
             // console.log("C3-Palette Assignment");
 
-            trials_data[file_count]["options"][3] = convert2Hex(generatePalettailor(source_datasets));
+            trials_data[file_count]["options"][4] = convert2Hex(generatePalettailor(source_datasets));
             drawScatterplot(source_datasets[0], "Palettailor", trials_data[file_count]["options"][3]);
             drawScatterplot(source_datasets[1], "Palettailor", trials_data[file_count]["options"][3]);
             // console.log("Palettailor");
 
-            trials_data[file_count]["options"][4] = convert2Hex(generateC3PaletteGeneration(source_datasets));
+            trials_data[file_count]["options"][5] = convert2Hex(generateC3PaletteGeneration(source_datasets));
             drawScatterplot(source_datasets[0], "C3-Palette Generation", trials_data[file_count]["options"][4]);
             drawScatterplot(source_datasets[1], "C3-Palette Generation", trials_data[file_count]["options"][4]);
             // console.log("C3-Palette Generation");
@@ -154,7 +155,7 @@ function calcOneTrial() {
 
     });
 }
-// calcOneTrial()
+calcOneTrial()
 
 if (false) {
     console.log(trials_data.length);

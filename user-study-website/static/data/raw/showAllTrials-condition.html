@@ -646,26 +646,26 @@
             return mean_class_visibility;
         }
 
-        function saveTable(data) {
-            // source_data.push([final_reference_data, final_comparative_data])
-            let str = "Random 10, Random 20, Optimized Tableau, Ours 10, Ours 20, Ours Generation\n";
-            for (let i = 0; i < data.length; i++) {
-                for (let j = 0; j < data[i].length; j += 2) {
-                    let score = (data[i][j] + data[i][j + 1]) / 2;
-                    str += score.toFixed(2) + ",";
-                }
-                str += "\n";
-            }
-            downloadFile("classVisibilty.csv", str);
-        }
-        function downloadFile(fileName, content) {
-            var aTag = document.createElement('a');
-            var blob = new Blob(['\ufeff' + content], { type: "text/csv" });
-            aTag.download = fileName;
-            aTag.href = URL.createObjectURL(blob);
-            aTag.click();
-            URL.revokeObjectURL(blob);
-        }
+        // function saveTable(data) {
+        //     // source_data.push([final_reference_data, final_comparative_data])
+        //     let str = "Random 10, Random 20, Optimized Tableau, Ours 10, Ours 20, Ours Generation\n";
+        //     for (let i = 0; i < data.length; i++) {
+        //         for (let j = 0; j < data[i].length; j += 2) {
+        //             let score = (data[i][j] + data[i][j + 1]) / 2;
+        //             str += score.toFixed(2) + ",";
+        //         }
+        //         str += "\n";
+        //     }
+        //     downloadFile("classVisibilty.csv", str);
+        // }
+        // function downloadFile(fileName, content) {
+        //     var aTag = document.createElement('a');
+        //     var blob = new Blob(['\ufeff' + content], { type: "text/csv" });
+        //     aTag.download = fileName;
+        //     aTag.href = URL.createObjectURL(blob);
+        //     aTag.click();
+        //     URL.revokeObjectURL(blob);
+        // }
     </script>
 </body>
 
