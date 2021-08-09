@@ -10,6 +10,7 @@ class C3Palette {
         this.alphaShape_distance = [];
         this.non_separability_weights = [];
         this.change_distance = []
+        this.cluster_nums = null
         this.initial_scores = [-1, -1]
         this.kappa = 0
     }
@@ -34,6 +35,16 @@ class C3Palette {
         }
         xScale.domain(d3.extent(dataset, xValue));
         yScale.domain(d3.extent(dataset, yValue));
+        this.cluster_nums = new Array(this.data.length)
+        for (let i = 0; i < this.data.length; i++) {
+            this.cluster_nums[i] = new Array(this.classNumber).fill(0)
+            var clusters = this.SplitDataByClass(this.data[i], xMap, yMap)
+            for (let key in clusters) {
+                if (clusters[key]) {
+                    this.cluster_nums[i][key] = clusters[key].length
+                }
+            }
+        }
 
         this.calculateAlphaShape(this.data, [[0, 0], [this.width, this.height]], xMap, yMap);
         this.change_distance = this.calcChangingDistance(xMap, yMap);
@@ -75,7 +86,7 @@ class C3Palette {
             this.alphaShape_distance[i] = new Array(cluster_num).fill(0);
         }
         let non_separability_weights_tmp = new Array(cluster_num).fill(0);
-        non_separability_weights = new Array(cluster_num).fill(0);
+        this.non_separability_weights = new Array(cluster_num).fill(0);
         for (let m = 0; m < datasets.length; m++) {
             // xScale.domain(d3.extent(datasets[m], xValue));
             // yScale.domain(d3.extent(datasets[m], yValue));
@@ -124,11 +135,11 @@ class C3Palette {
             for (var i in distanceDict) {
                 for (var j in distanceDict[i]) {
                     i = +i, j = +j;
-                    this.alphaShape_distance[i][j] += d3.sum(distanceDict[i][j]) / Math.pow(cluster_nums[m][i], 2);
+                    this.alphaShape_distance[i][j] += d3.sum(distanceDict[i][j]) / Math.pow(this.cluster_nums[m][i], 2);
                 }
             }
             for (let i = 0; i < cluster_num; i++) {
-                this.non_separability_weights[i] += non_separability_weights_tmp[i] / Math.pow(cluster_nums[m][i], 2);
+                this.non_separability_weights[i] += non_separability_weights_tmp[i] / Math.pow(this.cluster_nums[m][i], 2);
             }
         }
 
@@ -240,19 +251,19 @@ class C3Palette {
                 if (i === j) continue;
                 tmp_pd += this.alphaShape_distance[i][j] * color_dis[i][j];
             }
-            if (change_distance[i] > kappa)
+            if (this.change_distance[i] > this.kappa)
                 tmp_cb += this.non_separability_weights[i] * bg_contrast_array[i];
             else
                 tmp_cb -= this.non_separability_weights[i] * bg_contrast_array[i];
         }
-        if (initial_scores[0] === -1) {
-            initial_scores[0] = tmp_pd;
-            initial_scores[1] = tmp_cb;
-            console.log(initial_scores);
+        if (this.initial_scores[0] === -1) {
+            this.initial_scores[0] = tmp_pd;
+            this.initial_scores[1] = tmp_cb;
+            console.log(this.initial_scores);
         }
-        let lam = 0.6;
-        cosaliency_score = (1 - lam) * tmp_pd / initial_scores[0] + lam * tmp_cb / Math.abs(initial_scores[1]);
-        // console.log(tmp_pd / initial_scores[0], tmp_cb / Math.abs(initial_scores[1]), cosaliency_score);
+        let lam = 0.4;
+        cosaliency_score = lam * tmp_pd / this.initial_scores[0] + (1 - lam) * tmp_cb / Math.abs(this.initial_scores[1]);
+        // console.log(tmp_pd / this.initial_scores[0], tmp_cb / Math.abs(this.initial_scores[1]), cosaliency_score);
         name_difference /= p.length * (p.length - 1) * 0.25;
         color_discrimination_constraint *= 0.1;
         // console.log(cosaliency_score, name_difference, color_discrimination_constraint);

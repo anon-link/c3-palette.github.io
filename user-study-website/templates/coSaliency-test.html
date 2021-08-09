@@ -147,11 +147,10 @@
     <script>
         trial_data = {{ trialData | safe }};
         changeInfo = trial_data["change_info"];
-        // document.getElementById("change_info_label").innerHTML = "Please find the <b style='color: red;'>3</b> changed clusters as accurately as possible."
-        // if (changeInfo.length === 1)
-        //     document.getElementById("change_info_label").innerHTML = "Please find the <b style='color: red;'>1</b> changed clusters as accurately as possible."
+        document.getElementById("change_info_label").innerHTML = "In this trial, <b style='color: red;'>" + changeInfo.length + " clusters</b> have been changed. Please find them as accurately as possible."
         if (changeInfo.length === 1)
             document.getElementById("change_info_label").innerHTML = "In this trial, <b style='color: red;'>1 cluster</b> has been changed. Please find it as accurately as possible."
+
         bgcolor = "#fff";
         test_id = {{ test_id | safe }};
         options = trial_data["options"];
@@ -195,8 +194,8 @@
                 if (trial_data["assignmentId"] === 2) {
                     sign = true;
                 }
-				ref_data = reorderData(changeInfo, labelSet.size, ref_data)
-				comp_data = reorderData(changeInfo, labelSet.size, comp_data)
+                ref_data = reorderData(changeInfo, labelSet.size, ref_data)
+                comp_data = reorderData(changeInfo, labelSet.size, comp_data)
                 drawScatterplot(ref_data, used_palette, 0, changeInfo, sign);
                 drawScatterplot(comp_data, used_palette, 0, changeInfo, sign);
 

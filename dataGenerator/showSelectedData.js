@@ -63,7 +63,7 @@ function generateAlphaBlending(optimized_palette, source_datasets, svgText, chan
 }
 
 function generateC3PaletteAssignment(source_datasets) {
-    let weights = [0.8, 0, 0]
+    let weights = [1, 0, 0]
     let cluster_num = Object.keys(labelToClass).length;
     let c3palette = new C3Palette(source_datasets, cluster_num, weights, width, height, used_palette)
     let palette = c3palette.run;
@@ -81,7 +81,7 @@ function generatePalettailor(source_datasets) {
 
 function generateC3PaletteGeneration(source_datasets) {
 
-    let weights = [0.8, 0.5, 0.25]
+    let weights = [1, 1, 1]
     let cluster_num = Object.keys(labelToClass).length;
     let c3palette = new C3Palette(source_datasets, cluster_num, weights, width, height)
     let palette = c3palette.run;
@@ -92,7 +92,7 @@ function generateC3PaletteGeneration(source_datasets) {
 file_count = 0;
 function calcOneTrial() {
     console.log(file_count);
-    trials_data = guide_data
+    // trials_data = guide_data
     let source_datasets = [];
     d3.text("./raw/" + trials_data[file_count]["file_name"] + "-ref.csv", function (error, text) {
         if (error) throw error;
@@ -131,18 +131,18 @@ function calcOneTrial() {
             trials_data[file_count]["options"][2] = trials_data[file_count]["options"][1].slice()
 
             trials_data[file_count]["options"][3] = generateC3PaletteAssignment(source_datasets)
-            drawScatterplot(source_datasets[0], "C3-Palette Assignment", trials_data[file_count]["options"][2]);
-            drawScatterplot(source_datasets[1], "C3-Palette Assignment", trials_data[file_count]["options"][2]);
+            drawScatterplot(source_datasets[0], "C3-Palette Assignment", trials_data[file_count]["options"][3]);
+            drawScatterplot(source_datasets[1], "C3-Palette Assignment", trials_data[file_count]["options"][3]);
             // console.log("C3-Palette Assignment");
 
             trials_data[file_count]["options"][4] = convert2Hex(generatePalettailor(source_datasets));
-            drawScatterplot(source_datasets[0], "Palettailor", trials_data[file_count]["options"][3]);
-            drawScatterplot(source_datasets[1], "Palettailor", trials_data[file_count]["options"][3]);
+            drawScatterplot(source_datasets[0], "Palettailor", trials_data[file_count]["options"][4]);
+            drawScatterplot(source_datasets[1], "Palettailor", trials_data[file_count]["options"][4]);
             // console.log("Palettailor");
 
             trials_data[file_count]["options"][5] = convert2Hex(generateC3PaletteGeneration(source_datasets));
-            drawScatterplot(source_datasets[0], "C3-Palette Generation", trials_data[file_count]["options"][4]);
-            drawScatterplot(source_datasets[1], "C3-Palette Generation", trials_data[file_count]["options"][4]);
+            drawScatterplot(source_datasets[0], "C3-Palette Generation", trials_data[file_count]["options"][5]);
+            drawScatterplot(source_datasets[1], "C3-Palette Generation", trials_data[file_count]["options"][5]);
             // console.log("C3-Palette Generation");
 
             if (file_count < trials_data.length - 1) {
@@ -155,7 +155,7 @@ function calcOneTrial() {
 
     });
 }
-calcOneTrial()
+// calcOneTrial()
 
 if (false) {
     console.log(trials_data.length);
@@ -265,18 +265,20 @@ function showAllData() {
     });
 }
 // showAllData()
-console.log(final_data.length);
+// console.log(final_data.length);
 
 function checkTmp() {
     let source_datasets = [];
+    final_data = trials_data
     let file_count_tmp = replaced_palette[file_count][0]
-    final_data[file_count_tmp]["options"][4] = replaced_palette[file_count][2]
-    d3.text("./selected_data/" + final_data[file_count_tmp]["file_name"] + "-ref.csv", function (error, text) {
+    final_data[file_count_tmp]["options"][replaced_palette[file_count][1]] = replaced_palette[file_count][2]
+    let condition_names = ["", "", "", "C3-Palette Assignment", "", "C3-Palette Generation"]
+    d3.text("./raw/" + final_data[file_count_tmp]["file_name"] + "-ref.csv", function (error, text) {
         if (error) throw error;
         let labelSet = new Set();
         loadData(text, labelSet, source_datasets);
 
-        d3.text("./selected_data/" + final_data[file_count_tmp]["file_name"] + "-comp.csv", function (error2, text2) {
+        d3.text("./raw/" + final_data[file_count_tmp]["file_name"] + "-comp.csv", function (error2, text2) {
             if (error2) throw error2;
             loadData(text2, labelSet, source_datasets);
             labelToClass = getLabelToClassMapping(labelSet);
@@ -289,16 +291,17 @@ function checkTmp() {
             var dataForm = "";
             let change_info = final_data[file_count_tmp]["change_info"];
             for (let i = 0; i < change_info.length; i++) {
-                dataForm += "<tr style='background-color:" + final_data[file_count_tmp]["options"][0][change_info[i]["cluster_id"]] + "\'><td>" + final_data[file_count_tmp]["change_size"] + "</td><td>" + change_info[i]["cluster_type"] + "</td><td>" + final_data[file_count_tmp]["change_type"] + "</td></tr>";
+                dataForm += "<tr style='background-color:" + final_data[file_count_tmp]["options"][replaced_palette[file_count][1]][change_info[i]["cluster_id"]] + "\'><td>" + final_data[file_count_tmp]["change_size"] + "</td><td>" + change_info[i]["cluster_type"] + "</td><td>" + final_data[file_count_tmp]["change_type"] + "</td></tr>";
             }
-            d3.select("#renderDiv-" + file_count + " #tableCaption").text(file_count_tmp + " - " + final_data[file_count_tmp]["file_name"])
+            d3.select("#renderDiv-" + file_count + " #tableCaption").text(file_count + "-" + file_count_tmp + " - " + final_data[file_count_tmp]["file_name"])
             d3.select("#renderDiv-" + file_count + " #changeInfoLabel").html(dataForm)
 
-            drawScatterplot(source_datasets[0], "C3-Palette Generation", replaced_palette[file_count][2]);
-            drawScatterplot(source_datasets[1], "C3-Palette Generation", replaced_palette[file_count][2]);
+            drawScatterplot(source_datasets[0], condition_names[replaced_palette[file_count][1]], replaced_palette[file_count][2]);
+            drawScatterplot(source_datasets[1], condition_names[replaced_palette[file_count][1]], replaced_palette[file_count][2]);
             // console.log("C3-Palette Generation");
 
-            if (file_count_tmp < final_data.length - 1) {
+            if (file_count < replaced_palette.length - 1) {
+                console.log(file_count);
                 file_count++;
                 checkTmp();
             } else {
@@ -315,12 +318,12 @@ function checkTmp() {
 function showTrainingData() {
     let source_datasets = [];
     final_data = training_data
-    d3.text("./selected_data/" + final_data[file_count]["file_name"] + "-ref.csv", function (error, text) {
+    d3.text("./raw/" + final_data[file_count]["file_name"] + "-ref.csv", function (error, text) {
         if (error) throw error;
         let labelSet = new Set();
         loadData(text, labelSet, source_datasets);
 
-        d3.text("./selected_data/" + final_data[file_count]["file_name"] + "-comp.csv", function (error2, text2) {
+        d3.text("./raw/" + final_data[file_count]["file_name"] + "-comp.csv", function (error2, text2) {
             if (error2) throw error2;
             loadData(text2, labelSet, source_datasets);
             labelToClass = getLabelToClassMapping(labelSet);
@@ -364,3 +367,117 @@ function addMagnitude() {
     console.log(JSON.stringify(final_data_replaced));
 }
 // addMagnitude()
+
+let distractor_data_removed = [
+    [0, [3, 7]],
+    [1, [4, 3]],
+    [2, [7, 1]],
+    [3, [4, 0]]
+]
+function showDistractorData() {
+    let source_datasets = [];
+    final_data = distractors_data
+    d3.text("./raw/" + final_data[file_count]["file_name"] + "-ref.csv", function (error, text) {
+        if (error) throw error;
+        let labelSet = new Set();
+        loadData(text, labelSet, source_datasets);
+
+        d3.text("./raw/" + final_data[file_count]["file_name"] + "-comp.csv", function (error2, text2) {
+            if (error2) throw error2;
+            loadData(text2, labelSet, source_datasets);
+            labelToClass = getLabelToClassMapping(labelSet);
+            let cluster_num = Object.keys(labelToClass).length;
+
+            cloneTheDiv(file_count)
+            reorderData(final_data[file_count]["change_info"], cluster_num, source_datasets)
+
+            drawScatterplot(source_datasets[0], "d-"+file_count, final_data[file_count]["options"][3]);
+            drawScatterplot(source_datasets[1], "d-"+file_count, final_data[file_count]["options"][3]);
+
+            // generate new data
+
+            // split data to clusters
+            let ref = splitData2Clusters_m(source_datasets[0]),
+                comp = splitData2Clusters_m(source_datasets[1])
+
+            let changed_ref = [], changed_comp = []
+            // save to file
+            let class_count = 0;
+            let palette = []
+            for (let d in ref) {
+                if (distractor_data_removed[file_count][1].indexOf(+d) === -1) {
+                    for (let dd of ref[d]) {
+                        changed_ref.push({
+                            "x": dd.x,
+                            "y": dd.y,
+                            "label": class_count
+                        })
+                    }
+                    palette.push(final_data[file_count]["options"][3][d])
+                    class_count++
+                }
+            }
+            saveTable_m(changed_ref, final_data[file_count]["file_name"] + "-ref.csv")
+            class_count = 0;
+            for (let d in comp) {
+                if (distractor_data_removed[file_count][1].indexOf(+d) === -1) {
+                    for (let dd of comp[d]) {
+                        changed_comp.push({
+                            "x": dd.x,
+                            "y": dd.y,
+                            "label": class_count
+                        })
+                    }
+                    class_count++
+                }
+            }
+            saveTable_m(changed_comp, final_data[file_count]["file_name"] + "-comp.csv")
+            final_data[file_count]["options"][3] = palette
+
+            drawScatterplot(changed_ref, "c-"+file_count, final_data[file_count]["options"][3]);
+            drawScatterplot(changed_comp, "c-"+file_count, final_data[file_count]["options"][3]);
+
+            if (file_count < final_data.length - 1) {
+                file_count++;
+                showDistractorData();
+            } else {
+                console.log(final_data.length);
+                console.log(JSON.stringify(final_data));
+            }
+        });
+
+    });
+}
+
+function splitData2Clusters_m(data) {
+    var clusters = {};
+    for (let d of data) {
+        if (clusters[d.label] == undefined)
+            clusters[d.label] = [];
+        clusters[d.label].push(d);
+    }
+    return clusters;
+}
+function saveTable_m(data, name) {
+    let str = "";
+    for (let i = 0; i < data.length; i++) {
+        str += data[i].x;
+        str += ",";
+        str += data[i].y;
+        str += ",";
+        str += data[i].label;
+        str += "\n";
+    }
+    downloadFile_m(name, str);
+}
+
+function downloadFile_m(fileName, content) {
+    var aTag = document.createElement('a');
+    var blob = new Blob(['\ufeff' + content], { type: "text/csv" });
+    aTag.download = fileName;
+    aTag.href = URL.createObjectURL(blob);
+    aTag.click();
+    URL.revokeObjectURL(blob);
+}
+
+showDistractorData()

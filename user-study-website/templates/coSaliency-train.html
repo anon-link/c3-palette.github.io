@@ -91,6 +91,10 @@
 		trial_data = {{ trialData | safe }};
 		// console.log(trial_data);
 		changeInfo = trial_data["change_info"];
+		document.getElementById("change_info_label").innerHTML = "In this trial, <b style='color: red;'>" + changeInfo.length + " clusters</b> have been changed. Please find them as accurately as possible."
+		if (changeInfo.length === 1)
+			document.getElementById("change_info_label").innerHTML = "In this trial, <b style='color: red;'>1 cluster</b> has been changed. Please find it as accurately as possible."
+
 		let used_palette = trial_data["options"];
 
 		let correct_result = [];

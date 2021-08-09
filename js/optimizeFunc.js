@@ -51,6 +51,7 @@ function doColorization() {
         changeSlider("slider_2", 25)
     }
     let best_color, best_color_array = new Array(1);
+    initial_scores = [-1, -1]
 
     if (generation_mode && color_names_checked.length === 0) {
         // get current palette
@@ -881,8 +882,7 @@ function getPaletteScore(p) {
         initial_scores[1] = tmp_cb;
         console.log(initial_scores);
     }
-    let lam = 0.6;
-    cosaliency_score = (1 - lam) * tmp_pd / initial_scores[0] + lam * tmp_cb / Math.abs(initial_scores[1]);
+    cosaliency_score = cosaliency_lambda * tmp_pd / initial_scores[0] + (1 - cosaliency_lambda) * tmp_cb / Math.abs(initial_scores[1]);
     // console.log(tmp_pd / initial_scores[0], tmp_cb / Math.abs(initial_scores[1]), cosaliency_score);
     name_difference /= p.length * (p.length - 1) * 0.25;
     color_discrimination_constraint *= 0.1;

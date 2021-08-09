@@ -33,7 +33,8 @@ function changeSlider(name, value) {
       break;
     case "slider_3":
       document.getElementById("slider_3_label").innerText = label_value.toFixed(2);
-      changeAlpha(label_value);
+      // changeAlpha(label_value);
+      cosaliency_lambda = label_value
       break;
     case "slider_4":
       document.getElementById("slider_4_label").innerText = label_value.toFixed(2);
@@ -49,10 +50,10 @@ $("input[name='generationMode']").change(function () {
   if ($(this).val() === "paletteGeneration") {
     d3.select("#inputDiv").style("display", "none");
     generation_mode = 0;
-    document.getElementById("slider_1").value = 50;
-    changeSlider("slider_1", 50)
-    document.getElementById("slider_2").value = 25;
-    changeSlider("slider_2", 25)
+    document.getElementById("slider_1").value = 100;
+    changeSlider("slider_1", 100)
+    document.getElementById("slider_2").value = 100;
+    changeSlider("slider_2", 100)
   } else {
     d3.select("#inputDiv").style("display", "inline-block");
     generation_mode = 1;
