@@ -47,7 +47,7 @@
 	<div style="width: 200px;">
 		<h1>Training trials: <b>{{ training_id }}</b>/{{ training_num }}</h1>
 	</div>
-	<h1>How many different colors in these two scatterplots?</h1>
+	<h1>How many colors in these two scatterplots?</h1>
 	<div id="renderDiv" style="text-align:center;width: 100%;height:450px;">
 	</div>
 	<div id="user_study_div" style="text-align:center;">
@@ -84,6 +84,7 @@
 
 		let time_limit_interval;
 		result = [];
+		let existed_ids = []
 		// 1. loading data
 		d3.text("/static/data/raw/" + trial_data["file_name"] + "-ref.csv", function (error, text) {
 			if (error) throw error;
@@ -104,14 +105,22 @@
 				let tmp_ref = [], tmp_label = new Set()
 				for (let i = ref_data.length - 1; i >= 0; i--) {
 					tmp_label.add(ref_data[i].label)
-					if (tmp_label.size === (clusterIds.length - training_id + 2)) break;
+					if (tmp_label.size === (clusterIds.length - training_id + 2)){
+						tmp_label.delete(ref_data[i].label)
+						break;
+					} 
 					tmp_ref.splice(0, 0, ref_data[i])
+				}
+				for (let d of tmp_label.values()) {
+					existed_ids.push(+d)
 				}
 				let tmp_comp = []
 				tmp_label = new Set()
 				for (let i = comp_data.length - 1; i >= 0; i--) {
 					tmp_label.add(comp_data[i].label)
-					if (tmp_label.size === (clusterIds.length - training_id + 2)) break;
+					if (tmp_label.size === (clusterIds.length - training_id + 2)){
+						break;
+					} 
 					tmp_comp.splice(0, 0, comp_data[i])
 				}
 				ref_data = tmp_ref
@@ -136,9 +145,33 @@
 				$('#show_result').text("Incorrect Answer!" + " The correct answer is: " + clusterIds.length).css("color", "red");
 				$(this).css("border", "4px solid red");
 			}
+			showClasses()
 			$('#show_result').show();
 			$('#next_button').show();
 		});
+		function showClasses() {
+			let class_id = 1
+			let interval = setInterval(function () {
+				d3.selectAll(".dot").style("opacity", "1")
+				if (class_id === existed_ids.length + 1) {
+					clearInterval(interval)
+					return
+				}
+				for (let i = 0; i < existed_ids.length; i++) {
+					if ((class_id - 1) === i)
+						d3.selectAll("#class_" + existed_ids[i]).style("opacity", "1")
+					else
+						d3.selectAll("#class_" + existed_ids[i]).style("opacity", "0.2")
+
+				}
+				let svgs = d3.select("#renderDiv").selectAll("svg")
+				svgs.each(function () {
+					d3.select(this).selectAll("text").remove();
+					d3.select(this).append("text").attr("x", svg_margin.left * 2).attr("y", svg_margin.top * 2).style("font-size", "large").style("font-weight", "bold").text(class_id);
+				});
+				class_id++
+			}, 1000)
+		}
 	</script>
 </body>
 

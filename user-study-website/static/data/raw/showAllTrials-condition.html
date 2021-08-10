@@ -432,7 +432,7 @@
             //show data in table
             var dataForm = "";
             let options = trials_data[id]["options"][3];
-            console.log(options);
+            // console.log(options);
             for (let i = 0; i < trials_data[id]["change_info"].length; i++) {
                 dataForm += "<tr style='background-color:" + options[trials_data[id]["change_info"][i]["cluster_id"]] + "\'><td>" + magnitude_str[trials_data[id]["magnitude"]] + "</td><td>" + trials_data[id]["change_info"][i]["cluster_type"] + "</td><td>" + trials_data[id]["change_type"] + "</td></tr>";
             }

@@ -417,7 +417,7 @@ function showDistractorData() {
                     class_count++
                 }
             }
-            saveTable_m(changed_ref, final_data[file_count]["file_name"] + "-ref.csv")
+            // saveTable_m(changed_ref, final_data[file_count]["file_name"] + "-ref.csv")
             class_count = 0;
             for (let d in comp) {
                 if (distractor_data_removed[file_count][1].indexOf(+d) === -1) {
@@ -431,7 +431,7 @@ function showDistractorData() {
                     class_count++
                 }
             }
-            saveTable_m(changed_comp, final_data[file_count]["file_name"] + "-comp.csv")
+            // saveTable_m(changed_comp, final_data[file_count]["file_name"] + "-comp.csv")
             final_data[file_count]["options"][3] = palette
 
             drawScatterplot(changed_ref, "c-"+file_count, final_data[file_count]["options"][3]);

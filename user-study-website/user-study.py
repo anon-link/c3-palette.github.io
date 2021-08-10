@@ -16,7 +16,7 @@ executor = ThreadPoolExecutor(2)
 taskId = 1
 taskNames = ["coSaliency", "coSeparability"]
 
-groupId = 0  # random.randint(0, len(pairs_array)-1)
+groupId = 1  # random.randint(0, len(pairs_array)-1)
 print("group id is ", groupId)
 
 groups_trials_data = []
