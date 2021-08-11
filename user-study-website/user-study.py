@@ -13,10 +13,11 @@ from flask import Flask, request, render_template, redirect, url_for, make_respo
 app = Flask(__name__)
 executor = ThreadPoolExecutor(2)
 
-taskId = 1
+taskId = 0
 taskNames = ["coSaliency", "coSeparability"]
+print("task is ", taskNames[taskId])
 
-groupId = 1  # random.randint(0, len(pairs_array)-1)
+groupId = 0  # random.randint(0, len(pairs_array)-1)
 print("group id is ", groupId)
 
 groups_trials_data = []

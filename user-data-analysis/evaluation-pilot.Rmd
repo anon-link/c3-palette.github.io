@@ -1,0 +1,357 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: inline
+---
+# ---------------------------------------------------------
+# This is the analysis for the study, mainly contains: interaction effect, confident interval, time plot
+# ---------------------------------------------------------
+
+# Preparation
+Import packages and set global configuration variables.
+```{r eval=FALSE}
+# Load the magic package
+source('analysis.R')
+library(forcats)
+library(tidyverse)
+file_study_folder <- "./data/pilot/"
+```
+
+# Task: co-Saliency
+## Import and pre-process the user data
+```{r}
+# Get the list of files.
+file_path <- paste(file_study_folder, "", sep = "")
+filelist <- list.files(path = file_path, pattern = '*coSaliency.*?\\.csv$')
+
+# Compute data_total
+data_total <- rbind()
+total_time <- c()
+for (file in filelist) {
+  print(file)
+  # read data
+  data_temp <- read.csv(paste(file_path, file, sep = ""), header = TRUE) %>%
+    # Remove duplicated rows with extremely long time
+    filter(totalTime < 1000)
+  
+  # Remove another type of duplicated rows, if any
+  test <- data_temp %>%
+    group_by(userName, fileId, conditionId, changeMagnitude, changeType) %>%
+    summarise(count = n())
+  if(nrow(test) != nrow(data_temp)) {
+    # Print the dataframe if there're duplicated rows.
+    print(data_temp)
+    print(test)
+    data_temp <- data_temp %>%
+      group_by(userName, fileId, conditionId, changeMagnitude, changeType) %>%
+      slice(c(n())) %>%
+      ungroup()
+  }
+  xx <- strsplit(file, "-")
+  group_id <- xx[[1]][1]
+  
+  # sum the time of each user
+  total_time <- c(total_time, sum(data_temp$totalTime))
+  
+  data_temp <- data_temp %>%
+    mutate(errorTime=ifelse(userResult!=1, totalTime, 0)) %>%
+    mutate(datasetGroup = rep(as.numeric(group_id),times=nrow(data_temp)))
+  
+  # bind the data to the total data frame
+  data_total <- rbind(data_total, data_temp)
+  
+  # check each data: error rate of each condition
+  group_data <- dplyr::summarise(group_by(data_temp,conditionId, userResult),count=n(), time=sum(totalTime))
+  group_data_total <- dplyr::summarise(group_by(data_temp,conditionId),count=n(), time=sum(totalTime))
+  for(i in 1:nrow(group_data_total)){
+    x <- group_data_total[i,]
+    x1 <- group_data[group_data$conditionId==x["conditionId"][[1]] & group_data$userResult==0,]
+    if(nrow(x1)==0){
+      cat(toString(x["conditionId"][[1]]), " error rate is ", 0, ", time is ",x["time"][[1]],"\n")
+    }else{
+      cat(toString(x["conditionId"][[1]]), " error rate is ", x1["count"][[1]]/x["count"][[1]], ", time is ",x1["time"][[1]],"\n")
+    }
+  }
+  
+}
+#write.csv(data_total, paste(file_path, "statics.csv", sep = ""))
+cat("\n", "average time is ", toString(mean(total_time)/60), "min\n")
+mean_time <- (sum(total_time)-max(total_time)-min(total_time))/(length(total_time)-2)
+cat("average time (remove max and min) is ", toString(mean_time/60), "min\n")
+cat("max time is ", toString(max(total_time)), "\n")
+cat("min time is ", toString(min(total_time)), "\n")
+
+# Uncomment if want to check the trial numbers per participant.
+# temp <- data_total %>%
+#   group_by(userName) %>%
+#   summarise(trials = n()) %>%
+#   filter(trials != 30)
+
+# Compute variables like error
+data_total <- data_total %>%
+  mutate(error=ifelse(userResult!=0, 0, 1)) %>%
+  mutate(datasetId=fileId)
+
+# removing the distractors
+data_total <- data_total[data_total$conditionId!=-1, ]
+
+# Prep Plot Consistency
+data_total <- data_total %>%
+  mutate(conditionName = conditionId) %>%
+  mutate(conditionMagnitude = conditionId)
+data_total[data_total$conditionId==0, ]$conditionName <- "Random Assignment"
+data_total[data_total$conditionId==1, ]$conditionName <- "Optimized Assignment"
+data_total[data_total$conditionId==2, ]$conditionName <- "Alpha Blending"
+data_total[data_total$conditionId==3, ]$conditionName <- "C3-Palette Assignment"
+data_total[data_total$conditionId==4, ]$conditionName <- "Palettailor"
+data_total[data_total$conditionId==5, ]$conditionName <- "C3-Palette Generation"
+
+data_total <- data_total %>%
+  mutate(condition = fct_relevel(conditionName, 
+                                 "C3-Palette Generation",
+                                 "Palettailor", "C3-Palette Assignment", 
+                                 "Alpha Blending", "Optimized Assignment", "Random Assignment"))
+
+# 0 is small, 1 is medium, 2 is large
+data_total[data_total$conditionId==0 & data_total$changeMagnitude==0, ]$conditionMagnitude <- "0-Random 10"
+data_total[data_total$conditionId==0 & data_total$changeMagnitude==1, ]$conditionMagnitude <- "1-Random 10"
+data_total[data_total$conditionId==0 & data_total$changeMagnitude==2, ]$conditionMagnitude <- "2-Random 10"
+data_total[data_total$conditionId==1 & data_total$changeMagnitude==0, ]$conditionMagnitude <- "0-Random 20"
+data_total[data_total$conditionId==1 & data_total$changeMagnitude==1, ]$conditionMagnitude <- "1-Random 20"
+data_total[data_total$conditionId==1 & data_total$changeMagnitude==2, ]$conditionMagnitude <- "2-Random 20"
+data_total[data_total$conditionId==2 & data_total$changeMagnitude==0, ]$conditionMagnitude <- "0-Ours 10"
+data_total[data_total$conditionId==2 & data_total$changeMagnitude==1, ]$conditionMagnitude <- "1-Ours 10"
+data_total[data_total$conditionId==2 & data_total$changeMagnitude==2, ]$conditionMagnitude <- "2-Ours 10"
+data_total[data_total$conditionId==3 & data_total$changeMagnitude==0, ]$conditionMagnitude <- "0-Ours 20"
+data_total[data_total$conditionId==3 & data_total$changeMagnitude==1, ]$conditionMagnitude <- "1-Ours 20"
+data_total[data_total$conditionId==3 & data_total$changeMagnitude==2, ]$conditionMagnitude <- "2-Ours 20"
+data_total[data_total$conditionId==4 & data_total$changeMagnitude==0, ]$conditionMagnitude <- "0-Generation"
+data_total[data_total$conditionId==4 & data_total$changeMagnitude==1, ]$conditionMagnitude <- "1-Generation"
+data_total[data_total$conditionId==4 & data_total$changeMagnitude==2, ]$conditionMagnitude <- "2-Generation"
+
+# check which data of Ours generation is wrong
+ours_data_error <- data_total[data_total$conditionId==4 & data_total$userResult==0, ]
+
+# compute the time threshold
+data_time_correct <- data_total[data_total$userResult==1, ]
+data_time_threshold_correct <- data_total[data_total$totalTime<=30 & data_total$userResult==1, ]
+threshold <- nrow(data_time_threshold_correct)/nrow(data_time_correct)
+
+```
+
+## Check the interaction effect of Dataset x Condition
+```{r}
+data <- data_total
+
+# Model1: error ~ ... datasetGroup + paletteName ...
+model <- lm(error ~ condition + datasetGroup + condition * datasetGroup, data)
+anova(model)
+summary(model)
+
+# Model2: error ~ ... condition + magnitude ...
+model <- lm(error ~ condition + changeMagnitude + condition * changeMagnitude, data)
+anova(model)
+summary(model)
+
+# Model3: for each change type: error ~ ... condition + magnitude ...
+model <- lm(error ~ condition + changeMagnitude + condition * changeMagnitude, data[data$changeType=="shape", ])
+anova(model)
+summary(model)
+# Model3: for each change type: error ~ ... condition + magnitude ...
+model <- lm(error ~ condition + changeMagnitude + condition * changeMagnitude, data[data$changeType=="point number", ])
+anova(model)
+summary(model)
+# Model3: for each change type: error ~ ... condition + magnitude ...
+model <- lm(error ~ condition + changeMagnitude + condition * changeMagnitude, data[data$changeType=="center position", ])
+anova(model)
+summary(model)
+```
+
+
+
+## CI Plots and Statistical Tests
+```{r}
+data <- data_total
+
+# #Statistical Test Results: mu~95% CI, W, p-value, d.
+df_stat_output <- stat_table(data)
+df_stat_output
+
+
+ciplot(data, "error", "condition", "Total")
+#ciplot(data, "errorTime", "condition", "Total")
+ciplot(data, "totalTime", "condition", "Total")
+
+ciplot(data, "error", "conditionMagnitude", "Total")
+#ciplot(data, "errorTime", "conditionMagnitude", "Total")
+ciplot(data, "totalTime", "conditionMagnitude", "Total")
+#ggsave("results/counting_error_ci.pdf", width = 7, height = 4, useDingbats=FALSE)
+
+ciplot(data[data$changeType=="shape", ], "error", "condition", "shape")
+#ciplot(data[data$changeType=="shape", ], "errorTime", "condition", "shape")
+ciplot(data[data$changeType=="shape", ], "totalTime", "condition", "shape")
+
+ciplot(data[data$changeType=="point number", ], "error", "condition", "point number")
+#ciplot(data[data$changeType=="point number", ], "errorTime", "condition", "point number")
+ciplot(data[data$changeType=="point number", ], "totalTime", "condition", "point number")
+
+ciplot(data[data$changeType=="center position", ], "error", "condition", "center position")
+#ciplot(data[data$changeType=="center position", ], "errorTime", "condition", "center position")
+ciplot(data[data$changeType=="center position", ], "totalTime", "condition", "center position")
+
+
+ciplotManual(data[data$changeType=="shape", ], "error", "conditionMagnitude", "shape")
+ciplotManual(data[data$changeType=="shape", ], "totalTime", "conditionMagnitude", "shape")
+
+ciplotManual(data[data$changeType=="point number", ], "error", "conditionMagnitude", "point number")
+ciplotManual(data[data$changeType=="point number", ], "totalTime", "conditionMagnitude", "point number")
+
+ciplotManual(data[data$changeType=="center position", ], "error", "conditionMagnitude", "center position")
+ciplotManual(data[data$changeType=="center position", ], "totalTime", "conditionMagnitude", "center position")
+# 
+# # Boxplot for using time of each palette name 
+# boxplot(data, "errorTime", "condition")
+# boxplot(data, "totalTime", "condition")
+#ggsave("results/counting_time_box.pdf", useDingbats=FALSE)
+
+# 
+# library(gridExtra)
+# tt1 <- ttheme_minimal(base_colour = '#636363', base_size = 15, padding = unit(c(5, 10), "mm"))
+# #pdf("results/counting_stats.pdf", height=4, width=6)
+# grid.arrange(
+#   tableGrob(df_stat_output %>% select(-Condition), theme=tt1),
+#   nrow=1)
+# dev.off()
+
+```
+
+
+## grouped bar chart - error
+```{r}
+# define the render function
+drawGroupedBarchartError <- function(used_data, title){
+  group_data <- dplyr::summarise(group_by(used_data,changeMagnitude, condition, error),count=n())
+  group_data_total <- dplyr::summarise(group_by(used_data,changeMagnitude, condition),count=n())
+  specie <- c(rep("small" , 5) , rep("medium" , 5) , rep("large" , 5))
+  condition <- c()
+  value <- c()
+  for(i in 1:nrow(group_data_total)){
+    x <- group_data_total[i,]
+    condition <- c(condition, x["condition"][[1]])
+    #cat(row_count, x["changeMagnitude"][[1]], x["condition"][[1]], "\n")
+    x1 <- group_data[group_data$changeMagnitude==x["changeMagnitude"][[1]] & group_data$condition==x["condition"][[1]] & group_data$error==1,]
+    if(nrow(x1)==0){
+      value <- c(value, 0)
+    }else{
+      value <- c(value, x1["count"][[1]]/x["count"][[1]])
+    }
+  }
+  grouped_data <- data.frame(specie,condition,value)
+  grouped_data$specie <- factor(grouped_data$specie, levels = c("small", "medium", "large"))
+  
+  ggplot(grouped_data, aes(fill=condition, y=value, x=specie)) +
+    geom_bar(position="dodge", stat="identity") +
+    #scale_fill_manual(values = c("#4e79a7","#59a14f","#e15759")) +
+    ggtitle(paste(title, ": magnitude-condition-error")) +
+    xlab("magnitude") +
+    ylab("error")
+  
+}
+
+reference <- c("Random Tableau 10", "Random Tableau 20", "Ours Tableau 10", "Ours Tableau 20", "Ours Generation")
+data <- data_total[order(factor(data_total$condition, levels = reference)),]
+drawGroupedBarchartError(data, "Total")
+
+type_data <- data_total[data_total$changeType=="point number",]
+data <- type_data[order(factor(type_data$condition, levels = reference)),]
+drawGroupedBarchartError(data, "point number")
+
+type_data <- data_total[data_total$changeType=="shape",]
+data <- type_data[order(factor(type_data$condition, levels = reference)),]
+drawGroupedBarchartError(data, "shape")
+
+type_data <- data_total[data_total$changeType=="center position",]
+data <- type_data[order(factor(type_data$condition, levels = reference)),]
+drawGroupedBarchartError(data, "center position")
+
+```
+
+## grouped bar chart - total time
+```{r}
+# define the render function
+drawGroupedBarchartTime <- function(used_data, title){
+  group_data <- dplyr::summarise(group_by(data,changeMagnitude, condition),count=sum(totalTime))
+  specie <- c(rep("small" , 5) , rep("medium" , 5) , rep("large" , 5))
+  condition <- c()
+  value <- c()
+  for(i in 1:nrow(group_data)){
+    x <- group_data[i,]
+    condition <- c(condition, x["condition"][[1]])
+    value <- c(value, x["count"][[1]])
+  }
+  grouped_data <- data.frame(specie,condition,value)
+  grouped_data$specie <- factor(grouped_data$specie, levels = c("small", "medium", "large"))
+  
+  ggplot(grouped_data, aes(fill=condition, y=value, x=specie)) +
+    geom_bar(position="dodge", stat="identity") +
+    #scale_fill_manual(values = c("#4e79a7","#59a14f","#e15759")) +
+    ggtitle(paste(title, ": magnitude-condition-time")) +
+    xlab("magnitude") +
+    ylab("totalTime")
+}
+
+reference <- c("Random Tableau 10", "Random Tableau 20", "Ours Tableau 10", "Ours Tableau 20", "Ours Generation")
+data <- data_total[order(factor(data_total$condition, levels = reference)),]
+drawGroupedBarchartTime(data, "Total")
+
+type_data <- data_total[data_total$changeType=="point number",]
+data <- type_data[order(factor(type_data$condition, levels = reference)),]
+drawGroupedBarchartTime(data, "point number")
+
+type_data <- data_total[data_total$changeType=="shape",]
+data <- type_data[order(factor(type_data$condition, levels = reference)),]
+drawGroupedBarchartTime(data, "shape")
+
+type_data <- data_total[data_total$changeType=="center position",]
+data <- type_data[order(factor(type_data$condition, levels = reference)),]
+drawGroupedBarchartTime(data, "center position")
+
+```
+
+## Power Analysis
+### error
+```{r}
+data <- data_total[data_total$changeType=="center position", ]
+
+#error
+df1 <- data %>% 
+  filter(condition == "Ours Generation") %>% 
+  select(error) 
+df2 <- data %>%
+  filter(condition == "Random Tableau 20") %>% 
+  select(error) 
+
+abs(mean(df1$error) - mean(df2$error))
+df <- df1 %>% rbind(df2)
+
+powerAnalysisGraph(mean(df1$error), mean(df2$error), sd(df$error))
+```
+
+### Time
+```{r}
+data <- data_total#[data_total$changeType=="center position", ]
+
+#time
+df1 <- data %>% 
+  filter(condition == "Ours Generation") %>% 
+  select(totalTime) 
+df2 <- data %>%
+  filter(condition == "Random Tableau 10") %>% 
+  select(totalTime) 
+
+abs(mean(df1$totalTime) - mean(df2$totalTime))
+df <- df1 %>% rbind(df2)
+
+powerAnalysisGraph(mean(df1$totalTime), mean(df2$totalTime), sd(df$totalTime))
+```
+
