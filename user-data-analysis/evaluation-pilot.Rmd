@@ -55,7 +55,15 @@ for (file in filelist) {
   
   data_temp <- data_temp %>%
     mutate(errorTime=ifelse(userResult!=1, totalTime, 0)) %>%
+    mutate(accuracy=userResult) %>%
     mutate(datasetGroup = rep(as.numeric(group_id),times=nrow(data_temp)))
+
+  for(i in 1:nrow(data_temp)){
+    user_result <- sort(as.interger(strsplit(data_temp[i,]$clickOrder, "-")))
+    right_result <- sort(as.interger(strsplit(data_temp[i,]$rightAnswer, "-")))
+    intersect_elements <- intersect(user_result, right_result)
+    data_temp[i,]$accuracy <- nrow(intersect_elements)/nrow(right_result)
+  }
   
   # bind the data to the total data frame
   data_total <- rbind(data_total, data_temp)
@@ -112,7 +120,14 @@ data_total <- data_total %>%
                                  "Palettailor", "C3-Palette Assignment", 
                                  "Alpha Blending", "Optimized Assignment", "Random Assignment"))
 
+condition_names <- c("Random Assignment", "Optimized Assignment", "Alpha Blending", "C3-Palette Assignment", "Palettailor", "C3-Palette Generation")
 # 0 is small, 1 is medium, 2 is large
+for(i in 1:5){
+  for(j in 0:2){
+    print(condition_names[i], j)
+    data_total[data_total$conditionId==(i-1)) & data_total$changeMagnitude==j, ]$conditionMagnitude <- paste(condition_names[i], j, sep = "-")
+  }
+}
 data_total[data_total$conditionId==0 & data_total$changeMagnitude==0, ]$conditionMagnitude <- "0-Random 10"
 data_total[data_total$conditionId==0 & data_total$changeMagnitude==1, ]$conditionMagnitude <- "1-Random 10"
 data_total[data_total$conditionId==0 & data_total$changeMagnitude==2, ]$conditionMagnitude <- "2-Random 10"
@@ -130,7 +145,7 @@ data_total[data_total$conditionId==4 & data_total$changeMagnitude==1, ]$conditio
 data_total[data_total$conditionId==4 & data_total$changeMagnitude==2, ]$conditionMagnitude <- "2-Generation"
 
 # check which data of Ours generation is wrong
-ours_data_error <- data_total[data_total$conditionId==4 & data_total$userResult==0, ]
+ours_data_error <- data_total[data_total$conditionId==5 & data_total$userResult==0, ]
 
 # compute the time threshold
 data_time_correct <- data_total[data_total$userResult==1, ]
@@ -179,35 +194,30 @@ df_stat_output
 
 
 ciplot(data, "error", "condition", "Total")
+ciplot(data, "accuracy", "condition", "Total")
 #ciplot(data, "errorTime", "condition", "Total")
 ciplot(data, "totalTime", "condition", "Total")
 
 ciplot(data, "error", "conditionMagnitude", "Total")
+ciplot(data, "accuracy", "conditionMagnitude", "Total")
 #ciplot(data, "errorTime", "conditionMagnitude", "Total")
 ciplot(data, "totalTime", "conditionMagnitude", "Total")
 #ggsave("results/counting_error_ci.pdf", width = 7, height = 4, useDingbats=FALSE)
 
-ciplot(data[data$changeType=="shape", ], "error", "condition", "shape")
+ciplot(data[data$changeType=="pos", ], "error", "condition", "shape")
 #ciplot(data[data$changeType=="shape", ], "errorTime", "condition", "shape")
-ciplot(data[data$changeType=="shape", ], "totalTime", "condition", "shape")
+ciplot(data[data$changeType=="pos", ], "totalTime", "condition", "shape")
 
-ciplot(data[data$changeType=="point number", ], "error", "condition", "point number")
+ciplot(data[data$changeType=="num", ], "error", "condition", "point number")
 #ciplot(data[data$changeType=="point number", ], "errorTime", "condition", "point number")
-ciplot(data[data$changeType=="point number", ], "totalTime", "condition", "point number")
+ciplot(data[data$changeType=="num", ], "totalTime", "condition", "point number")
 
-ciplot(data[data$changeType=="center position", ], "error", "condition", "center position")
-#ciplot(data[data$changeType=="center position", ], "errorTime", "condition", "center position")
-ciplot(data[data$changeType=="center position", ], "totalTime", "condition", "center position")
+ciplotManual(data[data$changeType=="pos", ], "error", "conditionMagnitude", "shape")
+ciplotManual(data[data$changeType=="pos", ], "totalTime", "conditionMagnitude", "shape")
 
+ciplotManual(data[data$changeType=="num", ], "error", "conditionMagnitude", "point number")
+ciplotManual(data[data$changeType=="num", ], "totalTime", "conditionMagnitude", "point number")
 
-ciplotManual(data[data$changeType=="shape", ], "error", "conditionMagnitude", "shape")
-ciplotManual(data[data$changeType=="shape", ], "totalTime", "conditionMagnitude", "shape")
-
-ciplotManual(data[data$changeType=="point number", ], "error", "conditionMagnitude", "point number")
-ciplotManual(data[data$changeType=="point number", ], "totalTime", "conditionMagnitude", "point number")
-
-ciplotManual(data[data$changeType=="center position", ], "error", "conditionMagnitude", "center position")
-ciplotManual(data[data$changeType=="center position", ], "totalTime", "conditionMagnitude", "center position")
 # 
 # # Boxplot for using time of each palette name 
 # boxplot(data, "errorTime", "condition")
