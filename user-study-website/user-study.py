@@ -117,7 +117,7 @@ def consent_info():
         filename = str(groupId)+'-coSeparability_task_result-' + \
             str(request.form['workerId']) + '.csv'
         executor.submit(append_to_file, 'results/'+filename,
-                        ','.join(("userName", "fileId", "conditionId", "changeMagnitude", "userResult", "totalTime")))
+                        ','.join(("userName", "fileId", "conditionId", "changeMagnitude", "changeType", "userResult", "totalTime")))
 
     return resp
 
@@ -204,7 +204,7 @@ def write_result_to_disk2():
     trial_data = scatterplots_data[num]
 
     executor.submit(append_to_file, 'results/'+filename,
-                    ','.join((request.cookies.get('username'), str(trial_data["file_id"]), str(trial_data["assignmentId"]), str(trial_data["magnitude"]), result, total_time)))
+                    ','.join((request.cookies.get('username'), str(trial_data["file_id"]), str(trial_data["assignmentId"]), str(trial_data["magnitude"]),str(trial_data["change_type"]), result, total_time)))
 
     return url_for('experiment2', test_id=test_id+1)
 
