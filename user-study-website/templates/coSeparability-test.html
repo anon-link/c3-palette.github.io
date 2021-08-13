@@ -44,6 +44,7 @@
             color: #ccc;
             box-shadow: 0 0 0 rgba(0, 0, 0, 0.2);
             text-shadow: 0 0 0 rgba(0, 0, 0, 0.3);
+            cursor: pointer;
         }
 
         #progress_container {
@@ -83,6 +84,18 @@
             text-align: center;
             margin-left: 50%;
         }
+
+        #waitingPad {
+            display: none;
+            position: fixed;
+            z-index: 20;
+            left: 0%;
+            width: 100%;
+            height: 100%;
+            margin-left: 0px;
+            margin-top: -0px;
+            background-color: rgba(73, 72, 72, 0.8);
+        }
     </style>
     <script src="https://d3js.org/d3.v4.min.js"></script>
     <script src="/static/js/lib/jquery-3.2.1.min.js"></script>
@@ -90,6 +103,12 @@
 </head>
 
 <body>
+    <div id="waitingPad">
+        <input class="submit" id="cantFindButton" type="button" value="Too hard to count! Go to Next."
+            style="width: 400px;margin-top: 400px;" />
+        <input class="submit" id="restartButton" type="button" value="Restart this trial."
+            style="width: 300px;margin-top: 400px;margin-left:50px;" />
+    </div>
     <div>
         <div id="timerCircle">
             <span id="timerSpan" style="font-size: 20px; color: white;">60</span>
@@ -162,18 +181,9 @@
             timer_value -= 1;
             d3.select("#timerSpan").text(timer_value);
             if (timer_value <= 0) {
-                // turn to next trial
                 window.clearInterval(time_limit_interval);
-                test_time = 60;
-                var url = "/result/2",
-                    data = {
-                        test_id: test_id,
-                        total_time: test_time,
-                        result: 0
-                    };
-                $.post(url, data, function (d) {
-                    window.location.href = d;
-                });
+                // show the re-start button
+                d3.select("#waitingPad").style("display", "block");
             }
         }
 
@@ -192,6 +202,28 @@
 
         });
 
+        $("#cantFindButton").click(function (event) {
+            test_time = 60//(new Date() - start_time) / 1000;
+            var url = "/result/2",
+                data = {
+                    test_id: test_id,
+                    total_time: test_time,
+                    result: 0
+                };
+            $.post(url, data, function (d) {
+                window.location.href = d;
+            });
+
+        });
+
+        $("#restartButton").click(function (event) {
+            d3.select("#waitingPad").style("display", "none");
+            timer_value = 60
+            d3.select("#timerSpan").text(60);
+            // start timer
+            time_limit_interval = self.setInterval(clock, 1000);
+            test_time = new Date()
+        });
     </script>
 
     <script>

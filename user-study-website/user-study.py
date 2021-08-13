@@ -13,7 +13,7 @@ from flask import Flask, request, render_template, redirect, url_for, make_respo
 app = Flask(__name__)
 executor = ThreadPoolExecutor(2)
 
-taskId = 0
+taskId = 1
 taskNames = ["coSaliency", "coSeparability"]
 print("task is ", taskNames[taskId])
 

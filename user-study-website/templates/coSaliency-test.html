@@ -104,6 +104,18 @@
             text-align: center;
             margin-left: 50%;
         }
+
+        #waitingPad {
+            display: none;
+            position: fixed;
+            z-index: 20;
+            left: 0%;
+            width: 100%;
+            height: 100%;
+            margin-left: 0px;
+            margin-top: -0px;
+            background-color: rgba(73, 72, 72, 0.8);
+        }
     </style>
     <script src="https://d3js.org/d3.v4.min.js"></script>
     <script src="/static/js/lib/jquery-3.2.1.min.js"></script>
@@ -116,6 +128,10 @@
     </div> -->
 
     <!-- <p style="text-align: center; font-size: 20px;">Please find all clusters that have changed: </p> -->
+    <div id="waitingPad">
+        <input class="submit" id="restartButton" type="button" value="Restart this trial"
+            style="width: 300px;margin-top: 400px;" />
+    </div>
     <div>
         <div id="timerCircle">
             <span id="timerSpan" style="font-size: 20px; color: white;">60</span>
@@ -126,7 +142,6 @@
             <!-- Please find the <b style="color: red;">3</b> changed clusters as accurately as possible. -->
         </h1>
     </div>
-
     <div id="renderDiv" style="text-align:center;width: 100%;height:450px;">
         <div id="cover"><img src="/static/img/plus2.png" style="margin-top: 175px;width: 50px;height: 50px;"></div>
     </div>
@@ -158,8 +173,8 @@
 
         setTimeout(function () {
             d3.select("#cover").style("display", "none");
-            test_time = new Date();
-            start_time = test_time;
+            start_time = new Date();
+            test_time = start_time
         }, 1000);
 
         let used_palette = options;
@@ -200,11 +215,10 @@
                 drawScatterplot(comp_data, used_palette, 0, changeInfo, sign);
 
                 // start timer
-                test_time = new Date();
-                start_time = test_time;
+                start_time = new Date();
+                test_time = start_time
 
                 // start timer
-                test_time = new Date();
                 time_limit_interval = self.setInterval(clock, 1000);
             });
         });
@@ -213,29 +227,36 @@
             timer_value -= 1;
             d3.select("#timerSpan").text(timer_value);
             if (timer_value <= 0) {
-                // turn to next trial
-                window.clearInterval(time_limit_interval);
-                test_time = 60;
-                let result_flag = 1, click_order = [], click_time = [];
-                for (let i = 0; i < result.length; i++) {
-                    click_order.push(result[i][0])
-                    click_time.push(result[i][1])
-                    if (result_flag && correct_result.indexOf(result[i][0]) === -1) {
-                        result_flag = 0;
+                if (result.length === 0) { // stop the timer and wait for user back
+                    window.clearInterval(time_limit_interval);
+                    // show the re-start button
+                    d3.select("#waitingPad").style("display", "block");
+                } else {
+                    // turn to next trial
+                    window.clearInterval(time_limit_interval);
+                    test_time = 60;
+                    let result_flag = 1, click_order = [], click_time = [];
+                    for (let i = 0; i < result.length; i++) {
+                        click_order.push(result[i][0])
+                        click_time.push(result[i][1])
+                        if (result_flag && correct_result.indexOf(result[i][0]) === -1) {
+                            result_flag = 0;
+                        }
                     }
+                    if (correct_result.length != result.length) result_flag = 0;
+                    var url = "/result/1",
+                        data = {
+                            test_id: test_id,
+                            total_time: test_time,
+                            clickOrder: click_order.join("-"),
+                            clickTime: click_time.join("-"),
+                            result: result_flag
+                        };
+                    $.post(url, data, function (d) {
+                        window.location.href = d;
+                    });
                 }
-                if (correct_result.length != result.length) result_flag = 0;
-                var url = "/result/1",
-                    data = {
-                        test_id: test_id,
-                        total_time: test_time,
-                        clickOrder: click_order.join("-"),
-                        clickTime: click_time.join("-"),
-                        result: result_flag
-                    };
-                $.post(url, data, function (d) {
-                    window.location.href = d;
-                });
+
             } else if (timer_value <= 30) {
                 // show the can't find it button
                 d3.select("#cantFindButton").style("display", "inline-block");
@@ -244,14 +265,14 @@
 
         $("#submitButton").click(function (event) {
 
-            // if (result.length != correct_result.length) {
-            //     if (correct_result.length === 1)
-            //         alert("There's 1 cluster has been changed, please find it.")
-            //     else
-            //         alert("There're " + correct_result.length + " clusters have been changed, please find them.")
-            //     return;
-            // }
-            if (result.length === 0) return;
+            if (result.length != correct_result.length) {
+                if (correct_result.length === 1)
+                    alert("There's 1 cluster has been changed, please find it.")
+                else
+                    alert("There're " + correct_result.length + " clusters have been changed, please find them.")
+                return;
+            }
+            // if (result.length === 0) return;
             // Stop form from submitting normally
             event.preventDefault();
             test_time = (new Date() - start_time) / 1000;
@@ -300,6 +321,17 @@
                 window.location.href = d;
             });
 
+        });
+
+        $("#restartButton").click(function (event) {
+            d3.select("#waitingPad").style("display", "none");
+            d3.select("#cantFindButton").style("display", "none");
+            timer_value = 60
+            d3.select("#timerSpan").text(60);
+            // start timer
+            time_limit_interval = self.setInterval(clock, 1000);
+            start_time = new Date()
+            test_time = start_time
         });
     </script>
 

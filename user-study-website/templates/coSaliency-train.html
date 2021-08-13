@@ -139,10 +139,13 @@
 			div = d3.select("#result_div");
 			div.selectAll("span").remove();
 
-			if (result.length != correct_result.length) {
-				alert("There're " + correct_result.length + " clusters have been changed, please find them.")
-				return;
-			}
+            if (result.length != correct_result.length) {
+                if (correct_result.length === 1)
+                    alert("There's 1 cluster has been changed, please find it.")
+                else
+                    alert("There're " + correct_result.length + " clusters have been changed, please find them.")
+                return;
+            }
 			if (result.length === 0) return;
 			// Stop form from submitting normally
 			let result_flag = 1;

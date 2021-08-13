@@ -8,3 +8,6 @@ dataGenerator/time-series
 user-study-website/static/data/raw-prev
 dataGenerator/raw
 user-study-website/excute-file
+user-data-analysis/data/pilot/reject
+user-data-analysis/.RData
+user-data-analysis/.Rhistory

@@ -114,25 +114,26 @@ reportES_within <- function(data, attr, group="search_state") {
 }
 
 # Generate the result table for error in the discrimination tasks.
-stat_table <- function(data) {
+stat_table <- function(data,our_condition) {
   columns <- c("Condition", "μ~95%CI", "W", "p-value", "d")
-  conditions <- levels(data$condition) %>% rev
+  conditions <- levels(data$conditionName) %>% rev
   df_stats <- matrix("", ncol = length(columns), nrow = length(conditions)) %>% 
     data.frame() %>% 
     mutate_if(is.factor, as.character)
   names(df_stats) <- columns
   df_stats$Condition <- conditions
+
   
   for (index in 1:length(conditions)) {
     current_condition <- conditions[index]
-    sub_data_one_group <- data %>% filter(condition==current_condition)
+    sub_data_one_group <- data %>% filter(conditionName==current_condition)
     # 95%CI
     df_stats[index, "μ~95%CI"] <- reportCI(sub_data_one_group, "error")
     
-    if(current_condition != "Ours Generation") {
-      sub_data_two_groups <- data %>% filter(condition=="Ours Generation" | condition==current_condition)
+    if(current_condition != our_condition) {
+      sub_data_two_groups <- data %>% filter(conditionName==our_condition | conditionName==current_condition)
       # W test
-      wt <- wilcox.test(error ~ condition, 
+      wt <- wilcox.test(error ~ conditionName, 
                         data = sub_data_two_groups, 
                         conf.int=TRUE)
       df_stats[index, "W"] <- as.character(wt$statistic)
