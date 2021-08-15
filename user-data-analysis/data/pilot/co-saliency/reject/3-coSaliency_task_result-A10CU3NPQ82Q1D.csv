@@ -1,0 +1,44 @@
+userName,fileId,conditionId,changeMagnitude,changeType,clickOrder,clickClusterType,clickTime,userResult,rightAnswer,totalTime
+A10CU3NPQ82Q1D,0,3,2,pos,3-4,small&dense-small&sparse,9.47-16.14,1,3-4,28.519
+A10CU3NPQ82Q1D,27,0,1,num,5-3,small&sparse-0,26.16-6.92,0,5,37.389
+A10CU3NPQ82Q1D,12,3,0,pos,6-1,large&dense-0,5.63-28.44,0,6,37.55
+A10CU3NPQ82Q1D,21,0,2,num,1-2,small&sparse-0,20.58-33.48,0,1,57.553
+A10CU3NPQ82Q1D,29,2,1,num,4,small&sparse,25.65,1,4,30.523
+A10CU3NPQ82Q1D,29,2,1,num,4,small&sparse,25.65,1,4,31.562
+A10CU3NPQ82Q1D,15,0,0,pos,7-0,small&sparse-0,20.34-12.66,0,7,36.586
+A10CU3NPQ82Q1D,15,0,0,pos,7-0,small&sparse-0,20.34-12.66,0,7,37.469
+A10CU3NPQ82Q1D,60,-1,2,center position,5,small&dense,3.57,1,5,9.568
+A10CU3NPQ82Q1D,34,1,0,num,7-4-6,large&dense-0-small&sparse,23.11-1.21-1.60,0,5-7-6,29.452
+A10CU3NPQ82Q1D,34,1,0,num,7-4-6,large&dense-0-small&sparse,23.11-1.21-1.60,0,5-7-6,32.291
+A10CU3NPQ82Q1D,1,4,2,pos,2,small&sparse,12.09,1,2,19.203
+A10CU3NPQ82Q1D,20,5,2,num,4-5,small&dense-0,11.99-18.25,0,4-7,33.17
+A10CU3NPQ82Q1D,7,4,1,pos,5-3,small&sparse-large&sparse,4.77-6.52,0,5-3-7,14.937
+A10CU3NPQ82Q1D,5,2,2,pos,0-3-5,large&dense-small&sparse-0,8.42-3.72-27.76,0,0-3,42.953
+A10CU3NPQ82Q1D,10,1,1,pos,3-7,large&dense-small&dense,6.02-29.15,1,7-3,37.979
+A10CU3NPQ82Q1D,13,4,0,pos,5-7-1,large&dense-0-0,5.03-6.36-8.43,0,3-5-0,26.236
+A10CU3NPQ82Q1D,14,5,0,pos,7-2-0,large&dense-0-0,8.09-3.78-8.39,0,6-5-7,26.457
+A10CU3NPQ82Q1D,32,-1,2,shape,4,large&dense,7.67,1,4,10.183
+A10CU3NPQ82Q1D,22,1,2,num,0-7,large&sparse-small&sparse,10.94-14.48,1,0-7,27.136
+A10CU3NPQ82Q1D,62,-1,2,center position,4-1,large&dense-0,3.14-23.30,0,4,60
+A10CU3NPQ82Q1D,23,2,2,num,,0,,0,3-6-0,60
+A10CU3NPQ82Q1D,17,2,0,pos,6-4,0-0,12.57-5.95,0,0-5,20.103
+A10CU3NPQ82Q1D,8,5,1,pos,1-6,large&dense-large&sparse,1.31-3.27,1,1-6,10.399
+A10CU3NPQ82Q1D,35,2,0,num,4-7,0-0,3.12-3.29,0,6-5-0,9.033
+A10CU3NPQ82Q1D,3,0,2,pos,7-6,small&sparse-0,5.24-11.18,0,7,17.837
+A10CU3NPQ82Q1D,33,0,0,num,6-0,0-0,19.95-1.75,0,5,22.519
+A10CU3NPQ82Q1D,9,0,1,pos,1-2,small&dense-0,3.94-5.40,0,1,10.837
+A10CU3NPQ82Q1D,4,1,2,pos,3,0,4.34,0,0-2-6,7.865
+A10CU3NPQ82Q1D,3,-1,2,point number,1-4,large&dense-0,4.54-5.20,0,1,11.078
+A10CU3NPQ82Q1D,6,3,1,pos,5,0,8.29,0,2,9.987
+A10CU3NPQ82Q1D,28,1,1,num,1-2-5,0-small&sparse-small&sparse,4.46-2.07-6.12,0,0-2-5,13.901
+A10CU3NPQ82Q1D,18,3,2,num,5-7-0,small&sparse-small&dense-0,3.37-6.41-9.82,0,7-2-5,21.21
+A10CU3NPQ82Q1D,11,2,1,pos,1-5-6,small&dense-0-small&dense,1.59-0.99-1.44,0,6-1-0,7.626
+A10CU3NPQ82Q1D,30,3,0,num,3-7,0-0,2.09-0.66,0,5-0,4.624
+A10CU3NPQ82Q1D,19,4,2,num,3,small&dense,12.95,1,3,16.708
+A10CU3NPQ82Q1D,25,4,1,num,4,0,6.32,0,1-0,7.804
+A10CU3NPQ82Q1D,31,4,0,num,6-0,large&sparse-0,5.33-3.21,0,6-5,9.936
+A10CU3NPQ82Q1D,32,5,0,num,6-1,0-0,4.48-2.01,0,7,10.125
+A10CU3NPQ82Q1D,16,1,0,pos,0-1,small&dense-small&sparse,5.36-3.26,1,1-0,11.621
+A10CU3NPQ82Q1D,2,5,2,pos,4-6-0,large&sparse-small&sparse-0,4.30-8.79-4.61,0,5-4-6,19.223
+A10CU3NPQ82Q1D,26,5,1,num,2-7-5,0-0-0,1.77-1.92-1.14,0,3-4-6,8.569
+A10CU3NPQ82Q1D,24,3,1,num,7-2,0-small&dense,1.27-5.05,0,2-6,10.537

@@ -21,7 +21,7 @@ file_study_folder <- "./data/pilot/"
 ## Import and pre-process the user data
 ```{r}
 # Get the list of files.
-file_path <- paste(file_study_folder, "", sep = "")
+file_path <- paste(file_study_folder, "co-saliency", '', sep = "/")
 filelist <- list.files(path = file_path, pattern = '*coSaliency.*?\\.csv$')
 
 # Compute data_total
@@ -170,21 +170,21 @@ threshold <- nrow(data_time_threshold_correct)/nrow(data_time_correct)
 data <- data_total
 
 # Model1: error ~ ... datasetGroup + paletteName ...
-model <- lm(error ~ condition + datasetGroup + condition * datasetGroup, data)
+model <- lm(error ~ conditionName + datasetGroup + conditionName * datasetGroup, data)
 anova(model)
 summary(model)
 
 # Model2: error ~ ... condition + magnitude ...
-model <- lm(error ~ condition + changeMagnitude + condition * changeMagnitude, data)
+model <- lm(error ~ conditionName + changeMagnitude + conditionName * changeMagnitude, data)
 anova(model)
 summary(model)
 
 # Model3: for each change type: error ~ ... condition + magnitude ...
-model <- lm(error ~ condition + changeMagnitude + condition * changeMagnitude, data[data$changeType=="pos", ])
+model <- lm(error ~ conditionName + changeMagnitude + conditionName * changeMagnitude, data[data$changeType=="pos", ])
 anova(model)
 summary(model)
 # Model3: for each change type: error ~ ... condition + magnitude ...
-model <- lm(error ~ condition + changeMagnitude + condition * changeMagnitude, data[data$changeType=="num", ])
+model <- lm(error ~ conditionName + changeMagnitude + conditionName * changeMagnitude, data[data$changeType=="num", ])
 anova(model)
 summary(model)
 ```
@@ -379,6 +379,7 @@ drawGroupedBarchartTime(data, "center position")
 
 ```
 
+
 ## Power Analysis
 ### error
 ```{r}
@@ -415,11 +416,15 @@ df <- df1 %>% rbind(df2)
 
 powerAnalysisGraph(mean(df1$totalTime), mean(df2$totalTime), sd(df$totalTime))
 ```
+
+
+
+
 # Task: co-separability
 ## Import and pre-process the user data
 ```{r}
 # Get the list of files.
-file_path <- paste(file_study_folder, "", sep = "")
+file_path <- paste(file_study_folder, "co-separability", "", sep = "/")
 filelist <- list.files(path = file_path, pattern = '*coSeparability.*?\\.csv$')
 
 # Compute data_total
@@ -434,7 +439,7 @@ for (file in filelist) {
 
   # Remove another type of duplicated rows, if any
   test <- data_temp %>%
-    group_by(userName, fileId, conditionId, changeMagnitude, changeType) %>%
+    group_by(userName, fileId, conditionId, changeMagnitude) %>%
     summarise(count = n())
   if(nrow(test) != nrow(data_temp)) {
     print("------------------------")
@@ -442,7 +447,7 @@ for (file in filelist) {
     print(data_temp)
     print(test)
     data_temp <- data_temp %>%
-      group_by(userName, fileId, conditionId, changeMagnitude, changeType) %>%
+      group_by(userName, fileId, conditionId, changeMagnitude) %>%
       slice(c(n())) %>%
       ungroup()
   }
@@ -474,7 +479,7 @@ for (file in filelist) {
   # removing the distractors
   data_temp <- data_temp[data_temp$conditionId!=-1, ]
   data_temp <- data_temp %>%
-    mutate(error=ifelse(userResult!=8, 0, 1)) %>%
+    mutate(error=ifelse(userResult==8, 0, 1)) %>%
     mutate(accuracy=abs(userResult-8)) %>%
     mutate(datasetGroup = rep(as.numeric(group_id),times=nrow(data_temp)))
   
@@ -486,7 +491,7 @@ for (file in filelist) {
   group_data_total <- dplyr::summarise(group_by(data_temp,conditionId),count=n(), time=sum(totalTime))
   for(i in 1:nrow(group_data_total)){
     x <- group_data_total[i,]
-    x1 <- group_data[group_data$conditionId==x["conditionId"][[1]] & group_data$error==0,]
+    x1 <- group_data[group_data$conditionId==x["conditionId"][[1]] & group_data$error==1,]
     if(nrow(x1)==0){
       cat(toString(x["conditionId"][[1]]), " error rate is ", 0, ", time is ",x["time"][[1]],"\n")
     }else{
@@ -535,8 +540,8 @@ for(i in 1:6){
 
 
 # compute the time threshold
-data_time_correct <- data_total[data_total$userResult==1, ]
-data_time_threshold_correct <- data_total[data_total$totalTime<=30 & data_total$userResult==1, ]
+data_time_correct <- data_total[data_total$error==0, ]
+data_time_threshold_correct <- data_total[data_total$totalTime<=30 & data_total$error==0, ]
 threshold <- nrow(data_time_threshold_correct)/nrow(data_time_correct)
 cat("time threshold is ", threshold, "\n")
 
@@ -567,18 +572,38 @@ ciplotManual(data, "error", "conditionMagnitude", "Magnitude")
 ciplotManual(data, "accuracy", "conditionMagnitude", "Magnitude")
 ciplotManual(data, "totalTime", "conditionMagnitude", "Magnitude")
 #ggsave("results/counting_error_ci.pdf", width = 7, height = 4, useDingbats=FALSE)
+# 
+# ciplot(data[data$changeType=="pos", ], "error", "conditionName", "pos")
+# ciplot(data[data$changeType=="pos", ], "totalTime", "conditionName", "pos")
+# 
+# ciplot(data[data$changeType=="num", ], "error", "conditionName", "num")
+# ciplot(data[data$changeType=="num", ], "totalTime", "conditionName", "num")
+# 
+# ciplotManual(data[data$changeType=="pos", ], "error", "conditionMagnitude", "pos")
+# ciplotManual(data[data$changeType=="pos", ], "totalTime", "conditionMagnitude", "pos")
+# 
+# ciplotManual(data[data$changeType=="num", ], "error", "conditionMagnitude", "num")
+# ciplotManual(data[data$changeType=="num", ], "totalTime", "conditionMagnitude", "num")
 
-ciplot(data[data$changeType=="pos", ], "error", "conditionName", "pos")
-ciplot(data[data$changeType=="pos", ], "totalTime", "conditionName", "pos")
 
-ciplot(data[data$changeType=="num", ], "error", "conditionName", "num")
-ciplot(data[data$changeType=="num", ], "totalTime", "conditionName", "num")
-
-ciplotManual(data[data$changeType=="pos", ], "error", "conditionMagnitude", "pos")
-ciplotManual(data[data$changeType=="pos", ], "totalTime", "conditionMagnitude", "pos")
-
-ciplotManual(data[data$changeType=="num", ], "error", "conditionMagnitude", "num")
-ciplotManual(data[data$changeType=="num", ], "totalTime", "conditionMagnitude", "num")
+```
 
 
+## Power Analysis
+### error
+```{r}
+data <- data_total#[data_total$changeType=="pos", ]
+
+#error
+df1 <- data %>% 
+  filter(conditionName == "C3-Palette Generation") %>% 
+  select(error) 
+df2 <- data %>%
+  filter(conditionName == "Alpha Blending") %>% 
+  select(error) 
+
+abs(mean(df1$error) - mean(df2$error))
+df <- df1 %>% rbind(df2)
+
+powerAnalysisGraph(mean(df1$error), mean(df2$error), sd(df$error))
 ```
