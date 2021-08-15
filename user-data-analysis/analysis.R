@@ -859,4 +859,3 @@ boxplot <- function(data, y, x) {
     theme(text = element_text(size=25))
   
 }
-

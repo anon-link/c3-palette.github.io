@@ -15,6 +15,13 @@ source('analysis.R')
 library(forcats)
 library(tidyverse)
 file_study_folder <- "./data/pilot/"
+save_img_sign <- FALSE
+
+saveImg <- function(name){
+  if(save_img_sign){
+    ggsave(name, width = 10, height = 6, useDingbats=FALSE)
+  }
+}
 ```
 
 # Task: co-Saliency
@@ -244,8 +251,11 @@ data <- data_total
 
 
 ciplot(data, "error", "conditionName", "Total")
+saveImg("results/cosaliency-error-conditionName-total.pdf")
 ciplot(data, "accuracy", "conditionName", "Total")
+saveImg("results/cosaliency-accuracy-conditionName-total.pdf")
 ciplot(data, "totalTime", "conditionName", "Total")
+saveImg("results/cosaliency-totalTime-conditionName-total.pdf")
 
 
 data <- data %>%
@@ -255,21 +265,31 @@ data <- data %>%
                                  "C3-Palette Generation-2", "Palettailor-2", "C3-Palette Assignment-2", "Alpha Blending-2", "Optimized Assignment-2", "Random Assignment-2"))
 
 ciplotManual(data, "error", "conditionMagnitude", "Magnitude")
+saveImg("results/cosaliency-error-conditionMagnitude-total.pdf")
 ciplotManual(data, "accuracy", "conditionMagnitude", "Magnitude")
+saveImg("results/cosaliency-accuracy-conditionMagnitude-total.pdf")
 ciplotManual(data, "totalTime", "conditionMagnitude", "Magnitude")
-#ggsave("results/counting_error_ci.pdf", width = 7, height = 4, useDingbats=FALSE)
+saveImg("results/cosaliency-totalTime-conditionMagnitude-total.pdf")
 
 ciplot(data[data$changeType=="pos", ], "error", "conditionName", "pos")
+saveImg("results/cosaliency-error-conditionName-pos.pdf")
 ciplot(data[data$changeType=="pos", ], "totalTime", "conditionName", "pos")
+saveImg("results/cosaliency-totalTime-conditionName-pos.pdf")
 
 ciplot(data[data$changeType=="num", ], "error", "conditionName", "num")
+saveImg("results/cosaliency-error-conditionName-num.pdf")
 ciplot(data[data$changeType=="num", ], "totalTime", "conditionName", "num")
+saveImg("results/cosaliency-totalTime-conditionName-num.pdf")
 
 ciplotManual(data[data$changeType=="pos", ], "error", "conditionMagnitude", "pos")
+saveImg("results/error-conditionMagnitude-pos.pdf")
 ciplotManual(data[data$changeType=="pos", ], "totalTime", "conditionMagnitude", "pos")
+saveImg("results/cosaliency-totalTime-conditionMagnitude-pos.pdf")
 
 ciplotManual(data[data$changeType=="num", ], "error", "conditionMagnitude", "num")
+saveImg("results/cosaliency-error-conditionMagnitude-num.pdf")
 ciplotManual(data[data$changeType=="num", ], "totalTime", "conditionMagnitude", "num")
+saveImg("results/cosaliency-totalTime-conditionMagnitude-num.pdf")
 
 # 
 # # Boxplot for using time of each palette name 
@@ -397,6 +417,7 @@ abs(mean(df1$error) - mean(df2$error))
 df <- df1 %>% rbind(df2)
 
 powerAnalysisGraph(mean(df1$error), mean(df2$error), sd(df$error))
+saveImg("results/cosaliency-error-conditionName-powerAnalysis.pdf")
 ```
 
 ### Time
@@ -415,6 +436,7 @@ abs(mean(df1$totalTime) - mean(df2$totalTime))
 df <- df1 %>% rbind(df2)
 
 powerAnalysisGraph(mean(df1$totalTime), mean(df2$totalTime), sd(df$totalTime))
+saveImg("results/cosaliency-totalTime-conditionName-powerAnalysis.pdf")
 ```
 
 
@@ -558,8 +580,11 @@ df_stat_output
 
 
 ciplot(data, "error", "conditionName", "Total")
+saveImg("results/coseparability-error-conditionName-total.pdf")
 ciplot(data, "accuracy", "conditionName", "Total")
+saveImg("results/coseparability-accuracy-conditionName-total.pdf")
 ciplot(data, "totalTime", "conditionName", "Total")
+saveImg("results/coseparability-totalTime-conditionName-total.pdf")
 
 
 data <- data %>%
@@ -569,21 +594,35 @@ data <- data %>%
                                  "C3-Palette Generation-2", "Palettailor-2", "C3-Palette Assignment-2", "Alpha Blending-2", "Optimized Assignment-2", "Random Assignment-2"))
 
 ciplotManual(data, "error", "conditionMagnitude", "Magnitude")
+saveImg("results/coseparability-error-conditionMagnitude-total.pdf")
 ciplotManual(data, "accuracy", "conditionMagnitude", "Magnitude")
+saveImg("results/coseparability-accuracy-conditionMagnitude-total.pdf")
 ciplotManual(data, "totalTime", "conditionMagnitude", "Magnitude")
-#ggsave("results/counting_error_ci.pdf", width = 7, height = 4, useDingbats=FALSE)
-# 
-# ciplot(data[data$changeType=="pos", ], "error", "conditionName", "pos")
-# ciplot(data[data$changeType=="pos", ], "totalTime", "conditionName", "pos")
-# 
-# ciplot(data[data$changeType=="num", ], "error", "conditionName", "num")
-# ciplot(data[data$changeType=="num", ], "totalTime", "conditionName", "num")
-# 
-# ciplotManual(data[data$changeType=="pos", ], "error", "conditionMagnitude", "pos")
-# ciplotManual(data[data$changeType=="pos", ], "totalTime", "conditionMagnitude", "pos")
-# 
-# ciplotManual(data[data$changeType=="num", ], "error", "conditionMagnitude", "num")
-# ciplotManual(data[data$changeType=="num", ], "totalTime", "conditionMagnitude", "num")
+saveImg("results/coseparability-totalTime-conditionMagnitude-total.pdf")
+
+
+if(nrow(data[data$changeType=="pos", ])>0){
+  ciplot(data[data$changeType == "pos",], "error", "conditionName", "pos")
+  saveImg("results/coseparability-error-conditionName-pos.pdf")
+  ciplot(data[data$changeType == "pos",], "totalTime", "conditionName", "pos")
+  saveImg("results/coseparability-totalTime-conditionName-pos.pdf")
+  
+  ciplot(data[data$changeType == "num",], "error", "conditionName", "num")
+  saveImg("results/coseparability-error-conditionName-num.pdf")
+  ciplot(data[data$changeType == "num",], "totalTime", "conditionName", "num")
+  saveImg("results/coseparability-totalTime-conditionName-num.pdf")
+  
+  ciplotManual(data[data$changeType == "pos",], "error", "conditionMagnitude", "pos")
+  saveImg("results/coseparability-error-conditionMagnitude-pos.pdf")
+  ciplotManual(data[data$changeType == "pos",], "totalTime", "conditionMagnitude", "pos")
+  saveImg("results/coseparability-totalTime-conditionMagnitude-pos.pdf")
+  
+  ciplotManual(data[data$changeType == "num",], "error", "conditionMagnitude", "num")
+  saveImg("results/coseparability-error-conditionMagnitude-num.pdf")
+  ciplotManual(data[data$changeType == "num",], "totalTime", "conditionMagnitude", "num")
+  saveImg("results/coseparability-totalTime-conditionMagnitude-num.pdf")
+}
+
 
 
 ```
@@ -606,4 +645,5 @@ abs(mean(df1$error) - mean(df2$error))
 df <- df1 %>% rbind(df2)
 
 powerAnalysisGraph(mean(df1$error), mean(df2$error), sd(df$error))
+saveImg("results/coseparability-error-conditionName-powerAnalysis.pdf")
 ```

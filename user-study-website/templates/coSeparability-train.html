@@ -142,7 +142,7 @@
 				$('#show_result').text("Correct Answer!").css("color", "green");
 				$(this).css("border", "4px solid green");
 			} else {
-				$('#show_result').text("Incorrect Answer!" + " The correct answer is: " + clusterIds.length).css("color", "red");
+				$('#show_result').text("Incorrect Answer!" + " The correct answer is: " + (clusterIds.length - training_id + 1)).css("color", "red");
 				$(this).css("border", "4px solid red");
 			}
 			showClasses()
