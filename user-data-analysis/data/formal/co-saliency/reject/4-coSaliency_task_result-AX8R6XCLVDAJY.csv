@@ -1,0 +1,41 @@
+userName,fileId,conditionId,changeMagnitude,changeType,clickOrder,clickClusterType,clickTime,userResult,rightAnswer,totalTime
+AX8R6XCLVDAJY,0,4,2,pos,3-4,small&dense-small&sparse,9.76-4.20,1,3-4,15.118
+AX8R6XCLVDAJY,27,1,1,num,3,0,12.48,0,5,27.314
+AX8R6XCLVDAJY,12,4,0,pos,6,large&dense,6.54,1,6,7.919
+AX8R6XCLVDAJY,21,1,2,num,2,0,23.24,0,1,25.043
+AX8R6XCLVDAJY,29,3,1,num,4,small&sparse,13.88,1,4,15.616
+AX8R6XCLVDAJY,15,1,0,pos,0,0,21.38,0,7,23.263
+AX8R6XCLVDAJY,60,-1,2,center position,5,small&dense,2.91,1,5,4.586
+AX8R6XCLVDAJY,34,2,0,num,2-6-4,0-small&sparse-0,12.74-14.40-6.11,0,5-7-6,50.099
+AX8R6XCLVDAJY,1,5,2,pos,2,small&sparse,12.56,1,2,17.323
+AX8R6XCLVDAJY,20,0,2,num,2-3,0-0,10.32-1.34,0,4-7,43.89
+AX8R6XCLVDAJY,7,5,1,pos,3-5-6,large&sparse-small&sparse-0,6.08-15.48-12.13,0,5-3-7,60
+AX8R6XCLVDAJY,5,3,2,pos,0-3,large&dense-small&sparse,3.97-2.89,1,0-3,27.311
+AX8R6XCLVDAJY,10,2,1,pos,7-3,small&dense-large&dense,4.74-3.86,1,7-3,11.267
+AX8R6XCLVDAJY,13,5,0,pos,0-5-4,large&sparse-large&dense-0,6.72-10.79-10.70,0,3-5-0,29.783
+AX8R6XCLVDAJY,14,0,0,pos,1-3-6,0-0-small&sparse,7.55-5.75-3.45,0,6-5-7,18.889
+AX8R6XCLVDAJY,32,-1,2,shape,3,0,24.32,0,4,34.458
+AX8R6XCLVDAJY,22,2,2,num,0-4,large&sparse-0,4.68-11.16,0,0-7,19.155
+AX8R6XCLVDAJY,62,-1,2,center position,4,large&dense,2.96,1,4,10.758
+AX8R6XCLVDAJY,23,3,2,num,0-6-1,large&dense-large&dense-0,2.18-2.28-10.27,0,3-6-0,15.976
+AX8R6XCLVDAJY,17,3,0,pos,0-1,small&dense-0,3.64-3.22,0,0-5,20.119
+AX8R6XCLVDAJY,8,0,1,pos,1-2,large&dense-0,6.48-4.13,0,1-6,12.562
+AX8R6XCLVDAJY,35,3,0,num,5-7-3,large&sparse-0-0,10.62-1.02-2.55,0,6-5-0,15.942
+AX8R6XCLVDAJY,3,1,2,pos,7,small&sparse,5.08,1,7,8.972
+AX8R6XCLVDAJY,33,1,0,num,4,0,9.61,0,5,11.434
+AX8R6XCLVDAJY,9,1,1,pos,1,small&dense,0.86,1,1,9.941
+AX8R6XCLVDAJY,4,2,2,pos,0-6-7,small&dense-small&sparse-0,3.71-2.40-2.39,0,0-2-6,23.305
+AX8R6XCLVDAJY,3,-1,2,point number,3,0,11.18,0,1,15.621
+AX8R6XCLVDAJY,6,4,1,pos,5,0,4.19,0,2,10.944
+AX8R6XCLVDAJY,28,2,1,num,2-4-1,small&sparse-0-0,7.13-1.64-4.34,0,0-2-5,16.862
+AX8R6XCLVDAJY,18,4,2,num,0-1-7,0-0-small&dense,13.78-5.84-12.01,0,7-2-5,33.978
+AX8R6XCLVDAJY,11,3,1,pos,6-2-7,small&dense-0-0,3.69-1.05-15.40,0,6-1-0,32.476
+AX8R6XCLVDAJY,30,4,0,num,4-3,0-0,5.00-4.95,0,5-0,12.746
+AX8R6XCLVDAJY,19,5,2,num,7,0,9.04,0,3,10.753
+AX8R6XCLVDAJY,25,5,1,num,6-7,0-0,4.44-1.64,0,1-0,8.898
+AX8R6XCLVDAJY,31,5,0,num,6-4,large&sparse-0,6.47-7.85,0,6-5,16.474
+AX8R6XCLVDAJY,32,0,0,num,6,0,11.27,0,7,15.582
+AX8R6XCLVDAJY,16,2,0,pos,0-1,small&dense-small&sparse,2.03-3.68,1,1-0,9.855
+AX8R6XCLVDAJY,2,0,2,pos,0-5-6,0-small&dense-small&sparse,3.90-5.20-4.71,0,5-4-6,14.729
+AX8R6XCLVDAJY,26,0,1,num,2-0-6,0-0-large&sparse,5.65-2.77-4.33,0,3-4-6,14.432
+AX8R6XCLVDAJY,24,4,1,num,5-6,0-small&sparse,6.52-1.82,0,2-6,10.86

@@ -6,7 +6,7 @@ let svg_margin = {
     left: 20
 },
     radius = 4,
-    SVGWIDTH = 400,
+    SVGWIDTH = 600,
     SVGHEIGHT = 400;
 
 let svg_width = SVGWIDTH - svg_margin.left - svg_margin.right,
@@ -19,7 +19,7 @@ score_importance_weight[2] = document.getElementById("slider_2").value / 100;
 score_importance_weight[3] = document.getElementById("slider_3").value / 100;
 
 let generation_mode = 1;
-let source_datasets, source_datasets_names, labelToClass, assignment_palette;
+let source_datasets, source_datasets_names, labelToClass, assignment_palette, scaled_datasets;
 let knng_distance, dsc_distance, change_distance, delta_change_distance, cosaliency_distance, alphaShape_distance, cluster_nums, non_separability_weights;
 let kappa = 0, delta_difference, cosaliency_lambda = 0.4;
 let xScale, xMap, xAxis, yScale, yMap, yAxis;

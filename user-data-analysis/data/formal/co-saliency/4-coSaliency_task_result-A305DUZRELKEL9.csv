@@ -1,0 +1,41 @@
+userName,fileId,conditionId,changeMagnitude,changeType,clickOrder,clickClusterType,clickTime,userResult,rightAnswer,totalTime
+A305DUZRELKEL9,0,4,2,pos,3-4,small&dense-small&sparse,6.53-4.05,1,3-4,12.448
+A305DUZRELKEL9,27,1,1,num,5,small&sparse,32.08,1,5,34.313
+A305DUZRELKEL9,12,4,0,pos,6,large&dense,8.35,1,6,9.959
+A305DUZRELKEL9,21,1,2,num,1,small&sparse,17.63,1,1,19.413
+A305DUZRELKEL9,29,3,1,num,4,small&sparse,15.83,1,4,17.53
+A305DUZRELKEL9,15,1,0,pos,7,small&sparse,29.81,1,7,32.29
+A305DUZRELKEL9,60,-1,2,center position,5,small&dense,5.39,1,5,6.669
+A305DUZRELKEL9,34,2,0,num,,0,,0,5-7-6,60
+A305DUZRELKEL9,1,5,2,pos,2,small&sparse,7.37,1,2,9.172
+A305DUZRELKEL9,20,0,2,num,7-4,large&dense-small&dense,11.21-9.20,1,4-7,22.24
+A305DUZRELKEL9,7,5,1,pos,7-5-3,small&sparse-small&sparse-large&sparse,7.91-4.76-7.64,1,5-3-7,22.181
+A305DUZRELKEL9,5,3,2,pos,0-3,large&dense-small&sparse,2.65-6.16,1,0-3,10.393
+A305DUZRELKEL9,10,2,1,pos,3-7,large&dense-small&dense,5.77-21.30,1,7-3,28.425
+A305DUZRELKEL9,13,5,0,pos,0-5-3,large&sparse-large&dense-small&dense,6.92-5.56-4.21,1,3-5-0,18.782
+A305DUZRELKEL9,14,0,0,pos,7-1-5,large&dense-0-large&dense,5.48-6.41-4.92,0,6-5-7,18.425
+A305DUZRELKEL9,32,-1,2,shape,4,large&dense,5.26,1,4,7.065
+A305DUZRELKEL9,22,2,2,num,0-4,large&sparse-0,9.53-38.28,0,0-7,49.769
+A305DUZRELKEL9,62,-1,2,center position,4,large&dense,6.29,1,4,8.111
+A305DUZRELKEL9,23,3,2,num,0-6-3,large&dense-large&dense-small&sparse,5.45-5.99-19.86,1,3-6-0,32.897
+A305DUZRELKEL9,17,3,0,pos,0-5,small&dense-small&sparse,3.28-8.07,1,0-5,13.384
+A305DUZRELKEL9,8,0,1,pos,6-1,large&sparse-large&dense,6.14-4.10,1,1-6,11.617
+A305DUZRELKEL9,35,3,0,num,6-5-1,small&dense-large&sparse-0,5.49-23.45-26.86,0,6-5-0,57.218
+A305DUZRELKEL9,3,1,2,pos,7,small&sparse,10.86,1,7,12.125
+A305DUZRELKEL9,33,1,0,num,,0,,0,5,60
+A305DUZRELKEL9,9,1,1,pos,1,small&dense,3.97,1,1,6.015
+A305DUZRELKEL9,4,2,2,pos,0-2-6,small&dense-small&dense-small&sparse,3.70-5.51-2.74,1,0-2-6,13.34
+A305DUZRELKEL9,3,-1,2,point number,1,large&dense,13.00,1,1,15.747
+A305DUZRELKEL9,6,4,1,pos,2,small&dense,11.80,1,2,14.269
+A305DUZRELKEL9,28,2,1,num,0,small&dense,5.38,0,0-2-5,60
+A305DUZRELKEL9,18,4,2,num,5-7-2,small&sparse-small&dense-small&dense,3.62-10.60-1.73,1,7-2-5,17.306
+A305DUZRELKEL9,11,3,1,pos,6-1-0,small&dense-small&dense-large&sparse,2.86-3.33-2.31,1,6-1-0,10.352
+A305DUZRELKEL9,30,4,0,num,0-5,small&dense-small&dense,6.85-9.96,1,5-0,20.225
+A305DUZRELKEL9,19,5,2,num,3,small&dense,2.08,1,3,11.245
+A305DUZRELKEL9,25,5,1,num,0-5,large&sparse-0,15.42-39.79,0,1-0,56.145
+A305DUZRELKEL9,31,5,0,num,5-6,large&dense-large&sparse,7.84-7.46,1,6-5,16.655
+A305DUZRELKEL9,32,0,0,num,,0,,0,7,60
+A305DUZRELKEL9,16,2,0,pos,0-1,small&dense-small&sparse,5.53-12.07,1,1-0,18.992
+A305DUZRELKEL9,2,0,2,pos,4-5-6,large&sparse-small&dense-small&sparse,4.51-3.06-9.09,1,5-4-6,18.138
+A305DUZRELKEL9,26,0,1,num,4-3-6,small&dense-small&sparse-large&sparse,4.78-11.38-16.05,1,3-4-6,34.347
+A305DUZRELKEL9,24,4,1,num,2-6,small&dense-small&sparse,7.17-11.64,1,2-6,20.348

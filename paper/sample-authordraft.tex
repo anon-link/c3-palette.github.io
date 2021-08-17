@@ -21,22 +21,21 @@
 %% same distribution. (The sources need not necessarily be
 %% in the same archive or directory.)
 %%
-%%
-%% Commands for TeXCount
-%TC:macro \cite [option:text,text]
-%TC:macro \citep [option:text,text]
-%TC:macro \citet [option:text,text]
-%TC:envir table 0 1
-%TC:envir table* 0 1
-%TC:envir tabular [ignore] word
-%TC:envir displaymath 0 word
-%TC:envir math 0 word
-%TC:envir comment 0 0
-%%
-%%
 %% The first command in your LaTeX source must be the \documentclass command.
-\documentclass[manuscript,screen,review]{acmart}
+%%%% Small single column format, used for CIE, CSUR, DTRAP, JACM, JDIQ, JEA, JERIC, JETC, PACMCGIT, TAAS, TACCESS, TACO, TALG, TALLIP (formerly TALIP), TCPS, TDSCI, TEAC, TECS, TELO, THRI, TIIS, TIOT, TISSEC, TIST, TKDD, TMIS, TOCE, TOCHI, TOCL, TOCS, TOCT, TODAES, TODS, TOIS, TOIT, TOMACS, TOMM (formerly TOMCCAP), TOMPECS, TOMS, TOPC, TOPLAS, TOPS, TOS, TOSEM, TOSN, TQC, TRETS, TSAS, TSC, TSLP, TWEB.
+% \documentclass[acmsmall]{acmart}
 
+%%%% Large single column format, used for IMWUT, JOCCH, PACMPL, POMACS, TAP, PACMHCI
+% \documentclass[acmlarge,screen]{acmart}
+
+%%%% Large double column format, used for TOG
+% \documentclass[acmtog, authorversion]{acmart}
+
+%%%% Generic manuscript mode, required for submission
+%%%% and peer review
+\documentclass[manuscript,screen,review]{acmart}
+%% Fonts used in the template cannot be substituted; margin 
+%% adjustments are not allowed.
 %%
 %% \BibTeX command to typeset BibTeX logo in the docs
 \AtBeginDocument{%
@@ -227,6 +226,16 @@
 %% the work being presented. Separate the keywords with commas.
 \keywords{datasets, neural networks, gaze detection, text tagging}
 
+%% A "teaser" image appears between the author and affiliation
+%% information and the body of the document, and typically spans the
+%% page.
+\begin{teaserfigure}
+  \includegraphics[width=\textwidth]{sampleteaser}
+  \caption{Seattle Mariners at Spring Training, 2010.}
+  \Description{Enjoying the baseball game from the third-base
+  seats. Ichiro Suzuki preparing to bat.}
+  \label{fig:teaser}
+\end{teaserfigure}
 
 %%
 %% This command processes the author and affiliation and title
@@ -312,7 +321,7 @@ Frequently-used parameters, or combinations of parameters, include:
 This document uses the following string as the first command in the
 source file:
 \begin{verbatim}
-\documentclass[manuscript,screen,review]{acmart}
+\documentclass[sigconf,authordraft]{acmart}
 \end{verbatim}
 
 \section{Modifications}
@@ -764,4 +773,4 @@ massa et mattis lacinia.
 \end{document}
 \endinput
 %%
-%% End of file `sample-manuscript.tex'.
+%% End of file `sample-authordraft.tex'.

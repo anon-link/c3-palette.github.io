@@ -14,7 +14,7 @@ Import packages and set global configuration variables.
 source('analysis.R')
 library(forcats)
 library(tidyverse)
-file_study_folder <- "./data/pilot/"
+file_study_folder <- "./data/formal/"
 save_img_sign <- FALSE
 
 saveImg <- function(name){
@@ -28,7 +28,7 @@ saveImg <- function(name){
 ## Import and pre-process the user data
 ```{r}
 # Get the list of files.
-file_path <- paste(file_study_folder, "co-saliency", '', sep = "/")
+file_path <- paste(file_study_folder, "co-saliency", '', sep = "/")#
 filelist <- list.files(path = file_path, pattern = '*coSaliency.*?\\.csv$')
 
 # Compute data_total
@@ -46,7 +46,6 @@ for (file in filelist) {
     group_by(userName, fileId, conditionId, changeMagnitude, changeType) %>%
     summarise(count = n())
   if(nrow(test) != nrow(data_temp)) {
-    print("------------------------")
     # Print the dataframe if there're duplicated rows.
     print(data_temp)
     print(test)
@@ -58,11 +57,6 @@ for (file in filelist) {
   xx <- strsplit(file, "-")
   group_id <- xx[[1]][1]
   
-  
-  # sum the time of each user
-  total_time <- c(total_time, sum(data_temp$totalTime))
-  
-  
   data_temp <- data_temp %>%
     mutate(errorTime=ifelse(userResult!=1, totalTime, 0)) %>%
     mutate(accuracy=userResult) %>%
@@ -73,13 +67,18 @@ for (file in filelist) {
     user_result <- as.numeric(unlist(strsplit(as.vector(data_temp[i,]$clickOrder), "-")))
     right_result <- as.numeric(unlist(strsplit(as.vector(data_temp[i,]$rightAnswer), "-")))
     intersect_elements <- intersect(user_result, right_result)
-    #print(user_result)
     #print(right_result)
     #print(intersect_elements)
     #print(length(intersect_elements))
     data_temp[i,]$accuracy <- length(intersect_elements)/length(right_result)
+    
     #print(data_temp[i,]$accuracy)
   }
+  
+  # sum the time of each user
+  total_time <- c(total_time, sum(data_temp$totalTime))
+  
+  
   
   # bind the data to the total data frame
   data_total <- rbind(data_total, data_temp)
@@ -104,13 +103,13 @@ for (file in filelist) {
   }
   
   data_t <- data_temp[data_temp$totalTime==60, ]
-  cat("totalTime==60 rate is ", nrow(data_t)/nrow(data_temp),"\n")
   if(nrow(data_t)/nrow(data_temp)>0){
+    cat("totalTime==60 rate is ", nrow(data_t)/nrow(data_temp),"\n")
     print("=============================")
   }
-  print(nrow(data_temp))
   
   if(nrow(data_temp)!=40){
+    print(nrow(data_temp))
     print("*********************************")
   }
 }
@@ -118,8 +117,8 @@ for (file in filelist) {
 cat("\n", "average time is ", toString(mean(total_time)/60), "min\n")
 mean_time <- (sum(total_time)-max(total_time)-min(total_time))/(length(total_time)-2)
 cat("average time (remove max and min) is ", toString(mean_time/60), "min\n")
-cat("max time is ", toString(max(total_time)), "\n")
-cat("min time is ", toString(min(total_time)), "\n")
+cat("max time is ", toString(max(total_time)/60), "min\n")
+cat("min time is ", toString(min(total_time)/60), "min\n")
 
 # Uncomment if want to check the trial numbers per participant.
 # temp <- data_total %>%
@@ -168,6 +167,13 @@ ours_data_error <- data_total[data_total$conditionId==5 & data_total$userResult=
 data_time_correct <- data_total[data_total$userResult==1, ]
 data_time_threshold_correct <- data_total[data_total$totalTime<=30 & data_total$userResult==1, ]
 threshold <- nrow(data_time_threshold_correct)/nrow(data_time_correct)
+print(threshold)
+
+```
+
+```{r}
+# find which trial has the most error
+group_data_error <- dplyr::summarise(group_by(data_total,fileId, conditionName, error),count=n(), time=sum(totalTime))
 
 ```
 

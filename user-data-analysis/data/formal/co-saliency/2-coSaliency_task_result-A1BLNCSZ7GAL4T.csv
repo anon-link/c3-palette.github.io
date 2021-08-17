@@ -1,0 +1,41 @@
+userName,fileId,conditionId,changeMagnitude,changeType,clickOrder,clickClusterType,clickTime,userResult,rightAnswer,totalTime
+A1BLNCSZ7GAL4T,0,2,2,pos,3-4,small&dense-small&sparse,13.63-9.98,1,3-4,26.045
+A1BLNCSZ7GAL4T,27,5,1,num,5,small&sparse,43.22,1,5,47.273
+A1BLNCSZ7GAL4T,12,2,0,pos,6,large&dense,20.62,1,6,22.898
+A1BLNCSZ7GAL4T,21,5,2,num,1,small&sparse,12.02,1,1,14.257
+A1BLNCSZ7GAL4T,29,1,1,num,4,small&sparse,25.54,1,4,27.65
+A1BLNCSZ7GAL4T,15,5,0,pos,7,small&sparse,24.47,1,7,26.548
+A1BLNCSZ7GAL4T,60,-1,2,center position,5,small&dense,9.74,1,5,12.315
+A1BLNCSZ7GAL4T,34,0,0,num,7-6,large&dense-small&sparse,31.36-20.01,0,5-7-6,60
+A1BLNCSZ7GAL4T,1,3,2,pos,2,small&sparse,6.70,1,2,8.634
+A1BLNCSZ7GAL4T,20,4,2,num,7-4,large&dense-small&dense,8.05-6.00,1,4-7,16.203
+A1BLNCSZ7GAL4T,7,3,1,pos,3-7,large&sparse-small&sparse,7.61-7.66,0,5-3-7,60
+A1BLNCSZ7GAL4T,5,1,2,pos,3-0,small&sparse-large&dense,11.26-5.61,1,0-3,18.748
+A1BLNCSZ7GAL4T,10,0,1,pos,3-7,large&dense-small&dense,6.36-10.78,1,7-3,19.029
+A1BLNCSZ7GAL4T,13,3,0,pos,3-0-5,small&dense-large&sparse-large&dense,6.54-5.69-8.68,1,3-5-0,22.77
+A1BLNCSZ7GAL4T,14,4,0,pos,7-1-5,large&dense-0-large&dense,6.55-4.14-6.86,0,6-5-7,19.542
+A1BLNCSZ7GAL4T,32,-1,2,shape,4,large&dense,7.57,1,4,9.604
+A1BLNCSZ7GAL4T,22,0,2,num,7-0,small&sparse-large&sparse,9.38-23.54,1,0-7,34.901
+A1BLNCSZ7GAL4T,62,-1,2,center position,4,large&dense,5.39,1,4,7.394
+A1BLNCSZ7GAL4T,23,1,2,num,0-3-4,large&dense-small&sparse-0,11.24-7.71-36.44,0,3-6-0,57.155
+A1BLNCSZ7GAL4T,17,1,0,pos,0,small&dense,8.15,0,0-5,60
+A1BLNCSZ7GAL4T,8,4,1,pos,1-6,large&dense-large&sparse,5.24-8.51,1,1-6,16.126
+A1BLNCSZ7GAL4T,35,1,0,num,,0,,0,6-5-0,60
+A1BLNCSZ7GAL4T,3,5,2,pos,7,small&sparse,7.68,1,7,9.537
+A1BLNCSZ7GAL4T,33,5,0,num,5,small&sparse,9.37,1,5,12.686
+A1BLNCSZ7GAL4T,9,5,1,pos,1,small&dense,2.52,1,1,4.911
+A1BLNCSZ7GAL4T,4,0,2,pos,0-2-6,small&dense-small&dense-small&sparse,6.02-5.92-3.58,1,0-2-6,16.973
+A1BLNCSZ7GAL4T,3,-1,2,point number,1,large&dense,5.88,1,1,9.815
+A1BLNCSZ7GAL4T,6,2,1,pos,2,small&dense,9.82,1,2,11.458
+A1BLNCSZ7GAL4T,28,0,1,num,0-2-6,small&dense-small&sparse-0,11.36-7.19-32.23,0,0-2-5,52.632
+A1BLNCSZ7GAL4T,18,2,2,num,2-5-7,small&dense-small&sparse-small&dense,3.45-5.41-28.95,1,7-2-5,39.805
+A1BLNCSZ7GAL4T,11,1,1,pos,6-0-1,small&dense-large&sparse-small&dense,7.08-9.74-7.76,1,6-1-0,26.143
+A1BLNCSZ7GAL4T,30,2,0,num,0-5,small&dense-small&dense,35.95-11.79,1,5-0,50.166
+A1BLNCSZ7GAL4T,19,3,2,num,3,small&dense,9.54,1,3,11.324
+A1BLNCSZ7GAL4T,25,3,1,num,1-0,small&sparse-large&sparse,15.52-5.61,1,1-0,23.133
+A1BLNCSZ7GAL4T,31,3,0,num,5-6,large&dense-large&sparse,12.10-19.67,1,6-5,33.704
+A1BLNCSZ7GAL4T,32,4,0,num,,0,,0,7,60
+A1BLNCSZ7GAL4T,16,0,0,pos,0-1,small&dense-small&sparse,5.63-24.81,1,1-0,32.635
+A1BLNCSZ7GAL4T,2,4,2,pos,5-6-4,small&dense-small&sparse-large&sparse,5.24-2.35-7.82,1,5-4-6,17.592
+A1BLNCSZ7GAL4T,26,4,1,num,4-6-3,small&dense-large&sparse-small&sparse,12.46-21.32-16.08,1,3-4-6,52.014
+A1BLNCSZ7GAL4T,24,2,1,num,2-6,small&dense-small&sparse,10.10-30.87,1,2-6,43.284

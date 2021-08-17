@@ -1,0 +1,41 @@
+userName,fileId,conditionId,changeMagnitude,changeType,clickOrder,clickClusterType,clickTime,userResult,rightAnswer,totalTime
+A222GZB608T1B8,0,0,2,pos,3-4,small&dense-small&sparse,4.95-5.44,1,3-4,13.535
+A222GZB608T1B8,27,3,1,num,5,small&sparse,10.76,1,5,13.394
+A222GZB608T1B8,12,0,0,pos,6,large&dense,10.08,1,6,12.561
+A222GZB608T1B8,21,3,2,num,1,small&sparse,37.16,1,1,44.265
+A222GZB608T1B8,29,5,1,num,4,small&sparse,16.82,1,4,19.234
+A222GZB608T1B8,15,3,0,pos,6,0,26.46,0,7,28.906
+A222GZB608T1B8,60,-1,2,center position,5,small&dense,4.81,1,5,7.78
+A222GZB608T1B8,34,4,0,num,1-7-2,0-large&dense-0,28.10-2.83-9.82,0,5-7-6,60
+A222GZB608T1B8,1,1,2,pos,2,small&sparse,6.63,1,2,8.819
+A222GZB608T1B8,20,2,2,num,7-1-4,large&dense-0-small&dense,6.54-19.57-5.34,0,4-7,60
+A222GZB608T1B8,7,1,1,pos,3-2-4,large&sparse-0-0,5.09-19.54-2.48,0,5-3-7,60
+A222GZB608T1B8,5,5,2,pos,3-0,small&sparse-large&dense,7.12-6.49,1,0-3,16.134
+A222GZB608T1B8,10,4,1,pos,7-4,small&dense-0,6.76-10.30,0,7-3,28.621
+A222GZB608T1B8,13,1,0,pos,3-0-1,small&dense-large&sparse-0,11.20-9.90-3.12,0,3-5-0,26.745
+A222GZB608T1B8,14,2,0,pos,6-0,small&sparse-0,5.74-22.90,0,6-5-7,60
+A222GZB608T1B8,32,-1,2,shape,4,large&dense,14.42,1,4,18.366
+A222GZB608T1B8,22,4,2,num,0-7,large&sparse-small&sparse,5.79-15.16,1,0-7,23.989
+A222GZB608T1B8,62,-1,2,center position,4,large&dense,3.95,1,4,8.552
+A222GZB608T1B8,23,5,2,num,0-3-6,large&dense-small&sparse-large&dense,3.35-4.69-4.93,1,3-6-0,14.986
+A222GZB608T1B8,17,5,0,pos,0-5,small&dense-small&sparse,3.18-8.94,1,0-5,14.828
+A222GZB608T1B8,8,2,1,pos,1-0,large&dense-0,9.34-22.93,0,1-6,60
+A222GZB608T1B8,35,5,0,num,5,large&sparse,15.99,0,6-5-0,60
+A222GZB608T1B8,3,3,2,pos,7,small&sparse,4.69,1,7,6.928
+A222GZB608T1B8,33,3,0,num,,0,,0,5,60
+A222GZB608T1B8,9,3,1,pos,1,small&dense,4.44,1,1,8.444
+A222GZB608T1B8,4,4,2,pos,0-2-6,small&dense-small&dense-small&sparse,4.80-2.70-3.38,1,0-2-6,13.106
+A222GZB608T1B8,3,-1,2,point number,1,large&dense,13.00,1,1,15.467
+A222GZB608T1B8,6,0,1,pos,2,small&dense,6.54,1,2,9.021
+A222GZB608T1B8,28,4,1,num,0-2-1,small&dense-small&sparse-0,11.82-12.18-4.94,0,0-2-5,60
+A222GZB608T1B8,18,0,2,num,2-7,small&dense-small&dense,5.46-21.69,0,7-2-5,60
+A222GZB608T1B8,11,5,1,pos,0-1-6,large&sparse-small&dense-small&dense,4.13-4.35-3.56,1,6-1-0,15.301
+A222GZB608T1B8,30,0,0,num,5,small&dense,30.28,0,5-0,60
+A222GZB608T1B8,19,1,2,num,3,small&dense,6.87,1,3,13.582
+A222GZB608T1B8,25,1,1,num,1-5,small&sparse-0,17.92-2.86,0,1-0,22.85
+A222GZB608T1B8,31,1,0,num,,0,,0,6-5,60
+A222GZB608T1B8,32,2,0,num,7,small&sparse,15.44,1,7,17.693
+A222GZB608T1B8,16,4,0,pos,0-1,small&dense-small&sparse,3.91-10.22,1,1-0,16.974
+A222GZB608T1B8,2,2,2,pos,5-6-4,small&dense-small&sparse-large&sparse,4.68-4.22-6.50,1,5-4-6,17.702
+A222GZB608T1B8,26,2,1,num,4-6-5,small&dense-large&sparse-0,4.92-3.46-13.57,0,3-4-6,24.723
+A222GZB608T1B8,24,0,1,num,2,small&dense,13.04,0,2-6,60

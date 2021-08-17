@@ -1,0 +1,42 @@
+userName,fileId,conditionId,changeMagnitude,changeType,clickOrder,clickClusterType,clickTime,userResult,rightAnswer,totalTime
+ATXQZ0VTNLOG9,0,4,2,pos,5-7,0-0,21.72-4.91,0,3-4,28.758
+ATXQZ0VTNLOG9,27,1,1,num,7-1-3-2-4,0-0-0-0-0,7.66-2.13-2.47-8.30-10.14,0,5,60
+ATXQZ0VTNLOG9,12,4,0,pos,4-7-1,0-0-0,16.34-1.58-3.85,0,6,60
+ATXQZ0VTNLOG9,21,1,2,num,7,0,47.53,0,1,60
+ATXQZ0VTNLOG9,29,3,1,num,4,small&sparse,26.24,1,4,53.27
+ATXQZ0VTNLOG9,15,1,0,pos,7,small&sparse,52.36,1,7,60
+ATXQZ0VTNLOG9,15,1,0,pos,7,small&sparse,52.36,1,7,58.464
+ATXQZ0VTNLOG9,60,-1,2,center position,5,small&dense,5.86,1,5,9.4
+ATXQZ0VTNLOG9,34,2,0,num,6-5-2,small&sparse-large&dense-0,13.56-25.89-16.64,0,5-7-6,60
+ATXQZ0VTNLOG9,1,5,2,pos,2,small&sparse,9.33,1,2,26.43
+ATXQZ0VTNLOG9,20,0,2,num,7-4,large&dense-small&dense,18.95-26.81,1,4-7,47.922
+ATXQZ0VTNLOG9,7,5,1,pos,5-3-1,small&sparse-large&sparse-0,8.77-31.01-19.06,0,5-3-7,60
+ATXQZ0VTNLOG9,5,3,2,pos,3-0,small&sparse-large&dense,3.68-3.28,1,0-3,11.492
+ATXQZ0VTNLOG9,10,2,1,pos,3-7,large&dense-small&dense,14.61-5.33,1,7-3,21.997
+ATXQZ0VTNLOG9,13,5,0,pos,0,large&sparse,10.43,0,3-5-0,60
+ATXQZ0VTNLOG9,14,0,0,pos,7-6-5,large&dense-small&sparse-large&dense,4.61-7.67-10.29,1,6-5-7,27.35
+ATXQZ0VTNLOG9,32,-1,2,shape,4,large&dense,4.21,1,4,7.332
+ATXQZ0VTNLOG9,22,2,2,num,7-0,small&sparse-large&sparse,12.14-17.02,1,0-7,32.106
+ATXQZ0VTNLOG9,62,-1,2,center position,4,large&dense,3.09,1,4,5.427
+ATXQZ0VTNLOG9,23,3,2,num,0-6-3,large&dense-large&dense-small&sparse,2.77-1.98-1.12,1,3-6-0,7.751
+ATXQZ0VTNLOG9,17,3,0,pos,0-5,small&dense-small&sparse,3.39-6.70,1,0-5,12.37
+ATXQZ0VTNLOG9,8,0,1,pos,6-1,large&sparse-large&dense,3.65-7.39,1,1-6,12.939
+ATXQZ0VTNLOG9,35,3,0,num,5-1-2,large&sparse-0-0,3.69-31.26-4.29,0,6-5-0,41.813
+ATXQZ0VTNLOG9,3,1,2,pos,7,small&sparse,4.17,1,7,7.049
+ATXQZ0VTNLOG9,33,1,0,num,5,small&sparse,26.01,1,5,30.934
+ATXQZ0VTNLOG9,9,1,1,pos,1,small&dense,4.18,1,1,6.068
+ATXQZ0VTNLOG9,4,2,2,pos,0-2-6,small&dense-small&dense-small&sparse,3.01-3.73-5.39,1,0-2-6,17.041
+ATXQZ0VTNLOG9,3,-1,2,point number,1,large&dense,10.20,1,1,12.191
+ATXQZ0VTNLOG9,6,4,1,pos,2,small&dense,23.85,1,2,26.146
+ATXQZ0VTNLOG9,28,2,1,num,0-2-1,small&dense-small&sparse-0,21.18-11.05-10.68,0,0-2-5,44.13
+ATXQZ0VTNLOG9,18,4,2,num,5-2-7,small&sparse-small&dense-small&dense,11.98-2.42-11.93,1,7-2-5,28.574
+ATXQZ0VTNLOG9,11,3,1,pos,6-1-0,small&dense-small&dense-large&sparse,13.70-3.07-3.87,1,6-1-0,22.871
+ATXQZ0VTNLOG9,30,4,0,num,5-7,small&dense-0,10.04-21.61,0,5-0,33.591
+ATXQZ0VTNLOG9,19,5,2,num,4,0,52.70,0,3,54.853
+ATXQZ0VTNLOG9,25,5,1,num,5-0,0-large&sparse,8.42-5.62,0,1-0,16.195
+ATXQZ0VTNLOG9,31,5,0,num,5-2,large&dense-0,8.09-10.73,0,6-5,20.569
+ATXQZ0VTNLOG9,32,0,0,num,3,0,32.62,0,7,34.64
+ATXQZ0VTNLOG9,16,2,0,pos,5-0,0-small&dense,3.31-6.38,0,1-0,11.774
+ATXQZ0VTNLOG9,2,0,2,pos,4-5-0,large&sparse-small&dense-0,5.22-3.63-6.24,0,5-4-6,17.15
+ATXQZ0VTNLOG9,26,0,1,num,4-3-6,small&dense-small&sparse-large&sparse,3.86-5.62-6.61,1,3-4-6,18.101
+ATXQZ0VTNLOG9,24,4,1,num,2-6,small&dense-small&sparse,7.93-5.44,1,2-6,15.939

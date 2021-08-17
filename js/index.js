@@ -98,6 +98,7 @@ function addToHistory() {
           return d3.lab(c);
         });
         outputPalette(palette);
+        drawTransferFunction(palette)
       });
     let div = li.append("div").attr("class", "screenshot");
     svgs.each(function () {
@@ -169,8 +170,8 @@ function appendScatterplot() {
   // used_palette = Tableau_10_palette
   // used_palette = shuffle(Tableau_10_palette.slice(0,used_palette.length));
   for (let i = 0; i < source_datasets.length; i++) {
-    // xScale.domain(d3.extent(source_datasets[i], xValue));
-    // yScale.domain(d3.extent(source_datasets[i], yValue));
+    xScale.domain(d3.extent(source_datasets[i], xValue));
+    yScale.domain(d3.extent(source_datasets[i], yValue));
     let scatterplot_svg = d3.select("#renderDiv").append("svg")
       .attr("width", SVGWIDTH).attr("height", SVGHEIGHT);
     let scatterplot = scatterplot_svg.style("background-color", bgcolor).append("g")
@@ -199,71 +200,36 @@ function appendScatterplot() {
       .call(d3.axisLeft(yScale).tickFormat(""));
 
 
-    let circle = scatterplot.append("circle")
-      .attr("id", "choosed_cluster")
-      .attr("r", 0)
-      .style("stroke", bgcolor)
-      .style("stroke-width", "1.5px");
+    // let circle = scatterplot.append("circle")
+    //   .attr("id", "choosed_cluster")
+    //   .attr("r", 0)
+    //   .style("stroke", bgcolor)
+    //   .style("stroke-width", "1.5px");
 
-    scatterplot_svg.on("mousemove", function () {
-      let mouse_pos = [d3.mouse(this)[0] - svg_margin.left, d3.mouse(this)[1] - svg_margin.top];
-      // check all points to find the desired
-      let min_dis = 10000000000, desired_point = null;
-      for (let d of source_datasets[i]) {
-        let point_pos = [xMap(d), yMap(d)];
-        let dis = (point_pos[0] - mouse_pos[0]) * (point_pos[0] - mouse_pos[0]) + (point_pos[1] - mouse_pos[1]) * (point_pos[1] - mouse_pos[1]);
-        if (min_dis >= dis) {
-          min_dis = dis;
-          desired_point = d;
-        }
-      }
-      if (min_dis > 100) {
-        circle.attr("r", 0);
-      } else {
-        let id = cValue(desired_point);
-        circle.attr("cx", mouse_pos[0])
-          .attr("cy", mouse_pos[1])
-          .attr("fill", used_palette[labelToClass[id]])
-          .attr("r", 10)
-          .attr("display", "block")
-          // .on("click", function () {
-          //   for (let i = 0; i < choosed_emphasized_clusters.length; i++) {
-          //     if (+choosed_emphasized_clusters[i].attr("clusterId") === labelToClass[id]) {
-          //       return;
-          //     }
-          //   }
-          //   let div = d3.select("#choosedDiv");
-          //   let span = div.append("span").attr("class", "rect").attr("id", "choosedCluster-" + labelToClass[id]).attr("clusterId", labelToClass[id])
-          //     .style("width", "30px").style("height", "30px").style("display", "inline-block")
-          //     .style("margin-left", "10px").style("padding", "5px").style("background", used_palette[labelToClass[id]]).style("text-align", "center");
-          //   // append lock and unlock sign
-          //   let img = span.append("img").attr("class", "icon_delete").style("display", "none")
-          //     .on("click", function () {
-          //       let j = 0;
-          //       for (j = 0; j < choosed_emphasized_clusters.length; j++) {
-          //         if (+choosed_emphasized_clusters[j].attr("clusterId") === labelToClass[id]) {
-          //           break;
-          //         }
-          //       }
-          //       choosed_emphasized_clusters.splice(j, 1);
-          //       span.remove();
-          //       if (choosed_emphasized_clusters.length === 0) {
-          //         d3.select("#specifyDiv").style("display", "none");
-          //       }
-          //     });
-          //   span.on("mouseover", function () {
-          //     d3.select(this).select("img").style("display", "block");
-          //   })
-          //     .on("mouseout", function () {
-          //       d3.select(this).select("img").style("display", "none");
-          //     })
+    // scatterplot_svg.on("mousemove", function () {
+    //   let mouse_pos = [d3.mouse(this)[0] - svg_margin.left, d3.mouse(this)[1] - svg_margin.top];
+    //   // check all points to find the desired
+    //   let min_dis = 10000000000, desired_point = null;
+    //   for (let d of source_datasets[i]) {
+    //     let point_pos = [xMap(d), yMap(d)];
+    //     let dis = (point_pos[0] - mouse_pos[0]) * (point_pos[0] - mouse_pos[0]) + (point_pos[1] - mouse_pos[1]) * (point_pos[1] - mouse_pos[1]);
+    //     if (min_dis >= dis) {
+    //       min_dis = dis;
+    //       desired_point = d;
+    //     }
+    //   }
+    //   if (min_dis > 100) {
+    //     circle.attr("r", 0);
+    //   } else {
+    //     let id = cValue(desired_point);
+    //     circle.attr("cx", mouse_pos[0])
+    //       .attr("cy", mouse_pos[1])
+    //       .attr("fill", used_palette[labelToClass[id]])
+    //       .attr("r", 10)
+    //       .attr("display", "block")
+    //   }
 
-          //   choosed_emphasized_clusters.push(span)
-          //   d3.select("#specifyDiv").style("display", "inline-block");
-          // });
-      }
-
-    });
+    // });
 
     scatterplot_svg.append("text").attr("x", 0).attr("y", 20).text(source_datasets_names[i]);
 
@@ -544,10 +510,10 @@ function drawTransferFunction(palette) {
 
   let tf = tf_svg.style("background-color", bgcolor)
     .append("g")
-    .attr("transform", "translate(" + (svg_margin.left + 20) + "," + svg_margin.top + ")");
+    .attr("transform", "translate(" + (svg_margin.left + 30) + "," + svg_margin.top + ")");
 
   let m_xScale = d3.scaleBand().range([0, svg_width]);
-  let m_yScale = d3.scaleLinear().range([svg_height - 20, 0])
+  let m_yScale = d3.scaleLinear().range([svg_height - 30, 0])
 
   let x_labels = Object.keys(labelToClass)
   // Scale the range of the data
@@ -557,7 +523,7 @@ function drawTransferFunction(palette) {
 
   // Add the X Axis
   tf.append("g")
-    .attr("transform", "translate(0," + (svg_height - 20) + ")")
+    .attr("transform", "translate(0," + (svg_height - 30) + ")")
     .call(d3.axisBottom(m_xScale));
 
   // Add the Y Axis
@@ -645,26 +611,37 @@ function drawTransferFunction(palette) {
     let circle_index = this.id.split("_")[1];
     if (circle_index == "kappa")
       kappa = m_yScale.invert(d3.event.y)
-    else
+    else {
       change_distance[circle_index] = m_yScale.invert(d3.event.y)
+      // re-order clusters
+      reOrderClusters()
+    }
     drawTransferFunction(palette);
   }
 
 }
 
-function changeAlpha(alpha) {
-  if (choosed_emphasized_clusters.length > 0) {
-    let choosed_cluster_id_array = []
-    for (let i = 0; i < choosed_emphasized_clusters.length; i++) {
-      let id = +choosed_emphasized_clusters[i].attr("clusterId");
-      choosed_cluster_id_array.push(id);
+function reOrderClusters() {
+  let order = []
+  for (let i = 0; i < change_distance.length; i++) {
+    order.push([i, change_distance[i]])
+  }
+  // re-order the clusters by the change distance
+  order.sort(function (a, b) {
+    return a[1] - b[1];
+  })
+  for (let i = 0; i < source_datasets.length; i++) {
+    var clusters = {};
+    for (let d of source_datasets[i]) {
+      if (clusters[labelToClass[d.label]] == undefined)
+        clusters[labelToClass[d.label]] = [];
+      clusters[labelToClass[d.label]].push(d);
     }
-    for (let i = 0; i < Object.keys(labelToClass).length; i++) {
-      if (choosed_cluster_id_array.indexOf(i) == -1) {
-        d3.select("#renderDiv").selectAll("#class_" + i).style("opacity", alpha);
-      } else {
-        d3.select("#renderDiv").selectAll("#class_" + i).style("opacity", 1);
-      }
+    let data = []
+    for (let j = 0; j < order.length; j++) {
+      if (clusters[order[j][0]])
+        data = data.concat(clusters[order[j][0]])
     }
+    source_datasets[i] = data;
   }
 }

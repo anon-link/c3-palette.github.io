@@ -1,0 +1,41 @@
+userName,fileId,conditionId,changeMagnitude,changeType,clickOrder,clickClusterType,clickTime,userResult,rightAnswer,totalTime
+AXPZAP62ZYWP8,0,0,2,pos,3-4,small&dense-small&sparse,4.46-3.49,1,3-4,8.747
+AXPZAP62ZYWP8,27,3,1,num,5,small&sparse,13.45,1,5,14.262
+AXPZAP62ZYWP8,12,0,0,pos,6,large&dense,7.03,1,6,7.742
+AXPZAP62ZYWP8,21,3,2,num,1,small&sparse,6.46,1,1,7.209
+AXPZAP62ZYWP8,29,5,1,num,4,small&sparse,8.32,1,4,9.17
+AXPZAP62ZYWP8,15,3,0,pos,7,small&sparse,12.26,1,7,13.538
+AXPZAP62ZYWP8,60,-1,2,center position,5,small&dense,2.66,1,5,3.654
+AXPZAP62ZYWP8,34,4,0,num,,0,,0,5-7-6,60
+AXPZAP62ZYWP8,1,1,2,pos,2,small&sparse,3.75,1,2,4.574
+AXPZAP62ZYWP8,20,2,2,num,7-4,large&dense-small&dense,3.38-2.97,1,4-7,20.603
+AXPZAP62ZYWP8,7,1,1,pos,5-3-7,small&sparse-large&sparse-small&sparse,4.44-4.04-9.59,1,5-3-7,18.911
+AXPZAP62ZYWP8,5,5,2,pos,0-3,large&dense-small&sparse,2.39-4.13,1,0-3,7.296
+AXPZAP62ZYWP8,10,4,1,pos,3-7,large&dense-small&dense,1.94-2.64,1,7-3,6.024
+AXPZAP62ZYWP8,13,1,0,pos,0-3-6,large&sparse-small&dense-0,2.56-3.70-7.04,0,3-5-0,17.12
+AXPZAP62ZYWP8,14,2,0,pos,7-6-0,large&dense-small&sparse-0,2.19-5.57-5.00,0,6-5-7,14.387
+AXPZAP62ZYWP8,32,-1,2,shape,4,large&dense,5.72,1,4,6.577
+AXPZAP62ZYWP8,22,4,2,num,0-7,large&sparse-small&sparse,4.44-16.25,1,0-7,21.419
+AXPZAP62ZYWP8,62,-1,2,center position,4,large&dense,1.87,1,4,2.548
+AXPZAP62ZYWP8,23,5,2,num,0-6-3,large&dense-large&dense-small&sparse,1.91-3.61-7.36,1,3-6-0,13.574
+AXPZAP62ZYWP8,17,5,0,pos,0-4,small&dense-0,6.50-11.40,0,0-5,18.543
+AXPZAP62ZYWP8,8,2,1,pos,6-1,large&sparse-large&dense,5.41-3.59,1,1-6,9.792
+AXPZAP62ZYWP8,35,5,0,num,6-1-3,small&dense-0-0,13.71-3.06-3.96,0,6-5-0,21.5
+AXPZAP62ZYWP8,3,3,2,pos,7,small&sparse,4.31,1,7,4.981
+AXPZAP62ZYWP8,33,3,0,num,3,0,10.75,0,5,11.474
+AXPZAP62ZYWP8,9,3,1,pos,1,small&dense,5.31,1,1,6.102
+AXPZAP62ZYWP8,4,4,2,pos,2-6-0,small&dense-small&sparse-small&dense,4.94-1.88-1.47,1,0-2-6,9.088
+AXPZAP62ZYWP8,3,-1,2,point number,1,large&dense,3.46,1,1,4.287
+AXPZAP62ZYWP8,6,0,1,pos,2,small&dense,3.16,1,2,3.943
+AXPZAP62ZYWP8,28,4,1,num,6-1-4,0-0-0,5.83-6.92-1.60,0,0-2-5,15.077
+AXPZAP62ZYWP8,18,0,2,num,7-2-5,small&dense-small&dense-small&sparse,6.29-6.69-8.17,1,7-2-5,21.945
+AXPZAP62ZYWP8,11,5,1,pos,6-1-0,small&dense-small&dense-large&sparse,2.33-2.83-2.07,1,6-1-0,7.945
+AXPZAP62ZYWP8,30,0,0,num,4-6,0-0,6.81-4.00,0,5-0,11.519
+AXPZAP62ZYWP8,19,1,2,num,3,small&dense,5.95,1,3,6.92
+AXPZAP62ZYWP8,25,1,1,num,0-1,large&sparse-small&sparse,3.02-2.73,1,1-0,6.334
+AXPZAP62ZYWP8,31,1,0,num,6-4,large&sparse-0,2.04-11.16,0,6-5,14.254
+AXPZAP62ZYWP8,32,2,0,num,7,small&sparse,8.64,1,7,9.403
+AXPZAP62ZYWP8,16,4,0,pos,0-3,small&dense-0,3.96-6.51,0,1-0,11.06
+AXPZAP62ZYWP8,2,2,2,pos,4-5-6,large&sparse-small&dense-small&sparse,2.91-3.24-4.54,1,5-4-6,11.536
+AXPZAP62ZYWP8,26,2,1,num,3-6-4,small&sparse-large&sparse-small&dense,5.87-3.28-1.79,1,3-4-6,11.625
+AXPZAP62ZYWP8,24,0,1,num,6-2,small&sparse-small&dense,4.79-1.30,1,2-6,8.082

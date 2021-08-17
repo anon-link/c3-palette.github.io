@@ -1,0 +1,41 @@
+userName,fileId,conditionId,changeMagnitude,changeType,clickOrder,clickClusterType,clickTime,userResult,rightAnswer,totalTime
+A2FDLK891NYWLV,0,2,2,pos,3-4,small&dense-small&sparse,13.27-8.71,1,3-4,23.176
+A2FDLK891NYWLV,27,5,1,num,5,small&sparse,4.35,1,5,6.008
+A2FDLK891NYWLV,12,2,0,pos,6,large&dense,20.52,1,6,34.568
+A2FDLK891NYWLV,21,5,2,num,1,small&sparse,10.06,1,1,11.458
+A2FDLK891NYWLV,29,1,1,num,4,small&sparse,14.45,1,4,16.088
+A2FDLK891NYWLV,15,5,0,pos,7,small&sparse,10.47,1,7,13.51
+A2FDLK891NYWLV,60,-1,2,center position,5,small&dense,2.52,1,5,3.987
+A2FDLK891NYWLV,34,0,0,num,5,large&dense,54.48,0,5-7-6,60
+A2FDLK891NYWLV,1,3,2,pos,2,small&sparse,9.58,1,2,10.941
+A2FDLK891NYWLV,20,4,2,num,7-4,large&dense-small&dense,5.96-25.01,1,4-7,35.307
+A2FDLK891NYWLV,7,3,1,pos,5-7-3,small&sparse-small&sparse-large&sparse,4.18-2.58-4.84,1,5-3-7,12.957
+A2FDLK891NYWLV,5,1,2,pos,0-3,large&dense-small&sparse,3.22-2.78,1,0-3,15.447
+A2FDLK891NYWLV,10,0,1,pos,3-7,large&dense-small&dense,3.49-6.25,1,7-3,23.879
+A2FDLK891NYWLV,13,3,0,pos,5-3-0,large&dense-small&dense-large&sparse,26.10-2.31-8.42,1,3-5-0,38.87
+A2FDLK891NYWLV,14,4,0,pos,7-6-5,large&dense-small&sparse-large&dense,11.18-9.06-22.22,1,6-5-7,53.351
+A2FDLK891NYWLV,32,-1,2,shape,4,large&dense,6.50,1,4,9.171
+A2FDLK891NYWLV,22,0,2,num,7-0,small&sparse-large&sparse,5.01-7.41,1,0-7,13.552
+A2FDLK891NYWLV,62,-1,2,center position,4,large&dense,10.98,1,4,14.872
+A2FDLK891NYWLV,23,1,2,num,6-0-3,large&dense-large&dense-small&sparse,6.12-4.01-22.25,1,3-6-0,34.455
+A2FDLK891NYWLV,17,1,0,pos,0,small&dense,3.81,0,0-5,60
+A2FDLK891NYWLV,8,4,1,pos,1-6,large&dense-large&sparse,2.60-4.86,1,1-6,9.165
+A2FDLK891NYWLV,35,1,0,num,5-4-7,large&sparse-0-0,4.51-48.65-0.85,0,6-5-0,55.708
+A2FDLK891NYWLV,3,5,2,pos,7,small&sparse,4.38,1,7,5.621
+A2FDLK891NYWLV,33,5,0,num,5,small&sparse,3.12,1,5,4.446
+A2FDLK891NYWLV,9,5,1,pos,1,small&dense,2.66,1,1,4.316
+A2FDLK891NYWLV,4,0,2,pos,2-6-0,small&dense-small&sparse-small&dense,7.54-3.21-2.85,1,0-2-6,14.997
+A2FDLK891NYWLV,3,-1,2,point number,1,large&dense,5.66,1,1,6.901
+A2FDLK891NYWLV,6,2,1,pos,2,small&dense,3.52,1,2,4.755
+A2FDLK891NYWLV,28,0,1,num,2-0-7,small&sparse-small&dense-0,2.25-14.48-33.19,0,0-2-5,51.337
+A2FDLK891NYWLV,18,2,2,num,5-7-2,small&sparse-small&dense-small&dense,2.88-5.35-2.46,1,7-2-5,11.855
+A2FDLK891NYWLV,11,1,1,pos,1-6-0,small&dense-small&dense-large&sparse,11.45-3.71-4.69,1,6-1-0,21.271
+A2FDLK891NYWLV,30,2,0,num,5-0,small&dense-small&dense,6.82-9.78,1,5-0,18.012
+A2FDLK891NYWLV,19,3,2,num,3,small&dense,4.96,1,3,6.14
+A2FDLK891NYWLV,25,3,1,num,0-1,large&sparse-small&sparse,3.53-6.32,1,1-0,11.073
+A2FDLK891NYWLV,31,3,0,num,6-5,large&sparse-large&dense,34.08-3.78,1,6-5,38.962
+A2FDLK891NYWLV,32,4,0,num,7,small&sparse,21.14,1,7,22.642
+A2FDLK891NYWLV,16,0,0,pos,1-0,small&sparse-small&dense,9.31-12.64,1,1-0,23.203
+A2FDLK891NYWLV,2,4,2,pos,4-5-6,large&sparse-small&dense-small&sparse,3.21-8.45-1.26,1,5-4-6,14.093
+A2FDLK891NYWLV,26,4,1,num,6-4-3,large&sparse-small&dense-small&sparse,10.78-31.03-8.85,1,3-4-6,52.255
+A2FDLK891NYWLV,24,2,1,num,2-6,small&dense-small&sparse,7.52-16.29,1,2-6,26.028

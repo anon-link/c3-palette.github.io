@@ -1,0 +1,41 @@
+userName,fileId,conditionId,changeMagnitude,changeType,clickOrder,clickClusterType,clickTime,userResult,rightAnswer,totalTime
+A2YC6PEMIRSOAA,0,0,2,pos,3-7,small&dense-0,9.11-4.06,0,3-4,14.408
+A2YC6PEMIRSOAA,27,3,1,num,5,small&sparse,44.33,1,5,48.448
+A2YC6PEMIRSOAA,12,0,0,pos,6,large&dense,8.15,1,6,9.574
+A2YC6PEMIRSOAA,21,3,2,num,1,small&sparse,13.12,1,1,20.299
+A2YC6PEMIRSOAA,29,5,1,num,4,small&sparse,33.20,0,4,60
+A2YC6PEMIRSOAA,15,3,0,pos,7,small&sparse,16.78,1,7,18.906
+A2YC6PEMIRSOAA,60,-1,2,center position,5,small&dense,4.58,1,5,5.777
+A2YC6PEMIRSOAA,34,4,0,num,7-3-0,large&dense-0-0,16.41-9.18-15.29,0,5-7-6,42.951
+A2YC6PEMIRSOAA,1,1,2,pos,2,small&sparse,10.82,1,2,13.156
+A2YC6PEMIRSOAA,20,2,2,num,4,small&dense,51.59,0,4-7,60
+A2YC6PEMIRSOAA,7,1,1,pos,7-3-5,small&sparse-large&sparse-small&sparse,11.43-8.77-18.73,1,5-3-7,41.284
+A2YC6PEMIRSOAA,5,5,2,pos,0-3,large&dense-small&sparse,5.08-3.12,1,0-3,9.751
+A2YC6PEMIRSOAA,10,4,1,pos,3-7,large&dense-small&dense,3.43-7.20,1,7-3,11.914
+A2YC6PEMIRSOAA,13,1,0,pos,0-3-1,large&sparse-small&dense-0,6.36-5.92-25.03,0,3-5-0,38.825
+A2YC6PEMIRSOAA,14,2,0,pos,5-7-1,large&dense-large&dense-0,6.78-2.07-1.95,0,6-5-7,16.236
+A2YC6PEMIRSOAA,32,-1,2,shape,4,large&dense,6.46,1,4,7.785
+A2YC6PEMIRSOAA,22,4,2,num,0-7,large&sparse-small&sparse,6.99-11.80,1,0-7,20.077
+A2YC6PEMIRSOAA,62,-1,2,center position,4,large&dense,4.99,1,4,6.881
+A2YC6PEMIRSOAA,23,5,2,num,0-6-3,large&dense-large&dense-small&sparse,3.81-4.36-2.44,1,3-6-0,11.901
+A2YC6PEMIRSOAA,17,5,0,pos,0-3,small&dense-0,15.04-8.77,0,0-5,25.659
+A2YC6PEMIRSOAA,8,2,1,pos,1-0,large&dense-0,7.21-1.64,0,1-6,10.082
+A2YC6PEMIRSOAA,35,5,0,num,,0,,0,6-5-0,60
+A2YC6PEMIRSOAA,3,3,2,pos,7,small&sparse,8.32,1,7,9.587
+A2YC6PEMIRSOAA,33,3,0,num,5,small&sparse,24.49,1,5,25.589
+A2YC6PEMIRSOAA,9,3,1,pos,1,small&dense,10.20,1,1,11.329
+A2YC6PEMIRSOAA,4,4,2,pos,0-6-2,small&dense-small&sparse-small&dense,6.78-3.95-2.80,1,0-2-6,14.72
+A2YC6PEMIRSOAA,3,-1,2,point number,1,large&dense,9.37,1,1,10.642
+A2YC6PEMIRSOAA,6,0,1,pos,2,small&dense,5.13,1,2,6.36
+A2YC6PEMIRSOAA,28,4,1,num,0-2-4,small&dense-small&sparse-0,6.97-14.64-7.65,0,0-2-5,60
+A2YC6PEMIRSOAA,18,0,2,num,5-7-2,small&sparse-small&dense-small&dense,16.08-3.56-5.90,1,7-2-5,26.744
+A2YC6PEMIRSOAA,11,5,1,pos,1-6-0,small&dense-small&dense-large&sparse,4.25-2.48-8.45,1,6-1-0,16.498
+A2YC6PEMIRSOAA,30,0,0,num,6-0,0-small&dense,6.72-2.54,0,5-0,50.572
+A2YC6PEMIRSOAA,19,1,2,num,3,small&dense,11.43,1,3,12.718
+A2YC6PEMIRSOAA,25,1,1,num,0-1,large&sparse-small&sparse,4.12-38.32,1,1-0,43.926
+A2YC6PEMIRSOAA,31,1,0,num,4-5,0-large&dense,46.05-9.21,0,6-5,60
+A2YC6PEMIRSOAA,32,2,0,num,2,0,18.16,0,7,19.094
+A2YC6PEMIRSOAA,16,4,0,pos,1-0,small&sparse-small&dense,8.99-4.14,1,1-0,14.524
+A2YC6PEMIRSOAA,2,2,2,pos,4-5-6,large&sparse-small&dense-small&sparse,5.75-2.79-2.23,1,5-4-6,12.191
+A2YC6PEMIRSOAA,26,2,1,num,4-3-6,small&dense-small&sparse-large&sparse,9.22-3.61-24.17,1,3-4-6,38.388
+A2YC6PEMIRSOAA,24,0,1,num,6-2,small&sparse-small&dense,13.31-10.12,1,2-6,25.267

@@ -1,0 +1,42 @@
+userName,fileId,conditionId,changeMagnitude,changeType,clickOrder,clickClusterType,clickTime,userResult,rightAnswer,totalTime
+A3VC2ZAJP08NYJ,0,4,2,pos,4月3日,small&sparse-small&dense,14.86-9.81,1,3月4日,34.503
+A3VC2ZAJP08NYJ,27,1,1,num,5,small&sparse,22.01,1,5,23.784
+A3VC2ZAJP08NYJ,12,4,0,pos,6,large&dense,5.81,1,6,7.269
+A3VC2ZAJP08NYJ,21,1,2,num,4,0,37.83,0,1,39.426
+A3VC2ZAJP08NYJ,29,3,1,num,4,small&sparse,13.68,1,4,16.712
+A3VC2ZAJP08NYJ,15,1,0,pos,6,0,56.22,0,7,58.387
+A3VC2ZAJP08NYJ,60,-1,2,center position,5,small&dense,3.21,1,5,7.166
+A3VC2ZAJP08NYJ,34,2,0,num,2000/6/4,0-small&sparse-0,25.17-18.87-14.20,0,2005/7/6,59.8
+A3VC2ZAJP08NYJ,34,2,0,num,2000/6/4,0-small&sparse-0,25.17-18.87-14.20,0,2005/7/6,60
+A3VC2ZAJP08NYJ,1,5,2,pos,2,small&sparse,4.78,1,2,6.239
+A3VC2ZAJP08NYJ,20,0,2,num,7月4日,large&dense-small&dense,32.39-0.93,1,4月7日,35.462
+A3VC2ZAJP08NYJ,7,5,1,pos,2007/5/3,small&sparse-small&sparse-large&sparse,5.50-3.83-25.23,1,2005/3/7,37.147
+A3VC2ZAJP08NYJ,5,3,2,pos,0-3,large&dense-small&sparse,8.14-5.22,1,0-3,15.555
+A3VC2ZAJP08NYJ,10,2,1,pos,3-0,large&dense-0,5.61-8.46,0,7月3日,15.654
+A3VC2ZAJP08NYJ,13,5,0,pos,3-2-0,small&dense-0-large&sparse,5.74-23.24-3.88,0,3-5-0,34.926
+A3VC2ZAJP08NYJ,14,0,0,pos,2001/7/5,0-large&dense-large&dense,5.62-3.69-6.18,0,2006/5/7,17.831
+A3VC2ZAJP08NYJ,32,-1,2,shape,4,large&dense,12.71,1,4,14.221
+A3VC2ZAJP08NYJ,22,2,2,num,0-6,large&sparse-0,7.93-3.20,0,0-7,18.001
+A3VC2ZAJP08NYJ,62,-1,2,center position,4,large&dense,12.63,1,4,18.858
+A3VC2ZAJP08NYJ,23,3,2,num,2007/3/6,0-small&sparse-large&dense,5.52-3.53-1.62,0,3-6-0,12.748
+A3VC2ZAJP08NYJ,17,3,0,pos,5-0,small&sparse-small&dense,13.80-12.73,1,0-5,29.111
+A3VC2ZAJP08NYJ,8,0,1,pos,6月1日,large&sparse-large&dense,3.82-5.35,1,1月6日,11.198
+A3VC2ZAJP08NYJ,35,3,0,num,2005/7/3,large&sparse-0-0,30.26-19.29-0.43,0,6-5-0,53.55
+A3VC2ZAJP08NYJ,3,1,2,pos,7,small&sparse,31.98,1,7,37.062
+A3VC2ZAJP08NYJ,33,1,0,num,0,0,55.19,0,5,56.707
+A3VC2ZAJP08NYJ,9,1,1,pos,4,0,33.94,0,1,37.076
+A3VC2ZAJP08NYJ,4,2,2,pos,2000/6/2,small&dense-small&sparse-small&dense,8.21-4.64-1.92,1,2000/2/6,16.626
+A3VC2ZAJP08NYJ,3,-1,2,point number,1,large&dense,4.78,1,1,19.354
+A3VC2ZAJP08NYJ,6,4,1,pos,2,small&dense,45.27,1,2,47.089
+A3VC2ZAJP08NYJ,28,2,1,num,2002/5/6,small&sparse-small&sparse-0,3.46-27.88-2.68,0,2000/2/5,35.799
+A3VC2ZAJP08NYJ,18,4,2,num,2005/2/7,small&sparse-small&dense-small&dense,5.70-11.80-1.79,1,2007/2/5,21.22
+A3VC2ZAJP08NYJ,11,3,1,pos,4-6-0,0-small&dense-large&sparse,31.79-0.97-1.66,0,6-1-0,35.937
+A3VC2ZAJP08NYJ,30,4,0,num,7月5日,0-small&dense,47.43-1.93,0,5-0,51.074
+A3VC2ZAJP08NYJ,19,5,2,num,3,small&dense,7.03,1,3,9.447
+A3VC2ZAJP08NYJ,25,5,1,num,1-0,small&sparse-large&sparse,8.14-22.56,1,1-0,33.007
+A3VC2ZAJP08NYJ,31,5,0,num,4月6日,0-large&sparse,10.36-1.96,0,6月5日,14.349
+A3VC2ZAJP08NYJ,32,0,0,num,7,small&sparse,5.67,1,7,7.169
+A3VC2ZAJP08NYJ,16,2,0,pos,1-0,small&sparse-small&dense,10.23-5.42,1,1-0,17.33
+A3VC2ZAJP08NYJ,2,0,2,pos,2004/7/5,large&sparse-0-small&dense,4.63-1.21-9.92,0,2005/4/6,17.573
+A3VC2ZAJP08NYJ,26,0,1,num,2002/4/1,0-small&dense-0,8.28-3.83-5.56,0,2003/4/6,19.042
+A3VC2ZAJP08NYJ,24,4,1,num,2月5日,small&dense-0,8.68-29.05,0,2月6日,42.356

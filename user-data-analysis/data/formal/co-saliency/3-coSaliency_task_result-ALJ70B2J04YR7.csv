@@ -1,0 +1,41 @@
+userName,fileId,conditionId,changeMagnitude,changeType,clickOrder,clickClusterType,clickTime,userResult,rightAnswer,totalTime
+ALJ70B2J04YR7,0,3,2,pos,3-4,small&dense-small&sparse,2.31-9.38,1,3-4,13.774
+ALJ70B2J04YR7,27,0,1,num,5,small&sparse,22.45,1,5,24.325
+ALJ70B2J04YR7,12,3,0,pos,6,large&dense,29.74,1,6,32.578
+ALJ70B2J04YR7,21,0,2,num,,0,,0,1,60
+ALJ70B2J04YR7,29,2,1,num,4,small&sparse,17.38,1,4,19.273
+ALJ70B2J04YR7,15,0,0,pos,7,small&sparse,34.44,1,7,36.78
+ALJ70B2J04YR7,60,-1,2,center position,5,small&dense,5.26,1,5,6.97
+ALJ70B2J04YR7,34,1,0,num,5,large&dense,16.50,0,5-7-6,60
+ALJ70B2J04YR7,1,4,2,pos,2,small&sparse,8.06,1,2,9.993
+ALJ70B2J04YR7,20,5,2,num,7-4,large&dense-small&dense,5.42-2.88,1,4-7,10.206
+ALJ70B2J04YR7,7,4,1,pos,5-3-7,small&sparse-large&sparse-small&sparse,4.32-3.05-20.75,1,5-3-7,30.444
+ALJ70B2J04YR7,5,2,2,pos,0-3,large&dense-small&sparse,3.63-3.67,1,0-3,8.794
+ALJ70B2J04YR7,10,1,1,pos,3-7,large&dense-small&dense,2.66-9.32,1,7-3,13.765
+ALJ70B2J04YR7,13,4,0,pos,0-3-5,large&sparse-small&dense-large&dense,3.49-15.58-5.54,1,3-5-0,26.49
+ALJ70B2J04YR7,14,5,0,pos,1-6-5,0-small&sparse-large&dense,3.70-10.26-6.59,0,6-5-7,21.657
+ALJ70B2J04YR7,32,-1,2,shape,4,large&dense,5.07,1,4,6.946
+ALJ70B2J04YR7,22,1,2,num,0,large&sparse,11.05,0,0-7,60
+ALJ70B2J04YR7,62,-1,2,center position,4,large&dense,3.31,1,4,4.964
+ALJ70B2J04YR7,23,2,2,num,0-6-3,large&dense-large&dense-small&sparse,2.32-5.21-34.60,1,3-6-0,44.54
+ALJ70B2J04YR7,17,2,0,pos,0-4,small&dense-0,7.19-52.10,0,0-5,60
+ALJ70B2J04YR7,8,5,1,pos,6-1,large&sparse-large&dense,2.35-4.74,1,1-6,8.748
+ALJ70B2J04YR7,35,2,0,num,5-0-6,large&sparse-small&sparse-small&dense,8.66-13.68-19.26,1,6-5-0,44.902
+ALJ70B2J04YR7,3,0,2,pos,7,small&sparse,24.85,1,7,26.538
+ALJ70B2J04YR7,33,0,0,num,5,small&sparse,6.55,1,5,8.261
+ALJ70B2J04YR7,9,0,1,pos,1,small&dense,2.38,1,1,3.991
+ALJ70B2J04YR7,4,1,2,pos,2-3-6,small&dense-0-small&sparse,6.47-6.32-3.34,0,0-2-6,17.587
+ALJ70B2J04YR7,3,-1,2,point number,1,large&dense,10.85,1,1,13.314
+ALJ70B2J04YR7,6,3,1,pos,2,small&dense,43.63,1,2,45.123
+ALJ70B2J04YR7,28,1,1,num,2-0-5,small&sparse-small&dense-small&sparse,4.92-10.94-31.72,1,0-2-5,49.236
+ALJ70B2J04YR7,18,3,2,num,5-2-7,small&sparse-small&dense-small&dense,9.81-3.11-1.54,1,7-2-5,15.702
+ALJ70B2J04YR7,11,2,1,pos,6-1-0,small&dense-small&dense-large&sparse,4.23-2.22-2.55,1,6-1-0,10.452
+ALJ70B2J04YR7,30,3,0,num,5-0,small&dense-small&dense,10.96-3.88,1,5-0,17.131
+ALJ70B2J04YR7,19,4,2,num,3,small&dense,5.68,1,3,6.912
+ALJ70B2J04YR7,25,4,1,num,1-0,small&sparse-large&sparse,19.24-8.80,1,1-0,31.04
+ALJ70B2J04YR7,31,4,0,num,6-5,large&sparse-large&dense,7.02-7.71,1,6-5,17.064
+ALJ70B2J04YR7,32,5,0,num,7,small&sparse,18.12,1,7,19.702
+ALJ70B2J04YR7,16,1,0,pos,0-1,small&dense-small&sparse,6.27-18.71,1,1-0,26.546
+ALJ70B2J04YR7,2,5,2,pos,4-5-6,large&sparse-small&dense-small&sparse,2.80-2.74-6.97,1,5-4-6,13.824
+ALJ70B2J04YR7,26,5,1,num,6-4-3,large&sparse-small&dense-small&sparse,3.45-3.02-5.67,1,3-4-6,13.379
+ALJ70B2J04YR7,24,3,1,num,6-2,small&sparse-small&dense,8.95-8.58,1,2-6,18.9

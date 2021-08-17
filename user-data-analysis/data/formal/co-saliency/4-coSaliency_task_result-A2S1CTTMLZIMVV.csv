@@ -1,0 +1,41 @@
+userName,fileId,conditionId,changeMagnitude,changeType,clickOrder,clickClusterType,clickTime,userResult,rightAnswer,totalTime
+A2S1CTTMLZIMVV,0,4,2,pos,2-5,0-0,3.32-1.04,0,3-4,5.456
+A2S1CTTMLZIMVV,27,1,1,num,1,0,3.37,0,5,4.914
+A2S1CTTMLZIMVV,12,4,0,pos,7,0,2.59,0,6,3.791
+A2S1CTTMLZIMVV,21,1,2,num,2,0,8.28,0,1,9.724
+A2S1CTTMLZIMVV,29,3,1,num,4,small&sparse,5.62,1,4,6.897
+A2S1CTTMLZIMVV,15,1,0,pos,7,small&sparse,9.90,1,7,10.842
+A2S1CTTMLZIMVV,60,-1,2,center position,5,small&dense,4.15,1,5,5.828
+A2S1CTTMLZIMVV,34,2,0,num,5-4-7,large&dense-0-large&dense,6.46-6.94-2.02,0,5-7-6,16.546
+A2S1CTTMLZIMVV,1,5,2,pos,2,small&sparse,3.60,1,2,15.049
+A2S1CTTMLZIMVV,20,0,2,num,0-5,0-0,5.83-12.86,0,4-7,19.951
+A2S1CTTMLZIMVV,7,5,1,pos,5-3-7,small&sparse-large&sparse-small&sparse,2.54-3.67-6.64,1,5-3-7,17.271
+A2S1CTTMLZIMVV,5,3,2,pos,0-3,large&dense-small&sparse,2.33-4.00,1,0-3,10.376
+A2S1CTTMLZIMVV,10,2,1,pos,7-3,small&dense-large&dense,6.91-1.62,1,7-3,9.431
+A2S1CTTMLZIMVV,13,5,0,pos,0-7-3,large&sparse-0-small&dense,18.02-5.90-6.41,0,3-5-0,33.212
+A2S1CTTMLZIMVV,14,0,0,pos,7-1-2,large&dense-0-0,2.99-2.57-4.72,0,6-5-7,11.154
+A2S1CTTMLZIMVV,32,-1,2,shape,5,0,3.56,0,4,4.711
+A2S1CTTMLZIMVV,22,2,2,num,0-4,large&sparse-0,6.05-1.66,0,0-7,8.962
+A2S1CTTMLZIMVV,62,-1,2,center position,4,large&dense,2.73,1,4,3.972
+A2S1CTTMLZIMVV,23,3,2,num,6-0-4,large&dense-large&dense-0,2.68-3.16-3.08,0,3-6-0,9.959
+A2S1CTTMLZIMVV,17,3,0,pos,0-5,small&dense-small&sparse,3.12-5.11,1,0-5,9.248
+A2S1CTTMLZIMVV,8,0,1,pos,4-1,0-large&dense,2.73-1.59,0,1-6,5.462
+A2S1CTTMLZIMVV,35,3,0,num,0-1-5,small&sparse-0-large&sparse,5.89-2.84-5.20,0,6-5-0,14.896
+A2S1CTTMLZIMVV,3,1,2,pos,7,small&sparse,8.07,1,7,9.44
+A2S1CTTMLZIMVV,33,1,0,num,6,0,12.77,0,5,14.232
+A2S1CTTMLZIMVV,9,1,1,pos,1,small&dense,9.68,1,1,13.598
+A2S1CTTMLZIMVV,4,2,2,pos,0-7-6,small&dense-0-small&sparse,10.01-5.00-5.09,0,0-2-6,24.709
+A2S1CTTMLZIMVV,3,-1,2,point number,1,large&dense,5.92,1,1,7.956
+A2S1CTTMLZIMVV,6,4,1,pos,2,small&dense,5.75,1,2,7.363
+A2S1CTTMLZIMVV,28,2,1,num,5-0-2,small&sparse-small&dense-small&sparse,6.50-0.89-2.07,1,0-2-5,10.442
+A2S1CTTMLZIMVV,18,4,2,num,7-5-2,small&dense-small&sparse-small&dense,3.48-4.60-2.08,1,7-2-5,11.409
+A2S1CTTMLZIMVV,11,3,1,pos,0-6-1,large&sparse-small&dense-small&dense,5.24-6.09-2.65,1,6-1-0,15.205
+A2S1CTTMLZIMVV,30,4,0,num,0-3,small&dense-0,7.33-6.41,0,5-0,14.593
+A2S1CTTMLZIMVV,19,5,2,num,4,0,5.30,0,3,7.655
+A2S1CTTMLZIMVV,25,5,1,num,5-1,0-small&sparse,5.82-2.22,0,1-0,9.122
+A2S1CTTMLZIMVV,31,5,0,num,5-2,large&dense-0,7.97-4.72,0,6-5,13.799
+A2S1CTTMLZIMVV,32,0,0,num,7,small&sparse,10.02,1,7,11.326
+A2S1CTTMLZIMVV,16,2,0,pos,1-0,small&sparse-small&dense,4.23-1.45,1,1-0,7.279
+A2S1CTTMLZIMVV,2,0,2,pos,1-2-4,0-0-large&sparse,2.98-2.37-8.59,0,5-4-6,15.007
+A2S1CTTMLZIMVV,26,0,1,num,4-3-7,small&dense-small&sparse-0,4.99-4.42-4.83,0,3-4-6,15.131
+A2S1CTTMLZIMVV,24,4,1,num,0-3,0-0,11.78-3.55,0,2-6,18.163

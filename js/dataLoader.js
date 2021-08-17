@@ -1,26 +1,7 @@
 
 function initGlobalVariables() {
     let cluster_num = Object.keys(labelToClass).length;
-    knng_distance = new Array(cluster_num);
-    dsc_distance = new Array(cluster_num);
     change_distance = new Array(cluster_num).fill(0);
-    cosaliency_distance = new Array(cluster_num);
-    for (let i = 0; i < cluster_num; i++) {
-        knng_distance[i] = new Array(cluster_num);
-        dsc_distance[i] = new Array(cluster_num);
-        cosaliency_distance[i] = new Array(cluster_num);
-        for (let j = 0; j < cluster_num; j++) {
-            knng_distance[i][j] = 0;
-            dsc_distance[i][j] = 0;
-            cosaliency_distance[i][j] = 0;
-        }
-    }
-
-    // clear widgets residual
-    for (let i = 0; i < choosed_emphasized_clusters.length; i++) {
-        choosed_emphasized_clusters[i].remove();
-    }
-    choosed_emphasized_clusters = [];
 }
 
 function loadScatterplotExample() {
@@ -38,6 +19,7 @@ function loadScatterplotExample() {
             source_datasets_names.push("scatterplot-1");
             loadData(text, labelSet);
             labelToClass = getLabelToClassMapping(labelSet);
+            console.log(labelToClass);
             initGlobalVariables();
 
             processScatterData(source_datasets);
@@ -196,12 +178,32 @@ function processScatterData(datasets) {
     }; // data -> display
     yAxis = d3.axisLeft().scale(yScale).ticks(0);
 
+    // using same scale
     let dataset = [];
     for (let i = 0; i < datasets.length; i++) {
         dataset = dataset.concat(datasets[i]);
     }
     xScale.domain(d3.extent(dataset, xValue));
     yScale.domain(d3.extent(dataset, yValue));
+
+    scaled_datasets = []
+    for (let i = 0; i < datasets.length; i++) {
+        // using different scale
+        xScale.domain(d3.extent(datasets[i], xValue));
+        yScale.domain(d3.extent(datasets[i], yValue));
+
+        let tmp = []
+        for (let d of datasets[i]) {
+            tmp.push(
+                {
+                    x: xMap(d),
+                    y: yMap(d),
+                    label: d.label
+                }
+            )
+        }
+        scaled_datasets.push(tmp)
+    }
 
     // get cluster number for each class
     let cluster_num = Object.keys(labelToClass).length;
@@ -216,43 +218,9 @@ function processScatterData(datasets) {
         }
     }
 
-    calculateAlphaShapeDistance(datasets, [[0, 0], [svg_width, svg_height]]);
-
-    // let points = []
-    // datasets[0].forEach((element, id) => {
-    //     points.push({
-    //         "x": xMap(element),
-    //         "y": yMap(element),
-    //         "label": element.label,
-    //         "id": id
-    //     })
-    // });
-    // let r = 25
-    // let frnn = new FRNN(points, r);
-    // let neighbors = frnn.neighbors();
-    // console.log(neighbors, Object.keys(neighbors).length, points.length);
-    // drawScatterplot(points, neighbors, r)
-
-    // calculateKNNGDistance(datasets);
-    // calculateClassCenterDistance(datasets);
-    if (datasets.length > 1)
-        calcChangingDistance(datasets);
-    delta_change_distance = getDeltaDistance(change_distance);
-    // let render_order = new RenderOrder(datasets[0], radius, svg_width, svg_height)
-    // // console.log(datasets[0].length, datasets[1].length);
-    // datasets[0] = render_order.orderedData
-    // render_order = new RenderOrder(datasets[1], radius, svg_width, svg_height)
-    // datasets[1] = render_order.orderedData
-
-    // let cluster_num = Object.keys(labelToClass).length;
-    // for (let i = 0; i < cluster_num; i++) {
-    //     for (let j = 0; j < cluster_num; j++) {
-    //         let dist = knng_distance[i][j] + 1.0 * dsc_distance[i][j];
-    //         dist *= Math.exp(change_distance[i]);
-    //         cosaliency_distance[i][j] = dist / source_datasets.length;
-    //     }
-    // }
-    // console.log(knng_distance, dsc_distance, change_distance, cosaliency_distance);
+    calculateAlphaShapeDistance(scaled_datasets, [[0, 0], [svg_width, svg_height]])
+    calcChangingDistance(scaled_datasets)
+    reOrderClusters()
 }
 
 function processBarData(datasets) {
@@ -267,7 +235,7 @@ function processBarData(datasets) {
     for (let i = 0; i < datasets.length; i++) {
         dataset = dataset.concat(datasets[i]);
     }
-    xScale.domain(Object.keys(labelToClass).map(function (d, i) {
+    xScale.domain(Object.keys(labelToClass).map(function (d) {
         return d;
     }));
     yScale.domain([0, d3.max(dataset, yValue)]);
