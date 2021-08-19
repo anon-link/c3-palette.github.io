@@ -81,18 +81,18 @@ function processAbsent() {
                 if (!output[i][i + "-" + d[i]]) output[i][i + "-" + d[i]] = []
                 output[i][i + "-" + d[i]].push(d)
             }
-            if(!stat[d["Reason for absence"]]) stat[d["Reason for absence"]] = []
+            if (!stat[d["Reason for absence"]]) stat[d["Reason for absence"]] = []
             stat[d["Reason for absence"]].push(d)
         }
         let tmp = []
-        for (let i in stat){
+        for (let i in stat) {
             tmp.push([i, stat[i].length])
         }
-        tmp.sort((a,b)=>(b[1]-a[1]))
+        tmp.sort((a, b) => (b[1] - a[1]))
         console.log(output, tmp);
-        tmp = tmp.slice(0,10)
+        tmp = tmp.slice(0, 10)
         let choosed_reasons = []
-        for(let d of tmp){
+        for (let d of tmp) {
             choosed_reasons.push(d[0])
         }
         // output to csv
@@ -103,7 +103,7 @@ function processAbsent() {
             let keys = Object.keys(output[key])
             let str = "";
             for (let d of output[key][keys[file_count]]) {
-                if(choosed_reasons.indexOf(d["Reason for absence"])===-1) continue
+                if (choosed_reasons.indexOf(d["Reason for absence"]) === -1) continue
                 str += d['Distance from Residence to Work'];
                 str += ",";
                 str += d["Transportation expense"];
@@ -121,3 +121,54 @@ function processAbsent() {
     })
 }
 // processAbsent()
+
+
+
+function processGapMinder() {
+    let files = ["year-1950.csv", "year-1960.csv", "year-1970.csv", "year-1980.csv"]
+    let file_count = 0
+    let processOne = function () {
+        // load data
+        d3.text("./gapminder/" + files[file_count], function (error, text) {
+            if (error) throw error;
+            let data = d3.csvParseRows(text, function (d) {
+                if (!isNaN(d[0]) && !isNaN(d[1])) {
+                    return d; //.map(Number);
+                }
+            }).map(function (d) { // change the array to an object, use the first two feature as the position
+                //source data
+                var row = {};
+                row.label = d[2];
+                row.x = +d[0];
+                row.y = +d[1];
+                return row;
+            });
+            console.log(data);
+
+            let output = []
+            for (let d of data) {
+                if (d.x < 40000) {
+                    output.push(d)
+                }
+            }
+            // output to csv
+            let str = "life_expectancy, child_mortality, country_group\n";
+            for (let d of output) {
+                str += d.y;
+                str += ",";
+                str += d.x;
+                str += ",";
+                str += d.label;
+                str += "\n";
+            }
+            downloadFile(files[file_count], str);
+            file_count++
+        })
+    }
+    let interval = setInterval(function () {
+        if (file_count === files.length) clearInterval(interval);
+        processOne()
+    }, 1000)
+
+}
+// processGapMinder()

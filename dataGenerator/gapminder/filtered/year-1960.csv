@@ -1,0 +1,143 @@
+﻿life_expectancy, child_mortality, country_group
+33,4006.21,Sub-Saharan Africa
+40.72,996.93,Sub-Saharan Africa
+50.61,953.26,Sub-Saharan Africa
+37.25,661.86,Sub-Saharan Africa
+41.29,396.94,Sub-Saharan Africa
+41.53,1386.31,Sub-Saharan Africa
+51.98,654.58,Sub-Saharan Africa
+40.79,1348.77,Sub-Saharan Africa
+43.45,1337.13,Sub-Saharan Africa
+41.28,873.47,Sub-Saharan Africa
+48.24,2416.97,Sub-Saharan Africa
+40.71,1622.67,Sub-Saharan Africa
+36.73,490.52,Sub-Saharan Africa
+39.11,362.82,Sub-Saharan Africa
+38.41,399.45,Sub-Saharan Africa
+39.58,5440.07,Sub-Saharan Africa
+45.83,1158.85,Sub-Saharan Africa
+36.42,621.38,Sub-Saharan Africa
+34.51,550.27,Sub-Saharan Africa
+46.32,928.11,Sub-Saharan Africa
+46.58,364.73,Sub-Saharan Africa
+40.22,645.17,Sub-Saharan Africa
+39.85,1637.51,Sub-Saharan Africa
+37.8,428.7,Sub-Saharan Africa
+36.21,510.59,Sub-Saharan Africa
+44.48,946.38,Sub-Saharan Africa
+59.63,2161.31,Sub-Saharan Africa
+35.02,527.87,Sub-Saharan Africa
+46.89,2893.49,Sub-Saharan Africa
+37.54,902.91,Sub-Saharan Africa
+37.89,1104.93,Sub-Saharan Africa
+56.33,2969.28,Sub-Saharan Africa
+42.28,564.22,Sub-Saharan Africa
+50.42,934.47,Sub-Saharan Africa
+40.3,1607.71,Sub-Saharan Africa
+33.34,1080.7,Sub-Saharan Africa
+35.98,1304.43,Sub-Saharan Africa
+49.05,5545.68,Sub-Saharan Africa
+43,1935.05,Sub-Saharan Africa
+44.26,1428.81,Sub-Saharan Africa
+43.66,708.87,Sub-Saharan Africa
+44.76,1011.31,Sub-Saharan Africa
+43.97,788.69,Sub-Saharan Africa
+45.1,1540.6,Sub-Saharan Africa
+51.5,526.78,Sub-Saharan Africa
+31.13,868.5,South Asia
+40.21,679,South Asia
+42.44,696,South Asia
+38.47,640.8,South Asia
+49.38,744,South Asia
+57.51,1072.21,South Asia
+46.96,3716.79,Middle East & North Africa
+55.36,12373.91,Middle East & North Africa
+38.52,3043.2,Middle East & North Africa
+50.13,7086.01,Middle East & North Africa
+68.7,6291.25,Middle East & North Africa
+46.82,2088.37,Middle East & North Africa
+60.93,5416.84,Middle East & North Africa
+46.56,4902.71,Middle East & North Africa
+46.68,1536.62,Middle East & North Africa
+41.52,2522.63,Middle East & North Africa
+44.31,9726.96,Middle East & North Africa
+48.34,1616.32,Middle East & North Africa
+46.82,2039.72,Middle East & North Africa
+34.54,815.92,Middle East & North Africa
+65.23,6984.76,America
+64.5,5319.74,America
+61.43,1868.46,America
+42.67,2117.78,America
+54.51,3044.13,America
+71.04,12701.48,America
+57.03,4321.77,America
+56.72,2399.03,America
+61.61,3374.88,America
+63.89,5194.75,America
+53.12,4012.4,America
+51.3,3468.95,America
+45.53,2696.63,America
+56.12,2197.3,America
+42.18,1780.91,America
+46.3,2262.22,America
+64.28,5113.57,America
+57.07,4433.09,America
+47,3248.3,America
+60.81,3119.95,America
+63.79,2016.41,America
+47.7,4486.39,America
+69.3,4502.88,America
+63.52,4795.86,America
+69.91,18175.43,America
+67.89,5720.89,America
+62.25,2220.34,Europe & Central Asia
+68.78,10083.83,Europe & Central Asia
+69.65,10076.6,Europe & Central Asia
+60.33,1638.06,Europe & Central Asia
+69.18,3759.17,Europe & Central Asia
+66.12,5248.4,Europe & Central Asia
+72.21,11569.48,Europe & Central Asia
+69.01,8562.87,Europe & Central Asia
+70.4,10244.42,Europe & Central Asia
+69.79,12091.34,Europe & Central Asia
+68.73,5067.26,Europe & Central Asia
+68.09,6954.29,Europe & Central Asia
+74.09,9890.07,Europe & Central Asia
+70.23,6125.35,Europe & Central Asia
+69.21,7314.83,Europe & Central Asia
+69.07,17086.72,Europe & Central Asia
+60.72,3206.91,Europe & Central Asia
+68.64,2300.59,Europe & Central Asia
+62.51,4454.8,Europe & Central Asia
+73.37,10620.98,Europe & Central Asia
+73.58,11481,Europe & Central Asia
+67.86,5137.59,Europe & Central Asia
+64.25,4196.15,Europe & Central Asia
+65.68,4349.19,Europe & Central Asia
+63.21,6026.13,Europe & Central Asia
+70.35,7205.56,Europe & Central Asia
+68.68,7092.19,Europe & Central Asia
+69.27,4603.07,Europe & Central Asia
+73.04,11952,Europe & Central Asia
+71.44,19059.01,Europe & Central Asia
+50.26,2666.17,Europe & Central Asia
+71.1,12167.33,Europe & Central Asia
+70.89,11897.96,East Asia & Pacific
+42.4,489.73,East Asia & Pacific
+31.63,583.02,East Asia & Pacific
+55.52,2036.45,East Asia & Pacific
+66.32,4026.16,East Asia & Pacific
+41.15,834.99,East Asia & Pacific
+67.8,5488.81,East Asia & Pacific
+55.43,1200,East Asia & Pacific
+54.05,1137,East Asia & Pacific
+53.92,1904.48,East Asia & Pacific
+46.75,996.67,East Asia & Pacific
+43.69,636.33,East Asia & Pacific
+71.26,12816.33,East Asia & Pacific
+38.44,1120.04,East Asia & Pacific
+53.23,1584.52,East Asia & Pacific
+64.54,3426.03,East Asia & Pacific
+64.4,1984,East Asia & Pacific
+54.48,940.12,East Asia & Pacific
+44.13,696.95,East Asia & Pacific

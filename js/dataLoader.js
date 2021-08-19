@@ -189,8 +189,8 @@ function processScatterData(datasets) {
     scaled_datasets = []
     for (let i = 0; i < datasets.length; i++) {
         // using different scale
-        xScale.domain(d3.extent(datasets[i], xValue));
-        yScale.domain(d3.extent(datasets[i], yValue));
+        // xScale.domain(d3.extent(datasets[i], xValue));
+        // yScale.domain(d3.extent(datasets[i], yValue));
 
         let tmp = []
         for (let d of datasets[i]) {

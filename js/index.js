@@ -170,8 +170,8 @@ function appendScatterplot() {
   // used_palette = Tableau_10_palette
   // used_palette = shuffle(Tableau_10_palette.slice(0,used_palette.length));
   for (let i = 0; i < source_datasets.length; i++) {
-    xScale.domain(d3.extent(source_datasets[i], xValue));
-    yScale.domain(d3.extent(source_datasets[i], yValue));
+    // xScale.domain(d3.extent(source_datasets[i], xValue));
+    // yScale.domain(d3.extent(source_datasets[i], yValue));
     let scatterplot_svg = d3.select("#renderDiv").append("svg")
       .attr("width", SVGWIDTH).attr("height", SVGHEIGHT);
     let scatterplot = scatterplot_svg.style("background-color", bgcolor).append("g")
@@ -193,11 +193,11 @@ function appendScatterplot() {
     // add the x Axis
     scatterplot.append("g")
       .attr("transform", "translate(0," + svg_height + ")")
-      .call(d3.axisBottom(xScale).tickFormat(""));
+      .call(d3.axisBottom(xScale));//.tickFormat("")
 
     // add the y Axis
     scatterplot.append("g")
-      .call(d3.axisLeft(yScale).tickFormat(""));
+      .call(d3.axisLeft(yScale));//.tickFormat("")
 
 
     // let circle = scatterplot.append("circle")
