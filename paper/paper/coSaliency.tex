@@ -29,6 +29,9 @@
 \acmISBN{978-1-4503-XXXX-X/18/06}
 
 
+\usepackage{enumitem}
+\usepackage{wrapfig}
+
 %%
 %% Submission ID.
 %% Use this when submitting an article to a sponsored event. You'll
@@ -200,7 +203,8 @@
 %% page.
 \begin{teaserfigure}
   \includegraphics[width=\textwidth]{teaser}
-  \caption{Seattle Mariners at Spring Training, 2010.}
+  \caption{Results for different conditions of two categorical scatterplots comparison: (left top) Random Assignment; (left bottom) C3-Palette Assignment; (center top) Optimized Assignment~\cite{Wang2018};
+(center bottom) Applying Alpha-Blending on Optimized Assignment, all the classes' alpha are set to 0.5 except the changed class; (right top) Palettailor~\cite{Lu21}; (right bottom) C3-Palette Generation. Our system unifies the palette assignment and palette generation to single or multiple scatterplots in a data-aware manner.}
   \Description{Enjoying the baseball game from the third-base
   seats. Ichiro Suzuki preparing to bat.}
   \label{fig:teaser}
@@ -231,6 +235,8 @@ author's own version, with {\itshape very} few changes to the source.
 
 \input{03_method}
 \input{04_colormap}
+\input{05_interaction}
+\input{06_evaluation}
 
 \section{Template Overview}
 As noted in the introduction, the ``\verb|acmart|'' document class can
@@ -540,14 +546,14 @@ The ``\verb|figure|'' environment should be used for figures. One or
 more images can be placed within a figure. If your figure contains
 third-party material, you must clearly identify it as such, as shown
 in the example below.
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=\linewidth]{sample-franklin}
-  \caption{1907 Franklin Model D roadster. Photograph by Harris \&
-    Ewing, Inc. [Public domain], via Wikimedia
-    Commons. (\url{https://goo.gl/VLCRBB}).}
-  \Description{A woman and a girl in white dresses sit in an open car.}
-\end{figure}
+%\begin{figure}[h]
+%  \centering
+%  \includegraphics[width=\linewidth]{}
+%  \caption{1907 Franklin Model D roadster. Photograph by Harris \&
+%    Ewing, Inc. [Public domain], via Wikimedia
+%    Commons. (\url{https://goo.gl/VLCRBB}).}
+%  \Description{A woman and a girl in white dresses sit in an open car.}
+%\end{figure}
 
 Your figures should contain a caption which describes the figure to
 the reader.
