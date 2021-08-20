@@ -21,14 +21,14 @@ We conducted two online controlled experiments through Amazon Mechanical Turk (A
 \emph{Colorization method:} We used six different ways to colorize scatterplots: four benchmark methods (\emph{Random Assignment}, \emph{Optimized Assignment}, \emph{Alpha Blending} and \emph{Palettailor}) and two experimental methods based on our approach (\emph{C3-Palette Assignment}, \emph{C3-Palette Generation}):
 \begin{itemize}
 
-     \item \emph{Random Assignment} is randomly selecting and assigning colors from Tableau-20 palette to the classes.
+     \item C1: \emph{Random Assignment} is randomly selecting and assigning colors from Tableau-20 palette to the classes.
 
-     \item \emph{Optimized Assignment} uses the optimized assignment approach~\cite{Wang2018} for one of the two scatterplots with an input of Tableau-20 color palette.
+     \item C2: \emph{Optimized Assignment} uses the optimized assignment approach~\cite{Wang2018} for one of the two scatterplots with an input of Tableau-20 color palette.
 
-     \item \emph{Alpha Blending} is changing the alpha of each unchanged class to $0.5$ while the changed classes are stay to $1.0$ based on \emph{Optimized Assignment} result. We choose $0.5$ since we also have the discrimination task.
-     \item \emph{Palettailor} uses the method proposed by Lu et.al~\cite{Lu21} for single scatterplot palette generation. The palette is generated for one of the two scatterplots with the default settings.
-     \item \emph{C3-Palette Assignment} uses the color assignment optimization solution of Eq.~\ref{eq:cosaliency} based on Tableau-20.
-     \item \emph{C3-Palette Generation} uses the unified color generation and assignment optimization method, and produced the results with the parameters $\omega_0=1.0$, $\omega_1=1.0$ and $\omega_2=1.0$.
+     \item C3: \emph{Alpha Blending} is changing the alpha of each unchanged class to $0.5$ while the changed classes are stay to $1.0$ based on \emph{Optimized Assignment} result. We choose $0.5$ since we also have the discrimination task.
+     \item C4: \emph{Palettailor} uses the method proposed by Lu et.al~\cite{Lu21} for single scatterplot palette generation. The palette is generated for one of the two scatterplots with the default settings.
+     \item C5: \emph{C3-Palette Assignment} uses the color assignment optimization solution of Eq.~\ref{eq:cosaliency} based on Tableau-20.
+     \item C6: \emph{C3-Palette Generation} uses the unified color generation and assignment optimization method, and produced the results with the parameters $\omega_0=1.0$, $\omega_1=1.0$ and $\omega_2=1.0$.
 \end{itemize}
 Our approach are all using the default parameters $\lambda=0.4$ and $\kappa=0$.
 
@@ -50,8 +50,34 @@ To systematically compute the changes, we defined two variables: \emph{change ra
 
      \item \emph{Point position}: Point position contains many types, such as class center position change and shape change. In our experiment, we use the two different position changes mentioned above. For center position change, the center of a class can be moved in a certain \emph{direction} with a specific \emph{distance}. We moved the center towards a random direction by a distance calculated by multiplying a maximal change distance ($400$ by default) by the \emph{change ratio}. For shape change, we define the shape of a class as the bounding box of its data points. We simulated a shape change of a class by modifying the density parameter of its Gaussian distribution to the opposite direction. For example, a small \& dense class ($n=50, \sigma=20$) would be changed into a small \& sparse ($n=50, \sigma=50$) class. In order to produce a new shape for a class, we first calculate the one-to-one mapping between the newly-generated class and the original class using ~\cite{kuhn1955hungarian} and then linearly interpolated the new point between each two points based on the \emph{change ratio} parameter. We randomly choose one change type when disturbing the class to be changed.
 \end{itemize}
-For each change type and each , we produced 100 candidate scatterplot pairs and then calculated the \emph{change magnitude} for each pair, and split all  pairs regardless of their change type into three levels: \emph{small},  \emph{medium}, and \emph{large}.
-Next, we randomly selected $4$ pairs from each change magnitude level for each change type. Thus in total we used $36$ paired scatterplot in each of the three studies.
+For each change type, we produced 100 candidate scatterplot pairs and then calculated the \emph{change magnitude} for each pair, and split all  pairs into three levels: \emph{small},  \emph{medium}, and \emph{large}.
+Next, we randomly selected $2$ pairs from each change magnitude level for each change type and each number of changed classes. Thus in total we used $36$ paired scatterplot in each of the three studies. The detailed dataset is showed in Table.~\ref{tab:latinsquare}
+
+\begin{table}[ht]
+     \renewcommand\arraystretch{1}
+     \centering
+     \caption{Grouping of Datasets: $36$ datasets $\times$ $6$ conditions. C: condition; G: participant group; Position Small 1: point position change with small change magnitude for 1 changed class.}
+     \label{tab:latinsquare}
+     \begin{tabular}{lcccccccc}
+     \hline
+      & C1 & C2 & C3  & C4 & C5 & C6 \\
+     
+     \hline
+     Dataset 1: Position Small 1 & \textbf{G1} & G2 & G3  & G4 & G5 & G6 \\
+     Dataset 2: Position Small 1 & G6 & \textbf{G1} & G2 & G3  & G4 & G5 \\
+     Dataset 3: Position Small 2 & G5  & G6 & \textbf{G1} & G2 & G3 & G4 \\
+     Dataset 4: Position Small 2 & G4 & G5  & G6 & \textbf{G1} & G2 & G3 \\
+     Dataset 5: Position Small 3 & G3 & G4 & G5  & G6 & \textbf{G1} & G2 \\
+     Dataset 6: Position Small 3 & G2 & G3 & G4  & G5 & G6 & \textbf{G1} \\
+     Dataset 7: Position Medium 1 & \textbf{G1} & G2 & G3  & G4 & G5 & G6 \\
+     Dataset 8: Position Medium 1 & G6 & \textbf{G1} & G2 & G3  & G4 & G5 \\
+     ... & & & & & & &\\
+     Dataset 35: Number Large 3 & G3 & G4 & G5  & G6 & \textbf{G1} & G2 \\
+     Dataset 36: Number Large 3 & G2 & G3  & G4 & G5 & G6 & \textbf{G1}  \\
+     
+     \hline
+     \end{tabular}
+     \end{table}
 
 \subsection{Numeric Study}
 \label{subsec:quantitystudy}
