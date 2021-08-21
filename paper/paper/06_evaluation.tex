@@ -5,7 +5,7 @@ We evaluated the effectiveness of our method on supporting juxtaposed visual com
 We conducted two online controlled experiments through Amazon Mechanical Turk (AMT) with 160 participants in total, to evaluate how well our method can support people in \emph{observing changes} and \emph{visual separability} for juxtaposed categorical scatterplots:
 \begin{enumerate}
 %\vspace{-3mm}
-\item [(i)] \emph{Spot-the-difference task}. To evaluate how well our method can support people in \emph{observing changes} for juxtaposed categorical scatterplots;
+\item [(i)] \emph{Spotting the Difference task}. To evaluate how well our method can support people in \emph{observing changes} for juxtaposed categorical scatterplots;
 %\vspace{-3mm}
 \item [(ii)] \emph{Counting class number task}. To evaluate whether our method can support the \emph{visual separability} of classes in each individual scatterplot, which is considered fundamental to juxtaposed comparison.
 %%\vspace{-3mm}
@@ -40,7 +40,7 @@ The paired scatterplot datasets used in our studies were generated as follows.
 First, we designed a set of multi-class scatterplots, each containing $8$ classes. Each class was generated using Gaussian random sampling and placed randomly in a $600 \times 600$ area.
 Similar to~\cite{Lu21}, these classes belong to one of the four settings of varying size and density: small \& dense ($n=50, \sigma=20$), small \& sparse ($n=20, \sigma=50$),  large \& dense ($n=100, \sigma=50$), and large \& sparse (($n=50, \sigma=100$).
 
-Then, for each scatterplot generated above, we produced its paired scatterplot by randomly choosing one or more classes and changing the positions or number of their data points. 
+Then, for each scatterplot generated above, we produced its paired scatterplot by randomly choosing one or more classes and changing the positions or number of their data points.
 %We focused on two common change types: \emph{point number} and \emph{point position}.
 To systematically compute the changes, we defined two variables: \emph{change ratio} and \emph{number of changed classes}.
 \emph{Change ratio} defines how large the change of a type is, ranging from 0 to 1; and {number of changed classes} defines the number of classes that are changed, ranging from 1 to 3. We summarize our basic idea of data generation for each change type as below.
@@ -50,8 +50,8 @@ To systematically compute the changes, we defined two variables: \emph{change ra
 
      \item \emph{Point position}: Point position contains many types, such as class center position change and shape change. In our experiment, we use the two different position changes mentioned above. For center position change, the center of a class can be moved in a certain \emph{direction} with a specific \emph{distance}. We moved the center towards a random direction by a distance calculated by multiplying a maximal change distance ($400$ by default) by the \emph{change ratio}. For shape change, we define the shape of a class as the bounding box of its data points. We simulated a shape change of a class by modifying the density parameter of its Gaussian distribution to the opposite direction. For example, a small \& dense class ($n=50, \sigma=20$) would be changed into a small \& sparse ($n=50, \sigma=50$) class. In order to produce a new shape for a class, we first calculate the one-to-one mapping between the newly-generated class and the original class using ~\cite{kuhn1955hungarian} and then linearly interpolated the new point between each two points based on the \emph{change ratio} parameter. We randomly choose one change type when disturbing the class to be changed.
 \end{itemize}
-For each change type, we produced 100 candidate scatterplot pairs and then calculated the \emph{change magnitude} for each pair, and split all  pairs into three levels: \emph{small},  \emph{medium}, and \emph{large}.
-Next, we randomly selected $2$ pairs from each change magnitude level for each change type and each number of changed classes. Thus in total we used $36$ paired scatterplot in each of the three studies. The detailed dataset is showed in Table.~\ref{tab:latinsquare}
+For each change type, we produced 300 candidate scatterplot pairs and then calculated the \emph{change magnitude} for each pair, and split all  pairs into three levels: \emph{small},  \emph{medium}, and \emph{large}.
+Next, we randomly selected $2$ pairs from each change magnitude level for each change type and each number of changed classes. Thus in total we used $36$ paired scatterplot in each of the two studies. The detailed dataset is showed in Table.~\ref{tab:latinsquare}
 
 \begin{table}[ht]
      \renewcommand\arraystretch{1}
@@ -61,7 +61,7 @@ Next, we randomly selected $2$ pairs from each change magnitude level for each c
      \begin{tabular}{lcccccccc}
      \hline
       & C1 & C2 & C3  & C4 & C5 & C6 \\
-     
+
      \hline
      Dataset 1: Position Small 1 & \textbf{G1} & G2 & G3  & G4 & G5 & G6 \\
      Dataset 2: Position Small 1 & G6 & \textbf{G1} & G2 & G3  & G4 & G5 \\
@@ -74,55 +74,55 @@ Next, we randomly selected $2$ pairs from each change magnitude level for each c
      ... & & & & & & &\\
      Dataset 35: Number Large 3 & G3 & G4 & G5  & G6 & \textbf{G1} & G2 \\
      Dataset 36: Number Large 3 & G2 & G3  & G4 & G5 & G6 & \textbf{G1}  \\
-     
+
      \hline
      \end{tabular}
      \end{table}
-
-\subsection{Numeric Study}
-\label{subsec:quantitystudy}
-To evaluate whether our approach can fundamentally support the visual separability of the classes in each scatterplot, we conducted a numeric study using the \emph{class visibility metric} proposed by Kim et al.~\cite{lee2013perceptually}. We calculated each scatterplot in every pair, and used the average value as the final score of the pair. We then compared the scores across different colorization methods.
-
-%\vspace{.3em}
-%\noindent{\textbf{Results.}}
-
-\begin{figure}[h]
-\centering
-\includegraphics[width=0.9\linewidth]{figures/classVisibility.pdf}
-\caption{Average class visibility score of the 36 synthetic scatterplot pairs of each color mapping scheme.}
-\vspace*{-3mm}
-\label{fig:classVisibility}
-\end{figure}
-
-As shown in Fig.~\ref{fig:classVisibility}, \emph{Ours Generation} has the highest score on average. \emph{Ours Tableau-10} is sometimes higher than \emph{Random Tableau-10}. The two conditions based on the Tableau-20 palette have the lowest scores, and \emph{Ours Tableau-20} appears to be slightly lower than \emph{Random Tableau-20}. This might be caused by the palette used in these conditions. Since Tableau-20 consists of both saturated and de-saturated colors, \emph{Ours Tableau-20} tends to select several de-saturated colors for the classes that change less in order to make strongly changed classes more salient. Yet that might diminish the visual separability of the classes.
+%
+%\subsection{Numeric Study}
+%\label{subsec:quantitystudy}
+%To evaluate whether our approach can fundamentally support the visual separability of the classes in each scatterplot, we conducted a numeric study using the \emph{class visibility metric} proposed by Kim et al.~\cite{lee2013perceptually}. We calculated each scatterplot in every pair, and used the average value as the final score of the pair. We then compared the scores across different colorization methods.
+%
+%%\vspace{.3em}
+%%\noindent{\textbf{Results.}}
+%
+%\begin{figure}[h]
+%\centering
+%\includegraphics[width=0.9\linewidth]{figures/classVisibility.pdf}
+%\caption{Average class visibility score of the 36 synthetic scatterplot pairs of each color mapping scheme.}
+%\vspace*{-3mm}
+%\label{fig:classVisibility}
+%\end{figure}
+%
+%As shown in Fig.~\ref{fig:classVisibility}, \emph{Ours Generation} has the highest score on average. \emph{Ours Tableau-10} is sometimes higher than \emph{Random Tableau-10}. The two conditions based on the Tableau-20 palette have the lowest scores, and \emph{Ours Tableau-20} appears to be slightly lower than \emph{Random Tableau-20}. This might be caused by the palette used in these conditions. Since Tableau-20 consists of both saturated and de-saturated colors, \emph{Ours Tableau-20} tends to select several de-saturated colors for the classes that change less in order to make strongly changed classes more salient. Yet that might diminish the visual separability of the classes.
 
 \begin{figure*}[t]
 \centering
-\includegraphics[width=1\linewidth]{figures/userResults.pdf}
-\caption{Confidence interval plots and statistical tables for the online controlled experiment. Error bars represent 95\% confidence intervals. Each table shows the statistical test results of our experimental condition with every benchmark condition, including the mean with 95\% confidence interval ($\mu\sim$95\%CI), the W-value and p-value from the Mann-Whitney test, and the effect size ($d\sim$95\%CI).
+\includegraphics[width=1\linewidth]{figures/user-result-formal.pdf}
+\caption{Confidence interval plots and statistical tables for the two online controlled experiments. Error bars represent $95\%$ confidence intervals. Each table shows the statistical test results of C3-Palette Generation condition with other conditions, including the mean with $95\%$ confidence interval ($\mu\sim$95\%CI), the W-value and p-value from the Mann-Whitney test, and the effect size ($d\sim$95\%CI).
 }
 \vspace*{-3mm}
 \label{fig:userResults}
 \end{figure*}
 
-\subsection{Online Controlled Experiment}
-\label{subsec:onlinestudy}
-%We perform a controlled study to evaluate our approach based on the same datasets mentioned in Sec.~\ref{subsec:quantitystudy}.
-%As our approach is the first attempt of color design for comparison, we analyze our color design framework by comparing visualizations generated under six different settings: \emph{Random Tableau-10, Random Tableau-20, Optimized Tableau, Ours Tableau-10, Ours Tableau-20, Ours Generation}.
+\subsection{Experiment 1: Spotting the Difference}
+\label{subsec:onlinestudy1}
 
-To evaluate how well our approach can assist observing changes between juxtaposed categorical scatterplots, we conduct an online ``spot-the-difference'' experiment through Amazon Mechanical Turk (AMT) with 120 participants.
-%We show participants a set of paired multi-class scatterplots with three different levels of change magnitude (\emph{small}, \emph{medium} and \emph{large}), and ask them to find a known number of classes that have been changed within $30$ seconds.  Error rate and time are recorded for analysis.
+To evaluate how well our approach can assist observing changes between juxtaposed categorical scatterplots, we conduct an online ``spot-the-difference'' experiment through Amazon Mechanical Turk (AMT) with 136 participants.
+%We show participants a set of paired multi-class scatterplots, and ask them to find a known number of classes that have been changed within $60$ seconds.  Error rate and consuming time are recorded for analysis.
 
 \vspace{.3em}
 \noindent{\textbf{Hypotheses.}} We hypothesized that our approach would generally be more effective than the benchmark methods on the juxtaposed comparison tasks, and that this effect would vary based on \emph{change magnitude}.
 %In this experiment, our major goal is to investigate if our co-saliency based color design formulation would affect the performance of observing changes between multiple datasets.
 \begin{itemize}[noitemsep]
 \setlength{\itemsep}{5pt}
-    \item[\textbf{H1.}] Our color generation method (\emph{Ours Generation}) outperforms the benchmark conditions (\emph{Random Tableau-10}, \emph{Random Tableau-20} and \emph{Optimized Tableau}) on the task performance.
+    \item[\textbf{H1.}] Our color generation method (\emph{C3-Palette Generation}) outperforms the benchmark conditions (\emph{Random Assignment}, \emph{Optimized Assignment}, \emph{Alpha Blending} and \emph{Palettailor}) on the task performance.
 
-    \item [\textbf{H2.}] Our color assignment method using a color palette with a larger range of brightness and saturation (\emph{Tableau-20}) outperforms the benchmark conditions (\emph{Random Tableau-10},\emph{Random Tableau-20} and \emph{Optimized Tableau}) on the task performance.
+    \item [\textbf{H2.}] Our color assignment method (\emph{C3-Palette Assignment}) using a color palette with a larger range of brightness and saturation (\emph{Tableau-20}) outperforms the benchmark conditions (\emph{Random Assignment}, \emph{Optimized Assignment}, \emph{Alpha Blending} and \emph{Palettailor}) on the task performance.
 
-    \item [\textbf{H3.}] There would be an interaction effect between colorization methods and change magnitude. Specifically, the difference between the effect of our methods (\emph{Ours Generation} and \emph{Tableau-20}) and that of the benchmark methods ((\emph{Random Tableau-10},\emph{Random Tableau-20} and \emph{Optimized Tableau})) would change based on the \emph{change magnitude} between the two scatterplots.
+    \item [\textbf{H3.}] There would be an interaction effect between colorization methods and change magnitude. Specifically, the difference between the effect of our methods (\emph{C3-Palette Generation} and \emph{C3-Palette Assignment}) and that of the benchmark methods (\emph{Random Assignment}, \emph{Optimized Assignment}, \emph{Alpha Blending} and \emph{Palettailor}) would change based on the \emph{change magnitude} between the two scatterplots.
+
+    \item [\textbf{H4.}] There would be an interaction effect between colorization methods and change type. Specifically, the difference between the effect of our methods (\emph{C3-Palette Generation} and \emph{C3-Palette Assignment}) and that of the benchmark methods (\emph{Random Assignment}, \emph{Optimized Assignment}, \emph{Alpha Blending} and \emph{Palettailor}) would change based on the \emph{change type} between the two scatterplots.
 \end{itemize}
 
 % For content we can refer to:
@@ -135,66 +135,79 @@ To evaluate how well our approach can assist observing changes between juxtapose
 \subsubsection{Experimental Design}
 %In this experiment, each participant completed a ``spot-the-difference'' task that contains $40$ paired multi-class scatterplots.
 %To colorize the paired scatterplots, we adopt the five visualization methods -- three of them are optimized or generated based on our approach (\emph{Ours Tableau-10}, \emph{Ours Tableau-20} and \emph{Ours Generation}), while the other two are random ones  (\emph{Random Tableau-10} and \emph{Random Tableau-20}).
-
+\
+\newline
 \vspace{.3em}
 \noindent{\textbf{Task \& Measures.}}
 In this experiment, each participant was asked to perform a \emph{spot-the-difference} task. Inspired by the Spot the Difference game where one needs to compare a pair of similar pictures to detect their differences~\cite{Fukuba2009}, we asked participants to identify all the classes that have been changed in two scatterplots. At the beginning of each trial, the number of changed classes was provided. Each participant was asked to select all the changed classes by clicking the points belonging to these class in either of the scatterplots.
 
-For each participant, we measured the \emph{time} taken for each trial, and counted the  errors ($0/1$) indicating whether the actual changed classes are aligned with the participant's response. Note that if any of the changed classes was mistakenly identified, the trial would be considered as ``wrong'' (1).
+For each participant, we measured the \emph{time} taken for each trial, and counted the errors ($0/1$) indicating whether the actual changed classes are aligned with the participant's response. Note that if any of the changed classes was mistakenly identified, the trial would be considered as ``wrong'' (1).
 
-While the participant was instructed to do the task ``\emph{as accurately as possible}'', we set a 30-second time limit for each trial. If the participant could not find all the changed classes during the time limit, they were directed to the next trial.
-This was done since we observed from the pilot study that when participants spent too much time on a single trial, they may decide to quit (which will lead to an incorrect answer) or to spend more time till they get the correct answer (which will lead to increasing time spent on the trial). This subject decision would add noise to our measurements. Thus we added a 30-second time limit, which was informed by our pilot study, where over 70\% correct trials were completed within $30$ seconds. More details can be found in the supplementary material.
+While the participant was instructed to do the task ``\emph{as accurately as possible}'', we set a $60$-second time limit for each trial. If the participant could not find all the changed classes during the time limit, they were directed to the next trial. There also will appear a ``\emph{Can't Find it}'' button after $30$ seconds.
+This was done since we observed from the pilot study that when participants spent too much time on a single trial, they may decide to quit (which will lead to an incorrect answer) or to spend more time till they get the correct answer (which will lead to increasing time spent on the trial). This subject decision would add noise to our measurements. Thus we added a $30$-second time limit, which was informed by our pilot study, where over $85\%$ correct trials were completed within $30$ seconds. More details can be found in the supplementary material.
 
 \vspace{.3em}
-\noindent{\textbf{Experiment Organization.}} We tested the effects of the $6$ method conditions across $36$ paired multi-class scatterplot datasets using a \emph{between-subject} experiment design. To avoid ordering effects, where the participant would get familiar with a dataset after seeing it several times, each participant was assigned to a group and saw a specific subset of datasets under different conditions. We used a Latin Square grouping (see Table.~\ref{tab:latinsquare}) to organize the trials for each participant. Thus, there were $6$ participant groups and each of them had $40$ trials in total. See the supplementary material for more details.
+\noindent{\textbf{Experiment Organization.}} We tested the effects of the $6$ method conditions across $36$ paired multi-class scatterplot datasets using a \emph{between-subject} experiment design. To avoid ordering effects, where the participant would get familiar with a dataset after seeing it several times, each participant was assigned to a group and saw a specific subset of datasets under different conditions. We used a Latin Square grouping (see Table.~\ref{tab:latinsquare}) to organize the trials for each participant. %$Thus, there were $6$ participant groups and each of them had $40$ trials in total. See the supplementary material for more details.
 
-In addition, some participants might apply a ``shortcut'' strategy when seeing a class that is obviously more salient than the others, especially under the \emph{Ours Generation} condition. Thus, for quality control, we added $4$ sentinels which were very simple trials with only one changed class and a large change magnitude, and we assigned a de-saturated color to the changed class that made it less salient.
+In addition, some participants might apply a ``shortcut'' strategy when seeing a class that is obviously more salient than the others, especially under the \emph{C3-Palette Assignment} and \emph{C3-Palette Generation} conditions. Thus, for quality control, we added $4$ sentinels which were very simple trials with only one changed class and a large change magnitude, and we assigned a de-saturated color to the changed class that made it less salient. We add these 4 distractor trials to each group to identify whether the participants is doing the task seriously and reject the results with more than two wrong trials.
 %especially to avoid preferences of \emph{Our Generation} method.
 %Only answers with a over $50\%$ accuracy were accepted.
 
-Finally, to further avoid learning effects between trials, we randomly shuffled the display orders of all scatterplot pairs, and randomly placed the two scatterplots in each pair on the left or right side.
+Finally, there were $6$ participant groups and each of them had $40$ trials in total. To further avoid learning effects between trials, we randomly shuffled the display orders of all scatterplot pairs, and randomly placed the two scatterplots in each pair on the left or right side.
 
 \begin{table}[ht]
 \renewcommand\arraystretch{1}
 \centering
-\caption{Grouping of Datasets: $36$ datasets $\times$ $6$ conditions. C: condition; G: participant group}
-\label{tab:latinsquare}
-\begin{tabular}{lcccccccc}
+\caption{Participants details for each task.}
+\label{tab:participantDetail}
+\begin{tabular}{|c|c|c|c|c|}
 \hline
- & C1 & C2 & C3  & C4 & C5 & C6 \\
-
+\multirow{2}{*}{\textbf{Task \& Group}} & \multicolumn{2}{c|}{Spotting the Difference} & \multicolumn{2}{c|}{Counting class number} \\
+\cline{2-5}
+& Pilot(28) & Formal(108) & Pilot(29) & formal(52) \\
 \hline
-Dataset 1 & \textbf{G1} & G2 & G3  & G4 & G5 & G6 \\
-Dataset 2 & G6 & \textbf{G1} & G2 & G3  & G4 & G5 \\
-Dataset 3 & G5  & G6 & \textbf{G1} & G2 & G3 & G4 \\
-Dataset 4 & G4 & G5  & G6 & \textbf{G1} & G2 & G3 \\
-Dataset 5 & G3 & G4 & G5  & G6 & \textbf{G1} & G2 \\
-... & & & & & & &\\
-Dataset 35 & G3 & G4 & G5  & G6 & \textbf{G1} & G2 \\
-Dataset 36 & G2 & G3  & G4 & G5 & G6 & \textbf{G1}  \\
-
+Group 1 & 5 & 18 & 5  & 9 \\
+\hline
+Group 2 & 5 & 17 & 5  & 8 \\
+\hline
+Group 3 & 5 & 19 & 4  & 8 \\
+\hline
+Group 4 & 3 & 17 & 5  & 9 \\
+\hline
+Group 5 & 5 & 19 & 5  & 9 \\
+\hline
+Group 6 & 5 & 18 & 5  & 9 \\
 \hline
 \end{tabular}
 \end{table}
 
 \vspace{.3em}
 \noindent{\textbf{Pilot Study \& Power Analysis.}}
-We conducted a pilot study involving 20 participants to check the experimental setup and determine the parameters, such as the time limit for a trial.
-Harnessing by the pilot study, we also obtained our expected effect sizes, which were in further fed into a power analysis. With an effect size Cohen's $d$ of $0.4$, alpha level of $0.05$ and beta level of $0.8$, the power analysis suggested a minimum number of $120$ participants for the spot-the-difference task. See the supplementary material for more details.
+We conducted a pilot study involving 28 participants to check the experimental setup and determine the parameters, such as the time limit for a trial.
+Harnessing by the pilot study, we also obtained our expected effect sizes, which were in further fed into a power analysis. With an effect size Cohen's $d$ of $0.4$, alpha level of $0.05$ and beta level of $0.8$, the power analysis suggested a minimum number of $100$ participants for the spot-the-difference task. See the supplementary material for more details.
 
 \vspace{.3em}
 \noindent{\textbf{Participants.}}
-We recruited $120$ participants (20 for each group) for the experiment on Amazon Mechanical Turk.
-According to our maximum completion time ($30$ seconds for each trial), we paid each participant \$$2$ for the task based on the US minimum hourly wage.
+We recruited $108$ participants(as shown in Table.~\ref{tab:participantDetail}) for the experiment on Amazon Mechanical Turk.
+According to the completion time in the pilot study, we paid each participant \$$1.5$ for the task based on the US minimum hourly wage.
 No participant claimed color vision deficiency on their informed consent.
 
 \vspace{.3em}
 \noindent{\textbf{Procedure.}}
-Each participant went through the following steps in our experiment: (i) viewing a user guide of the task and completing three training trials; (ii) completing each trial as accurately as possible within $30$ seconds; (iii) providing demographic information.
+Each participant went through the following steps in our experiment: (i) viewing a user guide of the task and completing three training trials; (ii) completing each trial as accurately as possible; (iii) providing demographic information.
 
 \subsubsection{Results}
-
+\
+\newline
 Following previous studies, we analyzed the results using 95\% confidence intervals, and also conducted Mann-Whitney tests to compare the differences between conditions. The non-parametric test was used due to observations of non-normally distributed data from our pilot study. In addition, we computed the effect size using \emph{Cohen's d}, i.e., the difference in means of the conditions divided by the pooled standard deviation. We used ANOVA to examine the interaction effect between variables.
+
+%Condition μ~95%CI W p-value d
+%Random Assignment	0.43~[0.39, 0.46]	178524	1.7e-08	0.32~[0.21,0.43]
+%Optimized Assignment	0.40~[0.36, 0.44]	183708	2e-06	-0.27~[-0.38,-0.16]
+%Alpha Blending	0.35~[0.31, 0.38]	195372	0.0069	-0.15~[-0.25,-0.04]
+%C3-Palette Assignment	0.27~[0.24, 0.31]	210600	0.9	-0.01~[-0.11,0.11]
+%Palettailor	0.35~[0.31, 0.39]	194076	0.0034	-0.16~[-0.28,-0.05]
+%C3-Palette Generation	0.28~[0.24, 0.31]			
 
 %\ms{it might be worth putting the p-value here again}
 Results of the online experiment are shown in Figure \ref{fig:userResults} (left side).
@@ -205,41 +218,39 @@ Second, we found \emph{Tableau-20} as well leads to a significantly lower error 
 Finally, we did not find significant interaction effect between \emph{colorization methods} and \emph{change magnitude}, meaning that the effect of our method is not necessarily influenced by the magnitude of change between the two scatterplots (\textbf{H3} not confirmed).
 
 
-\subsection{Eye-tracking Experiment}
-\label{subsec:labstudy}
-To further explore how our method can help people alleviate eye movement distance when doing the juxtaposed comparison task, we conducted a lab study where we measured the participants' eye movement behavior.
-%We further conducted a controlled lab study with an eye tracker to analyze the usability of our method in alleviating eye movement distances for juxtaposition visualization design.
-The experimental design was similar to the online study, but we set up an accompanying eye tracker to record participants' eye movement during the experiment.
-We expected to see different patterns of the scanpaths across different conditions. Specifically, our methods would lead to a shorter scanpath.
+\subsection{Experiment 2: Counting Class Number}
+\label{subsec:onlinestudy2}
+To evaluate whether our approach can fundamentally support the visual separability of the classes in each scatterplot, we conduct an online ``counting class number'' experiment through Amazon Mechanical Turk (AMT) with 81 participants. The experimental design was similar to the first study, but we set up with different task during the experiment.
+We expected to see different patterns of the discriminability across different conditions. Specifically, our methods would lead to a shorter error and time than \emph{Random Assignment} and \emph{Alpha Blending} conditions.
 
+\vspace{.3em}
+\noindent{\textbf{Hypotheses.}} We hypothesized that our approach would generally be more effective than the benchmark methods on the discrimination tasks, and that this effect would not vary based on \emph{change magnitude} or \emph{change type}.
+\begin{itemize}[noitemsep]
+\setlength{\itemsep}{5pt}
+    \item[\textbf{H1.}] Our color generation method (\emph{C3-Palette Generation}) outperforms the benchmark conditions (\emph{Random Assignment}, \emph{Optimized Assignment}, \emph{Alpha Blending}), while is comparable to  \emph{Palettailor} on the task performance.
 
+    \item [\textbf{H2.}] Our color assignment method (\emph{C3-Palette Assignment}) based on \emph{Tableau-20} outperforms the benchmark conditions (\emph{Random Assignment}, \emph{Alpha Blending}), while is comparable to \emph{Optimized Assignment} condition on the task performance.
+
+    \item [\textbf{H3.}] \emph{Change magnitude} or \emph{change type} would have no effect on discrimination task between different conditions.
+
+\end{itemize}
 
 \subsubsection{Experimental Design}
 \vspace{.3em}
-\noindent{\textbf{Apparatus. }}
-We conducted the experiment with a Tobii X60 eye tracker running at 60Hz. The eye tracking data is recorded with Tobii Studio and processed by Tobii I-VT fixation filter into fixations and saccades.
-All stimuli were displayed on a 24-inch monitor with a resolution of $1920 \times 1080$ at a viewing distance of approximately 55 cm.
-The experiment was conducted in an indoor room with daylight lighting conditions.
-%We did not fix participants' heads, but instructed them to avoid unnecessary head movements during the training period.
-%In order to avoid distractions, the experimenter located outside the participant's direct view.
+\noindent{\textbf{Task \& Measures. }}
+Following previous methodologies~\cite{Wang2018, Lu21}, each participant was asked to perform a \emph{counting class number} task.  We asked participants to identify how many classes(colors) are there in the given two scatterplots and then choose an answer among several options below the two scatterplots. We recorded the participant's answer and response time for each trial, while \emph{error} is $0$ if the participant's response not equal to the actual class number, else $1$.
 
 
 \vspace{.3em}
-\noindent{\textbf{Measures.}}
-Following previous methodologies~\cite{Goldberg1996,Goldberg2010,Fua2017}, we measured the scanpath length to evaluate the efficiency of the visual comparison process: a longer scanpath distance indicates lower efficiency.
-The scanpath was defined as the summation of distances between every two ordered fixations.
-In our implementation, only scanpath length inside the area-of-interest (the paired scatterplots in each trial) will be measured.
-
+\noindent{\textbf{Pilot Study \& Power Analysis.}}
+We conducted a pilot study involving 29 participants to check the experimental setup and determine the parameters, such as the time limit for a trial.
+Harnessing by the pilot study, we also obtained our expected effect sizes, which were in further fed into a power analysis. With an effect size Cohen's $d$ of $0.6$, alpha level of $0.05$ and beta level of $0.8$, the power analysis suggested a minimum number of $50$ participants for the spot-the-difference task. See the supplementary material for more details.
 
 \vspace{.3em}
-\noindent{\textbf{Participants. }}
-We recruited $24$ participants in total, including $14$ males and $10$ females. All the participants were volunteers from the local university majored in Computer Science, aging from $21$ to $27$.
-No participant claimed  color vision deficiency on their informed consent.
-
-
-\vspace{.3em}
-\noindent{\textbf{Procedure. }}
-The major procedure is similar to the online study. In addition, all  participants were received an explanation of the eye-tracking recording and were instructed to avoid unnecessary head movements in the training phase. Before the formal experiment, we asked the users to look at calibration dots on the screen to calibrate the eye tracker.
+\noindent{\textbf{Participants.}}
+We recruited $52$ participants(as shown in Table.~\ref{tab:participantDetail}) for the experiment on Amazon Mechanical Turk.
+According to the completion time in the pilot study, we paid each participant \$$1.5$ for the task based on the US minimum hourly wage.
+No participant claimed color vision deficiency on their informed consent.
 
 \subsubsection{Results}
 %
@@ -252,16 +263,25 @@ The major procedure is similar to the online study. In addition, all  participan
 %\vspace*{-6mm}
 %\label{fig:lap}
 %\end{wrapfigure}
+
+%Condition μ~95%CI W p-value d
+%Random Assignment	0.59~[0.54, 0.64]	36972	1.9e-09	0.5~[0.33,0.66]
+%Optimized Assignment	0.48~[0.42, 0.54]	42221	0.001	-0.27~[-0.44,-0.11]
+%Alpha Blending	0.73~[0.68, 0.78]	30108	1.2e-21	-0.83~[-1.01,-0.64]
+%C3-Palette Assignment	0.45~[0.38, 0.50]	44148	0.018	0.19~[0.03,0.35]
+%Palettailor	0.31~[0.26, 0.37]	50544	0.31	0.08~[-0.08,0.24]
+%C3-Palette Generation	0.35~[0.30, 0.40]			
+
 Through this study we found that first the task performance results (time and error) are aligned with those in our online experiment (see supplemental materials for more details). Second, as shown in Figure \ref{fig:scanpath} (a), we found a slight trend that our methods (\emph{Ours Generation}, \emph{Ours Tableau 20} and \emph{Ours Tableau 10}) leads to a shorter scanpath on average than the benchmark conditions (\emph{Random Tableau-10} and \emph{Random Tableau-20}) and \emph{Optimized Tableau}). From Figure \ref{fig:scanpath} (b,c), where we plot the participant's scanpaths of two example trials, we can see that the participant had longer gazes and more eye movements across the two scatterplots under \emph{Random Tableau-20}, compared to \emph{Ours Tableau 20}. This indicates that our approach might reduce people's cognitive load needed when performing the task.
 %\textbf{TODO: include some sample scanpath visualizations and discuss the observations.}\ms{yes, good idea}\ms{what about the other results? The above explanation sounded like we also recorded time and error? If yes -- we can put it into supplementals and just say, that they supported what we found in the only study. If not, slightly re-write above to say ``instead of times and errors, we recorded ...'' instead of ``in addition ...''}
 
-\begin{figure}[ht]
-\centering
-\includegraphics[width=1\linewidth]{figures/scan-path.pdf}
-\caption{(a) The average scanpath length of each color mapping scheme; (b,c) representative scanpaths in our lab study with two different color mapping schemes. }
-\vspace*{-3mm}
-\label{fig:scanpath}
-\end{figure}
+%\begin{figure}[ht]
+%\centering
+%\includegraphics[width=1\linewidth]{figures/scan-path.pdf}
+%\caption{(a) The average scanpath length of each color mapping scheme; (b,c) representative scanpaths in our lab study with two different color mapping schemes. }
+%\vspace*{-3mm}
+%\label{fig:scanpath}
+%\end{figure}
 
 \vspace{.3em}
 \subsection{Discussion}

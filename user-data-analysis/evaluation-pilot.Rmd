@@ -15,7 +15,7 @@ source('analysis.R')
 library(forcats)
 library(tidyverse)
 file_study_folder <- "./data/formal/"
-save_img_sign <- TRUE
+save_img_sign <- FALSE#TRUE
 
 saveImg <- function(name){
   if(save_img_sign){
@@ -168,6 +168,7 @@ data_time_correct <- data_total[data_total$userResult==1, ]
 data_time_threshold_correct <- data_total[data_total$totalTime<=30 & data_total$userResult==1, ]
 threshold <- nrow(data_time_threshold_correct)/nrow(data_time_correct)
 print(threshold)
+print(data_total)
 
 ```
 
@@ -244,7 +245,6 @@ stat_table_m <- function(data) {
       df_stats[index, "d"] <- reportES(sub_data_two_groups, "error", "conditionName")
     }
   }
-  print(df_stats)
   
   return(df_stats)
 }

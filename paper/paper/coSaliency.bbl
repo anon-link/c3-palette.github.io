@@ -2,7 +2,7 @@
 %%% Do NOT edit. File created by BibTeX with style
 %%% ACM-Reference-Format-Journals [18-Jan-2012].
 
-\begin{thebibliography}{52}
+\begin{thebibliography}{55}
 
 %%% ====================================================================
 %%% NOTE TO THE USER: you can override these defaults by providing
@@ -157,6 +157,25 @@ Retrieved May 27, 2019 from \tempurl}
 \showeprint[arxiv]{1905.12410}~[cs.DL]
 
 
+\bibitem[\protect\citeauthoryear{{Bujack}, {Turton}, {Samsel}, {Ware},
+  {Rogers}, and {Ahrens}}{{Bujack} et~al\mbox{.}}{2018}]%
+        {Bujack18}
+\bibfield{author}{\bibinfo{person}{R. {Bujack}}, \bibinfo{person}{T.~L.
+  {Turton}}, \bibinfo{person}{F. {Samsel}}, \bibinfo{person}{C. {Ware}},
+  \bibinfo{person}{D.~H. {Rogers}}, {and} \bibinfo{person}{J. {Ahrens}}.}
+  \bibinfo{year}{2018}\natexlab{}.
+\newblock \showarticletitle{The Good, the Bad, and the Ugly: a Theoretical
+  Framework for the Assessment of Continuous Colormaps}.
+\newblock \bibinfo{journal}{\emph{IEEE Transactions on Visualization and
+  Computer Graphics}} \bibinfo{volume}{24}, \bibinfo{number}{1}
+  (\bibinfo{year}{2018}), \bibinfo{pages}{923--933}.
+\newblock
+\showISSN{1077-2626}
+\urldef\tempurl%
+\url{https://doi.org/10.1109/TVCG.2017.2743978}
+\showDOI{\tempurl}
+
+
 \bibitem[\protect\citeauthoryear{Clarkson}{Clarkson}{1985}]%
         {Clarkson85}
 \bibfield{author}{\bibinfo{person}{Kenneth~L. Clarkson}.}
@@ -255,6 +274,25 @@ Retrieved May 27, 2019 from \tempurl}
 \newblock
 \urldef\tempurl%
 \url{https://doi.org/10.1109/TIP.2013.2260166}
+\showDOI{\tempurl}
+
+
+\bibitem[\protect\citeauthoryear{Fukuba, Kitagaki, Wada, Uchida, Hara, Hayashi,
+  Oda, and Uchida}{Fukuba et~al\mbox{.}}{2009}]%
+        {Fukuba2009}
+\bibfield{author}{\bibinfo{person}{Eiji Fukuba}, \bibinfo{person}{Hajime
+  Kitagaki}, \bibinfo{person}{Akihiko Wada}, \bibinfo{person}{Kouji Uchida},
+  \bibinfo{person}{Shinji Hara}, \bibinfo{person}{Takafumi Hayashi},
+  \bibinfo{person}{Kazushige Oda}, {and} \bibinfo{person}{Nobue Uchida}.}
+  \bibinfo{year}{2009}\natexlab{}.
+\newblock \showarticletitle{Brain Activation during the Spot the Differences
+  Game}.
+\newblock \bibinfo{journal}{\emph{Magnetic Resonance in Medical Sciences}}
+  \bibinfo{volume}{8}, \bibinfo{number}{1} (\bibinfo{year}{2009}),
+  \bibinfo{pages}{23--32}.
+\newblock
+\urldef\tempurl%
+\url{https://doi.org/10.2463/mrms.8.23}
 \showDOI{\tempurl}
 
 
@@ -562,6 +600,22 @@ IEEE \bibinfo{year}{2004}\natexlab{}.
 \url{http://video.google.com/videoplay?docid=6528042696351994555}
 \showURL{%
 Retrieved March 21, 2008 from \tempurl}
+
+
+\bibitem[\protect\citeauthoryear{{Ondov}, {Jardine}, {Elmqvist}, and
+  {Franconeri}}{{Ondov} et~al\mbox{.}}{2019}]%
+        {Ondov19}
+\bibfield{author}{\bibinfo{person}{B. {Ondov}}, \bibinfo{person}{N. {Jardine}},
+  \bibinfo{person}{N. {Elmqvist}}, {and} \bibinfo{person}{S. {Franconeri}}.}
+  \bibinfo{year}{2019}\natexlab{}.
+\newblock \showarticletitle{Face to face: evaluating visual comparison}.
+\newblock \bibinfo{journal}{\emph{IEEE Transactions on Visualization and
+  Computer Graphics}} \bibinfo{volume}{25}, \bibinfo{number}{1}
+  (\bibinfo{year}{2019}), \bibinfo{pages}{861--871}.
+\newblock
+\urldef\tempurl%
+\url{https://doi.org/10.1109/TVCG.2018.2864884}
+\showDOI{\tempurl}
 
 
 \bibitem[\protect\citeauthoryear{Poker-Edge.Com}{Poker-Edge.Com}{2006}]%
