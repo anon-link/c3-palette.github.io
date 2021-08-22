@@ -209,7 +209,8 @@ summary(model)
 ```{r}
 
 # Generate the result table for error in the discrimination tasks.
-stat_table_m <- function(data) {
+stat_table_error <- function(data, compared_condition) {
+  print(attr)
   columns <- c("Condition", "μ~95%CI", "W", "p-value", "d")
   conditions <- levels(data$conditionName) %>% rev
   print(conditions)
@@ -226,8 +227,8 @@ stat_table_m <- function(data) {
     # 95%CI
     df_stats[index, "μ~95%CI"] <- reportCI(sub_data_one_group, "error")
     
-    if(current_condition != "C3-Palette Generation") {
-      sub_data_two_groups <- data %>% filter(conditionName=="C3-Palette Generation" | conditionName==current_condition)
+    if(current_condition != compared_condition) {
+      sub_data_two_groups <- data %>% filter(conditionName==compared_condition | conditionName==current_condition)
       # W test
       wt <- wilcox.test(error ~ conditionName, 
                         data = sub_data_two_groups, 
@@ -245,6 +246,49 @@ stat_table_m <- function(data) {
       df_stats[index, "d"] <- reportES(sub_data_two_groups, "error", "conditionName")
     }
   }
+  print(df_stats)
+  
+  return(df_stats)
+}
+# Generate the result table for time in the discrimination tasks.
+stat_table_time <- function(data, compared_condition) {
+  print(attr)
+  columns <- c("Condition", "μ~95%CI", "W", "p-value", "d")
+  conditions <- levels(data$conditionName) %>% rev
+  print(conditions)
+  df_stats <- matrix("", ncol = length(columns), nrow = length(conditions)) %>% 
+    data.frame() %>% 
+    mutate_if(is.factor, as.character)
+  names(df_stats) <- columns
+  df_stats$Condition <- conditions
+  print(conditions)
+  
+  for (index in 1:length(conditions)) {
+    current_condition <- conditions[index]
+    sub_data_one_group <- data %>% filter(conditionName==current_condition)
+    # 95%CI
+    df_stats[index, "μ~95%CI"] <- reportCI(sub_data_one_group, "totalTime")
+    
+    if(current_condition != compared_condition) {
+      sub_data_two_groups <- data %>% filter(conditionName==compared_condition | conditionName==current_condition)
+      # W test
+      wt <- wilcox.test(totalTime ~ conditionName, 
+                        data = sub_data_two_groups, 
+                        conf.int=TRUE)
+      df_stats[index, "W"] <- as.character(wt$statistic)
+      df_stats[index, "p-value"] <- format(wt$p.value, format = "e", digits = 2)
+      
+      # alternative report: with breaks.
+      # if(wt$p.value < 0.05) { df_stats[index, "p-value"] <- "< 0.05"}
+      # if(wt$p.value < 0.01) { df_stats[index, "p-value"] <- "< 0.01"}
+      # if(wt$p.value < 0.001) { df_stats[index, "p-value"] <- "< 0.001"}
+      # else { df_stats[index, "p-value"] <- "≥ 0.05" }
+      
+      # Effect size
+      df_stats[index, "d"] <- reportES(sub_data_two_groups, "totalTime", "conditionName")
+    }
+  }
+  print(df_stats)
   
   return(df_stats)
 }
@@ -252,8 +296,23 @@ stat_table_m <- function(data) {
 data <- data_total
 
 #Statistical Test Results: mu~95% CI, W, p-value, d.
-df_stat_output <- stat_table_m(data)
-df_stat_output
+df_stat_output <- stat_table_error(data,"C3-Palette Generation")
+df_stat_output <- stat_table_time(data,"C3-Palette Generation")
+
+df_stat_output <- stat_table_error(data,"C3-Palette Assignment")
+df_stat_output <- stat_table_time(data,"C3-Palette Assignment")
+
+df_stat_output <- stat_table_error(data[data$changeType=="num", ],"C3-Palette Generation")
+df_stat_output <- stat_table_time(data[data$changeType=="num", ],"C3-Palette Generation")
+
+df_stat_output <- stat_table_error(data[data$changeType=="num", ],"C3-Palette Assignment")
+df_stat_output <- stat_table_time(data[data$changeType=="num", ],"C3-Palette Assignment")
+
+df_stat_output <- stat_table_error(data[data$changeType=="pos", ],"C3-Palette Generation")
+df_stat_output <- stat_table_time(data[data$changeType=="pos", ],"C3-Palette Generation")
+
+df_stat_output <- stat_table_error(data[data$changeType=="pos", ],"C3-Palette Assignment")
+df_stat_output <- stat_table_time(data[data$changeType=="pos", ],"C3-Palette Assignment")
 
 
 ciplot(data, "error", "conditionName", "Total")
@@ -489,9 +548,25 @@ cat("time threshold is ", threshold, "\n")
 
 data <- data_total
 
+
 #Statistical Test Results: mu~95% CI, W, p-value, d.
-df_stat_output <- stat_table_m(data)
-df_stat_output
+df_stat_output <- stat_table_error(data,"C3-Palette Generation")
+df_stat_output <- stat_table_time(data,"C3-Palette Generation")
+
+df_stat_output <- stat_table_error(data,"C3-Palette Assignment")
+df_stat_output <- stat_table_time(data,"C3-Palette Assignment")
+
+df_stat_output <- stat_table_error(data[data$changeType=="num", ],"C3-Palette Generation")
+df_stat_output <- stat_table_time(data[data$changeType=="num", ],"C3-Palette Generation")
+
+df_stat_output <- stat_table_error(data[data$changeType=="num", ],"C3-Palette Assignment")
+df_stat_output <- stat_table_time(data[data$changeType=="num", ],"C3-Palette Assignment")
+
+df_stat_output <- stat_table_error(data[data$changeType=="pos", ],"C3-Palette Generation")
+df_stat_output <- stat_table_time(data[data$changeType=="pos", ],"C3-Palette Generation")
+
+df_stat_output <- stat_table_error(data[data$changeType=="pos", ],"C3-Palette Assignment")
+df_stat_output <- stat_table_time(data[data$changeType=="pos", ],"C3-Palette Assignment")
 
 
 ciplot(data, "error", "conditionName", "Total")
