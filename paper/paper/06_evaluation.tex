@@ -120,9 +120,9 @@ To evaluate how well our approach can assist observing changes between juxtapose
 
     \item [\textbf{H2.}] Our color assignment method (\emph{C3-Palette Assignment}) using a color palette with a larger range of brightness and saturation (\emph{Tableau-20}) outperforms the benchmark conditions (\emph{Random Assignment}, \emph{Optimized Assignment}, \emph{Alpha Blending} and \emph{Palettailor}) on the task performance.
 
-    \item [\textbf{H3.}] There would be an interaction effect between colorization methods and change magnitude. Specifically, the difference between the effect of our methods (\emph{C3-Palette Generation} and \emph{C3-Palette Assignment}) and that of the benchmark methods (\emph{Random Assignment}, \emph{Optimized Assignment}, \emph{Alpha Blending} and \emph{Palettailor}) would change based on the \emph{change magnitude} between the two scatterplots.
+    \item [\textbf{H3.}] Change magnitude and change type would affect user performance on the task performance. 
 
-    \item [\textbf{H4.}] There would be an interaction effect between colorization methods and change type. Specifically, the difference between the effect of our methods (\emph{C3-Palette Generation} and \emph{C3-Palette Assignment}) and that of the benchmark methods (\emph{Random Assignment}, \emph{Optimized Assignment}, \emph{Alpha Blending} and \emph{Palettailor}) would change based on the \emph{change type} between the two scatterplots.
+    \item [\textbf{H4.}] There would be an interaction effect between colorization methods and change type or change magnitude. Specifically, the difference between the effect of our methods (\emph{C3-Palette Generation} and \emph{C3-Palette Assignment}) and that of the benchmark methods (\emph{Random Assignment}, \emph{Optimized Assignment}, \emph{Alpha Blending} and \emph{Palettailor}) would change based on the \emph{change type} or \emph{change magnitude} between the two scatterplots.
 \end{itemize}
 
 % For content we can refer to:
@@ -200,74 +200,18 @@ Each participant went through the following steps in our experiment: (i) viewing
 \
 \newline
 Following previous studies, we analyzed the results using 95\% confidence intervals, and also conducted Mann-Whitney tests to compare the differences between conditions. The non-parametric test was used due to observations of non-normally distributed data from our pilot study. In addition, we computed the effect size using \emph{Cohen's d}, i.e., the difference in means of the conditions divided by the pooled standard deviation. We used ANOVA to examine the interaction effect between variables.
-%
-%% Total:
-%% error
-%%Condition μ~95%CI W p-value d
-%Random Assignment	0.43~[0.39, 0.46]	178524	1.7e-08	0.32~[0.21,0.44]
-%Optimized Assignment	0.40~[0.36, 0.44]	183708	2e-06	-0.27~[-0.38,-0.16]
-%Alpha Blending	0.35~[0.31, 0.38]	195372	0.0069	-0.15~[-0.26,-0.05]
-%C3-Palette Assignment	0.27~[0.24, 0.31]	210600	0.9	-0.01~[-0.11,0.1]
-%Palettailor	0.35~[0.31, 0.39]	194076	0.0034	-0.16~[-0.28,-0.06]
-%C3-Palette Generation	0.28~[0.24, 0.31]
-%
-%% time
-%%Condition μ~95%CI W p-value d
-%Random Assignment	24.88~[23.69, 26.20]	165792.5	5.5e-11	0.32~[0.21,0.42]
-%Optimized Assignment	25.92~[24.50, 27.21]	159560.5	7.3e-14	-0.38~[-0.48,-0.26]
-%Alpha Blending	22.02~[20.77, 23.34]	189570.5	0.0025	-0.14~[-0.24,-0.02]
-%C3-Palette Assignment	21.37~[20.24, 22.58]	201944	0.23	0.09~[-0.02,0.2]
-%Palettailor	24.80~[23.61, 26.06]	166341.5	9.5e-11	-0.31~[-0.42,-0.2]
-%C3-Palette Generation	19.96~[18.90, 21.19]	
+
 
 Results of the online experiment are shown in Fig.\ref{fig:userResults} (a).
-First, we found that our approach(\emph{C3-Palette Assignment} and \emph{C3-Palette Generation}) leads to a significantly lower error rate than all benchmark conditions (\emph{$p < 0.001$}). For consuming time, \emph{C3-Palette Generation} has significantly less time (\emph{$p = 0.0025$}) than \emph{Alpha Blending} condition while \emph{C3-Palette Assignment} has no significant difference, and our approach has significantly less time than all other benchmark conditions(\emph{$p < 0.001$}). The result indicates that our palette generation method(\emph{C3-Palette Generation}) has a better performance than benchmark conditions in the ``spot-the-difference'' task (\textbf{H1} confirmed). As for color palette with a larger range of brightness and saturation, our approach(\emph{C3-Palette Assignment}) is better than most conditions and is at least comparable to \emph{Alpha Blending} condition(\textbf{H2} confirmed).
+First, we found that our approach(\emph{C3-Palette Assignment} and \emph{C3-Palette Generation}) leads to a significantly lower error rate than all benchmark conditions. For consuming time, \emph{C3-Palette Generation} has significantly less time (\emph{$p = 0.0025$}) than \emph{Alpha Blending} condition while \emph{C3-Palette Assignment} has no significant difference (\emph{$p = 0.095$}), and our approach has significantly less time than all other benchmark conditions(\emph{$p < 0.001$}). The result indicates that our palette generation method(\emph{C3-Palette Generation}) has a better performance than benchmark conditions in the ``spot-the-difference'' task (\textbf{H1} confirmed). As for color palette with a larger range of brightness and saturation, our approach(\emph{C3-Palette Assignment}) is better than most conditions and is at least comparable to \emph{Alpha Blending} condition(\textbf{H2} confirmed).
 
-
-%%Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
-%% Number:
-%% error:
-%%Condition μ~95%CI W p-value d
-%Random Assignment	0.56~[0.50, 0.60]	41472	8.1e-08	-0.43~[-0.6,-0.27]
-%Optimized Assignment	0.50~[0.45, 0.56]	44226	5.1e-05	-0.32~[-0.48,-0.17]
-%Alpha Blending	0.43~[0.37, 0.48]	47952	0.024	-0.18~[-0.35,-0.02]
-%C3-Palette Assignment	0.35~[0.30, 0.40]	52164	0.87	0.01~[-0.13,0.17]
-%Palettailor	0.44~[0.38, 0.49]	47466	0.013	-0.2~[-0.36,-0.04]
-%C3-Palette Generation	0.35~[0.29, 0.40]
-%
-%% time:
-%%Condition μ~95%CI W p-value d
-%Random Assignment	30.93~[29.02, 33.11]	38538.5	4.7e-09	-0.42~[-0.57,-0.26]
-%Optimized Assignment	30.81~[28.97, 32.72]	38426.5	3.5e-09	-0.41~[-0.57,-0.25]
-%Alpha Blending	26.64~[24.75, 28.49]	46498	0.012	-0.17~[-0.33,-0.02]
-%C3-Palette Assignment	25.07~[23.28, 26.83]	49902.5	0.28	0.08~[-0.07,0.24]
-%Palettailor	29.06~[27.27, 30.93]	40750.5	8.3e-07	-0.32~[-0.47,-0.16]
-%C3-Palette Generation	23.75~[22.01, 25.61]
 
 Second, we compared our approach to other conditions based on two different change types(\emph{Point Number Change} and \emph{Point Position Change}).
-For \emph{Point Number Change}, as shown in the top row of  Fig.\ref{fig:userResults} (c), our approach(\emph{C3-Palette Assignment} and \emph{C3-Palette Generation}) leads to a significantly lower error rate than all benchmark conditions, including \emph{Random Assignment} and \emph{Optimized Assignment}(\emph{$p < 0.001$}), \emph{Alpha Blending} and \emph{Palettailor}(\emph{$p < 0.05$}). \emph{C3-Palette Generation} condition has a better performance on consuming time than all other benchmark conditions(\emph{$p < 0.001$}), while \emph{C3-Palette Assignment} is just comparable to \emph{Alpha Blending} condition.
-For \emph{Point Position Change}, we observed that our approach has significant lower error rate than \emph{Random Assignment} and \emph{Optimized Assignment}(\emph{$p < 0.01$}), while there's no significant difference with \emph{Alpha Blending} and \emph{Palettailor}. \emph{C3-Palette Generation}) leads to a significantly lower consuming time than all benchmark conditions except \emph{Alpha Blending}(\emph{$p = 0.044$}).
+For \emph{Point Number Change}, as shown in the top row of  Fig.\ref{fig:userResults} (c), our approach(\emph{C3-Palette Assignment} and \emph{C3-Palette Generation}) leads to a significantly lower error rate than all benchmark conditions, including \emph{Random Assignment} and \emph{Optimized Assignment}(\emph{$p < 0.001$}), \emph{Alpha Blending} and \emph{Palettailor}(\emph{$p < 0.05$}). \emph{C3-Palette Generation} condition has a better performance on consuming time than all other benchmark conditions, while \emph{C3-Palette Assignment} is just comparable to \emph{Alpha Blending} condition.
+For \emph{Point Position Change}, we observed that our approach has significant lower error rate than \emph{Random Assignment} and \emph{Optimized Assignment}(\emph{$p < 0.01$}), while there's no significant difference with \emph{Alpha Blending} and \emph{Palettailor}. \emph{C3-Palette Generation}) leads to a significantly lower consuming time than all benchmark conditions(\emph{$p < 0.001$}) except \emph{Alpha Blending}(\emph{$p = 0.044$})(\textbf{H3} confirmed).
 
-%% Position:
-%% error:
-%%Condition μ~95%CI W p-value d
-%Random Assignment	0.30~[0.25, 0.35]	47790	0.0087	0.21~[0.04,0.36]
-%Optimized Assignment	0.30~[0.25, 0.35]	47628	0.0068	0.21~[0.05,0.36]
-%Alpha Blending	0.26~[0.21, 0.31]	49734	0.11	-0.12~[-0.28,0.04]
-%C3-Palette Assignment	0.19~[0.15, 0.23]	53136	0.7	-0.03~[-0.19,0.12]
-%Palettailor	0.26~[0.21, 0.31]	49572	0.095	-0.13~[-0.28,0.03]
-%C3-Palette Generation	0.21~[0.17, 0.25]
-%
-%% time:
-%%Condition μ~95%CI W p-value d
-%Random Assignment	18.84~[17.46, 20.18]	43652.5	0.00021	0.22~[0.07,0.37]
-%Optimized Assignment	21.03~[19.49, 22.69]	40584	5.9e-07	0.37~[0.22,0.51]
-%Alpha Blending	17.39~[16.22, 18.69]	47684	0.044	-0.1~[-0.25,0.05]
-%C3-Palette Assignment	17.67~[16.29, 19.21]	51204.5	0.59	0.12~[-0.04,0.26]
-%Palettailor	20.54~[19.11, 22.22]	42000	1.1e-05	-0.34~[-0.5,-0.18]
-%C3-Palette Generation	16.18~[14.93, 17.50]
 
-Finally, we did not find significant interaction effect between \emph{colorization methods} and \emph{change magnitude}, meaning that the effect of our method is not necessarily influenced by the magnitude of change between the two scatterplots (\textbf{H3} not confirmed).
+Finally, we did not find significant interaction effect between \emph{colorization methods} and \emph{change magnitude} or \emph{change type}, meaning that the effect of our method is not necessarily influenced by the magnitude of change or the change type between the two scatterplots (\textbf{H4} not confirmed).
 
 
 \subsection{Experiment 2: Counting Class Number}

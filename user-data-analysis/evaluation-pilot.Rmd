@@ -14,12 +14,13 @@ Import packages and set global configuration variables.
 source('analysis.R')
 library(forcats)
 library(tidyverse)
-file_study_folder <- "./data/formal/"
-save_img_sign <- FALSE#TRUE
+file_study_folder <- "./data/pilot/"
+save_img_sign <- TRUE#FALSE#
 
 saveImg <- function(name){
   if(save_img_sign){
-    ggsave(paste("results", "formal", name, sep = "/"), width = 10, height = 6, useDingbats=FALSE)
+    #ggsave(paste("results", "formal", name, sep = "/"), width = 10, height = 6, useDingbats=FALSE)
+    ggsave(paste("results", "formal", name, sep = "/"), width = 6, height = 4, useDingbats=FALSE)
   }
 }
 ```
@@ -190,6 +191,12 @@ summary(model)
 
 # Model2: error ~ ... condition + magnitude ...
 model <- lm(error ~ conditionName + changeMagnitude + conditionName * changeMagnitude, data)
+anova(model)
+summary(model)
+
+
+# Model2: error ~ ... condition + change type ...
+model <- lm(error ~ conditionName + changeType + conditionName * changeType, data)
 anova(model)
 summary(model)
 
@@ -371,6 +378,17 @@ saveImg("cosaliency-totalTime-conditionMagnitude-num.pdf")
 #   nrow=1)
 # dev.off()
 
+
+ciplot(data, "error", "changeMagnitude", "Total")
+saveImg("cosaliency-error-changeMagnitude-total.pdf")
+ciplot(data, "totalTime", "changeMagnitude", "Total")
+saveImg("cosaliency-totalTime-changeMagnitude-total.pdf")
+# ciplotManual(data[data$changeType=="pos", ], "error", "changeMagnitude", "pos")
+# ciplotManual(data[data$changeType=="num", ], "error", "changeMagnitude", "num")
+ciplot(data, "error", "changeType", "Total")
+saveImg("cosaliency-error-changeType-total.pdf")
+ciplot(data, "totalTime", "changeType", "Total")
+saveImg("cosaliency-totalTime-changeType-total.pdf")
 ```
 
 
@@ -611,6 +629,19 @@ if(nrow(data[data$changeType=="pos", ])>0){
   saveImg("coseparability-error-conditionMagnitude-num.pdf")
   ciplotManual(data[data$changeType == "num",], "totalTime", "conditionMagnitude", "num")
   saveImg("coseparability-totalTime-conditionMagnitude-num.pdf")
+  
+  
+
+  ciplot(data, "error", "changeMagnitude", "Total")
+  saveImg("coseparability-error-changeMagnitude-total.pdf")
+  ciplot(data, "totalTime", "changeMagnitude", "Total")
+  saveImg("coseparability-totalTime-changeMagnitude-total.pdf")
+  # ciplotManual(data[data$changeType=="pos", ], "error", "changeMagnitude", "pos")
+  # ciplotManual(data[data$changeType=="num", ], "error", "changeMagnitude", "num")
+  ciplot(data, "error", "changeType", "Total")
+  saveImg("coseparability-error-changeType-total.pdf")
+  ciplot(data, "totalTime", "changeType", "Total")
+  saveImg("coseparability-totalTime-changeType-total.pdf")
 }
 
 

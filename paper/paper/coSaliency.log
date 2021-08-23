@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/W32TeX) (preloaded format=pdflatex 2018.3.31)  22 AUG 2021 17:30
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/W32TeX) (preloaded format=pdflatex 2018.3.31)  23 AUG 2021 11:50
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1399,50 +1399,47 @@ surrounding objects on input line 195.
 [11.11]
 
 Class acmart Warning: \vspace should only be used to provide space above/below 
-surrounding objects on input line 274.
+surrounding objects on input line 278.
 
 
 Class acmart Warning: \vspace should only be used to provide space above/below 
-surrounding objects on input line 287.
+surrounding objects on input line 291.
 
 
 Class acmart Warning: \vspace should only be used to provide space above/below 
-surrounding objects on input line 292.
+surrounding objects on input line 296.
+
+
+Underfull \vbox (badness 1117) has occurred while \output is active []
+
+ [12.12]
+
+Class acmart Warning: \vspace should only be used to provide space above/below 
+surrounding objects on input line 301.
+
+
+LaTeX Warning: Reference `fig:scanpath' on page 13 undefined on input line 338.
+
+
+
+LaTeX Warning: Reference `fig:scanpath' on page 13 undefined on input line 338.
+
 
 
 Class acmart Warning: \vspace should only be used to provide space above/below 
-surrounding objects on input line 297.
+surrounding objects on input line 349.
 
+) (./07_conclusion.tex
+Underfull \vbox (badness 1024) has occurred while \output is active []
 
-LaTeX Warning: Reference `fig:scanpath' on page 12 undefined on input line 334.
-
-
-
-LaTeX Warning: Reference `fig:scanpath' on page 12 undefined on input line 334.
-
-
-[12.12]
-
-Class acmart Warning: \vspace should only be used to provide space above/below 
-surrounding objects on input line 345.
-
-) (./07_conclusion.tex)
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [13.13]
+ [13.13])
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/it' will be
 (Font)              scaled to size 7.3pt on input line 253.
 
-Underfull \vbox (badness 1496) has occurred while \output is active []
-
- [14.14]
-[15.15] [16.16] [17.17]
+[14.14] [15.15] [16.16] [17.17] [18.18]
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/sc' will be
 (Font)              scaled to size 9.0pt on input line 601.
 
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [18.18]
 Overfull \hbox (5.76688pt too wide) in paragraph at lines 608--610
 []\T1/LinuxLibertineT-TLF/m/n/9 (-20) The bib-li-og-ra-phy is in-cluded in your
  source doc-u-ment with these two com-mands, placed just be-fore the [][]\T1/zi
@@ -1461,9 +1458,9 @@ LaTeX Info: Redefining \tempurl on input line 90.
 LaTeX Info: Redefining \tempurl on input line 113.
 LaTeX Info: Redefining \tempurl on input line 141.
 LaTeX Info: Redefining \tempurl on input line 175.
+ [20.20]
 LaTeX Info: Redefining \tempurl on input line 212.
 LaTeX Info: Redefining \tempurl on input line 232.
- [20.20]
 LaTeX Info: Redefining \tempurl on input line 247.
 LaTeX Info: Redefining \tempurl on input line 261.
 LaTeX Info: Redefining \tempurl on input line 276.
@@ -1486,9 +1483,9 @@ LaTeX Info: Redefining \tempurl on input line 600.
 LaTeX Info: Redefining \tempurl on input line 617.
 LaTeX Info: Redefining \tempurl on input line 629.
 LaTeX Info: Redefining \tempurl on input line 643.
-LaTeX Info: Redefining \tempurl on input line 674.
 
 [21.21]
+LaTeX Info: Redefining \tempurl on input line 674.
 LaTeX Info: Redefining \tempurl on input line 731.
 LaTeX Info: Redefining \tempurl on input line 748.
 LaTeX Info: Redefining \tempurl on input line 763.
@@ -1517,12 +1514,12 @@ LaTeX Warning: There were undefined references.
  ) 
 Here is how much of TeX's memory you used:
  19995 strings out of 492982
- 314586 string characters out of 6125995
- 443877 words of memory out of 5000000
+ 314589 string characters out of 6125995
+ 443367 words of memory out of 5000000
  22278 multiletter control sequences out of 15000+600000
  268092 words of font info for 537 fonts, out of 8000000 for 9000
  1302 hyphenation exceptions out of 8191
- 60i,19n,94p,1275b,704s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 60i,19n,94p,1275b,700s stack positions out of 5000i,500n,10000p,200000b,80000s
 {d:/Installation_position/texlive/2017/texmf-dist/fonts/enc/dvips/libertine/l
 btn_ncsllp.enc}{d:/Installation_position/texlive/2017/texmf-dist/fonts/enc/dvip
 s/libertine/lbtn_25tcsq.enc}{d:/Installation_position/texlive/2017/texmf-dist/f
@@ -1557,10 +1554,10 @@ ts/type1/public/newtx/txexs.pfb><d:/Installation_position/texlive/2017/texmf-di
 st/fonts/type1/public/newtx/txsys.pfb><d:/Installation_position/texlive/2017/te
 xmf-dist/fonts/type1/public/newtx/zxlr.pfb><d:/Installation_position/texlive/20
 17/texmf-dist/fonts/type1/public/newtx/zxlri.pfb>
-Output written on coSaliency.pdf (22 pages, 7448911 bytes).
+Output written on coSaliency.pdf (22 pages, 7450423 bytes).
 PDF statistics:
- 2447 PDF objects out of 2487 (max. 8388607)
- 1452 compressed objects within 15 object streams
+ 2448 PDF objects out of 2487 (max. 8388607)
+ 1453 compressed objects within 15 object streams
  148 named destinations out of 1000 (max. 500000)
  70500 words of extra memory for PDF output out of 74296 (max. 10000000)
 
