@@ -1,11 +1,11 @@
 \section {Evaluation}
 \label{sec:results}
 
-We evaluated the effectiveness of our method on supporting juxtaposed visual comparisons and the discriminability for reading scatterplots.% by applying it to scatterplots, as scatterplots are commonly used  for such comparisons.
-We conducted two online controlled experiments through Amazon Mechanical Turk (AMT) with 160 participants in total, to evaluate how well our method can support people in \emph{observing changes} and \emph{visual separability} for juxtaposed categorical scatterplots:
+We evaluated the effectiveness of our method on supporting juxtaposed visual comparisons and the discriminability for reading scatterplots. % by applying it to scatterplots, as scatterplots are commonly used  for such comparisons.
+We conducted two online controlled experiments through Amazon Mechanical Turk (AMT) with 217 participants in total, to evaluate how well our method can support people in \emph{observing changes} and \emph{visual separability} for multiple categorical scatterplots:
 \begin{enumerate}
 %\vspace{-3mm}
-\item [(i)] \emph{Spotting the Difference task}. To evaluate how well our method can support people in \emph{observing changes} for juxtaposed categorical scatterplots;
+\item [(i)] \emph{Spotting the difference task}. To evaluate how well our method can support people in \emph{observing changes} for juxtaposed categorical scatterplots;
 %\vspace{-3mm}
 \item [(ii)] \emph{Counting class number task}. To evaluate whether our method can support the \emph{visual separability} of classes in each individual scatterplot, which is considered fundamental to juxtaposed comparison.
 %%\vspace{-3mm}
@@ -18,21 +18,21 @@ We conducted two online controlled experiments through Amazon Mechanical Turk (A
 \vspace{.3em}
 \noindent{\textbf{Independent Variables.}} In each of our studies, we investigated three independent variables: colorization method, change magnitude and change type.
 
-\emph{Colorization method:} We used six different ways to colorize scatterplots: four benchmark methods (\emph{Random Assignment}, \emph{Optimized Assignment}, \emph{Alpha Blending} and \emph{Palettailor}) and two experimental methods based on our approach (\emph{C3-Palette Assignment}, \emph{C3-Palette Generation}):
+\emph{Colorization method}: We used six different ways to colorize scatterplots: four benchmark methods (\emph{Random Assignment}, \emph{Optimized Assignment}, \emph{Alpha Blending} and \emph{Palettailor}) and two experimental methods based on our approach (\emph{C3-Palette Assignment}, \emph{C3-Palette Generation}):
 \begin{itemize}
 
      \item C1: \emph{Random Assignment} is randomly selecting and assigning colors from Tableau-20 palette to the classes.
 
      \item C2: \emph{Optimized Assignment} uses the optimized assignment approach~\cite{Wang2018} for one of the two scatterplots with an input of Tableau-20 color palette.
 
-     \item C3: \emph{Alpha Blending} is changing the alpha of each unchanged class to $0.5$ while the changed classes are stay to $1.0$ based on \emph{Optimized Assignment} result. We choose $0.5$ since we also have the discrimination task.
+     \item C3: \emph{Alpha Blending} is achieved by setting the alpha of each unchanged class to $0.5$ while the changed classes remain to $1.0$ based on \emph{Optimized Assignment} result. We choose $0.5$ since the results also used in the discrimination task.
      \item C4: \emph{Palettailor} uses the method proposed by Lu et.al~\cite{Lu21} for single scatterplot palette generation. The palette is generated for one of the two scatterplots with the default settings.
-     \item C5: \emph{C3-Palette Assignment} uses the color assignment optimization solution of Eq.~\ref{eq:cosaliency} based on Tableau-20.
-     \item C6: \emph{C3-Palette Generation} uses the unified color generation and assignment optimization method, and produced the results with the parameters $\omega_0=1.0$, $\omega_1=1.0$ and $\omega_2=1.0$.
+     \item C5: \emph{C3-Palette Assignment} uses the color assignment optimization solution(Eq.~\ref{eq:cosaliency}) based on Tableau-20.
+     \item C6: \emph{C3-Palette Generation} uses the unified color generation and assignment optimization method, and produced the results with the default parameters($\omega_0=1.0$, $\omega_1=1.0$ and $\omega_2=1.0$).
 \end{itemize}
 Our approach are all using the default parameters $\lambda=0.4$ and $\kappa=0$.
 
-\emph{Change magnitude} and \emph{Change type}: While the colorization method is the primary independent variable to be investigated, we are also interested in how the effect of our methods would vary based on the level of change and the different change type between the two scatterplots. Thus we first define two types of changes that a class would have across multiple scatterplots: \emph{point number} and \emph{point position}. Then for each change type, we define three levels of change magnitude calculated using Eq.~\ref{eq:cm}: \emph{small}, \emph{medium}, and \emph{large}. (See the next paragraph for the detailed calculation.)
+\emph{Change magnitude} and \emph{Change type}: While the colorization method is the primary independent variable to be investigated, we are also interested in how the effect of different methods would vary based on the level of change between the two scatterplots and the different change type of classes. Thus we first define two types of changes that a class would have across multiple scatterplots: \emph{point number} and \emph{point position}. Then for each change type, we define three levels of change magnitude calculated using Eq.~\ref{eq:cm}: \emph{small}, \emph{medium}, and \emph{large}. (See the next paragraph for the detailed calculation.)
 
 \vspace{.3em}
 \noindent{\textbf{Scatterplot Dataset Generation.}}
@@ -43,7 +43,8 @@ Similar to~\cite{Lu21}, these classes belong to one of the four settings of vary
 Then, for each scatterplot generated above, we produced its paired scatterplot by randomly choosing one or more classes and changing the positions or number of their data points.
 %We focused on two common change types: \emph{point number} and \emph{point position}.
 To systematically compute the changes, we defined two variables: \emph{change ratio} and \emph{number of changed classes}.
-\emph{Change ratio} defines how large the change of a type is, ranging from 0 to 1; and {number of changed classes} defines the number of classes that are changed, ranging from 1 to 3. We summarize our basic idea of data generation for each change type as below.
+\emph{Change ratio} defines how large the change of a type is, ranging from 0 to 1; and {number of changed classes} defines the number of classes that are changed, ranging from 1 to 3 (adding
+different levels of difficulty). We summarize our basic idea of data generation for each change type as below.
 \begin{itemize}
 
      \item \emph{Point number}: For each class in the original scatterplot,  we calculated the new point number by multiplying the original number by ($1 \pm$ \emph{change ratio}). An addition means to increase the point number, which was implemented by generating the new points with the same distribution as the original class. Subtraction was achieved by randomly deleting data points from the original class.
@@ -96,15 +97,6 @@ Next, we randomly selected $2$ pairs from each change magnitude level for each c
 %
 %As shown in Fig.~\ref{fig:classVisibility}, \emph{Ours Generation} has the highest score on average. \emph{Ours Tableau-10} is sometimes higher than \emph{Random Tableau-10}. The two conditions based on the Tableau-20 palette have the lowest scores, and \emph{Ours Tableau-20} appears to be slightly lower than \emph{Random Tableau-20}. This might be caused by the palette used in these conditions. Since Tableau-20 consists of both saturated and de-saturated colors, \emph{Ours Tableau-20} tends to select several de-saturated colors for the classes that change less in order to make strongly changed classes more salient. Yet that might diminish the visual separability of the classes.
 
-\begin{figure*}[t]
-\centering
-\includegraphics[width=1\linewidth]{figures/user-result-formal.pdf}
-\caption{Confidence interval plots and statistical tables for the two online controlled experiments. Error bars represent $95\%$ confidence intervals. Each table shows the statistical test results of C3-Palette Generation condition with other conditions, including the mean with $95\%$ confidence interval ($\mu\sim$95\%CI), the W-value and p-value from the Mann-Whitney test, and the effect size ($d\sim$95\%CI).
-}
-\vspace*{-3mm}
-\label{fig:userResults}
-\end{figure*}
-
 \subsection{Experiment 1: Spotting the Difference}
 \label{subsec:onlinestudy1}
 
@@ -112,17 +104,17 @@ To evaluate how well our approach can assist observing changes between juxtapose
 %We show participants a set of paired multi-class scatterplots, and ask them to find a known number of classes that have been changed within $60$ seconds.  Error rate and consuming time are recorded for analysis.
 
 \vspace{.3em}
-\noindent{\textbf{Hypotheses.}} We hypothesized that our approach would generally be more effective than the benchmark methods on the juxtaposed comparison tasks, and that this effect would vary based on \emph{change magnitude}.
+\noindent{\textbf{Hypotheses.}} We hypothesized that our approach would generally be more effective than the benchmark methods on the juxtaposed comparison tasks, and that this effect would vary based on \emph{change magnitude} or \emph{change type}.
 %In this experiment, our major goal is to investigate if our co-saliency based color design formulation would affect the performance of observing changes between multiple datasets.
 \begin{itemize}[noitemsep]
 \setlength{\itemsep}{5pt}
     \item[\textbf{H1.}] Our color generation method (\emph{C3-Palette Generation}) outperforms the benchmark conditions (\emph{Random Assignment}, \emph{Optimized Assignment}, \emph{Alpha Blending} and \emph{Palettailor}) on the task performance.
 
-    \item [\textbf{H2.}] Our color assignment method (\emph{C3-Palette Assignment}) using a color palette with a larger range of brightness and saturation (\emph{Tableau-20}) outperforms the benchmark conditions (\emph{Random Assignment}, \emph{Optimized Assignment}, \emph{Alpha Blending} and \emph{Palettailor}) on the task performance.
+    \item [\textbf{H2.}] Our color assignment method (\emph{C3-Palette Assignment}) using a color palette with a large range of brightness and saturation (\emph{Tableau-20}) outperforms the benchmark conditions (\emph{Random Assignment}, \emph{Optimized Assignment}, \emph{Alpha Blending} and \emph{Palettailor}) on the task performance.
 
-    \item [\textbf{H3.}] Change magnitude and change type would affect user performance on the task performance. 
+    \item [\textbf{H3.}] Other independent variables(\emph{change type} and \emph{change magnitude}) would also affect user performance on the task performance.
 
-    \item [\textbf{H4.}] There would be an interaction effect between colorization methods and change type or change magnitude. Specifically, the difference between the effect of our methods (\emph{C3-Palette Generation} and \emph{C3-Palette Assignment}) and that of the benchmark methods (\emph{Random Assignment}, \emph{Optimized Assignment}, \emph{Alpha Blending} and \emph{Palettailor}) would change based on the \emph{change type} or \emph{change magnitude} between the two scatterplots.
+    \item [\textbf{H4.}] There would be an interaction effect between colorization methods and other independent variables(\emph{change type} and \emph{change magnitude}). Specifically, the difference between the effect of our methods (\emph{C3-Palette Generation} and \emph{C3-Palette Assignment}) and that of the benchmark methods (\emph{Random Assignment}, \emph{Optimized Assignment}, \emph{Alpha Blending} and \emph{Palettailor}) would change based on the different variable.
 \end{itemize}
 
 % For content we can refer to:
@@ -143,8 +135,8 @@ In this experiment, each participant was asked to perform a \emph{spot-the-diffe
 
 For each participant, we measured the \emph{time} taken for each trial, and counted the errors ($0/1$) indicating whether the actual changed classes are aligned with the participant's response. Note that if any of the changed classes was mistakenly identified, the trial would be considered as ``wrong'' (1).
 
-While the participant was instructed to do the task ``\emph{as accurately as possible}'', we set a $60$-second time limit for each trial. If the participant could not find all the changed classes during the time limit, they were directed to the next trial. There also will appear a ``\emph{Can't Find it}'' button after $30$ seconds.
-This was done since we observed from the pilot study that when participants spent too much time on a single trial, they may decide to quit (which will lead to an incorrect answer) or to spend more time till they get the correct answer (which will lead to increasing time spent on the trial). This subject decision would add noise to our measurements. Thus we added a $30$-second time limit, which was informed by our pilot study, where over $85\%$ correct trials were completed within $30$ seconds. More details can be found in the supplementary material.
+While the participant was instructed to do the task ``\emph{as accurately as possible}'', we set a $60$-second time limit for each trial for fear that user might spend too much time on the trial. If the participant could not find all the changed classes during the time limit, they were directed to the next trial. There also will appear a ``\emph{Can't Find it}'' button after $30$ seconds.
+This was done since we observed from the pilot study that when participants spent too much time on a single trial, they may decide to quit by selecting a class randomly(which will lead to an incorrect answer) or to spend more time till they get the correct answer or the time limit (which will lead to increasing time spent on the trial). This subject decision would add noise to our measurements. Thus we added a $30$-second time limit, which was informed by our pilot study, where over $85\%$ correct trials were completed within $30$ seconds.
 
 \vspace{.3em}
 \noindent{\textbf{Experiment Organization.}} We tested the effects of the $6$ method conditions across $36$ paired multi-class scatterplot datasets using a \emph{between-subject} experiment design. To avoid ordering effects, where the participant would get familiar with a dataset after seeing it several times, each participant was assigned to a group and saw a specific subset of datasets under different conditions. We used a Latin Square grouping (see Table.~\ref{tab:latinsquare}) to organize the trials for each participant. %$Thus, there were $6$ participant groups and each of them had $40$ trials in total. See the supplementary material for more details.
@@ -196,6 +188,15 @@ No participant claimed color vision deficiency on their informed consent.
 \noindent{\textbf{Procedure.}}
 Each participant went through the following steps in our experiment: (i) viewing a user guide of the task and completing three training trials; (ii) completing each trial as accurately as possible; (iii) providing demographic information.
 
+\begin{figure*}[t]
+\centering
+\includegraphics[width=1\linewidth]{figures/user-result-formal.pdf}
+\caption{Confidence interval plots and statistical tables for the two online controlled experiments. Error bars represent $95\%$ confidence intervals. Each table shows the statistical test results of C3-Palette Generation condition with other conditions, including the mean with $95\%$ confidence interval ($\mu\sim$95\%CI), the W-value and p-value from the Mann-Whitney test, and the effect size ($d\sim$95\%CI).
+}
+\vspace*{-3mm}
+\label{fig:userResults}
+\end{figure*}
+
 \subsubsection{Results}
 \
 \newline
@@ -203,16 +204,25 @@ Following previous studies, we analyzed the results using 95\% confidence interv
 
 
 Results of the online experiment are shown in Fig.\ref{fig:userResults} (a).
-First, we found that our approach(\emph{C3-Palette Assignment} and \emph{C3-Palette Generation}) leads to a significantly lower error rate than all benchmark conditions. For consuming time, \emph{C3-Palette Generation} has significantly less time (\emph{$p = 0.0025$}) than \emph{Alpha Blending} condition while \emph{C3-Palette Assignment} has no significant difference (\emph{$p = 0.095$}), and our approach has significantly less time than all other benchmark conditions(\emph{$p < 0.001$}). The result indicates that our palette generation method(\emph{C3-Palette Generation}) has a better performance than benchmark conditions in the ``spot-the-difference'' task (\textbf{H1} confirmed). As for color palette with a larger range of brightness and saturation, our approach(\emph{C3-Palette Assignment}) is better than most conditions and is at least comparable to \emph{Alpha Blending} condition(\textbf{H2} confirmed).
+First, we found that our approach(\emph{C3-Palette Assignment} and \emph{C3-Palette Generation}) leads to a significantly lower error rate than all benchmark conditions. For consuming time, \emph{C3-Palette Generation} has significantly less time (\emph{$p = 0.003$}) than \emph{Alpha Blending} condition while \emph{C3-Palette Assignment} has no significant difference (\emph{$p = 0.095$}), and our approach has significantly less time than all other benchmark conditions(\emph{$p < 0.001$}). The result indicates that our palette generation method(\emph{C3-Palette Generation}) has a better performance than benchmark conditions in the ``spot-the-difference'' task (\textbf{H1} confirmed). As for color palette with a larger range of brightness and saturation, our approach(\emph{C3-Palette Assignment}) is better than most conditions and is at least comparable to \emph{Alpha Blending} condition(\textbf{H2} confirmed).
 
 
-Second, we compared our approach to other conditions based on two different change types(\emph{Point Number Change} and \emph{Point Position Change}).
-For \emph{Point Number Change}, as shown in the top row of  Fig.\ref{fig:userResults} (c), our approach(\emph{C3-Palette Assignment} and \emph{C3-Palette Generation}) leads to a significantly lower error rate than all benchmark conditions, including \emph{Random Assignment} and \emph{Optimized Assignment}(\emph{$p < 0.001$}), \emph{Alpha Blending} and \emph{Palettailor}(\emph{$p < 0.05$}). \emph{C3-Palette Generation} condition has a better performance on consuming time than all other benchmark conditions, while \emph{C3-Palette Assignment} is just comparable to \emph{Alpha Blending} condition.
-For \emph{Point Position Change}, we observed that our approach has significant lower error rate than \emph{Random Assignment} and \emph{Optimized Assignment}(\emph{$p < 0.01$}), while there's no significant difference with \emph{Alpha Blending} and \emph{Palettailor}. \emph{C3-Palette Generation}) leads to a significantly lower consuming time than all benchmark conditions(\emph{$p < 0.001$}) except \emph{Alpha Blending}(\emph{$p = 0.044$})(\textbf{H3} confirmed).
+%Second, we compared our approach to other conditions based on two different change types(\emph{Point Number Change} and \emph{Point Position Change}).
+%For \emph{Point Number Change}, as shown in the top row of  Fig.\ref{fig:userResults} (c), our approach(\emph{C3-Palette Assignment} and \emph{C3-Palette Generation}) leads to a significantly lower error rate than all benchmark conditions, including \emph{Random Assignment} and \emph{Optimized Assignment}(\emph{$p < 0.001$}), \emph{Alpha Blending} and \emph{Palettailor}(\emph{$p < 0.05$}). \emph{C3-Palette Generation} condition has a better performance on consuming time than all other benchmark conditions, while \emph{C3-Palette Assignment} is just comparable to \emph{Alpha Blending} condition.
+%For \emph{Point Position Change}, we observed that our approach has significant lower error rate than \emph{Random Assignment} and \emph{Optimized Assignment}(\emph{$p < 0.01$}), while there's no significant difference with \emph{Alpha Blending} and \emph{Palettailor}. \emph{C3-Palette Generation}) leads to a significantly lower consuming time than all benchmark conditions(\emph{$p < 0.001$}) except \emph{Alpha Blending}(\emph{$p = 0.044$})(\textbf{H3} confirmed).
+Second, we compared error and time with regard to different change magnitudes, and found that smaller magnitude leads to larger error rate and consuming time (as shown in Fig.\ref{fig:userResultsVar} (a) left). This indicates that there exists an significant interaction effect between \emph{change magnitude} and performance, i.e., \emph{change magnitude} would affect user performance. We did the same test to \emph{change type}, the results show that \emph{point number change} is much more difficult than \emph{point position change}(\textbf{H3} confirmed).
 
 
-Finally, we did not find significant interaction effect between \emph{colorization methods} and \emph{change magnitude} or \emph{change type}, meaning that the effect of our method is not necessarily influenced by the magnitude of change or the change type between the two scatterplots (\textbf{H4} not confirmed).
+Finally, we did not find significant interaction effect between \emph{colorization methods} and \emph{change magnitude} or \emph{change type}, meaning that the effect of our method is not necessarily influenced by the magnitude of change between the two scatterplots or the different change type of classes (\textbf{H4} not confirmed).
 
+\begin{figure*}[h]
+\centering
+\includegraphics[width=1\linewidth]{figures/user-result-formal-variables.pdf}
+\caption{Confidence interval plots for the two online controlled experiments. (left) Plots for \emph{change magnitude} based on error and time; (right) plots for \emph{change type} based on error and time.
+}
+\vspace*{-3mm}
+\label{fig:userResultsVar}
+\end{figure*}
 
 \subsection{Experiment 2: Counting Class Number}
 \label{subsec:onlinestudy2}
@@ -223,72 +233,37 @@ We expected to see different patterns of the discriminability across different c
 \noindent{\textbf{Hypotheses.}} We hypothesized that our approach would generally be more effective than the benchmark methods on the discrimination tasks, and that this effect would not vary based on \emph{change magnitude} or \emph{change type}.
 \begin{itemize}[noitemsep]
 \setlength{\itemsep}{5pt}
-    \item[\textbf{H1.}] Our color generation method (\emph{C3-Palette Generation}) outperforms the benchmark conditions (\emph{Random Assignment}, \emph{Optimized Assignment}, \emph{Alpha Blending}), while is comparable to  \emph{Palettailor} on the task performance.
+    \item[\textbf{H1.}] Our color generation method (\emph{C3-Palette Generation}) outperforms the benchmark conditions (\emph{Random Assignment}, \emph{Optimized Assignment}, \emph{Alpha Blending}) and our assignment method(\emph{C3-Palette Assignment}), while is comparable to  \emph{Palettailor} on the task performance.
 
     \item [\textbf{H2.}] Our color assignment method (\emph{C3-Palette Assignment}) based on \emph{Tableau-20} outperforms the benchmark conditions (\emph{Random Assignment}, \emph{Alpha Blending}), while is comparable to \emph{Optimized Assignment} condition on the task performance.
 
-    \item [\textbf{H3.}] \emph{Change magnitude} or \emph{change type} would have no effect on discrimination task between different conditions.
+    \item [\textbf{H3.}] Other independent variables(\emph{change magnitude} and \emph{change type}) would have no effect on discrimination task between different conditions.
 
 \end{itemize}
-
 \subsubsection{Experimental Design}
+\
+\newline
 \vspace{.3em}
 \noindent{\textbf{Task \& Measures. }}
-Following previous methodologies~\cite{Wang2018, Lu21}, each participant was asked to perform a \emph{counting class number} task.  We asked participants to identify how many classes(colors) are there in the given two scatterplots and then choose an answer among several options below the two scatterplots. We recorded the participant's answer and response time for each trial, while \emph{error} is $0$ if the participant's response not equal to the actual class number, else $1$.
+Following previous methodologies~\cite{Wang2018, Lu21}, each participant was asked to perform a \emph{counting class number} task.  We asked participants to identify how many classes(colors) are there in the given two scatterplots and then choose an answer among several options below the two scatterplots. We recorded the participant's answer and response time for each trial, while \emph{error} is $1$ if the participant's response not equal to the actual class number, else $0$.
 
 
 \vspace{.3em}
 \noindent{\textbf{Pilot Study \& Power Analysis.}}
-We conducted a pilot study involving 29 participants to check the experimental setup and determine the parameters, such as the time limit for a trial.
-Harnessing by the pilot study, we also obtained our expected effect sizes, which were in further fed into a power analysis. With an effect size Cohen's $d$ of $0.6$, alpha level of $0.05$ and beta level of $0.8$, the power analysis suggested a minimum number of $50$ participants for the spot-the-difference task. See the supplementary material for more details.
+This setting is similar to Experiment 1. We invited 29 participants to do the pilot study and the results were in further fed into a power analysis. With an effect size Cohen's $d$ of $0.6$, the power analysis suggested a minimum number of $50$ participants for the discriminability task. See the supplementary material for more details.
 
 \vspace{.3em}
 \noindent{\textbf{Participants.}}
-We recruited $52$ participants(as shown in Table.~\ref{tab:participantDetail}) for the experiment on Amazon Mechanical Turk.
+We finally recruited $52$ participants(as shown in Table.~\ref{tab:participantDetail}) for the experiment on Amazon Mechanical Turk.
 According to the completion time in the pilot study, we paid each participant \$$1.5$ for the task based on the US minimum hourly wage.
 No participant claimed color vision deficiency on their informed consent.
 
 \subsubsection{Results}
-%
-%\begin{wrapfigure}{r}{0.45\columnwidth}
-%\vspace{-8pt}
-%\centering
-%\includegraphics[width=0.45\columnwidth]{figures/labstudy.pdf}
-%\vspace*{-6mm}
-%\caption{}
-%\vspace*{-6mm}
-%\label{fig:lap}
-%\end{wrapfigure}
-
-% Total
-% error
-%Condition μ~95%CI W p-value d
-%Random Assignment	0.59~[0.54, 0.64]	36972	1.9e-09	0.5~[0.33,0.66]
-%Optimized Assignment	0.48~[0.42, 0.54]	42221	0.001	-0.27~[-0.44,-0.11]
-%Alpha Blending	0.73~[0.68, 0.78]	30108	1.2e-21	-0.83~[-1.01,-0.64]
-%C3-Palette Assignment	0.45~[0.38, 0.50]	44148	0.018	0.19~[0.03,0.35]
-%Palettailor	0.31~[0.26, 0.37]	50544	0.31	0.08~[-0.08,0.24]
-%C3-Palette Generation	0.35~[0.30, 0.40]	
-
-% time
-%Condition μ~95%CI W p-value d
-%Random Assignment	13.47~[12.43, 14.63]	46357.5	0.3	0.09~[-0.07,0.25]
-%Optimized Assignment	13.50~[12.51, 14.68]	45803	0.23	-0.09~[-0.25,0.07]
-%Alpha Blending	13.51~[12.58, 14.74]	46873	0.42	-0.09~[-0.23,0.07]
-%C3-Palette Assignment	12.28~[11.40, 13.23]	49105.5	0.85	-0.04~[-0.19,0.12]
-%Palettailor	13.27~[12.33, 14.48]	46340	0.3	-0.07~[-0.22,0.1]
-%C3-Palette Generation	12.65~[11.70, 13.77]		
-
-Through this study we found that first the task performance results (time and error) are aligned with those in our online experiment (see supplemental materials for more details). Second, as shown in Figure \ref{fig:scanpath} (a), we found a slight trend that our methods (\emph{Ours Generation}, \emph{Ours Tableau 20} and \emph{Ours Tableau 10}) leads to a shorter scanpath on average than the benchmark conditions (\emph{Random Tableau-10} and \emph{Random Tableau-20}) and \emph{Optimized Tableau}). From Figure \ref{fig:scanpath} (b,c), where we plot the participant's scanpaths of two example trials, we can see that the participant had longer gazes and more eye movements across the two scatterplots under \emph{Random Tableau-20}, compared to \emph{Ours Tableau 20}. This indicates that our approach might reduce people's cognitive load needed when performing the task.
-%\textbf{TODO: include some sample scanpath visualizations and discuss the observations.}\ms{yes, good idea}\ms{what about the other results? The above explanation sounded like we also recorded time and error? If yes -- we can put it into supplementals and just say, that they supported what we found in the only study. If not, slightly re-write above to say ``instead of times and errors, we recorded ...'' instead of ``in addition ...''}
-
-%\begin{figure}[ht]
-%\centering
-%\includegraphics[width=1\linewidth]{figures/scan-path.pdf}
-%\caption{(a) The average scanpath length of each color mapping scheme; (b,c) representative scanpaths in our lab study with two different color mapping schemes. }
-%\vspace*{-3mm}
-%\label{fig:scanpath}
-%\end{figure}
+\
+\newline
+Results of this visual separability experiment are shown in Fig.\ref{fig:userResults} (b).
+Through this study we found that first \emph{C3-Palette Generation} is comparable to \emph{Palettailor} while leads to a significantly lower error rate(\emph{$p<=0.001$}) than all other benchmark conditions. Specifically, \emph{C3-Palette Generation} has a significantly lower error rate(\emph{$p=0.018$}) than \emph{C3-Palette Assignment}(\textbf{H1} confirmed).
+Second, \emph{C3-Palette Assignment} has higher performance than the benchmark conditions (\emph{Random Assignment}, \emph{Alpha Blending}) and is comparable to \emph{Optimized Assignment}(\textbf{H2} confirmed).
 
 \vspace{.3em}
 \subsection{Discussion}

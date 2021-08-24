@@ -15,7 +15,7 @@ source('analysis.R')
 library(forcats)
 library(tidyverse)
 file_study_folder <- "./data/pilot/"
-save_img_sign <- TRUE#FALSE#
+save_img_sign <- FALSE#TRUE#
 
 saveImg <- function(name){
   if(save_img_sign){
