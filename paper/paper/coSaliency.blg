@@ -1,0 +1,85 @@
+This is BibTeX, Version 0.99d (TeX Live 2017/W32TeX)
+Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
+The top-level auxiliary file: coSaliency.aux
+The style file: ACM-Reference-Format.bst
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
+Database file #1: coSaliency.bib
+Warning--entry type for "Bornmann2019" isn't style-file defined
+--line 1602 of file coSaliency.bib
+Warning--entry type for "AnzarootPBM14" isn't style-file defined
+--line 1619 of file coSaliency.bib
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated glb_str_ptr (elt_size=4) to 20 items from 10.
+Reallocated global_strs (elt_size=20001) to 20 items from 10.
+Reallocated glb_str_end (elt_size=4) to 20 items from 10.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Warning--no number and no volume in aarts1989stochastic
+Warning--page numbers missing in both pages and numpages fields in aarts1989stochastic
+Warning--empty organization in Ablamowicz07
+Warning--empty organization in UMassCitations
+Warning--empty publisher in Aupetit02
+Warning--empty address in Aupetit02
+Warning--empty chapter and pages in Editor00
+Warning--page numbers missing in Editor00a
+Warning--empty author in 2004:ITE:1009386.1010128
+Warning--empty publisher in Jacobs10
+Warning--empty address in Jacobs10
+Warning--empty address in Knuth97
+Warning--articleno or eid field, but no numpages field, in Lee05
+Warning--page numbers missing in both pages and numpages fields in Lee05
+Warning--articleno or eid, but no pages or numpages field in Lee05
+Warning--unrecognized DOI value [99.9999/woot07-S422]
+Warning--articleno or eid field, but no numpages field, in rous08
+Warning--page numbers missing in both pages and numpages fields in rous08
+Warning--articleno or eid, but no pages or numpages field in rous08
+Warning--page numbers missing in both pages and numpages fields in SaeediJETC10
+Warning--unrecognized DOI value [99.9999/woot07-S422]
+Warning--empty organization in Thornburg01
+Warning--empty organization in TUGInstmem
+Warning--empty organization in TUGInstmem
+Warning--empty year in CTANacmart
+Warning--empty organization in CTANacmart
+You've used 55 entries,
+            5959 wiz_defined-function locations,
+            2040 strings with 29922 characters,
+and the built_in function-call counts, 58611 in all, are:
+= -- 7733
+> -- 1861
+< -- 4
++ -- 608
+- -- 680
+* -- 4127
+:= -- 5966
+add.period$ -- 288
+call.type$ -- 55
+change.case$ -- 350
+chr.to.int$ -- 53
+cite$ -- 79
+duplicate$ -- 5113
+empty$ -- 3622
+format.name$ -- 751
+if$ -- 13996
+int.to.chr$ -- 4
+int.to.str$ -- 1
+missing$ -- 140
+newline$ -- 602
+num.names$ -- 431
+pop$ -- 1644
+preamble$ -- 1
+purify$ -- 829
+quote$ -- 0
+skip$ -- 1777
+stack$ -- 0
+substring$ -- 4530
+swap$ -- 526
+text.length$ -- 70
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 1212
+warning$ -- 26
+while$ -- 415
+width$ -- 0
+write$ -- 1117
+(There were 28 warnings)

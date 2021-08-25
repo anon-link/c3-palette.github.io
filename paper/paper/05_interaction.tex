@@ -15,9 +15,9 @@ It consists of four coordinated views: (a) a settings panel, (b) a control panel
 After uploading multiple labeled scatterplots, the user can either choose a default color palette or use our system to automatically generate color palettes. In this case, the system automatically finds an optimal color mapping scheme to colorize the input data, while each class is encoded as a circle where the x-axis represents class label and the y-axis indicates the importance of each class. By default, the importance is represented by the change degree and $\kappa$ is set to zero. User can drag the circle to modify the corresponding importance value. The $\kappa$ is controlled by a black circle on the y-axis which can also be dragged to modify. Our system finds a color mapping scheme to highlight the classes with large importance and renders the classes in ascending order of the corresponding importance. If users like the color mapping scheme, they can save it to the history view.
 
 
-Using $\theta_i$  defined in Eq.~\ref{eq:cosaliency}, the classes whose importance values are larger than the threshold $\kappa$ will be highlighted. 
+Using $\theta_i$  defined in Eq.~\ref{eq:cosaliency}, the classes whose importance values are larger than the threshold $\kappa$ will be highlighted.
 Figs.~\ref{fig:ui}(b,c) show an example, where the three classes with the adjusted importance values larger than $\kappa$ are emphasized with salient \emph{red}, \emph{blue} and \emph{purple} colors, respectively.
-This control panel allows users to select arbitrary classes of interest to highhlight by simply adjust circle position and $\kappa$ value.
+This control panel allows users to select arbitrary classes of interest to highhlight by simply adjust circle position and $\kappa$ value. More use cases can be seen in Sec.~\ref{sec:caseStudy}.
 
 %
 %

@@ -239,18 +239,19 @@ We expected to see different patterns of the discriminability across different c
 
     \item [\textbf{H3.}] Other independent variables(\emph{change magnitude} and \emph{change type}) would have no effect on discrimination task between different conditions.
 
+    \item [\textbf{H4.}] There would be no interaction effect between colorization methods and other independent variables(\emph{change type} and \emph{change magnitude}).
 \end{itemize}
 \subsubsection{Experimental Design}
 \
 \newline
 \vspace{.3em}
 \noindent{\textbf{Task \& Measures. }}
-Following previous methodologies~\cite{Wang2018, Lu21}, each participant was asked to perform a \emph{counting class number} task.  We asked participants to identify how many classes(colors) are there in the given two scatterplots and then choose an answer among several options below the two scatterplots. We recorded the participant's answer and response time for each trial, while \emph{error} is $1$ if the participant's response not equal to the actual class number, else $0$.
+Following previous methodologies~\cite{Wang2018, Lu21}, each participant was asked to perform a \emph{counting class number} task.  We asked participants to identify how many classes(colors) are there in the given two scatterplots and then choose an answer among several options below the two scatterplots. We recorded the participant's answer and response time for each trial, and counted the \emph{error}  by calculating the differences between the participant's answer and the actual number of classes(each scatterplot has $8$ classes in our experiment). %is $1$ if the participant's response not equal to the actual class number, else $0$.
 
 
 \vspace{.3em}
 \noindent{\textbf{Pilot Study \& Power Analysis.}}
-This setting is similar to Experiment 1. We invited 29 participants to do the pilot study and the results were in further fed into a power analysis. With an effect size Cohen's $d$ of $0.6$, the power analysis suggested a minimum number of $50$ participants for the discriminability task. See the supplementary material for more details.
+This setting is similar to Experiment 1. We invited $29$ participants to do the pilot study and the results were in further fed into a power analysis. With an effect size Cohen's $d$ of $0.6$, the power analysis suggested a minimum number of $50$ participants for the discriminability task. See the supplementary material for more details.
 
 \vspace{.3em}
 \noindent{\textbf{Participants.}}
@@ -262,24 +263,23 @@ No participant claimed color vision deficiency on their informed consent.
 \
 \newline
 Results of this visual separability experiment are shown in Fig.\ref{fig:userResults} (b).
-Through this study we found that first \emph{C3-Palette Generation} is comparable to \emph{Palettailor} while leads to a significantly lower error rate(\emph{$p<=0.001$}) than all other benchmark conditions. Specifically, \emph{C3-Palette Generation} has a significantly lower error rate(\emph{$p=0.018$}) than \emph{C3-Palette Assignment}(\textbf{H1} confirmed).
+Through this study we found that first \emph{C3-Palette Generation} is comparable to \emph{Palettailor} while leads to a significantly lower error rate(\emph{$p<=0.001$}) than all other benchmark conditions. Specifically, \emph{C3-Palette Generation} has a significantly lower error rate(\emph{$p=0.002$}) than \emph{C3-Palette Assignment}(\textbf{H1} confirmed).
 Second, \emph{C3-Palette Assignment} has higher performance than the benchmark conditions (\emph{Random Assignment}, \emph{Alpha Blending}) and is comparable to \emph{Optimized Assignment}(\textbf{H2} confirmed).
-
+For other independent variables, as shown in Fig.\ref{fig:userResultsVar} (b), we found that there existed a significant difference between \emph{Small change magnitude} and \emph{Medium} and \emph{Large}. \emph{Point position change} has a much lower error rate than \emph{point number change}. And their time has both a tendency to gradually increase. This indicates that \emph{change magnitude} and \emph{change type}) have an effect on discrimination task between different conditions (\textbf{H3} not confirmed). 
+Finally, we did not find significant interaction effect between \emph{colorization methods} and \emph{change magnitude} or \emph{change type}, meaning that the effect of different methods for visual discriminability is not 
+necessarily influenced by the magnitude of change between the two scatterplots or the different change type of classes (\textbf{H4} confirmed).
 \vspace{.3em}
 \subsection{Discussion}
-
-In summary, we evaluated the effectiveness of our approach against the benchmark conditions through a series of studies. We found that first, our experimental methods (\emph{Ours Generation}, \emph{Ours Tableau-20} and \emph{Ours Tableau-10}) generally support the fundamental visual separability of the classes. Second, our methods outperform the benchmark methods on juxtaposed comparison tasks, and their effects are influenced by the color variety of the input palettes, yet not necessarily influenced by the change magnitude of the two scatterplots. Third, we observed some evidences indicating that our methods might help alleviate eye movement distance when doing the comparison tasks.
-
+In summary, we evaluated the effectiveness of our approach against the benchmark conditions through two online studies. 
+We found that first, our methods outperform the benchmark methods on juxtaposed comparison tasks, and their effects are not necessarily influenced by the change magnitude of the two scatterplots or the change type of each class. 
+The performance of \emph{Optimized Assignment} is comparable to \emph{Random Assignment}, this is reasonable, since \emph{Optimized Assignment} mainly cares about the visual separability of different classes, thus it might assign the less salient color to the changed class while \emph{Random Assignment} would assign salient color even though the whole separability of the scatterplot is not very good. This also provides an explanation for \emph{Alpha Blending} which is based on the result of \emph{Optimized Assignment}.
+Second, our experimental methods (\emph{C3-Palette Generation} and \emph{C3-Palette Assignment}) generally support the fundamental visual separability of the classes. It is worth noting that the error rate of \emph{C3-Palette Generation} is comparable to \emph{Palettailor} which is the start-of-the-art palette generation method for visual discriminability, while \emph{C3-Palette Assignment} is comparable to \emph{Optimized Assignment} which is the start-of-the-art palette assignment method for visual discriminability. This indicates that our approach maintains the class distinction of the scatterplot while enhances the class saliency to help observe changes between different scatterplots.
+Third, we found that \emph{change magnitude} and \emph{change type} influence the performance of the \emph{counting class number} task. The potential explanation is that large change between scatterplots will attract participants' attention, thus make it easy to distinct different classes. This is also reasonable for \emph{change type} since point position change is easier to distinguish than point number change.
+It's obvious that \emph{Alpha Blending} has a much lower error rate than other methods for discrimination task. As one of the participants said, ``The ones that were harder were ones that had colors that when they overlapped would change color. It made it hard to tell if it was the same color or if it was a new color. When the colors were uniform and all the same opacity, it was much easier.'' \emph{Alpha Blending} condition changes the opacity of unchanged classes to make the unchanged classes more distinct, but this will generate new color by color blending, so as to make it hard to distinct colors.
 
 Some limitations exist in our evaluation.
-First, our experiment focuses on scatterplots, a single visualization type. While scatterplots are commonly used in juxtaposed comparison (e.g., correlation matrix), the effectiveness of our approach might be different for other types of visualizations such as line charts or bar charts.
+First, our experiment mainly focuses on error rate and time comsuming, while other measurements are not explored, such as click order of the changed classes and time consuming for each click. These might reflect some interesting results for different \emph{cluster type}.
 Second, our experiment focuses on identifying the differences between two scatterplots, which is a simplified situation, since in real-world cases often more than two visualizations are compared.
 Third, we cannot further analyze the effect of \emph{change type}, given the current study design, though we did observe some trends that for certain types of change, our methods are more effective.
 That brings us to a series of more fundamental questions: how can we properly define the types of changes? What is the just noticeable change magnitude for each change type?
 Further research is needed to answer these questions so that our approach can be thoroughly evaluated.
-
-
-
-
-
-

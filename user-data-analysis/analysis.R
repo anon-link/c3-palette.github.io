@@ -444,7 +444,7 @@ ciplot <- function(data, y, x, title, yRange=0, xRange=0, ifPreference = FALSE) 
   # p <- ggplot(df, aes(trt, resp, color = "#2b8cbe"))
   # p <- p + scale_color_manual(values="#2b8cbe")
   p <- ggplot(df, aes(trt, resp, color = trt))
- # p <- p + scale_color_manual(values=c("#3274a1","#e1812c","#3274a1","#e1812c","#e1812c","#e1812c"))
+  # p <- p + scale_color_manual(values=c("#3274a1","#e1812c","#3274a1","#e1812c","#e1812c","#e1812c"))
   p <- p + scale_color_manual(values=c("#3274a1","#3274a1","#3274a1","#e1812c","#e1812c","#e1812c"))
   p <- p + theme(axis.title=element_text(size=20), axis.text=element_text(size=15))
   p <- p + geom_pointrange(aes(ymin = lower, ymax = upper), size = 2) 
@@ -473,6 +473,7 @@ ciplot <- function(data, y, x, title, yRange=0, xRange=0, ifPreference = FALSE) 
   p <- p + guides(colour=FALSE)
   p <- p + theme(text = element_text(size=25))
   p
+  
 }
 
 ciplotFancy <- function(data, y, x, yRange=0, xRange=0,
@@ -860,3 +861,4 @@ boxplot <- function(data, y, x) {
     theme(text = element_text(size=25))
   
 }
+
