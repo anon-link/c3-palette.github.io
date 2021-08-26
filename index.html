@@ -280,7 +280,7 @@
                 </div>
               </li>
               <li>
-                <div class="menu-sidebar-div" style="padding-left: 32px;">
+                <div class="menu-sidebar-div" style="padding-left: 32px; display: none;">
                   <label><strong>Lambda: &nbsp; </strong> </label>
                   <input id="slider_3" name="slider_3" type="range" min=0 max=100 value=40
                     oninput="changeSlider(this.name, this.value)" />
@@ -339,9 +339,6 @@
             <ul class="sub">
               <li>
                 <div class="menu-sidebar-div" style="padding-left: 32px;">
-                  <input type="checkbox" name="assignName2Target" id="assignName2Target">
-                  <label for="assignName2Target"><strong>&nbsp;&nbsp;Assign to target classes?</strong></label>
-                  <br><br>
                   <label><strong>Color Names: &nbsp; </strong> </label>
                   <div id="color-names-div">
                     <input type="checkbox" name="blue" value="blue">
@@ -366,6 +363,31 @@
                     <label for="grey"> Grey</label><br>
                     <input type="checkbox" name="white" value="white">
                     <label for="white"> White</label><br>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </li>
+          <li class="sub-menu">
+            <a href="javascript:;" class="">
+              <i class="icon_circle-slelected"></i>
+              <span>Color Blindness</span>
+              <span class="menu-arrow arrow_carrot-right"></span>
+            </a>
+            <ul class="sub">
+              <li>
+                <div class="menu-sidebar-div" style="padding-left: 32px;">
+                  <label><strong>Types: &nbsp; </strong> </label>
+                  <div>
+                    <label><input type="radio" name="colorblindType" value="Normal" checked />Normal</label><br>
+                    <label><input type="radio" name="colorblindType" value="Protanopia" />Protanopia</label><br>
+                    <label><input type="radio" name="colorblindType" value="Protanomaly" />Protanomaly</label><br>
+                    <label><input type="radio" name="colorblindType" value="Deuteranopia" />Deuteranopia</label><br>
+                    <label><input type="radio" name="colorblindType" value="Deuteranomaly" />Deuteranomaly</label><br>
+                    <label><input type="radio" name="colorblindType" value="Tritanopia" />Tritanopia</label><br>
+                    <label><input type="radio" name="colorblindType" value="Tritanomaly" />Tritanomaly</label><br>
+                    <label><input type="radio" name="colorblindType" value="Achromatopsia" />Achromatopsia</label><br>
+                    <label><input type="radio" name="colorblindType" value="Achromatomaly" />Achromatomaly</label>
                   </div>
                 </div>
               </li>
@@ -504,6 +526,7 @@
 <script type="text/javascript" src="js/lib/d3.color.min.js"></script>
 <script type="text/javascript" src="js/lib/c3.min.js"></script>
 <script type="text/javascript" src="js/lib/FRNN.js"></script>
+<script type="text/javascript" src="js/lib/hcirn_colorblind_simulation.js"></script>
 
 <script type="text/javascript" src="js/global.js"></script>
 <script type="text/javascript" src="js/utils.js"></script>

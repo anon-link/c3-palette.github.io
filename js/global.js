@@ -32,7 +32,7 @@ let CIEDE2000_scope = [0.026370677103770744, 118.6699864811677];
 let criterion_cd = -1.0;
 let initial_scores = [-1, -1]
 let locked_pos, data_changed_sign = false;
-let color_names_checked;
+let color_names_checked, color_blind_type;
 let choosed_emphasized_clusters = [];
 let best_color_names = {
     "brown": d3.rgb(100, 53, 0), "orange": d3.rgb(255, 118, 2), "yellow": d3.rgb(255, 246, 3), "red": d3.rgb(255, 30, 32),

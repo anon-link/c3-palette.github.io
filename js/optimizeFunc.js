@@ -30,6 +30,8 @@ function doColorization() {
         document.getElementById("slider_2").value = 100;
         changeSlider("slider_2", 100)
     }
+    color_blind_type = document.querySelector('input[name = "colorblindType"]:checked').value;
+
     let best_color, best_color_array = new Array(1);
     initial_scores = [-1, -1]
 
@@ -60,6 +62,7 @@ function doColorization() {
     // if already have a svg, then insert it to the history
     addToHistory();
     drawTransferFunction(used_palette);
+
     return used_palette;
 }
 
@@ -67,6 +70,7 @@ function doColorization() {
  * score the given palette
  */
 function getPaletteScore(p) {
+    let palette = p.slice();
     if (color_names_checked != undefined && color_names_checked.length > 0) {
         let count = 0;
         for (let i = 0; i < palette.length; i++) {
@@ -79,25 +83,32 @@ function getPaletteScore(p) {
         if (count > 2) // if there are more than two colors that are not in selected color names, then discard this palette
             return -1000000;
     }
-    let color_dis = new Array(p.length)
-    for (let i = 0; i < p.length; i++)
-        color_dis[i] = new Array(p.length)
-    let bg_contrast_array = new Array(p.length)
+    if (color_blind_type != "Normal") {
+        for (let i = 0; i < palette.length; i++) {
+            let c = d3.rgb(palette[i]);
+            let c1 = fBlind[color_blind_type]([parseInt(c.r), parseInt(c.g), parseInt(c.b)]);
+            palette[i] = d3.rgb(c1[0], c1[1], c1[2]);
+        }
+    }
+    let color_dis = new Array(palette.length)
+    for (let i = 0; i < palette.length; i++)
+        color_dis[i] = new Array(palette.length)
+    let bg_contrast_array = new Array(palette.length)
     let name_difference = 0,
         color_discrimination_constraint = 100000;
-    for (let i = 0; i < p.length; i++) {
-        for (let j = i + 1; j < p.length; j++) {
-            color_dis[i][j] = color_dis[j][i] = d3_ciede2000(d3.lab(p[i]), d3.lab(p[j]));
-            name_difference += getNameDifference(p[i], p[j]);
+    for (let i = 0; i < palette.length; i++) {
+        for (let j = i + 1; j < palette.length; j++) {
+            color_dis[i][j] = color_dis[j][i] = d3_ciede2000(d3.lab(palette[i]), d3.lab(palette[j]));
+            name_difference += getNameDifference(palette[i], palette[j]);
             color_discrimination_constraint = (color_discrimination_constraint > color_dis[i][j]) ? color_dis[i][j] : color_discrimination_constraint;
         }
-        bg_contrast_array[i] = d3_ciede2000(d3.lab(p[i]), d3.lab(d3.rgb(bgcolor)));
+        bg_contrast_array[i] = d3_ciede2000(d3.lab(palette[i]), d3.lab(d3.rgb(bgcolor)));
         color_discrimination_constraint = (color_discrimination_constraint > bg_contrast_array[i]) ? bg_contrast_array[i] : color_discrimination_constraint;
     }
     let cosaliency_score = 0;
     let tmp_pd = 0, tmp_cb = 0
-    for (let i = 0; i < p.length; i++) {
-        for (let j = 0; j < p.length; j++) {
+    for (let i = 0; i < palette.length; i++) {
+        for (let j = 0; j < palette.length; j++) {
             if (i === j) continue;
             tmp_pd += alphaShape_distance[i][j] * color_dis[i][j] * Math.exp(change_distance[i]);
         }
@@ -112,9 +123,9 @@ function getPaletteScore(p) {
     }
     cosaliency_score = cosaliency_lambda * tmp_pd / initial_scores[0] + (1 - cosaliency_lambda) * tmp_cb / Math.abs(initial_scores[1]);
     // console.log(tmp_pd / initial_scores[0], tmp_cb / Math.abs(initial_scores[1]), cosaliency_score);
-    name_difference /= p.length * (p.length - 1) * 0.25;
+    name_difference /= palette.length * (palette.length - 1) * 0.25;
     color_discrimination_constraint *= 0.1;
-    // console.log(cosaliency_score, name_difference, color_discrimination_constraint);
+    console.log(cosaliency_score, name_difference, color_discrimination_constraint);
 
     return score_importance_weight[0] * cosaliency_score + score_importance_weight[1] * name_difference + score_importance_weight[2] * color_discrimination_constraint;
 }

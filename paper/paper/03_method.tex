@@ -68,11 +68,8 @@ f(\theta_i) =  \left\{ \begin{array}{ll}
 \end{array} \right.
 \label{eq:piecewiseFunc}
 \end{align}
-$\kappa$ is a user-specified threshold with the default zero. The reason for the two different weighting schemes is that classes with less or no importance might be treated as the background by viewers~\cite{zhang2018review}. To suppress the saliency of such classes, we introduce a negative importance for them. Since $\rho (\mathbf{x}^j_t)$ might be a negative value, we apply an exponential function to transfer it to positive.
 
-\vspace{1.5mm}
-\noindent\textbf{Class Importance}.
-Class importance reflects whether a class should be highlight or not. It can be specified by user or by some measures. In our paper, we use class change degree to represent the importance of each class as default.
+$\kappa$ is a user-specified threshold with the default zero. The reason for the two different weighting schemes is that classes with less or no importance might be treated as the background by viewers~\cite{zhang2018review}. To suppress the saliency
 \begin{wrapfigure}{r}{0.28\columnwidth}
 	\vspace{-5mm}
 	\centering
@@ -82,6 +79,11 @@ Class importance reflects whether a class should be highlight or not. It can be 
 	\vspace*{-2mm}
 	\label{fig:class-change-degree}
 \end{wrapfigure}
+ of such classes, we introduce a negative importance for them. Since $\rho (\mathbf{x}^j_t)$ might be a negative value, we apply an exponential function to transfer it to positive.
+
+\vspace{1.5mm}
+\noindent\textbf{Class Importance}.
+Class importance reflects whether a class should be highlight or not. It can be specified by user or by some measures. In our paper, we use class change degree to represent the importance of each class as default.
 To quantify how users perceive class structure changes, we measure the difference between class distributions in two scatterplots with the Earth Mover's Distance (EMD)~\cite{rubner2000earth}, a perceptual metric.
 Suppose the $i$th  class with two sets of points $\mathbf{X}^1_i = \{\mathbf{x}_{i,1}^1, \cdots , \mathbf{x}_{i,n^1_i}^1\}$ and $\mathbf{X}^2_i = \{\mathbf{x}_{i,1}^2, \cdots , \mathbf{x}_{i,n^2_i}^2\}$.
 Taking the Euclidian distance between two points as the cost, we need to  minimize the total matching cost
