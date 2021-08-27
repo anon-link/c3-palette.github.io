@@ -11,3 +11,5 @@ user-study-website/excute-file
 user-data-analysis/data/pilot/reject
 user-data-analysis/.RData
 user-data-analysis/.Rhistory
+*.svn-base
+paper/cosaliency/.svn
