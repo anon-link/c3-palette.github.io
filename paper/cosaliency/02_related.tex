@@ -10,10 +10,10 @@ Accordingly, Gleicher et al.~\cite{Gleicher11} and  L'Yi et al.~\cite{LYi21} bot
 
 \subsection{Color Design}
 %Creating an appropriate color mapping scheme is crucial for data visualization and has attracted considerable attention.
-For a complete review of color design for visualization, we refer readers to survey papers~\cite{Tominski08,Zhou16}. We limit our discussion to the techniques related to color design for categorical data visualization including color mapping optimization and color palette generation, and color design for multi-view visualization.
+For a complete review of color design for visualization, we refer readers to survey papers~\cite{Tominski08,Zhou16}. We limit our discussion to the techniques related to color design for categorical data visualization including color mapping optimization, color palette generation, and color design for multi-view visualization.
 
 \vspace{1.5mm}
-\noindent\textbf{Color Mapping Optimization}. Mapping each class to a proper\footnote{The word ``proper'' means that the color mapping can help user discriminate each class.} color selected from the given palette is particularly helpful for categorical data visualization.
+\noindent\textbf{Color Mapping Optimization}. Mapping each class to a proper color selected from the given palette is particularly helpful for categorical data visualization. %\footnote{The word ``proper'' means that the color mapping can help user discriminate each class.}
 A few different factors have been used for guiding the search of such mappings.
 For example, Lin et al.~\cite{lin2013selecting} proposed to optimize the compatibility between the class semantics and the assigned colors. Setlur and Stone~\cite{setlur2016linguistic} produced better results by using co-occurrence measures of color name frequencies.
 For the classes without clear semantics,  Hurter et al.~\cite{Hurter10} suggested to maximize perceptual color differences among close lines of a metro map.
@@ -31,9 +31,8 @@ To have an appropriate categorical color palette, the commonly used approach is 
 a library of carefully designed palettes provided by online tools (e.g. ColorBrewer~\cite{harrower2003colorbrewer}).
 Colorgorical~\cite{Gramazio17} further allows users to customize color palettes by generating palettes based on user-specified discriminability and preference importance.
 Chen et al.~\cite{Chen14}  suggested to directly search proper colors in CIELAB space for maximizing class discrimination in multi-class scatterplots. Yet, it cannot find enough colors with large color differences, because of leaving out L* channel in the optimization.
-Recently, Palettailor~\cite{Lu21} takes a further step that can automatically generate categorical palettes for different types of charts, such as scatterplots,  line and bar charts.
+Recently, Palettailor~\cite{Lu21} takes a further step that can automatically generate categorical palettes for different types of charts, such as scatterplots, line and bar charts.
 All the aforementioned methods deal with single data, while our work focuses on visual comparison of multiple similar labeled datasets with some changed instances.
-% \ms{re-write last paragraph w.r.t. Palettailor. It reads more like the Palettailor paper. In general make sure that no text is copy and pasted, as this is automatically checked now.}
 
 \vspace{1.5mm}
 \noindent\textbf{Multi-view Color Design}.
