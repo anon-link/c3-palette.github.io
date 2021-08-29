@@ -79,11 +79,11 @@ $\kappa$ is a user-specified threshold with the default zero. The reason for the
 	\vspace*{-2mm}
 	\label{fig:class-change-degree}
 \end{wrapfigure}
- of such classes, we introduce a negative importance for them. Since $\rho (\mathbf{x}^j_t)$ might be a negative value, we apply an exponential function to transfer it to positive.
+ of such classes, we introduce a negative importance for them. Since $\rho (\mathbf{x}^j_t)$ might be a negative value which will be influenced by Eq.~\ref{eq:piecewiseFunc}, we apply an exponential function to transfer it to positive while maintains the monotonicity.
 
 \vspace{1.5mm}
 \noindent\textbf{Class Importance}.
-Class importance reflects whether a class should be highlight or not. It can be specified by user or by some measures. In our paper, we use class change degree to represent the importance of each class as default.
+Class importance reflects whether a class should be highlighted or not. It can be specified by user or by some measures. In our paper, we use class change degree to represent the importance of each class as default.
 To quantify how users perceive class structure changes, we measure the difference between class distributions in two scatterplots with the Earth Mover's Distance (EMD)~\cite{rubner2000earth}, a perceptual metric.
 Suppose the $i$th  class with two sets of points $\mathbf{X}^1_i = \{\mathbf{x}_{i,1}^1, \cdots , \mathbf{x}_{i,n^1_i}^1\}$ and $\mathbf{X}^2_i = \{\mathbf{x}_{i,1}^2, \cdots , \mathbf{x}_{i,n^2_i}^2\}$.
 Taking the Euclidian distance between two points as the cost, we need to  minimize the total matching cost
@@ -91,7 +91,7 @@ Taking the Euclidian distance between two points as the cost, we need to  minimi
  H(\mathbf{X}^1_i, \mathbf{X}^2_i)  = \min_\chi \sum_t d(\mathbf{x}_{i,t}^1, \mathbf{x}_{i,\chi(t)}^2),
 \end{align}
 which constrains an one-to-one mapping $\chi$ between points (see an illustration in Fig.~\ref{fig:class-change-degree}). This is the classic bipartite matching problem, which can be solved by the Hungarian method~\cite{kuhn1955hungarian}.
-When the number of points of two sets is not equal, we further take the difference between the number of points into account. In doing so, the class change degree is defined as:
+When the number of points of two sets is not equal, we further take the difference between the number of points into account. In doing so, the class change degree contains both point position change and point number change between two sets, which is defined as:
 \begin{align}\label{eq:cm}
  \theta_i= \frac{H(\mathbf{X}^1_i, \mathbf{X}^2_i) }{\min\{n^1_i, n^2_i\}} + \nu \frac{||n^1_i- n^2_i||}{\max\{n^1_i, n^2_i\}}
 \end{align}

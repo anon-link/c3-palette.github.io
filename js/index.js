@@ -155,7 +155,7 @@ function renderResult() {
     if (DATATYPE === "LINECHART") {
       palette = appendLinechart();
     }
-    
+
     // draw the palette
     appendPaletteResult(palette);
     data_changed_sign = false;
@@ -235,10 +235,12 @@ function appendScatterplot() {
 
   }
   if (color_blind_type != "Normal") {
+    // show results seen from color blindness
+
     for (let i = 0; i < used_palette.length; i++) {
-        let c = d3.rgb(used_palette[i]);
-        let c1 = fBlind[color_blind_type]([parseInt(c.r), parseInt(c.g), parseInt(c.b)]);
-        used_palette[i] = d3.rgb(c1[0], c1[1], c1[2]);
+      let c = d3.rgb(used_palette[i]);
+      let c1 = fBlind[color_blind_type]([parseInt(c.r), parseInt(c.g), parseInt(c.b)]);
+      used_palette[i] = d3.rgb(c1[0], c1[1], c1[2]);
     }
     for (let i = 0; i < source_datasets.length; i++) {
       // xScale.domain(d3.extent(source_datasets[i], xValue));
@@ -265,14 +267,14 @@ function appendScatterplot() {
       scatterplot.append("g")
         .attr("transform", "translate(0," + svg_height + ")")
         .call(d3.axisBottom(xScale));//.tickFormat("")
-  
+
       // add the y Axis
       scatterplot.append("g")
         .call(d3.axisLeft(yScale));//.tickFormat("")
-      scatterplot_svg.append("text").attr("x", 0).attr("y", 20).text(source_datasets_names[i]);
-  
+      scatterplot_svg.append("text").attr("x", 0).attr("y", 20).text("Seen from people with color vision deficiency: " + source_datasets_names[i]);
+
     }
-}
+  }
   return used_palette;
 }
 

@@ -3,7 +3,7 @@ let svg_margin = {
     top: 20,
     right: 20,
     bottom: 20,
-    left: 20
+    left: 40
 },
     radius = 4,
     SVGWIDTH = 400,
