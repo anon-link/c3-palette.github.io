@@ -223,3 +223,70 @@ function reorderData(change_info, cluster_num, source_datasets) {
     return data;
 
 }
+
+function drawBarchart(data, palette, sign, id) {
+    // set the ranges
+    xScale = d3.scaleBand()
+        .range([0, svg_width])
+        .padding(0.1);
+    yScale = d3.scaleLinear()
+        .range([svg_height, 0]);
+    let barchart_svg = d3.select("#renderDiv").append("svg")
+        .attr("width", SVGWIDTH).attr("height", SVGHEIGHT);
+
+    let barchart = barchart_svg.style("background-color", bgcolor)
+        .append("g")
+        .attr("transform", "translate(" + svg_margin.left + "," + svg_margin.top + ")");
+
+    // add the x Axis
+    barchart.append("g")
+        .attr("transform", "translate(0," + svg_height + ")")
+        .call(d3.axisBottom(xScale).tickFormat(""));
+
+    // add the y Axis
+    barchart.append("g")
+        .call(d3.axisLeft(yScale).tickFormat(""));
+
+    barchart.selectAll("bars")
+        .data(data)
+        .enter().append("rect")
+        .attr("class", "bars")
+        .attr("id", function (d) {
+            return cValue(d);
+        })
+        .style("fill", function (d) {
+            return palette[cValue(d)];
+        })
+        .attr("x", function (d) {
+            return xScale(cValue(d));
+        })
+        .attr("width", xScale.bandwidth())
+        .attr("y", function (d) {
+            return yScale(yValue(d));
+        })
+        .attr("height", function (d) {
+            return svg_height - yScale(yValue(d));
+        })
+        .attr("rx", 10).attr("ry", 10)
+        .attr("item-color", function (d) {
+            return palette[cValue(d)];
+        })
+        .style("opacity", function (d) {
+            if (sign && cValue(d) != id) {
+                return "0.5";
+            } else {
+                return "1";
+            }
+        })
+        .on("click", function () {
+            var url = "/result/3",
+                data = {
+                    test_id: test_id,
+                    total_time: (new Date() - test_time) / 1000,
+                    result: +d3.select(this).attr("id")
+                };
+            $.post(url, data, function (d) {
+                window.location.href = d;
+            });
+        });
+}

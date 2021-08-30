@@ -242,6 +242,11 @@ function processBarData(datasets) {
 
     // Scale the range of the data
     let cluster_num = Object.keys(labelToClass).length;
+    alphaShape_distance = new Array(cluster_num);
+    for (let i = 0; i < cluster_num; i++) {
+        alphaShape_distance[i] = new Array(cluster_num).fill(0);
+    }
+    non_separability_weights = new Array(cluster_num).fill(0);
     for (let m = 0; m < datasets.length; m++) {
         //bar chart
         let baryCenter = new Array(cluster_num);
@@ -251,9 +256,13 @@ function processBarData(datasets) {
         // only nearest two bars have a distance
         for (let i = 0; i < cluster_num - 1; i++) {
             let dist = Math.sqrt((baryCenter[i][0] - baryCenter[i + 1][0]) * (baryCenter[i][0] - baryCenter[i + 1][0]) + (baryCenter[i][1] - baryCenter[i + 1][1]) * (baryCenter[i][1] - baryCenter[i + 1][1]));
-            knng_distance[i][i + 1] += inverseFunc(dist + 1);
+            alphaShape_distance[i][i + 1] += inverseFunc(dist + 1);
+            non_separability_weights[i] += 1 / baryCenter[i][1];
         }
+        non_separability_weights[cluster_num - 1] += 1 / baryCenter[cluster_num - 1][1];
     }
+    console.log("alphaShape_distance:", alphaShape_distance);
+    console.log("non_separability_weights:", non_separability_weights);
 
     for (let m = 0; m < datasets.length - 1; m++) {
         let baryCenter_0 = new Array(cluster_num), baryCenter_1 = new Array(cluster_num);
@@ -269,22 +278,11 @@ function processBarData(datasets) {
     }
     //normalize change_distance
     let change_distance_scale = d3.extent(change_distance);
-    if (change_distance_scale[0] > 0) {
-        change_distance_scale[0] = 0;
-    }
+    change_distance_scale[0] = 0;
     for (let i = 0; i < change_distance.length; i++) {
         change_distance[i] = (change_distance[i] - change_distance_scale[0]) / (change_distance_scale[1] - change_distance_scale[0] + 0.000000001);
     }
-    delta_change_distance = getDeltaDistance(change_distance);
-
-    for (let i = 0; i < cluster_num; i++) {
-        for (let j = i + 1; j < cluster_num; j++) {
-            let dist = knng_distance[i][j] / source_datasets.length;
-            dist *= Math.exp(change_distance[i]);
-            cosaliency_distance[i][j] = dist / source_datasets.length;
-        }
-    }
-    console.log(knng_distance, dsc_distance, change_distance, cosaliency_distance);
+    console.log("change_distance", change_distance);
 
 }
 
@@ -367,10 +365,41 @@ function processLineData(datasets) {
         }
         x_interpolated_datasets.push(x_interpolated_linechart_data)
     }
-    calculateKNNGDistance(interpolated_datasets);
-    calculateClassCenterDistance(interpolated_datasets);
 
-    console.log(interpolated_datasets, x_interpolated_datasets);
+    scaled_datasets = []
+    for (let i = 0; i < datasets.length; i++) {
+        // using different scale
+        // xScale.domain(d3.extent(datasets[i], xValue));
+        // yScale.domain(d3.extent(datasets[i], yValue));
+
+        let tmp = []
+        for (let d of datasets[i]) {
+            tmp.push(
+                {
+                    x: xMap(d),
+                    y: yMap(d),
+                    label: d.label
+                }
+            )
+        }
+        scaled_datasets.push(tmp)
+    }
+
+    // get cluster number for each class
+    let cluster_num = Object.keys(labelToClass).length;
+    cluster_nums = new Array(datasets.length)
+    for (let i = 0; i < datasets.length; i++) {
+        cluster_nums[i] = new Array(cluster_num).fill(0)
+        var clusters = SplitDataByClass(datasets[i], labelToClass)
+        for (let key in clusters) {
+            if (clusters[key]) {
+                cluster_nums[i][key] = clusters[key].length
+            }
+        }
+    }
+
+    calculateAlphaShapeDistance(scaled_datasets, [[0, 0], [svg_width, svg_height]])
+
     // caculate the changing distance between lines
     for (let i = 0; i < x_interpolated_datasets.length - 1; i++) {
         var ref_clusters = SplitDataByClass(x_interpolated_datasets[i], labelToClass),
@@ -380,11 +409,9 @@ function processLineData(datasets) {
             let ref = ref_clusters[key],
                 target = comp_clusters[key];
             if (ref && target) {
-                let dist_sum = -1000000;
+                let dist_sum = 0;
                 for (let j = 0; j < ref.length; j++) {
-                    // dist_sum += Math.abs(ref[j].y - target[j].y);
-                    let dist = Math.abs(ref[j].y - target[j].y);
-                    dist_sum = (dist_sum < dist) ? dist : dist_sum;
+                    dist_sum += Math.abs(ref[j].y - target[j].y) / svg_width;
                 }
                 change_distance[key] += dist_sum / ref.length;
             } else {
@@ -394,28 +421,12 @@ function processLineData(datasets) {
     }
     //normalize change_distance
     let change_distance_scale = d3.extent(change_distance);
-    if (change_distance_scale[0] > 0) {
-        change_distance_scale[0] = 0;
+    change_distance_scale[0] = 0;
+    for (let i = 0; i < change_distance.length; i++) {
+        change_distance[i] = (change_distance[i] - change_distance_scale[0]) / (change_distance_scale[1] - change_distance_scale[0] + 0.000000001);
     }
-    if (change_distance_scale[0] < change_distance_scale[1])
-        for (let i = 0; i < change_distance.length; i++) {
-            change_distance[i] = (change_distance[i] - change_distance_scale[0]) / (change_distance_scale[1] - change_distance_scale[0] + 0.000000001);
-        }
-    else {
-        for (let i = 0; i < change_distance.length; i++) {
-            change_distance[i] = 1;
-        }
-    }
+    console.log("change_distance", change_distance);
 
-    delta_change_distance = getDeltaDistance(change_distance);
-
-    let cluster_num = Object.keys(labelToClass).length;
-    for (let i = 0; i < cluster_num; i++) {
-        for (let j = 0; j < cluster_num; j++) {
-            let dist = knng_distance[i][j] + 1.0 * dsc_distance[i][j];
-            dist *= Math.exp(change_distance[i]);
-            cosaliency_distance[i][j] = dist / source_datasets.length;
-        }
-    }
-    console.log(knng_distance, dsc_distance, change_distance, cosaliency_distance);
+    // reorder lines
+    reOrderClusters()
 }

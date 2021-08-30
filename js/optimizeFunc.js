@@ -125,7 +125,7 @@ function getPaletteScore(p) {
     // console.log(tmp_pd / initial_scores[0], tmp_cb / Math.abs(initial_scores[1]), cosaliency_score);
     name_difference /= palette.length * (palette.length - 1) * 0.25;
     color_discrimination_constraint *= 0.1;
-    console.log(cosaliency_score, name_difference, color_discrimination_constraint);
+    // console.log(cosaliency_score, name_difference, color_discrimination_constraint);
 
     return score_importance_weight[0] * cosaliency_score + score_importance_weight[1] * name_difference + score_importance_weight[2] * color_discrimination_constraint;
 }

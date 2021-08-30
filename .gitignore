@@ -13,3 +13,4 @@ user-data-analysis/.RData
 user-data-analysis/.Rhistory
 *.svn-base
 paper/cosaliency/.svn
+*.svg

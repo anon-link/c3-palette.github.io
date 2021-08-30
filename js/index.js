@@ -321,7 +321,7 @@ function appendBarchart() {
       .attr("item-color", function (d) {
         return used_palette[labelToClass[d.label]];
       })
-      .on("click", appendClickEvent);
+    // .on("click", appendClickEvent);
     barchart_svg.append("text").attr("x", 0).attr("y", 20).text(source_datasets_names[i]);
   }
 
@@ -330,6 +330,9 @@ function appendBarchart() {
 
 function appendLinechart() {
   let used_palette = doColorization();
+  let sigma = Tableau_20_palette.slice()
+  shuffle(sigma)
+  used_palette = sigma.slice(0, used_palette.length);
   for (let i = 0; i < source_datasets.length; i++) {
     let linechart_svg = d3.select("#renderDiv").append("svg")
       .attr("width", SVGWIDTH).attr("height", SVGHEIGHT);
@@ -351,12 +354,13 @@ function appendLinechart() {
         return yScale(d.y);
       }).curve(d3.curveCatmullRom);
 
-    let linechart_source_data = [];
+    let linechart_source_data = [], tmp_keys = [], count = 0;
     for (let point of source_datasets[i]) {
-      if (linechart_source_data[labelToClass[point.label]] == undefined) {
-        linechart_source_data[labelToClass[point.label]] = { p: [], label: point.label };
+      if (tmp_keys[labelToClass[point.label]] == undefined) {
+        tmp_keys[labelToClass[point.label]] = count++;
+        linechart_source_data[tmp_keys[labelToClass[point.label]]] = { p: [], label: point.label };
       }
-      linechart_source_data[labelToClass[point.label]].p.push({ x: point.x, y: point.y });
+      linechart_source_data[tmp_keys[labelToClass[point.label]]].p.push({ x: point.x, y: point.y });
     }
 
     // Add the valueline path.
@@ -377,7 +381,7 @@ function appendLinechart() {
       .attr("item-color", function (d) {
         return used_palette[labelToClass[d.label]];
       })
-      .on("click", appendClickEvent);
+    // .on("click", appendClickEvent);
 
     // Add the X Axis
     linechart.append("g")
