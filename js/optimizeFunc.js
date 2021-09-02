@@ -25,10 +25,10 @@ function doColorization() {
         // document.getElementById("caRatioId").checked = false;
         document.getElementById("pgRatioId").checked = true;
         generation_mode = 0;
-        document.getElementById("slider_1").value = 100;
-        changeSlider("slider_1", 100)
-        document.getElementById("slider_2").value = 100;
-        changeSlider("slider_2", 100)
+        // document.getElementById("slider_1").value = 100;
+        // changeSlider("slider_1", 100)
+        // document.getElementById("slider_2").value = 100;
+        // changeSlider("slider_2", 100)
     }
     color_blind_type = document.querySelector('input[name = "colorblindType"]:checked').value;
 
@@ -153,8 +153,8 @@ function simulatedAnnealing2FindBestPalette(palette_size, colors_scope = { "hue_
         var result = d3.select("#paletteText")
         color_palette = result.attr('data-palette').split(';');
         initial_palette = color_palette.slice();
-        initial_palette = ["#7eff5f","#feef3e","#ff076e","#3a7aff","#b852f3"]//["#06d524","#fbf49e","#3e7bff","#ff1f19","#ca41f4"]
-        color_palette = initial_palette
+        // initial_palette = ["#7eff5f", "#feef3e", "#ff076e", "#3a7aff", "#b852f3"]//["#06d524","#fbf49e","#3e7bff","#ff1f19","#ca41f4"]
+        // color_palette = initial_palette
     }
     //evaluate the default palette
     let o = {
@@ -244,7 +244,7 @@ function randomDisturbColors(palette, colors_scope) {
     }
 }
 function disturbColorBySL(palette, colors_scope) {
-    console.log("sllllll");
+    // console.log("sllllll");
     let disturb_step = 10;
     let idx, hsl, color;
     // random disturb one color
@@ -252,14 +252,13 @@ function disturbColorBySL(palette, colors_scope) {
     if (hue_constraints[idx]) {
         hsl = d3.hsl(palette[idx])
         color = d3.hsl(hsl.h, normScope(hsl.s + 0.01 * getRandomIntInclusive(-disturb_step, disturb_step), [0, 1]), normScope(hsl.l + 0.01 * getRandomIntInclusive(-disturb_step, disturb_step), [0, 1]))
-        palette[idx] = d3.rgb(color);
     } else {
         rgb = d3.rgb(palette[idx])
         color = d3.rgb(norm255(rgb.r + getRandomIntInclusive(-disturb_step, disturb_step)), norm255(rgb.g + getRandomIntInclusive(-disturb_step, disturb_step)), norm255(rgb.b + getRandomIntInclusive(-disturb_step, disturb_step)))
-        hcl = d3.hcl(color);
-        color = d3.rgb(d3.hcl(normScope(hcl.h, colors_scope.hue_scope), normScope(hcl.c, [0, 100]), normScope(hcl.l, colors_scope.lumi_scope)));
-        palette[idx] = d3.rgb(norm255(color.r), norm255(color.g), norm255(color.b));
     }
+    hcl = d3.hcl(color);
+    color = d3.rgb(d3.hcl(normScope(hcl.h, colors_scope.hue_scope), normScope(hcl.c, [0, 100]), normScope(hcl.l, colors_scope.lumi_scope)));
+    palette[idx] = d3.rgb(norm255(color.r), norm255(color.g), norm255(color.b));
     let count = 0, sign;
     while ((sign = isDiscriminative(palette)) > 0) {
         count += 1;
@@ -294,15 +293,18 @@ function disturbColorByName(palette, colors_scope) {
     color = d3.rgb(d3.hcl(normScope(hcl.h, colors_scope.hue_scope), normScope(hcl.c, [0, 100]), normScope(hcl.l, colors_scope.lumi_scope)));
     palette[idx] = d3.rgb(norm255(color.r), norm255(color.g), norm255(color.b));
     let count = 0, sign;
-    while (true) {
-        let satisfy_color_name = true;
+    satisfy_color_name = false
+    while ((sign = isDiscriminative(palette)) > 0 || !satisfy_color_name) {
+        count += 1;
+        if (count >= 100) break;
+        satisfy_color_name = true
         for (let i = 0; i < hue_constraints.length; i++) {
             if (!hue_constraints[i]) continue
             let c0 = getColorNameIndex(d3.rgb(initial_palette[i])),
                 t0 = c3.color.relatedTerms(c0, 1);
             let c = getColorNameIndex(d3.rgb(palette[i])),
                 t = c3.color.relatedTerms(c, 1);
-            if (t[0] === undefined || c3.terms[t[0].index] != c3.terms[t0[0].index]) {
+            if (t[0] === undefined || getNameDifference(d3.rgb(initial_palette[i]), d3.rgb(palette[i])) > 0.8) {
                 // rgb = best_color_names[c3.terms[t0[0].index]]
                 // console.log(rgb, c3.terms[t0[0].index]);
                 rgb = d3.rgb(initial_palette[i])
@@ -310,24 +312,21 @@ function disturbColorByName(palette, colors_scope) {
                 satisfy_color_name = false;
             }
         }
-        while ((sign = isDiscriminative(palette)) > 0) {
-            count += 1;
-            if (count === 100) break;
-            rgb = d3.rgb(palette[sign])
-            color = d3.rgb(norm255(rgb.r + getRandomIntInclusive(-disturb_step, disturb_step)), norm255(rgb.g + getRandomIntInclusive(-disturb_step, disturb_step)), norm255(rgb.b + getRandomIntInclusive(-disturb_step, disturb_step)))
-            hcl = d3.hcl(color);
-            if (hcl.h >= 85 && hcl.h <= 114 && hcl.l >= 35 && hcl.l <= 75) {
-                if (Math.abs(hcl.h - 85) > Math.abs(hcl.h - 114)) {
-                    hcl.h = 115;
-                } else {
-                    hcl.h = 84;
-                }
-            }
-            palette[sign] = d3.rgb(d3.hcl(normScope(hcl.h, colors_scope.hue_scope), normScope(hcl.c, [0, 100]), normScope(hcl.l, colors_scope.lumi_scope)));
-        }
 
-        if (satisfy_color_name || count >= 100) break;
+        rgb = d3.rgb(palette[sign])
+        color = d3.rgb(norm255(rgb.r + getRandomIntInclusive(-disturb_step, disturb_step)), norm255(rgb.g + getRandomIntInclusive(-disturb_step, disturb_step)), norm255(rgb.b + getRandomIntInclusive(-disturb_step, disturb_step)))
+        hcl = d3.hcl(color);
+        if (hcl.h >= 85 && hcl.h <= 114 && hcl.l >= 35 && hcl.l <= 75) {
+            if (Math.abs(hcl.h - 85) > Math.abs(hcl.h - 114)) {
+                hcl.h = 115;
+            } else {
+                hcl.h = 84;
+            }
+        }
+        palette[sign] = d3.rgb(d3.hcl(normScope(hcl.h, colors_scope.hue_scope), normScope(hcl.c, [0, 100]), normScope(hcl.l, colors_scope.lumi_scope)));
+
     }
+
     return palette
 }
 

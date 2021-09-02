@@ -1,7 +1,7 @@
 \section{Co-Saliency based Color Design}
-Given multiple categorical visualizations with the same class labels (or a subset thereof), each visualization has $K$ classes and $n_j$ data items $\{\mathbf{x}^j_1, \cdots, \mathbf{x}^j_{n_j}\}$, where each $\mathbf{x}^j_t$ has a label
+Given multiple categorical visualizations with the same class labels (or a subset thereof), each visualization has $m$ classes and $n_j$ data items $\{\mathbf{x}^j_1, \cdots, \mathbf{x}^j_{n_j}\}$, where each $\mathbf{x}^j_t$ has a label
 $l(\mathbf{x}^j_t)$ and the $i$-th class (with $n^j_i$ data points) consists of $\{\mathbf{x}_{i,1}^j, \cdots , \mathbf{x}_{i,n^j_i}^j\}, i \in  \{ 1, \cdots, m \} $.
-For standard bar charts and line charts, $K$ is equal to $n_j$ but often is smaller than $n_j$ in scatterplots.
+For standard bar charts and line charts, $m$ is equal to $n_j$ but often is smaller than $n_j$ in scatterplots.
 All visualizations use the same  background color $\mathbf{c}_b$ and the same color mapping scheme $\tau: L \mapsto c$. Our goal is to find the best mapping $\tau$ that supports effective comparison of multiple categorical scatterplots.
 
 In line with the design requirements of natural image comparison and categorial data visualization ~\cite{Jacobs10,Gleicher18,Lu21},
@@ -28,7 +28,7 @@ Since point-based representation is general in 2D visualizations, we use scatter
 Analogous to bottom-up image co-saliency models~\cite{Jacobs10,Fu13}, the co-saliency of the $i$th class is defined as the product between class importance and  class contrast score to emphasize the target class, and the co-saliency for $M$ classes:
 \begin{equation}
 % E_{CoS} = \sum_i   \sum_j (1-\lambda) \alpha^j_i  \exp(\theta_i) + \lambda \beta_i  f(\theta_i)
-E_{CoS} = \sum_i    \left(\sum_j \frac{1}{n^j_i}(\lambda \alpha^j_i\exp(\theta_i) + (1-\lambda) \beta^j_i f(\theta_i) ) \right)
+E_{CoS} = \sum_i    \left(\sum_j \frac{1}{n^j_i}\bigg(\lambda \alpha^j_i\exp(\theta_i) + (1-\lambda) \beta^j_i f(\theta_i) \bigg) \right)
 	\label{eq:cosaliency}
 \end{equation}
 where $\theta_i$ is the importance of the $i$th class,
@@ -113,7 +113,7 @@ the contrast to the background of the $i$th class as:
 %where
 %$\delta(l(\mathbf{x}^j_p),i)$ is one if the class label $l(\mathbf{x}^j_p)$ is $i$ and else zero.
 %In doing so, all classes have positive background contrast value. 
-As illustrated in Fig.~\ref{fig:map}(c), the well-separated classes with large color differences from the background have large background contrast like the blue and black classes, whereas the pink and cyan classes have  relative large background contrast values with medium class separation.
+As illustrated in Fig.~\ref{fig:map}(c), the well-separated classes with large color differences from the background have large background contrast like the blue and black classes, whereas the pink and cyan classes have relative large background contrast values with medium class separation.
 
 
 %\begin{wrapfigure}{r}{0.28\columnwidth}

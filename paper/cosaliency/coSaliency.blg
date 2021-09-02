@@ -1,0 +1,91 @@
+This is BibTeX, Version 0.99d (TeX Live 2017/W32TeX)
+Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
+The top-level auxiliary file: coSaliency.aux
+The style file: ACM-Reference-Format.bst
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
+Database file #1: coSaliency.bib
+Repeated entry---line 684 of file coSaliency.bib
+ : @article{DEVITO2008750
+ :                       ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 714 of file coSaliency.bib
+ : @article{machado2009physiologically
+ :                                    ,
+I'm skipping whatever remains of this entry
+Warning--string name "chi" is undefined
+--line 736 of file coSaliency.bib
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated glb_str_ptr (elt_size=4) to 20 items from 10.
+Reallocated global_strs (elt_size=20001) to 20 items from 10.
+Reallocated glb_str_end (elt_size=4) to 20 items from 10.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Warning--empty publisher in Aupetit02
+Warning--empty address in Aupetit02
+Warning--empty publisher in baudisch2004multiblending
+Warning--empty address in baudisch2004multiblending
+Warning--page numbers missing in both pages and numpages fields in chuang2009energy
+Warning--no journal in enns1990three
+Warning--no number and no volume in enns1990three
+Warning--page numbers missing in both pages and numpages fields in enns1990three
+Warning--empty booktitle in heer2012color
+Warning--empty publisher in heer2012color
+Warning--empty address in heer2012color
+Warning--empty publisher in Hurter10
+Warning--empty address in Hurter10
+Warning--empty publisher in Jacobs10
+Warning--empty address in Jacobs10
+Warning--empty publisher in liu2021data
+Warning--empty address in liu2021data
+Warning--empty publisher in Lobo15
+Warning--empty address in Lobo15
+Warning--empty publisher in smart2019measuring
+Warning--empty address in smart2019measuring
+Warning--empty year in tableau
+Warning--empty publisher in Tominski08
+Warning--empty address in Tominski08
+Warning--empty publisher in wang2000guidelines
+Warning--empty address in wang2000guidelines
+You've used 48 entries,
+            5959 wiz_defined-function locations,
+            1964 strings with 29646 characters,
+and the built_in function-call counts, 64137 in all, are:
+= -- 9119
+> -- 2368
+< -- 0
++ -- 806
+- -- 834
+* -- 4603
+:= -- 6268
+add.period$ -- 241
+call.type$ -- 48
+change.case$ -- 363
+chr.to.int$ -- 48
+cite$ -- 74
+duplicate$ -- 5193
+empty$ -- 3648
+format.name$ -- 964
+if$ -- 16085
+int.to.chr$ -- 2
+int.to.str$ -- 1
+missing$ -- 198
+newline$ -- 549
+num.names$ -- 384
+pop$ -- 1751
+preamble$ -- 1
+purify$ -- 789
+quote$ -- 0
+skip$ -- 1806
+stack$ -- 0
+substring$ -- 5024
+swap$ -- 609
+text.length$ -- 81
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 922
+warning$ -- 26
+while$ -- 356
+width$ -- 0
+write$ -- 976
+(There were 2 error messages)

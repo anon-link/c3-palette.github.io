@@ -2,7 +2,7 @@
 %%% Do NOT edit. File created by BibTeX with style
 %%% ACM-Reference-Format-Journals [18-Jan-2012].
 
-\begin{thebibliography}{45}
+\begin{thebibliography}{48}
 
 %%% ====================================================================
 %%% NOTE TO THE USER: you can override these defaults by providing
@@ -306,6 +306,18 @@
 \showDOI{\tempurl}
 
 
+\bibitem[\protect\citeauthoryear{Heer and Stone}{Heer and Stone}{2012}]%
+        {heer2012color}
+\bibfield{author}{\bibinfo{person}{Jeffrey Heer} {and} \bibinfo{person}{Maureen
+  Stone}.} \bibinfo{year}{2012}\natexlab{}.
+\newblock \showarticletitle{Color naming models for color selection, image
+  editing and palette design}. \bibinfo{pages}{1007--1016}.
+\newblock
+\urldef\tempurl%
+\url{https://doi.org/10.1145/2207676.2208547}
+\showDOI{\tempurl}
+
+
 \bibitem[\protect\citeauthoryear{Hurter, Serrurier, Alonso, Tabart, and
   Vinot}{Hurter et~al\mbox{.}}{2010}]%
         {Hurter10}
@@ -463,6 +475,19 @@
 \urldef\tempurl%
 \url{https://doi.org/10.1111/cgf.12127}
 \showDOI{\tempurl}
+
+
+\bibitem[\protect\citeauthoryear{Liu, Li, Bao, Correll, Tu, Deussen, and
+  Wang}{Liu et~al\mbox{.}}{2021}]%
+        {liu2021data}
+\bibfield{author}{\bibinfo{person}{Tingting Liu}, \bibinfo{person}{Xiaotong
+  Li}, \bibinfo{person}{Chen Bao}, \bibinfo{person}{Michael Correll},
+  \bibinfo{person}{Changehe Tu}, \bibinfo{person}{Oliver Deussen}, {and}
+  \bibinfo{person}{Yunhai Wang}.} \bibinfo{year}{2021}\natexlab{}.
+\newblock \showarticletitle{Data-Driven Mark Orientation for Trend Estimation
+  in Scatterplots}. In \bibinfo{booktitle}{\emph{Proceedings of the 2021 CHI
+  Conference on Human Factors in Computing Systems}}. \bibinfo{pages}{1--16}.
+\newblock
 
 
 \bibitem[\protect\citeauthoryear{Lobo, Pietriga, and Appert}{Lobo
@@ -631,6 +656,17 @@
 \urldef\tempurl%
 \url{https://doi.org/10.1109/TVCG.2015.2467471}
 \showDOI{\tempurl}
+
+
+\bibitem[\protect\citeauthoryear{Smart and Szafir}{Smart and Szafir}{2019}]%
+        {smart2019measuring}
+\bibfield{author}{\bibinfo{person}{Stephen Smart} {and}
+  \bibinfo{person}{Danielle~Albers Szafir}.} \bibinfo{year}{2019}\natexlab{}.
+\newblock \showarticletitle{Measuring the separability of shape, size, and
+  color in scatterplots}. In \bibinfo{booktitle}{\emph{Proceedings of the 2019
+  CHI Conference on Human Factors in Computing Systems}}.
+  \bibinfo{pages}{1--14}.
+\newblock
 
 
 \bibitem[\protect\citeauthoryear{Software.}{Software.}{[n.d.]}]%

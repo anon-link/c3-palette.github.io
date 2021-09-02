@@ -344,6 +344,7 @@ function appendLinechart() {
   // let [knng_metric, ns_weight] = processData(scaled_datasets[0])
   // let [best_palette, sigmaAndScore] = _doColorAssignment(Tableau_20_palette, used_palette.length, knng_metric, ns_weight);
   // used_palette = best_palette
+  // used_palette = ["#7eff5f", "#feef3e", "#ff076e", "#3a7aff", "#b852f3"]
   for (let i = 0; i < source_datasets.length; i++) {
     let linechart_svg = d3.select("#renderDiv").append("svg")
       .attr("width", SVGWIDTH).attr("height", SVGHEIGHT);
