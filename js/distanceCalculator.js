@@ -118,7 +118,7 @@ function calculateAlphaShapeDistance(datasets, extent) {
                     dx = cell.site[0] - ea[0];
                     dy = cell.site[1] - ea[1];
                     dist = Math.sqrt(dx * dx + dy * dy);
-                    dist = inverseFunc(dist) /// cell.halfedges.length
+                    dist = inverseFunc(dist) / cell.halfedges.length
                     if (alpha > dist) {
                         if (label != ea_label) {
                             if (distanceDict[label] === undefined)

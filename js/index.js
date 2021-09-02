@@ -288,9 +288,9 @@ function appendScatterplot() {
 
 function appendBarchart() {
   let used_palette = doColorization();
-  let sigma = Tableau_20_palette.slice()
-  shuffle(sigma)
-  used_palette = sigma.slice(0, used_palette.length);
+  // let sigma = Tableau_20_palette.slice()
+  // shuffle(sigma)
+  // used_palette = sigma.slice(0, used_palette.length);
   for (let i = 0; i < source_datasets.length; i++) {
     let barchart_svg = d3.select("#renderDiv").append("svg")
       .attr("width", SVGWIDTH).attr("height", SVGHEIGHT);
@@ -607,11 +607,22 @@ function drawTransferFunction(palette) {
     tf.append("rect")
       .attr("x", m_xScale(x_labels[i]) + m_xScale.bandwidth() / 2 - 10)
       .attr("y", function () {
-        return svg_height;
+        return svg_height - 10;
       })
       .attr("width", 20)
       .attr("height", 20)
-      .attr("fill", palette[labelToClass[x_labels[i]]]);
+      .attr("fill", palette[labelToClass[x_labels[i]]])
+      .attr("id", labelToClass[x_labels[i]])
+      .attr('stroke', '#727171')
+      .attr('stroke-dasharray', '10,5')
+      .attr('stroke-linecap', 'butt')
+      .attr('stroke-width', hue_constraints[labelToClass[x_labels[i]]] ? '3' : '0')
+      .on("click", function () {
+        let choosed_id = +d3.select(this).attr("id")
+        hue_constraints[choosed_id] = hue_constraints[choosed_id] === 1 ? 0 : 1
+        d3.select(this)
+          .attr('stroke-width', hue_constraints[choosed_id] ? '3' : '0')
+      });
 
     if (i < x_labels.length - 1)
       drawLine(m_xScale(x_labels[i]) + m_xScale.bandwidth() / 2, m_yScale(change_distance[labelToClass[x_labels[i]]]), m_xScale(x_labels[i + 1]) + m_xScale.bandwidth() / 2, m_yScale(change_distance[labelToClass[x_labels[i + 1]]]))

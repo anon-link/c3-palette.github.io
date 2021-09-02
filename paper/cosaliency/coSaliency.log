@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/W32TeX) (preloaded format=pdflatex 2018.3.31)  2 SEP 2021 00:32
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/W32TeX) (preloaded format=pdflatex 2018.3.31)  2 SEP 2021 11:41
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1227,12 +1227,8 @@ LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
 (Font)              scaled to size 5.5pt on input line 48.
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/b/n' will be
 (Font)              scaled to size 9.0pt on input line 48.
-
-
-Package natbib Warning: Citation `kindlmann1998semi' on page 3 undefined on inp
-ut line 48.
-
-) (./02_related.tex
+)
+(./02_related.tex
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/it' will be
 (Font)              scaled to size 9.0pt on input line 7.
  [3.3]
@@ -1248,7 +1244,10 @@ surrounding objects on input line 27.
 Class acmart Warning: \vspace should only be used to provide space above/below 
 surrounding objects on input line 37.
 
-[4.4]
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [4.4]
 
 Class acmart Warning: \vspace should only be used to provide space above/below 
 surrounding objects on input line 48.
@@ -1425,19 +1424,17 @@ Underfull \vbox (badness 4981) has occurred while \output is active []
 
  [17.17])
 (./07_caseStudy.tex [18.18]
-<figures/case-linechart.pdf, id=634, 1339.38393pt x 915.83653pt>
-File: figures/case-linechart.pdf Graphic file (type pdf)
-<use figures/case-linechart.pdf>
-Package pdftex.def Info: figures/case-linechart.pdf  used on input line 29.
-(pdftex.def)             Requested size: 412.80731pt x 282.2574pt.
+<figures/case-linechart-2.pdf, id=634, 2206.52357pt x 1058.44432pt>
+File: figures/case-linechart-2.pdf Graphic file (type pdf)
+<use figures/case-linechart-2.pdf>
+Package pdftex.def Info: figures/case-linechart-2.pdf  used on input line 29.
+(pdftex.def)             Requested size: 430.00462pt x 206.25853pt.
 
 
 Class acmart Warning: A possible image without description on input line 33.
 
-) (./08_conclusion.tex
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [19.19 <./figures/case-linechart.pdf>]) (./coSaliency.bbl
+) (./08_conclusion.tex [19.19 <./figures/case-linechart-2.pdf>])
+(./coSaliency.bbl
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/it' will be
 (Font)              scaled to size 7.0pt on input line 48.
 LaTeX Info: Redefining \tempurl on input line 66.
@@ -1449,16 +1446,13 @@ LaTeX Info: Redefining \tempurl on input line 162.
 LaTeX Info: Redefining \tempurl on input line 180.
 LaTeX Info: Redefining \tempurl on input line 205.
 LaTeX Info: Redefining \tempurl on input line 224.
-
-Underfull \vbox (badness 4048) has occurred while \output is active []
-
- [20.20]
 LaTeX Info: Redefining \tempurl on input line 238.
 LaTeX Info: Redefining \tempurl on input line 255.
 LaTeX Info: Redefining \tempurl on input line 272.
 LaTeX Info: Redefining \tempurl on input line 288.
 LaTeX Info: Redefining \tempurl on input line 305.
 LaTeX Info: Redefining \tempurl on input line 321.
+ [20.20]
 LaTeX Info: Redefining \tempurl on input line 337.
 LaTeX Info: Redefining \tempurl on input line 353.
 LaTeX Info: Redefining \tempurl on input line 368.
@@ -1480,21 +1474,16 @@ LaTeX Info: Redefining \tempurl on input line 615.
 LaTeX Info: Redefining \tempurl on input line 632.
 LaTeX Info: Redefining \tempurl on input line 660.
 LaTeX Info: Redefining \tempurl on input line 676.
-
-[21.21]
 LaTeX Info: Redefining \tempurl on input line 695.
 LaTeX Info: Redefining \tempurl on input line 710.
 LaTeX Info: Redefining \tempurl on input line 738.
 LaTeX Info: Redefining \tempurl on input line 754.
 )
 
-Package natbib Warning: There were undefined citations.
-
-
 Class acmart Warning: Some images may lack descriptions.
 
-Package atenddvi Info: Last page = 22.
-[22.22]
+Package atenddvi Info: Last page = 21.
+[21.21]
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 185.
 Package atveryend Info: Executing hook `AfterLastShipout' on input line 185.
  (./coSaliency.aux)
@@ -1508,13 +1497,13 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 19909 strings out of 492982
- 313587 string characters out of 6125995
- 435403 words of memory out of 5000000
- 22184 multiletter control sequences out of 15000+600000
+ 19907 strings out of 492982
+ 313571 string characters out of 6125995
+ 442688 words of memory out of 5000000
+ 22183 multiletter control sequences out of 15000+600000
  261246 words of font info for 570 fonts, out of 8000000 for 9000
  1302 hyphenation exceptions out of 8191
- 60i,19n,94p,1275b,680s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 60i,19n,94p,1275b,637s stack positions out of 5000i,500n,10000p,200000b,80000s
 {d:/Installation_position/texlive/2017/texmf-dist/fonts/enc/dvips/libertine/l
 btn_25tcsq.enc}{d:/Installation_position/texlive/2017/texmf-dist/fonts/enc/dvip
 s/newtx/libertinealt.enc}{d:/Installation_position/texlive/2017/texmf-dist/font
@@ -1545,10 +1534,10 @@ xlive/2017/texmf-dist/fonts/type1/public/txfonts/txsyb.pfb><d:/Installation_pos
 ition/texlive/2017/texmf-dist/fonts/type1/public/newtx/txsys.pfb><d:/Installati
 on_position/texlive/2017/texmf-dist/fonts/type1/public/newtx/zxlr.pfb><d:/Insta
 llation_position/texlive/2017/texmf-dist/fonts/type1/public/newtx/zxlri.pfb>
-Output written on coSaliency.pdf (22 pages, 7928856 bytes).
+Output written on coSaliency.pdf (21 pages, 8015298 bytes).
 PDF statistics:
- 863 PDF objects out of 1000 (max. 8388607)
- 629 compressed objects within 7 object streams
- 116 named destinations out of 1000 (max. 500000)
+ 870 PDF objects out of 1000 (max. 8388607)
+ 633 compressed objects within 7 object streams
+ 115 named destinations out of 1000 (max. 500000)
  67801 words of extra memory for PDF output out of 74296 (max. 10000000)
 

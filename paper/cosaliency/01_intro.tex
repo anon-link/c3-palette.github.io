@@ -45,7 +45,7 @@ We first conducted a pilot study to verify the validity of our experiment settin
 Last, we conducted a case study to show how our system helps for juxtaposed comparison of multiple line charts.
 The results show that our approach is able to produce color mapping optimized for supporting comparison and aligned with the state-of-the-art palettes in maximizing perceptual class separability.
 
-We furthermore develop a web-based color design tool, \toolname-palette \footnote{\small \url{https://c3-palette.github.io/}} which is named by \textbf{C}o-saliency based \textbf{C}olorization for \textbf{C}omparing categorical visualizations, using coordinated views for users to explore the relationship among multiple data with different color mapping schemes. Inspired by volume visualization~\cite{kindlmann1998semi}, we provide a transfer function view for users to highlight different classes of interest.
+We furthermore develop a web-based color design tool, \toolname-palette \footnote{\small \url{https://c3-palette.github.io/}} which is named by \textbf{C}o-saliency based \textbf{C}olorization for \textbf{C}omparing multi-class scatterplots, using coordinated views for users to explore the relationship among multiple data with different color mapping schemes. %Inspired by volume visualization~\cite{kindlmann1998semi}, we provide a transfer function view for users to highlight different classes of interest.
 %First, users can specify some classes of interest like the ones with subtle differences and our approach can generate  color mappings with the maximized co-saliency for these classes.
 %Second, users might prefer specific colors for some classes based on semantics and accordingly our approach generates color mapping schemes that meet these constraints.
 %Third, our approach can work in a reverse way that can generate a color mapping scheme to highlight the classes with less changes while obscuring the ones with large changes.
@@ -56,12 +56,11 @@ The main contributions of this paper are as follows:
 \setlength{\itemsep}{5pt}
   \item We propose a multi-class data visualization co-saliency model for measuring the importance of each data item shown in juxtaposed visualizations and use this metric to automatically generate color mapping schemes for effective comparisons;
   %\vspace*{-1mm}
-
+    \item
+  We provide an interactive tool that show how our approach can be used for helping visual comparison of multiple categorical visualizations or even highlighting important classes within single scatterplot; and
   \item
-   We evaluate the effectiveness of the resulting color mapping schemes in supporting both visual comparison and visual discriminability with three online user studies and a case study (Section~\ref{sec:results}); and
-   
-     \item
-  We provide an interactive tool that show how our approach can be used for helping visual comparison of multiple labeled data.
+   We evaluate the effectiveness of the resulting color mapping schemes in supporting both visual comparison and visual discriminability with three online user studies and a case study (Section~\ref{sec:results}).
+
   %\ms{I am not sure if categorical visualizations and categorical data is the right terminology to be used here. The data that we are working with is primarily quantitative with an additional variable (class label) that we use for color coding.  I personally feel like labeled data would be a better fit, or data with a categorical variable, but the latter is a bit long. Please pick one that you like and change the paper so the usage is consistent. I will not change further appearances of that, as this first needs a decision.  }
 \end{itemize}
 %\ms{general comment:  should \toolname~only refer to the webtool or to our technique.  I feel the later would be nicer. }

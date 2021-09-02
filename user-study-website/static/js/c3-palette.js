@@ -123,7 +123,7 @@ class C3Palette {
             this.initial_scores[1] = tmp_cb;
             console.log(this.initial_scores);
         }
-        let lam = 0.1;
+        let lam = 0.0;
         cosaliency_score = lam * tmp_pd / this.initial_scores[0] + (1 - lam) * tmp_cb / Math.abs(this.initial_scores[1]);
         // console.log(tmp_pd / this.initial_scores[0], tmp_cb / Math.abs(this.initial_scores[1]), cosaliency_score);
         name_difference /= p.length * (p.length - 1) * 0.25;

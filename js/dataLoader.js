@@ -221,6 +221,7 @@ function processScatterData(datasets) {
     calculateAlphaShapeDistance(scaled_datasets, [[0, 0], [svg_width, svg_height]])
     calcChangingDistance(scaled_datasets)
     reOrderClusters()
+    hue_constraints = new Array(cluster_num).fill(0)
 }
 
 function processBarData(datasets) {
@@ -284,6 +285,7 @@ function processBarData(datasets) {
     }
     console.log("change_distance", change_distance);
 
+    hue_constraints = new Array(cluster_num).fill(0)
 }
 
 function processLineData(datasets) {
@@ -428,4 +430,5 @@ function processLineData(datasets) {
 
     // reorder lines
     reOrderClusters()
+    hue_constraints = new Array(cluster_num).fill(0)
 }
