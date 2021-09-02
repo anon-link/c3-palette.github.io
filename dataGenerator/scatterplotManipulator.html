@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+
+    <!-- Example based on http://bl.ocks.org/mbostock/3887118 -->
+    <!-- Coding style based on http://gist.github.com/mbostock/5977197 -->
+
+    <style>
+        body {
+            font: 11px sans-serif;
+        }
+
+        table {
+            width: 100%;
+            vertical-align: top;
+            text-align: center;
+            font-size: 14px;
+            color: #eee;
+            background-color: #555;
+            border-collapse: collapse;
+        }
+
+        tbody {
+            color: #555;
+            background-color: #eee;
+        }
+
+        button {
+            background: #555;
+            color: #eee;
+            border: none;
+            border-radius: 5px;
+            width: 180px;
+            padding: 10px;
+            margin: 20px;
+            box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.2);
+            text-shadow: 3px 3px 3px rgba(0, 0, 0, 0.3);
+        }
+
+        button:hover {
+            background: #333;
+            color: #ccc;
+            box-shadow: 0 0 0 rgba(0, 0, 0, 0.2);
+            text-shadow: 0 0 0 rgba(0, 0, 0, 0.3);
+        }
+
+        #control_panel {
+            width: 960px;
+            text-align: center;
+        }
+
+        .axis path,
+        .axis line {
+            fill: none;
+            stroke: #000;
+            shape-rendering: crispEdges;
+        }
+
+        /* .dot {
+            stroke: #000;
+        } */
+
+        .label {
+            font-size: 16px;
+        }
+    </style>
+
+    <script type="text/javascript" src="../js/lib/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="../js/lib/d3.v4.min.js"></script>
+    <script type="text/javascript" src="../js/utils.js"></script>
+    <!-- <script type="text/javascript" src="../js/convex_hull.js"></script> -->
+</head>
+
+<body>
+    <svg id="scatterplot"></svg>
+    <svg id="palettes_legend"></svg>
+    <div style="display: inline-block; vertical-align: top; width:100px;">
+        Selected cluster:
+        <input id="selected_cluster" type="text" disabled="disabled" size="10"></input>
+    </div>
+    <div style="width:720px; height: 500px; overflow-y:auto; float:right; margin: 20px">
+        <table>
+            <caption style="font-weight: bold; font-size: 20px; padding-bottom: 5px; color: #555">scatter plot data
+            </caption>
+            <colgroup>
+                <col style="width:40%">
+                </col>
+                <col style="width:40%">
+                </col>
+                <col style="width:20%">
+                </col>
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>x</th>
+                    <th>y</th>
+                    <th>label</th>
+                </tr>
+            </thead>
+            <tbody id="labeled_data">
+            </tbody>
+        </table>
+    </div>
+    <br />
+    <div id="control_panel">
+        Points Number:
+        <input id="num" placeholder="the points number of cluster"></input>
+        Cluster Radius:
+        <input id="radius" placeholder="the radius of cluster"></input>
+        <button id="loadData">Load Scatterplot</button>
+        <button id="add">Add a cluster</button>
+        <button id="remove">Remove a cluster</button>
+        <button id="save" onclick="saveTable()">Save Table</button>
+        <input id="clusterNum" placeholder="specified cluster number"></input>
+        <button id="generate">generate a scatterplot</button>
+        <button id="convexHull">Find Convex Hull</button>
+        <input type="file" id="fileLoad" style="display:none">
+    </div>
+    <script type="text/javascript">
+        var margin = {
+            top: 20,
+            right: 20,
+            bottom: 20,
+            left: 20
+        },
+            width = 540 - margin.left - margin.right,
+            height = 540 - margin.top - margin.bottom;
+
+        Tableau_20_palette = ['#4E79A7', '#A0CBE8', '#F28E2B', '#FFBE7D', '#59A14F', '#8CD17D', '#B6992D', '#F1CE63', '#499894', '#86BCB6', '#E15759', '#FF9D9A', '#79706E', '#BAB0AC', '#D37295', '#FABFD2',
+            '#B07AA1', '#D4A6C8', '#9D7660', '#D7B5A6'];
+        Tableau_10_palette = ["#4E79A7", "#F28E2B", "#E15759", "#76B7B2", "#59A14F", "#EDC948", "#B07AA1", "#FF9DA7", "#9C755F", "#BAB0AC"];
+        palettes = Tableau_10_palette;
+        var count = 0;
+        /*
+         * value accessor - returns the value to encode for a given data object.
+         * scale - maps value to a visual display encoding, such as a pixel position.
+         * map function - maps from data value to display value
+         * axis - sets up axis
+         */
+
+        // setup x
+        xValue = function (d) {
+            return d.x;
+        }, // data -> value
+            xScale = d3.scaleLinear().range([0, width]), // value -> display
+            xMap = function (d) {
+                return xScale(xValue(d));
+            }, // data -> display
+            xAxis = d3.axisBottom().scale(xScale).ticks(0);
+
+        // setup y
+        yValue = function (d) {
+            return d.y;
+        }, // data -> value
+            yScale = d3.scaleLinear().range([height, 0]), // value -> display
+            yMap = function (d) {
+                return yScale(yValue(d));
+            }, // data -> display
+            yAxis = d3.axisLeft().scale(yScale).ticks(0);
+
+        // setup fill color
+        cValue = function (d) {
+            return d.label;
+        };
+        //color = d3.scaleOrdinal(palettes);         // modified to change color palettes
+
+        // add the graph canvas to the body of the webpage
+        var svg = d3.select("#scatterplot")
+            .attr("width", width + margin.left + margin.right)
+            .attr("height", height + margin.top + margin.bottom)
+            .append("g")
+            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+        xScale.domain([-200, 600]);
+        yScale.domain([-200, 600]);
+
+        // x-axis
+        svg.append("g")
+            .attr("class", "x axis")
+            .attr("transform", "translate(0," + height + ")")
+            .call(xAxis);
+
+        // y-axis
+        svg.append("g")
+            .attr("class", "y axis")
+            .call(yAxis);
+        // d3.text("./data/ref-0.csv", function (error, text) { //interleaved_100_200_10d_25_cramped_rotated-PCA
+        //     if (error) throw error;
+        //     let labelSet = new Set();
+        //     let source_data = d3.csvParseRows(text, function (d) {
+        //         return d; //.map(Number);
+        //     }).map(function (d) { // change the array to an object, use the first two feature as the position
+        //         //source data
+        //         var row = {};
+        //         row.label = d[2];
+        //         labelSet.add(d[2]);
+        //         row.x = +d[0];
+        //         row.y = +d[1];
+        //         return row;
+        //     });
+        //     // let x_extent = d3.extent(source_data, function (d) { return d.x; });
+        //     // let y_extent = d3.extent(source_data, function (d) { return d.y; });
+        //     // for(let d of source_data){
+        //     //     d.x = -200 + 800.0 * (d.x-x_extent[0])/(x_extent[1]-x_extent[0]);
+        //     //     d.y = -200 + 800.0 * (d.y-y_extent[0])/(y_extent[1]-y_extent[0]);
+        //     // }
+        //     showData(source_data);
+        //     count = labelSet.size;
+        //     console.log(count, source_data);
+        // });
+
+        let ctrl_sign = false;
+        document.body.addEventListener('keydown', function (e) {
+            // console.log('keydown:' + e.keyCode);
+            ctrl_sign = true;
+        });
+
+        document.body.addEventListener('keyup', function (e) {
+            // console.log('keyup:' + e.keyCode);
+            ctrl_sign = false;
+        });
+
+
+        // show palettes
+        var palettes_legend = d3.select("#palettes_legend")
+            .attr("width", 100)
+            .attr("height", 500)
+            .append("g");
+        palettes_legend.selectAll(".palettes")
+            .data(palettes)
+            .enter().append("rect")
+            .attr("width", 20)
+            .attr("height", 20)
+            .attr("x", function (d, i) {
+                return 10 + 25 * parseInt(i / 12);
+            })
+            .attr("y", function (d, i) {
+                return 25 * (i % 12);
+            })
+            .attr("fill", function (d) {
+                return d;
+            })
+            .style("stroke", "#000");
+    </script>
+    <script>
+
+        function getNumberInNormalDistribution(mean, std_dev) {
+            return mean + (uniform2NormalDistribution() * std_dev);
+
+            function uniform2NormalDistribution() {
+                var sum = 0.0;
+                for (var i = 0; i < 12; i++) {
+                    sum = sum + Math.random();
+                }
+                return sum - 6.0;//value from -6 to 6
+            }
+        }
+
+        function randn(num, r) {
+            var data = [];
+            for (var i = 0; i < num; i++) {
+                data.push({
+                    x: getNumberInNormalDistribution(0, r),
+                    y: getNumberInNormalDistribution(0, r)
+                });
+            }
+            return data;
+        }
+
+        var last_coords;
+        var selected_cluster_id;
+        let final_data;
+        let deleted_id = [];
+
+        function dragStart() {
+            last_coords = d3.mouse(this);
+
+            var klass = d3.select(this).attr("id").split("-")[1];
+            selected_cluster_id = +klass;
+            $('#selected_cluster').val("cluster-" + selected_cluster_id);
+        }
+
+        function dragMove() {
+            var coords = d3.mouse(this);
+            var klass = d3.select(this).attr("id").split("-")[1];
+            var offset = [coords[0] - last_coords[0], coords[1] - last_coords[1]];
+            if (ctrl_sign) {
+                d3.selectAll("#cluster-" + klass)
+                    .attr("cx", function (d) {
+                        return +d3.select(this).attr("cx") + offset[0];
+                    })
+                    .attr("cy", function (d) {
+                        return +d3.select(this).attr("cy") + offset[1];
+                    });
+            } else {
+                d3.select(this).attr("cx", function (d) {
+                    return +d3.select(this).attr("cx") + offset[0];
+                })
+                    .attr("cy", function (d) {
+                        return +d3.select(this).attr("cy") + offset[1];
+                    });
+            }
+
+            last_coords = coords;
+        }
+
+        function dragEnd() {
+            var coords = d3.mouse(this);
+            var klass = d3.select(this).attr("id").split("-")[1];
+            var cluster_id = +klass;
+
+            var labeled_data = [];
+            var last_data = d3.selectAll(".dot").data();
+            for (let d of last_data) {
+                if (cluster_id != cValue(d))
+                    labeled_data.push(d);
+            }
+            for (let d of $(".dot#cluster-" + cluster_id)) {
+                var x = xScale.invert(d.getAttribute('cx')),
+                    y = yScale.invert(d.getAttribute('cy'));
+                labeled_data.push({
+                    x: x,
+                    y: y,
+                    label: cluster_id
+                });
+            }
+
+            showData(labeled_data);
+        }
+
+        function showData(data) {
+            var drag = d3.drag()
+                .on("start", dragStart)
+                .on("end", dragEnd)
+                .on("drag", dragMove);
+
+            // remove last data
+            svg.selectAll(".dot").remove();
+            svg.selectAll("line").remove();
+
+            // draw dots
+            var dots = svg.selectAll(".dot")
+                .data(data)
+                .enter().append("circle")
+                .attr("class", "dot")
+                .attr("id", function (d) { return "cluster-" + cValue(d) })
+                .attr("r", 4)
+                .attr("cx", xMap)
+                .attr("cy", yMap)
+                .style("fill", function (d) {
+                    return palettes[cValue(d)];
+                })
+                .call(drag);
+
+            //show data in table
+            var dataForm = "";
+            data.forEach(function (d) {
+                dataForm += "<tr><td>" + d.x.toFixed(2) + "</td><td>" + d.y.toFixed(2) + "</td><td>" + d.label + "</td></tr>";
+            });
+
+            document.getElementById("labeled_data").innerHTML = dataForm;
+            final_data = data;
+        }
+        $("#loadData").click(function () {
+            let file_btn = document.getElementById("fileLoad");
+            file_btn.click();
+        });
+        //used in website
+        $('#fileLoad').on('change', function (e) {
+            // Check for the various File API support.
+            if (window.File && window.FileReader && window.FileList && window.Blob) {
+                // Great success! All the File APIs are supported.
+            } else {
+                alert('The File APIs are not fully supported in this browser.');
+            }
+
+            let file = e.target.files[0];
+            let file_name = file.name;
+            var reader = new FileReader();
+            // Closure to capture the file information.
+            reader.onload = (function (theFile) {
+                return function (ee) {
+                    let labelSet = new Set();
+                    //parse pure text to data, and cast string to number
+                    let source_data = d3.csvParseRows(ee.target.result, function (d) {
+                        if (!isNaN(d[0]) && !isNaN(d[1])) {
+                            return d; //.map(Number);
+                        }
+                    }).map(function (d) { // change the array to an object, use the first two feature as the position
+                        //source data
+                        var row = {};
+                        row.label = d[2];
+                        labelSet.add(row.label);
+                        row.x = +d[0];
+                        row.y = +d[1];
+                        return row;
+                    });
+                    showData(source_data);
+                    count = labelSet.size;
+                    console.log(count, source_data);
+                };
+            })(file);
+
+            reader.readAsText(file);
+
+        });
+
+        $("#add").click(function () {
+            // if (count >= palettes.length)
+            //   return;
+            var data = d3.selectAll('.dot').data();
+            // var rand_data = randn(+$('#num').val(), +$('#radius').val());
+            var rand_data = randnGaussian(+$('#num').val(), 100, +$('#radius').val());
+            // console.log(rand_data);
+            let added_cluster_id = count;
+            if (deleted_id.length > 0) {
+                added_cluster_id = deleted_id.splice(0, 1);
+            } else {
+                count++;
+            }
+            for (let d of rand_data)
+                data.push({
+                    x: d.x,
+                    y: d.y,
+                    label: added_cluster_id
+                });
+            showData(data);
+        });
+        $("#remove").click(function () {
+            var data = [];
+            var last_data = d3.selectAll('.dot').data();
+            for (let d of last_data) {
+                if (selected_cluster_id > cValue(d))
+                    data.push(d);
+                else if (selected_cluster_id < cValue(d))
+                    data.push(d);
+            }
+            deleted_id.push(selected_cluster_id);
+            showData(data);
+        });
+
+        // -200~600
+        $("#generate").click(function () {
+            let generated_data = [];
+            let clusterNum = +$('#clusterNum').val();
+            let conditions = [[20, 50], [50, 100], [50, 20], [100, 50]];
+            shuffle(conditions);
+            for (let i = 0; i < clusterNum; i++) {
+                let idx = i % conditions.length;//getRandomInt(conditions.length);
+                var rand_data = randn(conditions[idx][0], conditions[idx][1]);
+
+                let bias = [0, 0];
+                bias[0] = -200 + conditions[idx][1] + getRandomInt(600 - conditions[idx][1]);
+                bias[1] = -200 + conditions[idx][1] + getRandomInt(600 - conditions[idx][1]);
+
+                for (let d of rand_data) {
+                    let point = {
+                        x: d.x + bias[0],
+                        y: d.y + bias[1],
+                        label: i
+                    };
+                    point.x = (point.x < -200) ? -200 + getRandomInt(20) : point.x;
+                    point.x = (point.x > 600) ? 600 - getRandomInt(20) : point.x;
+                    point.y = (point.y < -200) ? -200 + getRandomInt(20) : point.y;
+                    point.y = (point.y > 600) ? 600 - getRandomInt(20) : point.y;
+                    generated_data.push(point);
+                }
+            }
+            showData(generated_data);
+        });
+
+        $("#convexHull").click(function () {
+            // if (count >= palettes.length)
+            //   return;
+            var data = d3.selectAll('.dot').data();
+            // var rand_data = randn(+$('#num').val(), +$('#radius').val());
+            var rand_data = randnGaussian(+$('#num').val(), 100, +$('#radius').val());
+            // console.log(rand_data);
+            let added_cluster_id = count;
+            if (deleted_id.length > 0) {
+                added_cluster_id = deleted_id.splice(0, 1);
+            } else {
+                count++;
+            }
+            for (let d of rand_data)
+                data.push({
+                    x: d.x,
+                    y: d.y,
+                    label: added_cluster_id
+                });
+            showData(data);
+            let hullPoints = [];
+            // Sort the points by X, then by Y (required by the algorithm)
+            data.sort(sortPointY);
+            data.sort(sortPointX);
+            // Calculate the convex hull
+            // Takes: an (1) array of points with x() and y() methods defined
+            //          (2) Size of the points array
+            //          (3) Empty array to store the hull points
+            // Returns: The number of hull points, which may differ the the hull points array’s size
+            let hullPoints_size = chainHull_2D(data, data.length, hullPoints);
+            console.log("hullPoints_size", hullPoints_size, hullPoints);
+
+            for (let i = 0; i < hullPoints_size - 1; i++) {
+                svg.append('line')
+                    .style("stroke", "lightgreen")
+                    .style("stroke-width", 2)
+                    .attr("x1", xScale(hullPoints[i].x))
+                    .attr("y1", yScale(hullPoints[i].y))
+                    .attr("x2", xScale(hullPoints[i + 1].x))
+                    .attr("y2", yScale(hullPoints[i + 1].y));
+            }
+            svg.append('line')
+                .style("stroke", "lightgreen")
+                .style("stroke-width", 2)
+                .attr("x1", xScale(hullPoints[hullPoints_size - 1].x))
+                .attr("y1", yScale(hullPoints[hullPoints_size - 1].y))
+                .attr("x2", xScale(hullPoints[0].x))
+                .attr("y2", yScale(hullPoints[0].y));
+
+
+        });
+
+
+        function saveTable(name = "test.csv") {
+            let data = final_data;
+            let str = "";
+            for (let i = 0; i < data.length; i++) {
+                str += data[i].x;
+                str += ",";
+                str += data[i].y;
+                str += ",";
+                str += data[i].label;
+                str += "\n";
+            }
+            // let date = new Date().getTime();
+            // let fileName = new Date(date).toLocaleString();
+            downloadFile(name, str);
+        }
+        function downloadFile(fileName, content) {
+            var aTag = document.createElement('a');
+            var blob = new Blob(['\ufeff' + content], { type: "text/csv" });
+            aTag.download = fileName;
+            aTag.href = URL.createObjectURL(blob);
+            aTag.click();
+            URL.revokeObjectURL(blob);
+        }
+        function getRandomInt(max) {
+            return Math.floor(Math.random() * Math.floor(max));
+        }
+        function generateScatterplots() {
+            let generated_data = [];
+            // uniform sampling the target two classes
+            // adding other classes following Gaussian Distribution
+            let point_sizes = [50, 20];
+            let class_sizes = [[20, 80], [10, 40]];
+            let conditions = [[50, 80, "intersect"], [50, 80, "distant"],
+            [50, 20, "include"], [50, 20, "distant"], [20, 40, "intersect"], [20, 40, "distant"], [50, 20, "intersect"],
+            [20, 40, "include"], [20, 10, "include"], [20, 10, "intersect"], [20, 10, "distant"]];
+            for (let i = 0; i < conditions.length; i++) {
+                var rand_data = randn(conditions[i][0], conditions[i][1]);
+                // var rand_data = randnGaussian(conditions[i][0], conditions[i][1], -200, 600);
+                let bias = [0, 0];
+                if (conditions[i][2] === "include") {
+                    bias[0] = conditions[i][1] + getRandomInt(400 - 2 * conditions[i][1]);
+                    bias[1] = conditions[i][1] + getRandomInt(400 - 2 * conditions[i][1]);
+                } else if (conditions[i][2] === "intersect") {
+                    // if (Math.random() > 0.5) {
+                    //   bias[0] = getRandomInt(2 * conditions[i][1]) - conditions[i][1];
+                    // } else {
+                    //   bias[0] = getRandomInt(2 * conditions[i][1]) + 400 - conditions[i][1];
+                    // }
+                    // if (Math.random() > 0.5) {
+                    //   bias[1] = getRandomInt(2 * conditions[i][1]) - conditions[i][1];
+                    // } else {
+                    //   bias[1] = getRandomInt(2 * conditions[i][1]) + 400 - conditions[i][1];
+                    // }
+                    if (Math.random() > 0.5) {
+                        bias[0] = getRandomInt(2 * conditions[i][1]);
+                    } else {
+                        bias[0] = -getRandomInt(2 * conditions[i][1]) + 400;
+                    }
+                    if (Math.random() > 0.5) {
+                        bias[1] = getRandomInt(2 * conditions[i][1]);
+                    } else {
+                        bias[1] = -getRandomInt(2 * conditions[i][1]) + 400;
+                    }
+                } else {
+                    if (Math.random() > 0.5) {
+                        bias[0] = getRandomInt(100) - 200 + conditions[i][1];
+                    } else {
+                        bias[0] = getRandomInt(100) + 500 - conditions[i][1];
+                    }
+                    if (Math.random() > 0.5) {
+                        bias[1] = getRandomInt(100) - 200 + conditions[i][1];
+                    } else {
+                        bias[1] = getRandomInt(100) + 500 - conditions[i][1];
+                    }
+                }
+                for (let d of rand_data) {
+                    let point = {
+                        x: d.x + bias[0],
+                        y: d.y + bias[1],
+                        label: i + 2
+                    };
+                    point.x = (point.x < -200) ? -200 : point.x;
+                    point.x = (point.x > 600) ? 600 : point.x;
+                    point.y = (point.y < -200) ? -200 : point.y;
+                    point.y = (point.y > 600) ? 600 : point.y;
+                    generated_data.push(point);
+                }
+            }
+            let data = [];
+            for (let i = 0; i < 400; i += 10) {
+                for (let j = 0; j < 400; j += 10) {
+                    data.push([i, j]);
+                }
+            }
+            for (let i = 0; i < 100; i++) {
+                let index = getRandomInt(data.length);
+                if (i < 50)
+                    generated_data.push({
+                        x: data[index][0],
+                        y: data[index][1],
+                        label: 0
+                    });
+                else
+                    generated_data.push({
+                        x: data[index][0],
+                        y: data[index][1],
+                        label: 1
+                    });
+                data.splice(index, 1);
+
+            }
+
+            showData(generated_data);
+        }
+
+
+        /**
+         * each class: size, density and position
+          size: large and small
+          density: sparse and dense
+          relation to the target class: include, intersect
+          the target class should not at the center all the time
+          each condition may have multiple classes
+        * large sparse: 50 points, 100 radius
+        * small sparse: 20 points, 50 radius
+        * large dense: 100 points, 50 radius
+        * small dense: 50 points, 20 radius
+        */
+        function generateScatterplots2() {
+            let generated_data = [];
+            // adding other classes following Gaussian Distribution
+            let conditions = [[50, 100], [20, 50], [100, 50], [50, 20]];
+            let class_count = 0;
+            for (let i = 0; i < conditions.length; i++) {
+                for (let j = 0; j < getRandomInt(2) + 1; j++) {
+
+                    var rand_data = randn(conditions[i][0], conditions[i][1]);
+                    // var rand_data = randnGaussian(conditions[i][0], conditions[i][1], -200, 600);
+                    let bias = [0, 0];
+                    if (Math.random() < 0.5) {
+                        bias[0] = conditions[i][1] + getRandomInt(400 - 2 * conditions[i][1]);
+                        bias[1] = conditions[i][1] + getRandomInt(400 - 2 * conditions[i][1]);
+                    } else {
+                        if (Math.random() > 0.5) {
+                            bias[0] = getRandomInt(conditions[i][1]);
+                        } else {
+                            bias[0] = 400 - getRandomInt(conditions[i][1]);
+                        }
+                        if (Math.random() > 0.5) {
+                            bias[1] = getRandomInt(conditions[i][1]);
+                        } else {
+                            bias[1] = 400 - getRandomInt(conditions[i][1]);
+                        }
+                    }
+                    for (let d of rand_data) {
+                        let point = {
+                            x: d.x + bias[0],
+                            y: d.y + bias[1],
+                            label: class_count + 2
+                        };
+                        point.x = (point.x < -200) ? -200 : point.x;
+                        point.x = (point.x > 600) ? 600 : point.x;
+                        point.y = (point.y < -200) ? -200 : point.y;
+                        point.y = (point.y > 600) ? 600 : point.y;
+                        generated_data.push(point);
+                    }
+                    class_count += 1;
+                }
+            }
+            // uniform sampling the target two classes
+            let data = [];
+            for (let i = 0; i < 400; i += 10) {
+                for (let j = 0; j < 400; j += 10) {
+                    data.push([i, j]);
+                }
+            }
+            for (let i = 0; i < 100; i++) {
+                let index = getRandomInt(data.length);
+                if (i < 50)
+                    generated_data.push({
+                        x: data[index][0],
+                        y: data[index][1],
+                        label: 0
+                    });
+                else
+                    generated_data.push({
+                        x: data[index][0],
+                        y: data[index][1],
+                        label: 1
+                    });
+                data.splice(index, 1);
+            }
+            return [class_count + 2, generated_data];
+            // showData(generated_data);
+        }
+        function generateMultiData(num) {
+            let class_num;
+            for (let i = 0; i < num; i++) {
+                [class_num, final_data] = generateScatterplots2();
+                saveTable("sample_" + i + "_" + class_num + ".csv");
+            }
+        }
+        // let file_count = 0;
+        // let interval = setInterval(function () {
+        //     let class_num;
+        //     [class_num, final_data] = generateScatterplots2();
+        //     saveTable("sample_" + file_count + "_" + class_num + ".csv");
+        //     file_count += 1;
+        //     if (file_count === 1000) {
+        //         clearInterval(interval);
+        //     }
+        // }, 1000);
+    // generateMultiData(1000);
+    </script>
+</body>
+
+</html>

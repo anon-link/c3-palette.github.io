@@ -168,7 +168,11 @@ function appendScatterplot() {
   let used_palette = doColorization();
   // used_palette = ["#76b7b2", "#59a14f", "#ff9da7", "#edc948", "#e15759", "#b07aa1", "#bab0ac", "#4e79a7"]// tableau 20 optimized: -1.13
   // used_palette = Tableau_10_palette
-  // used_palette = shuffle(Tableau_10_palette.slice(0,used_palette.length));
+  // used_palette = shuffle(Tableau_20_palette.slice(0,used_palette.length));
+  // used_palette = ["#59a14f","#f28e2b","#f1ce63","#ffbe7d","#a0cbe8","#b6992d","#8cd17d","#4e79a7"]["#f28e2b","#59a14f","#f1ce63","#a0cbe8","#b6992d","#4e79a7","#8cd17d","#ffbe7d"]
+  // used_palette = ["#d7b5a6","#79706e","#a0cbe8","#bab0ac","#86bcb6","#f2c5d4","#4e79a7","#f28e2b"]
+  // used_palette = ["#fecb68","#fe5dff","#bdff4f","#fed4fe","#9c9da6","#bffed8","#2357ff","#de7045"]
+  // let [alpha_scores, beta_scores, total_scores] = outputCoSaliency(used_palette)
   for (let i = 0; i < source_datasets.length; i++) {
     // xScale.domain(d3.extent(source_datasets[i], xValue));
     // yScale.domain(d3.extent(source_datasets[i], yValue));
@@ -233,6 +237,10 @@ function appendScatterplot() {
 
     scatterplot_svg.append("text").attr("x", 0).attr("y", 20).text(source_datasets_names[i]);
 
+    // drawSaliencyMap(source_datasets[i], alpha_scores, "alpha-" + i)
+    // drawSaliencyMap(source_datasets[i], beta_scores, "beta-" + i)
+    // drawSaliencyMap(source_datasets[i], change_distance, "change-" + i)
+    // drawSaliencyMap(source_datasets[i], total_scores, "total-" + i)
   }
   if (color_blind_type != "Normal") {
     // show results seen from color blindness
@@ -280,6 +288,9 @@ function appendScatterplot() {
 
 function appendBarchart() {
   let used_palette = doColorization();
+  let sigma = Tableau_20_palette.slice()
+  shuffle(sigma)
+  used_palette = sigma.slice(0, used_palette.length);
   for (let i = 0; i < source_datasets.length; i++) {
     let barchart_svg = d3.select("#renderDiv").append("svg")
       .attr("width", SVGWIDTH).attr("height", SVGHEIGHT);
@@ -330,9 +341,9 @@ function appendBarchart() {
 
 function appendLinechart() {
   let used_palette = doColorization();
-  let sigma = Tableau_20_palette.slice()
-  shuffle(sigma)
-  used_palette = sigma.slice(0, used_palette.length);
+  // let [knng_metric, ns_weight] = processData(scaled_datasets[0])
+  // let [best_palette, sigmaAndScore] = _doColorAssignment(Tableau_20_palette, used_palette.length, knng_metric, ns_weight);
+  // used_palette = best_palette
   for (let i = 0; i < source_datasets.length; i++) {
     let linechart_svg = d3.select("#renderDiv").append("svg")
       .attr("width", SVGWIDTH).attr("height", SVGHEIGHT);

@@ -28,14 +28,15 @@
 \acmPrice{15.00}
 \acmISBN{978-1-4503-XXXX-X/18/06}
 
-
 \usepackage{enumitem}
 \usepackage{wrapfig}
 \usepackage{multirow}
 
 \newcommand{\toolname}{$\mathbb{C}^3$}
 \newcommand{\yh}[1]{{\color[blue]}}
+\newcommand{\od}[1]{{\color[rgb]{0.0,0.0,0.94} #1}}
 \newcommand{\lk}[1]{{\color[rgb]{0.26,0.3,0.94} [#1]}}
+
 %%
 %% Submission ID.
 %% Use this when submitting an article to a sponsored event. You'll
@@ -64,7 +65,7 @@
 %% The "title" command has an optional parameter,
 %% allowing the author to define a "short title" to be used in page headers.
 %\title{A Unified Framework for Multi-class Scatterplot Colorization}
-\title{\toolname-palette: Co-saliency based Colorization for Comparing Multi-class Scatterplots}
+\title{\toolname-palette: Co-saliency based Colorization for Comparing Categorical Visualizations}
 %%
 %% The "author" command and its associated commands are used to define
 %% the authors and their affiliations.
@@ -113,9 +114,9 @@
 %% The abstract is a short summary of the work to be presented in the
 %% article.
 \begin{abstract}
-Visual comparison within juxtaposed views is an essential part of interactive data analysis. In this paper, we propose a co-saliency model to characterize the most co-salient features among juxtaposed labeled data visualizations while maintaining class discrimination in individual visualizations.
-Based on this model, we present a comparison-driven color design framework, enabling automatic selection and generation of colors that maximizes co-saliency among juxtaposed visualizations. We conduct a numeric study, an online controlled experiment and a lab study with eye tracking to compare our colorizations with results produced by existing single view-based color design methods. We further present an interactive system and conduct one case study to demonstrate our usefulness for comparisons of juxtaposed line charts. The results show that our approach is able to generate high quality color palettes in support of visual comparison of juxtaposed categorical visualizations.
-
+Visual comparison within juxtaposed views is an essential part of interactive data analysis. In this paper, we propose a co-saliency model to characterize the most co-salient features among juxtaposed labeled data visualizations while maintaining class discrimination in the individual visualizations.
+% the next sentence is much too complicated
+Based on this model, we present a comparison-driven color design framework, enabling the automatic  generation of colors that maximizes co-saliency among juxtaposed visualizations for better identifying  items with the largest magnitude change between two data sets. We conducted two online controlled experiments to compare our colorizations of bar charts and scatterplots with results produced by existing single view-based color design methods. We further present an interactive system and conduct a case study to demonstrate the usefulness of our method for comparing juxtaposed line charts. The results show that our approach is able to generate high quality color palettes in support of visual comparisons of juxtaposed categorical visualizations.
 \end{abstract}
 
 %%
@@ -143,9 +144,11 @@ Based on this model, we present a comparison-driven color design framework, enab
 %% information and the body of the document, and typically spans the
 %% page.
 \begin{teaserfigure}
-  \includegraphics[width=\textwidth]{teaser}
-  \caption{Results for different conditions of two categorical scatterplots comparison: (left top) Random Assignment; (left bottom) C3-Palette Assignment; (center top) Optimized Assignment~\cite{Wang2018};
-(center bottom) Applying Alpha-Blending on Optimized Assignment, all the classes' alpha are set to 0.5 except the changed class; (right top) Palettailor~\cite{Lu21}; (right bottom) C3-Palette Generation. Our system unifies the palette assignment and palette generation to single or multiple scatterplots in a data-aware manner.}
+  \includegraphics[width=\textwidth]{teaser5}
+  \caption{
+  Results for different types of categorical data visualizations: (left) $C^3$-palette versus Tableau palette with random assignment; (center) $C^3$-palette  versus
+Tableau palette with optimal assignment; (right) $C^3$-palette versus Palettailor~\cite{Lu21}. Our co-saliency methods (top) can highlight the changed classes while
+maintaining discrimination of classes.}
   \Description{Illustrating the different conditions used in the online experiment.}
   \label{fig:teaser}
 \end{teaserfigure}
@@ -159,7 +162,7 @@ Based on this model, we present a comparison-driven color design framework, enab
 \input{02_related}
 \input{03_method}
 \input{04_colormap}
-\input{05_interaction}
+%\input{05_interaction}
 \input{06_evaluation}
 \input{07_caseStudy}
 \input{08_conclusion}

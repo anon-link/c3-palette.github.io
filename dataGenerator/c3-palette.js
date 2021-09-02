@@ -53,6 +53,7 @@ class C3Palette {
                 if (i === j) continue;
                 this.alphaShape_distance[i][j] *= Math.exp(this.change_distance[i]);
             }
+            this.non_separability_weights[i] *= Math.exp(this.change_distance[i]);
         }
         console.log(this.change_distance);
 

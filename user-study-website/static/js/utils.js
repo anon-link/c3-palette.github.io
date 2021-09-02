@@ -224,69 +224,88 @@ function reorderData(change_info, cluster_num, source_datasets) {
 
 }
 
-function drawBarchart(data, palette, sign, id) {
-    // set the ranges
-    xScale = d3.scaleBand()
-        .range([0, svg_width])
-        .padding(0.1);
-    yScale = d3.scaleLinear()
-        .range([svg_height, 0]);
-    let barchart_svg = d3.select("#renderDiv").append("svg")
-        .attr("width", SVGWIDTH).attr("height", SVGHEIGHT);
+// function drawBarchart(data, palette, sign, id) {
+//     // set the ranges
+//     xScale = d3.scaleBand()
+//         .range([0, svg_width])
+//         .padding(0.1);
+//     yScale = d3.scaleLinear()
+//         .range([svg_height, 0]);
+//     let barchart_svg = d3.select("#renderDiv").append("svg")
+//         .attr("width", SVGWIDTH).attr("height", SVGHEIGHT);
 
-    let barchart = barchart_svg.style("background-color", bgcolor)
-        .append("g")
-        .attr("transform", "translate(" + svg_margin.left + "," + svg_margin.top + ")");
+//     let barchart = barchart_svg.style("background-color", bgcolor)
+//         .append("g")
+//         .attr("transform", "translate(" + svg_margin.left + "," + svg_margin.top + ")");
 
-    // add the x Axis
-    barchart.append("g")
-        .attr("transform", "translate(0," + svg_height + ")")
-        .call(d3.axisBottom(xScale).tickFormat(""));
+//     // add the x Axis
+//     barchart.append("g")
+//         .attr("transform", "translate(0," + svg_height + ")")
+//         .call(d3.axisBottom(xScale).tickFormat(""));
 
-    // add the y Axis
-    barchart.append("g")
-        .call(d3.axisLeft(yScale).tickFormat(""));
+//     // add the y Axis
+//     barchart.append("g")
+//         .call(d3.axisLeft(yScale).tickFormat(""));
 
-    barchart.selectAll("bars")
-        .data(data)
-        .enter().append("rect")
-        .attr("class", "bars")
-        .attr("id", function (d) {
-            return cValue(d);
-        })
-        .style("fill", function (d) {
-            return palette[cValue(d)];
-        })
-        .attr("x", function (d) {
-            return xScale(cValue(d));
-        })
-        .attr("width", xScale.bandwidth())
-        .attr("y", function (d) {
-            return yScale(yValue(d));
-        })
-        .attr("height", function (d) {
-            return svg_height - yScale(yValue(d));
-        })
-        .attr("rx", 10).attr("ry", 10)
-        .attr("item-color", function (d) {
-            return palette[cValue(d)];
-        })
-        .style("opacity", function (d) {
-            if (sign && cValue(d) != id) {
-                return "0.5";
-            } else {
-                return "1";
-            }
-        })
-        .on("click", function () {
-            var url = "/result/3",
-                data = {
-                    test_id: test_id,
-                    total_time: (new Date() - test_time) / 1000,
-                    result: +d3.select(this).attr("id")
-                };
-            $.post(url, data, function (d) {
-                window.location.href = d;
-            });
-        });
-}
+//     barchart.selectAll("bars")
+//         .data(data)
+//         .enter().append("rect")
+//         .attr("class", "bars")
+//         .attr("id", function (d) {
+//             return cValue(d);
+//         })
+//         .style("fill", function (d) {
+//             return palette[cValue(d)];
+//         })
+//         .attr("x", function (d) {
+//             return xScale(cValue(d));
+//         })
+//         .attr("width", xScale.bandwidth())
+//         .attr("y", function (d) {
+//             return yScale(yValue(d));
+//         })
+//         .attr("height", function (d) {
+//             return svg_height - yScale(yValue(d));
+//         })
+//         .attr("rx", 10).attr("ry", 10)
+//         .attr("item-color", function (d) {
+//             return palette[cValue(d)];
+//         })
+//         .style("opacity", function (d) {
+//             if (sign && cValue(d) != id) {
+//                 return "0.5";
+//             } else {
+//                 return "1";
+//             }
+//         })
+//         .on("click", function () {
+//             if ((new Date() - test_time) < 1500) {
+//                 return;
+//             }
+//             test_time = (new Date() - test_time) / 1000
+//             curr_result = (+d3.select(this).attr("id") === id) ? 1 : 0
+//             // if incorrect, show the correct answer
+//             if (+d3.select(this).attr("id") != id) {
+//                 $('#show_result').text("You are wrong!").css("color", "red");
+//                 d3.select(this)
+//                     .attr('stroke', 'red')
+//                     .attr('stroke-dasharray', '10,5')
+//                     .attr('stroke-linecap', 'butt')
+//                     .attr('stroke-width', '3')
+//                 d3.select("#" + id)
+//                     .attr('stroke', 'green')
+//                     .attr('stroke-dasharray', '10,5')
+//                     .attr('stroke-linecap', 'butt')
+//                     .attr('stroke-width', '3')
+//             } else {
+//                 $('#show_result').text("You are right!").css("color", "green");
+//                 d3.select(this)
+//                     .attr('stroke', 'green')
+//                     .attr('stroke-dasharray', '10,5')
+//                     .attr('stroke-linecap', 'butt')
+//                     .attr('stroke-width', '3')
+//             }
+//             // show the next button
+//             d3.select("#nextButton").style("display", "block");
+//         });
+// }

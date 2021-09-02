@@ -367,13 +367,13 @@ function processLineData(datasets) {
     }
 
     scaled_datasets = []
-    for (let i = 0; i < datasets.length; i++) {
+    for (let i = 0; i < interpolated_datasets.length; i++) {
         // using different scale
         // xScale.domain(d3.extent(datasets[i], xValue));
         // yScale.domain(d3.extent(datasets[i], yValue));
 
         let tmp = []
-        for (let d of datasets[i]) {
+        for (let d of interpolated_datasets[i]) {
             tmp.push(
                 {
                     x: xMap(d),
@@ -387,19 +387,18 @@ function processLineData(datasets) {
 
     // get cluster number for each class
     let cluster_num = Object.keys(labelToClass).length;
-    cluster_nums = new Array(datasets.length)
-    for (let i = 0; i < datasets.length; i++) {
+    cluster_nums = new Array(interpolated_datasets.length)
+    for (let i = 0; i < interpolated_datasets.length; i++) {
         cluster_nums[i] = new Array(cluster_num).fill(0)
-        var clusters = SplitDataByClass(datasets[i], labelToClass)
+        var clusters = SplitDataByClass(interpolated_datasets[i], labelToClass)
         for (let key in clusters) {
             if (clusters[key]) {
                 cluster_nums[i][key] = clusters[key].length
             }
         }
     }
-
     calculateAlphaShapeDistance(scaled_datasets, [[0, 0], [svg_width, svg_height]])
-
+    scaled_datasets = interpolated_datasets
     // caculate the changing distance between lines
     for (let i = 0; i < x_interpolated_datasets.length - 1; i++) {
         var ref_clusters = SplitDataByClass(x_interpolated_datasets[i], labelToClass),

@@ -43,7 +43,7 @@ function _doColorAssignment(palette, class_num, knng_metric, ns_weight) {
 /**
  * calculate KNNG distance
  */
- function SplitDataByClass(data, label2class) {
+ function _SplitDataByClass(data, label2class) {
     var clusters = {};
     for (let d of data) {
         if (clusters[label2class[d.label]] == undefined)
@@ -82,7 +82,7 @@ function getKNNG(clusters, k = 2) {
  */
 function getVariablesForComputeScore(data, knng_neighbors_num = 2) {
     //auxiliary variables
-    var clusters = SplitDataByClass(data, labelToClass);
+    var clusters = _SplitDataByClass(data, labelToClass);
     var [labels, knng] = getKNNG(clusters, knng_neighbors_num);
     //variables in evaluation function
     var cb_weight = getSaliencyWeightOfClass(labels, knng),

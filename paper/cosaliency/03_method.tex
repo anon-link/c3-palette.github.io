@@ -1,6 +1,7 @@
 \section{Co-Saliency based Color Design}
-Given multiple categorical scatterplots with the same class labels (or a subset thereof), each scatterplot $\mathbf{X}^j$ has $M$ classes and $n_j$ data items $\{\mathbf{x}^j_1, \cdots, \mathbf{x}^j_{n_j}\}$, where each $\mathbf{x}^j_t$ has a label
+Given multiple categorical visualizations with the same class labels (or a subset thereof), each visualization has $K$ classes and $n_j$ data items $\{\mathbf{x}^j_1, \cdots, \mathbf{x}^j_{n_j}\}$, where each $\mathbf{x}^j_t$ has a label
 $l(\mathbf{x}^j_t)$ and the $i$-th class (with $n^j_i$ data points) consists of $\{\mathbf{x}_{i,1}^j, \cdots , \mathbf{x}_{i,n^j_i}^j\}, i \in  \{ 1, \cdots, m \} $.
+For standard bar charts and line charts, $K$ is equal to $n_j$ but often is smaller than $n_j$ in scatterplots.
 All visualizations use the same  background color $\mathbf{c}_b$ and the same color mapping scheme $\tau: L \mapsto c$. Our goal is to find the best mapping $\tau$ that supports effective comparison of multiple categorical scatterplots.
 
 In line with the design requirements of natural image comparison and categorial data visualization ~\cite{Jacobs10,Gleicher18,Lu21},
@@ -13,32 +14,63 @@ our problem is formulated based on the following three design requirements:
 %co-salient classes should follow the principles of visual salience in individual visualizations so that the co-salient classes can be easily identified.
 \end{enumerate}
 Although visual comparison is an essential part of interactive data analysis, most of  the existing  colorization techniques~\cite{Gramazio17, Lu21} attempt to meet DR2. The key challenge in meeting DR1 is that we need a proper model to characterize the most salient features in multiple visualizations.
-To address this issue, we propose a categorical visualization co-saliency model that calculates the saliency of each data item in the context of other similar visualizations. Integrating this model into the objective of state-of-the-art color mapping selection or generation frameworks~\cite{Wang2018,Lu21}, we can
-generate proper color mappings to highlight salient differences between juxtaposed categorical visualizations.
+To address this issue, we propose a categorical visualization co-saliency model that calculates the saliency of each data item in the context of other similar visualizations. Integrating this model into the objective of the state-of-the-art color mapping generation framework~\cite{Lu21}, we can
+generate proper color mappings to highlight salient differences between juxtaposed categorical visualizations while fostering better visual discrimination of classes.
+
 
 \subsection{Co-saliency for Multi-class Scatterplots }
-Following the definition of image co-saliency~\cite{Jacobs10}, we model the class co-saliency with two factors: class importance between scatterplots and class contrast within scatterplots. The class importance describes how much each class should stand out from the visualizatioin. While the class contrast measures the distinctness from neighboring classes and the background, which is similar to perceptual class separability~\cite{Aupetit02,Wang2018}. Hence, we define two types of class contrasts: contrast with neighboring classes and contrast to the background.
+Following the definition of image co-saliency~\cite{Jacobs10}, we model the class co-saliency with two factors: class importance between visualizations and class contrast within visualizations. The class importance describes how much each class should stand out from the visualization.
+describes how much each class stands out from neighboring classes and the background,
+which is similar to perceptual class separability~\cite{Aupetit02,Wang2018}. Hence,
+we define two types of class contrasts: a local contrast with neighboring classes and a background contrast with the background.
+
+Since point-based representation is general in 2D visualizations, we use scatterplots to illustrate our method.
 Analogous to bottom-up image co-saliency models~\cite{Jacobs10,Fu13}, the co-saliency of the $i$th class is defined as the product between class importance and  class contrast score to emphasize the target class, and the co-saliency for $M$ classes:
 \begin{equation}
 % E_{CoS} = \sum_i   \sum_j (1-\lambda) \alpha^j_i  \exp(\theta_i) + \lambda \beta_i  f(\theta_i)
-E_{CoS} = \sum_i    \left(\sum_j \frac{1}{n^j_i}(\lambda \alpha^j_i + (1-\lambda) \beta^j_i) \right)  \exp(\theta_i)
+E_{CoS} = \sum_i    \left(\sum_j \frac{1}{n^j_i}(\lambda \alpha^j_i\exp(\theta_i) + (1-\lambda) \beta^j_i f(\theta_i) ) \right)
 	\label{eq:cosaliency}
 \end{equation}
-where $\theta_i$ is the importance of the $i$th class, $\alpha^j_i$ is the contrast with neighboring classes of the $i$th class in the $j$th scatterplot, $\beta^j_i$  is the contrast to the background, and $\lambda$ is a weight between them.
-To better support DR1, we apply an exponential function to enlarge the weight of class importance, thus makes the target class easy to get a discriminable color from the optimization process.
+where $\theta_i$ is the importance of the $i$th class,
+$n^j_i$ is the number of point of the $i$th class in the $j$th scatterplot,
+$\alpha^j_i$ is the local contrast with neighboring classes of the $i$th class in the $j$th scatterplot, $\beta^j_i$  is the contrast to the background, and $\lambda$ is a weight between them. The weight $1/{n^j_i}$  is used to alleviate class imbalance  so that the classes with small numbers of points and large changes can be highlighted.
 
-
-\noindent\textbf{Class Contrast}.
-Given the $j$th scatterplot, we define the local class contrast with both point distinctness and point contrast with background~\cite{Wang2018} based on the neighbors calculated by $\alpha$-Shape~\cite{Lu21}.  For each data point $\mathbf{x}^j_t$, we define its point distinctness as:
-\begin{align}\label{eq:pd}
- \gamma (\mathbf{x}^j_t)=\frac{1}{|\Omega^j_t|} \sum_{\mathbf{x}^j_p \in \Omega^j_t}  \frac{\Delta\epsilon(\tau(l(\mathbf{x}^j_t)),\tau(l(\mathbf{x}^j_p)))}{d(\mathbf{x}^j_t,\mathbf{x}^j_p)} ,
+To better support DR1, we apply an exponential function to enlarge the weight of class structure changes, while using a piecewise function to weight the background contrast:
+\begin{align}
+f(\theta_i) =  \left\{ \begin{array}{ll}
+\exp(\theta_i) & \textrm{if $\theta_i>\kappa$}\\
+-\exp(\theta_i) & \textrm{else}
+\end{array} \right.
+\label{eq:energyfunc}
 \end{align}
-where $\Omega^j_t$ is set of nearest neighbors of $\mathbf{x}^j_t$, $\tau(l(\mathbf{x}^j_p))$ is the color of $\mathbf{x}^j_p$, $\Delta \epsilon$ is the CIELAB color distance~\cite{sharma2005ciede2000} and $d$ is the Euclidean distance.
-For the $i$th class, its point distinctness is the sum of all points with the same class label in the scatterplot:
-\begin{align}\label{eq:pdc}
- \alpha^j_i = \frac{1}{n^j_i}\sum^{n_j}_{p}\gamma(\mathbf{x}^j_p) \delta(l(\mathbf{x}^j_p),i)
+$\kappa$ is a user-specified threshold with the default zero. The reason for the two different weighting schemes is that classes with less or no changes might be treated as the background by viewers~\cite{zhang2018review}. To suppress the saliency of such classes, we introduce a negative importance for them.
+
+
+\vspace{2mm}
+\noindent\textbf{Local Contrast}.
+%Given the $j$th scatterplot, we define the local class contrast based on the point distinctness~\cite{Lu21}.  
+%Here, we briefly describe its computation process and
+%refer to Lu et al.~\cite{Lu21} for more details.
+%Given the data point $\mathbf{x}^j_t$, its distinctness is defined as the sum of the color differences from its neighbourhoods weighted by the inverse Euclidean distance.
+%Then, the distinctness of the $i$th class is the sum of all points with the same class label in the scatterplot, which is further normalized by ${n^j_i}$.  
+Given the $j$th scatterplot, we define the local class contrast based on the $\alpha$-shape based point distinctness~\cite{Lu21}.  For each data point $\mathbf{x}^j_t$, we define its point distinctness value as:
+\begin{align}
+ \gamma (\mathbf{x}^j_t)=\frac{1}{|\Omega^j_t|} \sum_{\mathbf{x}^j_p \in \Omega^j_t}  \frac{\Delta\epsilon(\tau(l(\mathbf{x}^j_t)),\tau(l(\mathbf{x}^j_p)))}{d(\mathbf{x}^j_t,\mathbf{x}^j_p)} \nonumber ,
+\end{align}
+where $\Omega^j_t$ is set of $k$ nearest neighbors of $\mathbf{x}^j_t$, $\tau(l(\mathbf{x}^j_p))$ is the color of $\mathbf{x}^j_p$,  $d$ is the Euclidean distance and $\Delta\epsilon$ is CIELAB color distance.
+For the $i$th class, its local contrast is the sum of all points with the same class label in the scatterplot:
+\begin{align}\label{eq:nc}
+ \phi^j_i = \frac{1}{n_j}\sum^{n_j}_{p}\gamma(\mathbf{x}^j_p) \delta(l(\mathbf{x}^j_p),i)
 \end{align}
 where $\delta(l(\mathbf{x}^j_p),i)$ is one if the class label $l(\mathbf{x}^j_p)$ is $i$ and else zero.
+
+If one class overlaps with different classes, the local contrast value is high and the value is small for a well separated class. Hence, the black class in two scatterplots shown in Fig.~\ref{fig:map}(a) both has a low contrast value (see Fig.~\ref{fig:map}(b)) and the cyan class has a large value.
+
+
+%\begin{align}\label{eq:pdc}
+% \alpha^j_i = \frac{1}{n^j_i}\sum^{n_j}_{p}\gamma(\mathbf{x}^j_p) \delta(l(\mathbf{x}^j_p),i)
+%\end{align}
+%where $\delta(l(\mathbf{x}^j_p),i)$ is one if the class label $l(\mathbf{x}^j_p)$ is $i$ and else zero.
 %
 %
 %However, KNNG cannot reflect the contrast among classes without any overlap. For example,  in Fig.~\ref{fig:knng}(a) the contrast between the blue class and the brown classes cannot be reflected.
@@ -52,34 +84,48 @@ where $\delta(l(\mathbf{x}^j_p),i)$ is one if the class label $l(\mathbf{x}^j_p)
 % \alpha^j_i  = \phi^j_i  + \omega \varphi^j_i,
 %\end{align}
 %where the weight $\omega$ is 1.0 in our experiment.
-Similar to ~\cite{Wang2018}, we define non-separability as the difference value between $\mathbf{x}^j_t$ with data points belonging to the different classes and same class, thus the contrast to the background can be defined as:
-\begin{align}\label{eq:ctb}
- \rho (\mathbf{x}^j_t)=\frac{1}{|\Omega^j_t|} \sum_{\mathbf{x}^j_p \in \Omega^j_t}  \frac{(1-2\delta(l(\mathbf{x}^j_t),l(\mathbf{x}^j_p)))\Delta\epsilon(\tau(l(\mathbf{x}^j_t)),\mathbf{c}_b)}{d(\mathbf{x}^j_t,\mathbf{x}^j_p)} ,
-\end{align}
-the contrast to the background of the $i$th class is defined as follows:
-\begin{align}\label{eq:ctbc}
- \beta^j_i = \frac{f(\theta_i)}{n^j_i}\sum^{n_j}_{p} \exp(\rho(\mathbf{x}^j_p)) \delta(l(\mathbf{x}^j_p),i)
-\end{align}
-where we use a piecewise function to weight the background contrast:
+
+\vspace{2mm}
+\noindent\textbf{Background Contrast}.
+The contrast with the background is based on the point non-separability~\cite{Wang2018} $\rho (\mathbf{x}^j_t)$, defined as the difference between two  separation degrees: 
 \begin{align}
-f(\theta_i) =  \left\{ \begin{array}{ll}
-1 & \textrm{if $\theta_i>\kappa$}\\
--1 & \textrm{else}
-\end{array} \right.
-\label{eq:piecewiseFunc}
+\rho(\mathbf{x}^j_t)&= b(\mathbf{x}^j_t)-a(\mathbf{x}^j_t) \ .
+\end{align}
+where $b(\mathbf{x}^j_t)$ and $a(\mathbf{x}^j_t)$ are between-class separation degree and within-class separation degree  of $\mathbf{x}^j_t$. They are defined as the sum of the weighted color differences from its neighborhood with the same and different class labels:
+\begin{align}
+a(\mathbf{x}^j_t)&=\frac{1}{|\Omega^j_t|}\sum_{\mathbf{x}^j_p \in \Omega^j_t } \frac{\delta(l(\mathbf{x}^j_t), l(\mathbf{x}^j_p)) 
+\Delta\epsilon(\tau(l(\mathbf{x}^j_t)),\mathbf{c}_b)
+}{d(\mathbf{x}^j_t,\mathbf{x}^j_p)} , \;\;
+b(\mathbf{x}^j_t)=\frac{1}{|\Omega^j_t|}\sum_{\mathbf{x}^j_p \in \Omega^j_t } \frac{1-\delta(l(\mathbf{x}^j_t), l(\mathbf{x}^j_p))\Delta\epsilon(\tau(l(\mathbf{x}^j_t)),\mathbf{c}_b)}{d(\mathbf{x}^j_t,\mathbf{x}^j_p)}  \nonumber
 \end{align}
 
-$\kappa$ is a user-specified threshold with the default zero. The reason for the two different weighting schemes is that classes with less or no importance might be treated as the background by viewers~\cite{zhang2018review}. To suppress the saliency
-\begin{wrapfigure}{r}{0.28\columnwidth}
-	\vspace{-5mm}
-	\centering
-	\includegraphics[width=0.28\columnwidth]{class-change-degree}
-	\vspace*{-8mm}
-	\caption{An one-to-one mapping for computing the changes between two classes.}
-	\vspace*{-2mm}
-	\label{fig:class-change-degree}
-\end{wrapfigure}
- of such classes, we introduce a negative importance for them. Since $\rho (\mathbf{x}^j_t)$ might be a negative value which will be influenced by Eq.~\ref{eq:piecewiseFunc}, we apply an exponential function to transfer it to positive while maintains the monotonicity.
+When most neighbor points of $\mathbf{x}^j_t$ have the same label as $\mathbf{x}^j_t$,  $\rho (\mathbf{x}^j_t)$ is negative and vice versa.
+%the corresponding class has large within-class separability and small between-class separability and thus $\rho (\mathbf{x}^j_t)$ is negative; and vice versa. 
+However, a negative $\rho (\mathbf{x}^j_t)$ makes the optimization in Eq.~\ref{eq:cosaliency} meaningless, resulting that its belonged classes might be highlighted no matter how large the change of this class is.
+To address the above issue, we use an exponential function to convert $\rho (\mathbf{x}^j_t)$ to be positive while maintaining the monotonicity. Accordingly, we define
+%\begin{align}\label{eq:ctb}
+% \rho (\mathbf{x}^j_t)=\frac{1}{|\Omega^j_t|} \sum_{\mathbf{x}^j_p \in \Omega^j_t}  \frac{(1-2\delta(l(\mathbf{x}^j_t),l(\mathbf{x}^j_p)))\Delta\epsilon(\tau(l(\mathbf{x}^j_t)),\mathbf{c}_b)}{d(\mathbf{x}^j_t,\mathbf{x}^j_p)} ,
+%\end{align}
+the contrast to the background of the $i$th class as:
+\begin{align}\label{eq:ctbc}
+ \beta^j_i = \frac{1}{n^j_i}\sum^{n_j}_{t} \exp(\rho(\mathbf{x}^j_t)) \delta(l(\mathbf{x}^j_t),i).
+\end{align}
+%where
+%$\delta(l(\mathbf{x}^j_p),i)$ is one if the class label $l(\mathbf{x}^j_p)$ is $i$ and else zero.
+%In doing so, all classes have positive background contrast value. 
+As illustrated in Fig.~\ref{fig:map}(c), the well-separated classes with large color differences from the background have large background contrast like the blue and black classes, whereas the pink and cyan classes have  relative large background contrast values with medium class separation.
+
+
+%\begin{wrapfigure}{r}{0.28\columnwidth}
+%	\vspace{-5mm}
+%	\centering
+%	\includegraphics[width=0.28\columnwidth]{class-change-degree}
+%	\vspace*{-8mm}
+%	\caption{An one-to-one mapping for computing the changes between two classes.}
+%	\vspace*{-2mm}
+%	\label{fig:class-change-degree}
+%\end{wrapfigure}
+ %Since $\rho (\mathbf{x}^j_t)$ might be a negative value which will be influenced by Eq.~\ref{eq:piecewiseFunc}, we apply an exponential function to transfer it to positive while maintains the monotonicity.
 
 \vspace{1.5mm}
 \noindent\textbf{Class Importance}.
@@ -87,10 +133,11 @@ Class importance reflects whether a class should be highlighted or not. It can b
 To quantify how users perceive class structure changes, we measure the difference between class distributions in two scatterplots with the Earth Mover's Distance (EMD)~\cite{rubner2000earth}, a perceptual metric.
 Suppose the $i$th  class with two sets of points $\mathbf{X}^1_i = \{\mathbf{x}_{i,1}^1, \cdots , \mathbf{x}_{i,n^1_i}^1\}$ and $\mathbf{X}^2_i = \{\mathbf{x}_{i,1}^2, \cdots , \mathbf{x}_{i,n^2_i}^2\}$.
 Taking the Euclidian distance between two points as the cost, we need to  minimize the total matching cost
-\begin{align}\label{eq:emd}
- H(\mathbf{X}^1_i, \mathbf{X}^2_i)  = \min_\chi \sum_t d(\mathbf{x}_{i,t}^1, \mathbf{x}_{i,\chi(t)}^2),
+\begin{align}
+ H(\mathbf{X}^1_i, \mathbf{X}^2_i)  = \min_\chi \sum_t d(\mathbf{x}_{i,t}^1, \mathbf{x}_{i,\chi(t)}^2), \nonumber
 \end{align}
-which constrains an one-to-one mapping $\chi$ between points (see an illustration in Fig.~\ref{fig:class-change-degree}). This is the classic bipartite matching problem, which can be solved by the Hungarian method~\cite{kuhn1955hungarian}.
+which constrains an one-to-one mapping $\chi$ between points %(see an illustration in Fig.~\ref{fig:class-change-degree}).
+This is the classic bipartite matching problem, which can be solved by the Hungarian method~\cite{kuhn1955hungarian}.
 When the number of points of two sets is not equal, we further take the difference between the number of points into account. In doing so, the class change degree contains both point position change and point number change between two sets, which is defined as:
 \begin{align}\label{eq:cm}
  \theta_i= \frac{H(\mathbf{X}^1_i, \mathbf{X}^2_i) }{\min\{n^1_i, n^2_i\}} + \nu \frac{||n^1_i- n^2_i||}{\max\{n^1_i, n^2_i\}}
@@ -98,3 +145,13 @@ When the number of points of two sets is not equal, we further take the differen
 where both terms range within [0,1] and $\nu$ is 1.0 as the default.
 
 
+\begin{figure*}[!tb]
+\centering
+\includegraphics[width=\linewidth]{figures/saliencymap}
+\caption{Illustration of the main components for computing our co-saliency maps. For the two input scatterplots (a), our class-based co-saliency (e) is generated by fusing the local contrast (b), the background contrast (c),  and the class change degree (d). The points with large brightness have large values and vice versa.}
+\vspace*{-3mm}
+\label{fig:map}
+\end{figure*}
+\vspace{1.5mm}
+
+Fig.~\ref{fig:map} shows an example of two 8-class scatterplots with three classes (orange, blue and black) with changes. We can see that combining the class change degree and two contrast measures can highlight salient differences and maintain visual discrimination of classes (see Fig.~\ref{fig:map}(e)).

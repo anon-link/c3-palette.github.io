@@ -1,17 +1,15 @@
 \section {Evaluation}
 \label{sec:results}
 
-We evaluated the effectiveness of our method on supporting juxtaposed visual comparisons and the discriminability for reading scatterplots. % by applying it to scatterplots, as scatterplots are commonly used  for such comparisons.
-We conducted two online controlled experiments through Amazon Mechanical Turk (AMT) with 217 participants in total, to evaluate how well our method can support people in \emph{observing changes} and \emph{visual separability} for multiple categorical scatterplots:
+We evaluated the effectiveness of our method on supporting juxtaposed visual comparisons for both scatterplots and bar charts.% and the discriminability for reading scatterplots. % by applying it to scatterplots, as scatterplots are commonly used  for such comparisons.
+We conducted three online controlled experiments through Amazon Mechanical Turk (AMT) with 217 participants in total, to evaluate how well our method can support people in \emph{observing changes} and \emph{visual separability} for multiple categorical datasets:
 \begin{enumerate}
 %\vspace{-3mm}
 \item [(i)] \emph{Spotting the difference task}. To evaluate how well our method can support people in \emph{observing changes} for juxtaposed categorical scatterplots;
 %\vspace{-3mm}
 \item [(ii)] \emph{Counting class number task}. To evaluate whether our method can support the \emph{visual separability} of classes in each individual scatterplot, which is considered fundamental to juxtaposed comparison.
-%%\vspace{-3mm}
-%\item [(iii)] an eye tracking study to initially explore if our method helps people \emph{alleviate eye movement distance} when performing  juxtaposed comparison tasks.
-%\vspace{-3mm}
-%\item [(iv)] performing two case studies to show the usability of our methods for scatterplot matrix and time series data.
+\item [(iii)] \emph{Finding max delta task}. To evaluate how well our method can support people in \emph{observing the largest change} for juxtaposed categorical bar charts;
+
 \end{enumerate}
 %we use synthetic data for the first three studies while use real world data for the case study.
 
@@ -24,7 +22,6 @@ We conducted two online controlled experiments through Amazon Mechanical Turk (A
      \item C1: \emph{Random Assignment} is randomly selecting and assigning colors from Tableau-20 palette to the classes.
 
      \item C2: \emph{Optimized Assignment} uses the optimized assignment approach~\cite{Wang2018} for one of the two scatterplots with an input of Tableau-20 color palette.
-
      \item C3: \emph{Alpha Blending} is achieved by setting the alpha of each unchanged class to $0.5$ while the changed classes remain to $1.0$ based on \emph{Optimized Assignment} result. We choose $0.5$ since the results also used in the discrimination task.
      \item C4: \emph{Palettailor} uses the method proposed by Lu et.al~\cite{Lu21} for single scatterplot palette generation. The palette is generated for one of the two scatterplots with the default settings.
      \item C5: \emph{C3-Palette Assignment} uses the color assignment optimization solution(Eq.~\ref{eq:cosaliency}) based on Tableau-20.
@@ -293,3 +290,22 @@ Second, our experiment focuses on identifying the differences between two scatte
 Third, we cannot further analyze the effect of \emph{change type}, given the current study design, though we did observe some trends that for certain types of change, our methods are more effective.
 That brings us to a series of more fundamental questions: how can we properly define the types of changes? What is the just noticeable change magnitude for each change type?
 Further research is needed to answer these questions so that our approach can be thoroughly evaluated.
+
+\subsection{Experiment 3: Finding Max Delta}
+\label{subsec:onlinestudy3}
+In addition to scatterplots, we also test the performance of our method for bar charts through the \emph{MAXDELTA} task which is used in Ondov et al.'s~\cite{Ondov19} comparison task. The setup of this task is very similar to Ondov et al.~\cite{Ondov19}, thus we mainly describe the difference between the two below.
+\subsubsection{Experimental Design}
+\
+\newline
+\noindent{\textbf{Task \& Measure. }}
+\emph{MAXDELTA task}. Following the methodology by Ondov et al.~\cite{Ondov19}, we asked participants to find the bar that had the biggest difference in the two charts. The titer value, i.e., the distractor delta which is used to control the largest difference between the two bar charts, is recorded to measure the precision degree for people to make judgments about adjacent bar charts. Larger titer value indicates a higher performance. 
+
+
+\noindent{\textbf{Conditions \& sample palette. }}
+Similar to the scatterplot experiment, we also tested the six conditions, including two experimental methods(\emph{C3-Palette Assignment} and \emph{C3-Palette Generation}), as well as four benchmark conditions(\emph{Random Assignment}, \emph{Optimized Assignment}, \emph{Alpha Blending} and \emph{Palettailor}). We used Tableau 20 palette for the assignment method due to its large range of brightness and saturation. Specifically, the original \emph{Optimized Assignment}~\cite{Wang2018} did not apply their method to bar chart, we extended it by treating each bar as a point. \emph{Alpha Blending} is based on the result of \emph{Optimized Assignment} by changing the opacity of each class. Different to the scatterplot experiment, we run these methods in real-time since the bar charts are generated dynamically.
+
+\noindent{\textbf{Bar chart generation. }}
+All the stimulus datasets used in this experiment are generated by the titer staircase method~\cite{Ondov19} in real time. Each pair of bar charts are generated differently depending on participant performance in the previous trial. For each condition method, the first trial generate bar charts with a titer of $0.5$. A correct response made the titer of the next trial increase with $+0.3$ while an erroneous answer lead to a decrease of $-0.1$. To prevent participants from too many trials with low difficulty, we set $0.75$ as the largest titer value. Each bar chart consists of 7 data points same as Ondov et al.~\cite{Ondov19}.
+
+\noindent{\textbf{Procedure. }}
+The procedure of this experiment is same with ~\cite{Ondov19} except 

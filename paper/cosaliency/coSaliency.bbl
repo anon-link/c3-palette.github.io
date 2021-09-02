@@ -2,7 +2,7 @@
 %%% Do NOT edit. File created by BibTeX with style
 %%% ACM-Reference-Format-Journals [18-Jan-2012].
 
-\begin{thebibliography}{44}
+\begin{thebibliography}{45}
 
 %%% ====================================================================
 %%% NOTE TO THE USER: you can override these defaults by providing
@@ -37,17 +37,6 @@
 \providecommand\natexlab[1]{#1}
 \providecommand\showeprint[2][]{arXiv:#2}
 
-\bibitem[\protect\citeauthoryear{Aarts}{Aarts}{1989}]%
-        {aarts1989stochastic}
-\bibfield{author}{\bibinfo{person}{EHL Aarts}.}
-  \bibinfo{year}{1989}\natexlab{}.
-\newblock \showarticletitle{A stochastic approach to combinatorial optimization
-  and neural computing}.
-\newblock \bibinfo{journal}{\emph{Simulated Annealing and Boltzmann Machines}}
-  (\bibinfo{year}{1989}).
-\newblock
-
-
 \bibitem[\protect\citeauthoryear{{Albers}, {Dewey}, and {Gleicher}}{{Albers}
   et~al\mbox{.}}{2011}]%
         {Albers11}
@@ -76,6 +65,18 @@
 \urldef\tempurl%
 \url{https://doi.org/10.1109/PACIFICVIS.2016.7465244}
 \showDOI{\tempurl}
+
+
+\bibitem[\protect\citeauthoryear{Baudisch and Gutwin}{Baudisch and
+  Gutwin}{2004}]%
+        {baudisch2004multiblending}
+\bibfield{author}{\bibinfo{person}{Patrick Baudisch} {and}
+  \bibinfo{person}{Carl Gutwin}.} \bibinfo{year}{2004}\natexlab{}.
+\newblock \showarticletitle{Multiblending: displaying overlapping windows
+  simultaneously without the drawbacks of alpha blending}. In
+  \bibinfo{booktitle}{\emph{Proceedings of the SIGCHI conference on Human
+  factors in computing systems}}. \bibinfo{pages}{367--374}.
+\newblock
 
 
 \bibitem[\protect\citeauthoryear{Borji, Cheng, Hou, Jiang, and Li}{Borji
@@ -162,6 +163,24 @@
 \showDOI{\tempurl}
 
 
+\bibitem[\protect\citeauthoryear{{De Vito}, Massera, Piga, Martinotto, and {Di
+  Francia}}{{De Vito} et~al\mbox{.}}{2008}]%
+        {DEVITO2008750}
+\bibfield{author}{\bibinfo{person}{S. {De Vito}}, \bibinfo{person}{E. Massera},
+  \bibinfo{person}{M. Piga}, \bibinfo{person}{L. Martinotto}, {and}
+  \bibinfo{person}{G. {Di Francia}}.} \bibinfo{year}{2008}\natexlab{}.
+\newblock \showarticletitle{On field calibration of an electronic nose for
+  benzene estimation in an urban pollution monitoring scenario}.
+\newblock \bibinfo{journal}{\emph{Sensors and Actuators B: Chemical}}
+  \bibinfo{volume}{129}, \bibinfo{number}{2} (\bibinfo{year}{2008}),
+  \bibinfo{pages}{750--757}.
+\newblock
+\showISSN{0925-4005}
+\urldef\tempurl%
+\url{https://doi.org/10.1016/j.snb.2007.09.060}
+\showDOI{\tempurl}
+
+
 \bibitem[\protect\citeauthoryear{Enns}{Enns}{1990}]%
         {enns1990three}
 \bibfield{author}{\bibinfo{person}{James~T Enns}.}
@@ -204,17 +223,6 @@
 \urldef\tempurl%
 \url{https://doi.org/10.2463/mrms.8.23}
 \showDOI{\tempurl}
-
-
-\bibitem[\protect\citeauthoryear{Gapminder.}{Gapminder.}{[n.d.]}]%
-        {gapminder}
-\bibfield{author}{\bibinfo{person}{Gapminder.}}
-  \bibinfo{year}{[n.d.]}\natexlab{}.
-\newblock \bibinfo{title}{The Gapminder visualization system}.
-\newblock
-\newblock
-\newblock
-\shownote{\url{https://www.gapminder.org/data/}.}
 
 
 \bibitem[\protect\citeauthoryear{{Gleicher}}{{Gleicher}}{2018}]%
@@ -625,21 +633,15 @@
 \showDOI{\tempurl}
 
 
-\bibitem[\protect\citeauthoryear{Sharma, Wu, and Dalal}{Sharma
-  et~al\mbox{.}}{2005}]%
-        {sharma2005ciede2000}
-\bibfield{author}{\bibinfo{person}{Gaurav Sharma}, \bibinfo{person}{Wencheng
-  Wu}, {and} \bibinfo{person}{Edul~N Dalal}.} \bibinfo{year}{2005}\natexlab{}.
-\newblock \showarticletitle{The {CIEDE}2000 color-difference formula:
-  implementation notes, supplementary test data, and mathematical
-  observations}.
-\newblock \bibinfo{journal}{\emph{Color Research \& Application}}
-  \bibinfo{volume}{30}, \bibinfo{number}{1} (\bibinfo{year}{2005}),
-  \bibinfo{pages}{21--30}.
+\bibitem[\protect\citeauthoryear{Software.}{Software.}{[n.d.]}]%
+        {tableau}
+\bibfield{author}{\bibinfo{person}{Tableau Software.}}
+  \bibinfo{year}{[n.d.]}\natexlab{}.
+\newblock \bibinfo{title}{The tableau visualization system}.
 \newblock
-\urldef\tempurl%
-\url{https://doi.org/10.1002/col.20070}
-\showDOI{\tempurl}
+\newblock
+\newblock
+\shownote{\url{http://www. tableausoftware.com/.}}
 
 
 \bibitem[\protect\citeauthoryear{{Tominski}, {Forsell}, and
@@ -707,6 +709,17 @@
 \urldef\tempurl%
 \url{https://doi.org/10.1145/345513.345271}
 \showDOI{\tempurl}
+
+
+\bibitem[\protect\citeauthoryear{Wickham et~al\mbox{.}}{Wickham
+  et~al\mbox{.}}{2009}]%
+        {wickham2009elegant}
+\bibfield{author}{\bibinfo{person}{Hadley Wickham} {et~al\mbox{.}}}
+  \bibinfo{year}{2009}\natexlab{}.
+\newblock \showarticletitle{Elegant graphics for data analysis}.
+\newblock \bibinfo{journal}{\emph{Media}} \bibinfo{volume}{35},
+  \bibinfo{number}{211} (\bibinfo{year}{2009}), \bibinfo{pages}{10--1007}.
+\newblock
 
 
 \bibitem[\protect\citeauthoryear{Zhang, Fu, Han, Borji, and Li}{Zhang

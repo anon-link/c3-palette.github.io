@@ -1,14 +1,18 @@
-\section {Conclusion}
-We presented an interactive color design approach for the effective juxtaposed comparison of multiple labeled datasets.
-It is built upon a novel co-saliency model, which characterizes the most co-salient features between juxtaposed labeled data visualizations while maintaining class discrimination in the individual visualizations.
-We evaluated this approach in three ways: a numeric study for the class separability in each view,  an online study for its usability of detecting changes between multiple views, and a lab study with eye tracking to learn if our approach can alleviate eye movements. The results demonstrate that our produced color mapping schemes are well suited for efficient visual comparison. We further demonstrated the effectiveness of our approach for visually comparing juxtaposed line charts with a case study.
+\section {Discussion and Future Work}
+%We presented an interactive color design approach for the effective horizontally juxtaposed comparison of multiple labeled datasets.
+%It is built upon a novel co-saliency model, which characterizes the most co-salient features between juxtaposed labeled data visualizations while maintaining class discrimination in the individual visualizations.
+%We evaluated this approach in three ways: a numeric study for the class separability in each view,  an online study for its usability of detecting changes between multiple views, and a lab study with eye tracking to learn if our approach can alleviate eye movements. The results demonstrate that our produced color mapping schemes are well suited for efficient visual comparison. We further demonstrated the effectiveness of our approach for visually comparing juxtaposed line charts with a case study.
 
 
 %In this study, we
-Our work concentrated on juxtaposed comparisons to detect changes between multiple datasets.
-Although detecting changes is a fundamental visual comparison task, its optimal color palette might not be appropriate for understanding other analytical comparison tasks (such as max delta and correlation tasks~\cite{Ondov19}. Future work needs to investigate the effectiveness and extensions of our approach for such comparison tasks. Furthermore, our approach produces colors with salient hue to highlight classes with large changes, but those colors do not visually indicate the ranking of class changes.
-%\ms{not clear what you mean, do you mean the hue?}
-%Thus, to explore classes with degree of changes, users have to manually tune the change threshold parameter.
+Our work concentrated on horizontally juxtaposed comparisons to detect changes between multiple datasets.
+Although detecting changes is a fundamental visual comparison task, its optimal color palette might not be appropriate for understanding other analytical comparison tasks (e.g., the correlation tasks~\cite{Ondov19}. Future work needs to investigate the effectiveness and extensions of our approach for such comparison tasks. Furthermore, our approach produces colors with salient hue to highlight classes with large changes, but those colors do not visually indicate the ranking of class changes.
 It would be helpful to associate the color ordering constraint~\cite{Bujack18} with the degree of changes, so that the ranking of class changes can be shown clearly.
+
+Second, our study only evaluated the effectiveness of our palettes with horizontal juxtaposed charts, while there are a few different layout methods such as vertical arrangement, mirrored
+arrangement, overlaid, and animation. Previous studies~\cite{Ondov19} show that animation performs well in identifying the largest difference and we will conduct studies to learn how well our palette works in this setting. 
+
+Third, plotting difference between two compared data series is a widely used method~\cite{Gleicher11}. This method might work well for bar and line charts, but the difference between two scatterplots is hard to be visualized in a meaningful way. Plotting multiple classes with facets~\cite{wickham2009elegant} can bypass this issue, but it requires large space when the number of classes is large. We will study and compare the effectiveness of these methods with different sized data.
+
 Last, while we only studied the interaction effect between change magnitude and different colorization methods, we plan to investigate how this effect is influenced by different types of changes, such as point number, center position and shape.
 The order of rendering is critical for comparison task and we treat it simply in this paper by rendering less important classes first. But when there are multiple important large classes at same positions, the less important class might be overlapped and hard to distinct. Thus a professional render order algorithm is necessary for multi-class scatterplot rendering.

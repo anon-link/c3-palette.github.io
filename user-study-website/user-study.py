@@ -3,6 +3,7 @@ import random
 import string
 import os
 import copy
+import json
 
 from trials_data import trials_data, training_data, distractors_data
 
@@ -13,8 +14,8 @@ from flask import Flask, request, render_template, redirect, url_for, make_respo
 app = Flask(__name__)
 executor = ThreadPoolExecutor(2)
 
-taskId = 1
-taskNames = ["coSaliency", "coSeparability"]
+taskId = 2
+taskNames = ["coSaliency", "coSeparability", "barchart"]
 print("task is ", taskNames[taskId])
 
 groupId = 0  # random.randint(0, len(pairs_array)-1)
@@ -118,6 +119,12 @@ def consent_info():
             str(request.form['workerId']) + '.csv'
         executor.submit(append_to_file, 'results/'+filename,
                         ','.join(("userName", "fileId", "conditionId", "changeMagnitude", "changeType", "userResult", "totalTime")))
+
+    if taskId == 2:
+        filename = 'barchart_task_result-' + \
+            str(request.form['workerId']) + '.csv'
+        executor.submit(append_to_file, 'results/'+filename,
+                        ','.join(("userName", "conditionId", "testId", "titer", "userResult")))
 
     return resp
 
@@ -240,6 +247,36 @@ def experiment2_training(training_id=1):
                            options=scatterplot_options,
                            training_num=training_trials_number)
 
+################################
+# barchart Task
+################################
+@app.route('/result/3', methods=['POST'])
+def write_result_to_disk3():
+    filename = 'barchart_task_result-' + \
+        request.cookies.get('username') + '.csv'
+
+    result = json.loads(request.form.get('result'))  # default value 0
+    
+    for trial in result:
+        executor.submit(append_to_file, 'results/'+filename, ','.join((request.cookies.get('username'), str(trial["condition_id"]), str(trial["test_id"]), str(trial["curr_t"]), str(trial["result"]))))
+
+    return url_for('experimentForm')
+
+
+@app.route('/experiment/3/')
+def experiment3():
+    return render_template('barchart-test.html')
+
+@app.route('/start')
+def experimentStart():
+    return render_template('start_experiment.html', taskName=taskNames[taskId])
+
+@app.route('/form')
+def experimentForm():
+    return render_template('form.html')
+################################
+# process functions
+################################
 
 @app.route('/thankyou')
 def thankyou():
@@ -253,6 +290,8 @@ def userstudy():
 
 @app.route('/instruction')
 def instruction():
+    if taskId==2:
+        return render_template('barchart-train.html')
     html_name = 'instruction.html'
     return render_template(html_name, trialsNum=len(scatterplots_data), taskName=taskNames[taskId])
 
