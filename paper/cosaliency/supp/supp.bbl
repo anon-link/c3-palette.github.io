@@ -1,0 +1,22 @@
+\begin{thebibliography}{1}
+
+\bibitem{gapminder}
+Gapminder.
+\newblock The gapminder visualization system.
+\newblock \url{https://www.gapminder.org/data/}.
+
+\bibitem{Wang2018}
+Y.~Wang, X.~Chen, T.~Ge, C.~Bao, M.~Sedlmair, C.-W. Fu, O.~Deussen, and
+  B.~Chen.
+\newblock Optimizing color assignment for perception of class separability in
+  multiclass scatterplots.
+\newblock {\em IEEE Transactions on Visualization and Computer Graphics},
+  25(1):820--829, 2019. doi: {{%
+10\hspace{.1pt}\discretionary{.}{%
+}{.}\hspace{.4pt}1109\discretionary{/}{%
+}{/}TVCG\hspace{.1pt}\discretionary{.}{%
+}{.}\hspace{.4pt}2018\hspace{.1pt}\discretionary{.}{%
+}{.}\hspace{.4pt}2864912}}
+
+
+\end{thebibliography}

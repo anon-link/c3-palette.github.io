@@ -14,3 +14,4 @@ user-data-analysis/.Rhistory
 *.svn-base
 paper/cosaliency/.svn
 *.svg
+user-data-analysis/results

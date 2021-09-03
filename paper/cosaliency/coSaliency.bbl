@@ -2,7 +2,7 @@
 %%% Do NOT edit. File created by BibTeX with style
 %%% ACM-Reference-Format-Journals [18-Jan-2012].
 
-\begin{thebibliography}{48}
+\begin{thebibliography}{47}
 
 %%% ====================================================================
 %%% NOTE TO THE USER: you can override these defaults by providing
@@ -315,22 +315,6 @@
 \newblock
 \urldef\tempurl%
 \url{https://doi.org/10.1145/2207676.2208547}
-\showDOI{\tempurl}
-
-
-\bibitem[\protect\citeauthoryear{Hurter, Serrurier, Alonso, Tabart, and
-  Vinot}{Hurter et~al\mbox{.}}{2010}]%
-        {Hurter10}
-\bibfield{author}{\bibinfo{person}{Christophe Hurter}, \bibinfo{person}{Mathieu
-  Serrurier}, \bibinfo{person}{Roland Alonso}, \bibinfo{person}{Gilles Tabart},
-  {and} \bibinfo{person}{Jean-Luc Vinot}.} \bibinfo{year}{2010}\natexlab{}.
-\newblock \showarticletitle{An Automatic Generation of Schematic Maps to
-  Display Flight Routes for Air Traffic Controllers: structure and Color
-  Optimization}. In \bibinfo{booktitle}{\emph{Proceedings of the International
-  Conference on Advanced Visual Interfaces}}. \bibinfo{pages}{233--240}.
-\newblock
-\urldef\tempurl%
-\url{https://doi.org/10.1145/1842993.1843034}
 \showDOI{\tempurl}
 
 

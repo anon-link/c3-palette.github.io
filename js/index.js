@@ -288,9 +288,9 @@ function appendScatterplot() {
 
 function appendBarchart() {
   let used_palette = doColorization();
-  // let sigma = Tableau_20_palette.slice()
-  // shuffle(sigma)
-  // used_palette = sigma.slice(0, used_palette.length);
+  let sigma = Tableau_20_palette.slice()
+  shuffle(sigma)
+  used_palette = sigma.slice(0, used_palette.length);
   for (let i = 0; i < source_datasets.length; i++) {
     let barchart_svg = d3.select("#renderDiv").append("svg")
       .attr("width", SVGWIDTH).attr("height", SVGHEIGHT);

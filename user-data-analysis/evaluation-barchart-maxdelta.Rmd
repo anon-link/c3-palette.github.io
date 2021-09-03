@@ -16,11 +16,11 @@ library(forcats)
 library(tidyverse)
 
 file_study_folder <- "./data/"#
-save_img_sign <- FALSE#TRUE#
+save_img_sign <- TRUE#FALSE#
 saveImg <- function(name){
   if(save_img_sign){
-    #ggsave(paste("results", "formal", paste(name,".pdf"), sep = "/"), width = 10, height = 6, useDingbats=FALSE)
-    ggsave(paste("results", "formal", paste(name,".pdf"), sep = "/"), width = 8, height = 4, useDingbats=FALSE)
+    ggsave(paste("results", "formal", paste(name,".pdf"), sep = "/"), width = 10, height = 6, useDingbats=FALSE)
+    #ggsave(paste("results", "formal", paste(name,".pdf"), sep = "/"), width = 8, height = 4, useDingbats=FALSE)
   }
 }
 # Generate the result table for error in the discrimination tasks.
@@ -137,6 +137,18 @@ for (file in filelist) {
   
 }
 
+# accuracy-based ourlier exclusion
+accuracy_data <- dplyr::summarise(group_by(data_total, userName), accuracy=mean(userResult))
+sd_accuracy <- sd(accuracy_data$accuracy)
+threshold <- mean(accuracy_data$accuracy)-2*sd_accuracy
+excluded_data <- accuracy_data[accuracy_data$accuracy<threshold, ]
+print(excluded_data)
+for (v in 1:nrow(excluded_data)) {
+  #print(as.character(excluded_data[v,]$userName))
+  data_total <- data_total[data_total$userName!=(as.character(excluded_data[v,]$userName)),]
+}
+  
+
 # Prep Plot Consistency
 data_total <- data_total %>%
   mutate(conditionName = conditionId)
@@ -203,13 +215,32 @@ ciplot(data, "titer", "conditionName", "Part")
 saveImg(paste(file_prefix,"titer", "conditionName", "Part",sep="-"))
 
 # mean value
-data <- dplyr::summarise(group_by(data_part, userName, conditionName), error=sum(titer)/5)
+data <- dplyr::summarise(group_by(data_part, userName, conditionName), error=mean(titer))
 #Statistical Test Results: mu~95% CI, W, p-value, d.
 # error~conditionName and time~conditionName
 df_stat_output <- stat_table_error(data,"C3-Palette Generation")
 df_stat_output <- stat_table_error(data,"C3-Palette Assignment")
 ciplot(data, "error", "conditionName", "Part-mean")
 saveImg(paste(file_prefix, "error", "conditionName", "Part-mean",sep="-"))
+
+```
+```{r}
+#draw bar plot
+file_prefix <- "barchart"
+data_total <- data_total %>%
+  mutate(count=1)
+trials_each_condition_num <- nrow(data_total[data_total$conditionName=="Random Assignment",])
+bar_data <- dplyr::summarise(group_by(data_total, conditionName, titer), frequency=sum(count)/trials_each_condition_num)
+condition_names <- c("Random Assignment", "Optimized Assignment", "Alpha Blending", "C3-Palette Assignment", "Palettailor", "C3-Palette Generation")
+
+for(i in 1:6){
+  tmp <- bar_data[bar_data$conditionName==condition_names[i],]
+  p<-ggplot(tmp, aes(x=titer, y=frequency)) +
+    geom_bar(stat = "identity", fill="#3274a1") + 
+    theme_bw()
+  print(p)
+  saveImg(paste(file_prefix, "titer", "frequency", condition_names[i],sep="-"))
+}
 
 ```
 

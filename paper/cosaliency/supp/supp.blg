@@ -1,0 +1,47 @@
+This is BibTeX, Version 0.99d (TeX Live 2017/W32TeX)
+Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
+The top-level auxiliary file: supp.aux
+The style file: abbrv-doi.bst
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Database file #1: ../cosaliency.bib
+You've used 2 entries,
+            2598 wiz_defined-function locations,
+            868 strings with 10091 characters,
+and the built_in function-call counts, 1583 in all, are:
+= -- 318
+> -- 50
+< -- 50
++ -- 71
+- -- 19
+* -- 63
+:= -- 243
+add.period$ -- 6
+call.type$ -- 2
+change.case$ -- 15
+chr.to.int$ -- 0
+cite$ -- 2
+duplicate$ -- 18
+empty$ -- 52
+format.name$ -- 18
+if$ -- 401
+int.to.chr$ -- 0
+int.to.str$ -- 2
+missing$ -- 1
+newline$ -- 19
+num.names$ -- 4
+pop$ -- 20
+preamble$ -- 1
+purify$ -- 13
+quote$ -- 0
+skip$ -- 13
+stack$ -- 0
+substring$ -- 83
+swap$ -- 2
+text.length$ -- 27
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 8
+warning$ -- 0
+while$ -- 7
+width$ -- 3
+write$ -- 52

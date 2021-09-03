@@ -20,8 +20,8 @@ file_study_folder <- "./data/formal/"
 save_img_sign <- FALSE#TRUE#
 saveImg <- function(name){
   if(save_img_sign){
-    #ggsave(paste("results", "formal", paste(name,".pdf"), sep = "/"), width = 10, height = 6, useDingbats=FALSE)
-    ggsave(paste("results", "formal", paste(name,".pdf"), sep = "/"), width = 8, height = 4, useDingbats=FALSE)
+    ggsave(paste("results", "formal", paste(name,".pdf"), sep = "/"), width = 10, height = 6, useDingbats=FALSE)
+    #ggsave(paste("results", "formal", paste(name,".pdf"), sep = "/"), width = 8, height = 4, useDingbats=FALSE)
   }
 }
 # Generate the result table for error in the discrimination tasks.

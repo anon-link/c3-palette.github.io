@@ -11,10 +11,10 @@ editor_options:
 Import packages and set global configuration variables.
 ```{r eval=FALSE}
 # Load the magic package
-source('analysis.R')
+source('../analysis.R')
 library(forcats)
 library(tidyverse)
-file_study_folder <- "./data/formal/"#"./data/"#
+file_study_folder <- "../data/pilot/"#"./data/"#
 
 save_img_sign <- FALSE#TRUE#
 saveImg <- function(name){
@@ -255,6 +255,7 @@ data_time_threshold_correct <- data_total[data_total$totalTime<=30 & data_total$
 threshold <- nrow(data_time_threshold_correct)/nrow(data_time_correct)
 cat("time threshold is ", threshold, "\n")
 print(data_total)
+print(nrow(data_total[data_total$totalTime<60, ])/nrow(data_total))
 
 ```
 

@@ -3,8 +3,8 @@ We divide previous works into those related to visual comparisons, color design 
 
 
 \subsection{Visual Comparison}
-Visual comparison is an essential part of interactive data analysis, which is regarded as a high-level ``compound task.'' Gleicher et al.~\cite{Gleicher11} provide a systematic review of techniques developed for supporting comparisons, three basic layout designs for comparative visualization are found: \emph{juxtaposition}, \emph{superposition} and \emph{explicit encoding}. Among them, juxtaposition places different datasets in \od{separate} 
-% different 
+Visual comparison is an essential part of interactive data analysis, which is regarded as a high-level ``compound task.'' Gleicher et al.~\cite{Gleicher11} provide a systematic review of techniques developed for supporting comparisons, three basic layout designs for comparative visualization are found: \emph{juxtaposition}, \emph{superposition} and \emph{explicit encoding}. Among them, juxtaposition places different datasets in \od{separate}
+% different
 views without changes to the original visualization design \od{due to its simplicity} it is used in many applications~\cite{munzner2003treejuxtaposer,Albers11,Lobo15}. However, such a design often creates cognitive burden because users need to maintain a mental image of one view for comparing it with another view~\cite{LYi21}. Recently, Ondov et al.~\cite{Ondov19} and Jardine et al.~\cite{jardine2019perceptual} evaluated the perceptual effectiveness of different layouts for the comparison of bar charts with a few low-level tasks. They show that juxtaposition is less effective for tasks like finding ``biggest delta between items''.
 Accordingly, Gleicher et al.~\cite{Gleicher11} and  L'Yi et al.~\cite{LYi21} both suggested to carefully design visual encoding for improving their effectiveness. Therefore, our method facilitates visual comparison of categorical data by improving visual search using a pop-out effect~\cite{enns1990three} induced by our proposed color mapping scheme.
 
@@ -14,11 +14,10 @@ For a complete review of color design techniques for visualization, we refer rea
 
 \vspace{1.5mm}
 \noindent\textbf{Color Mapping Optimization}. Mapping each class to a proper color selected from a given palette is particularly helpful for categorical data visualization, \od{since here no given order can be used}. %\footnote{The word ``proper'' means that the color mapping can help user discriminate each class.}
-A few %different 
+A few %different
 factors have been identified for guiding searches within such mappings.
 For example, Lin et al.~\cite{lin2013selecting} proposed to optimize the compatibility between class semantics and the assigned colors. Setlur and Stone~\cite{setlur2016linguistic} produced better results by using co-occurrence measures of color name frequencies.
-% For classes without clear semantics,  
-Hurter et al.~\cite{Hurter10} suggested to maximize perceptual color differences among close lines of a metro map \od{(classes here don't have a clear semantic meaning).}
+% For classes without clear semantics,
 Kim et al.~\cite{Kim14} incorporated color aesthetics and contrast into the optimization of color assignment for image segments.
 Recently, Wang et al.~\cite{Wang2018} proposed to maximize class discriminability based on color-based class separability, which takes into account spatial relationships between classes and the contrast with the background color.
 Once an assignment is done, the color of each class can be further optimized to better serve different purposes, such as reducing power consumption of displays~\cite{chuang2009energy} ,
@@ -31,10 +30,9 @@ Almost all these methods aim to generate effective visualizations for single dat
 %Rather than restricting the colors provided by the selected palette, the technique of color palette generation is to select colors from the color space.
 To create an appropriate categorical color palette, the commonly used approach is to select one from a library of carefully designed palettes provided by online tools (e.g. ColorBrewer~\cite{harrower2003colorbrewer}).
 Colorgorical~\cite{Gramazio17} further allows users to customize color palettes by generating them based on user-specified discriminability and preference importance.
-Chen et al.~\cite{Chen14}  suggested to directly search for proper colors in CIELAB space for maximizing class discrimination in multi-class scatterplots. Yet, they are not able to find enough colors with large color differences, because of leaving out L* channel in the optimization. \od{(Comment: maybe you say how many colors they can optimize for)}
 Recently, Palettailor~\cite{Lu21} takes a further step by automatically generating categorical palettes for different types of charts, such as scatterplots, line and bar charts.
-However, all the aforementioned methods deal with single datasets, while our work focuses on visual comparisons within multiple 
-%similarly labeled 
+However, all the aforementioned methods deal with single datasets, while our work focuses on visual comparisons within multiple
+%similarly labeled
 datasets with some changed instances.
 
 \vspace{1.5mm}
@@ -50,10 +48,10 @@ Here we briefly review visual saliency models developed for visualizations and i
 \noindent\textbf{Saliency for Visualization}.
 The human visual system enables viewers to concentrate on salient regions of an image while ignoring others. This is guided by two major factors~\cite{connor2004visual}: pre-attentive, bottom-up focus based on visual features (e.g., color, intensity and edges) and task-driven, top-down attention based on prior knowledge. %whereas the regions identified by these factors might be inconsistent in some cases.
 Numerous saliency models~\cite{borji2019salient} have been developed to mimic the bottom-up attention mechanism in computer vision.
-Most of them model image saliency as the contrast of image regions to their surroundings with low level features. Among them, the most influential one is the Itti model~\cite{Itti98}, which computes image saliency with 
+Most of them model image saliency as the contrast of image regions to their surroundings with low level features. Among them, the most influential one is the Itti model~\cite{Itti98}, which computes image saliency with
 \od{differences surrounding a central region.}
-% central surrounded differences. 
-Kim et al.~\cite{Kim06} tailored this model to increase the visual saliency of selected regions within a volume dataset.  
+% central surrounded differences.
+Kim et al.~\cite{Kim06} tailored this model to increase the visual saliency of selected regions within a volume dataset.
 %J$\ddot{a}$J
 Jänicke and Chen~\cite{Janicke10} employed Ittis model~\cite{Itti98} to define a quality metric for evaluating visualizations.
 Recently, Matzen et al.~\cite{Matzen18} evaluated a variety of saliency models on a large dataset and explored why these models work poorly for visualizations. One major reason is that visualizations are often created for specific goals, whereas existing models are based on  bottom-up attention. To overcome these weaknesses, they proposed a data visualization saliency (DVS) model by incorporating meaningful high-level features into Itti's model. However, this model is not designed on a class-level and cannot be directly used for categorical visualizations.
