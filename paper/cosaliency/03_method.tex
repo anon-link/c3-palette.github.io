@@ -1,41 +1,42 @@
 \section{Co-Saliency based Color Design}
 Given multiple categorical visualizations with the same class labels (or a subset thereof), each visualization has $m$ classes and $n_j$ data items $\{\mathbf{x}^j_1, \cdots, \mathbf{x}^j_{n_j}\}$, where each $\mathbf{x}^j_t$ has a label
 $l(\mathbf{x}^j_t)$ and the $i$-th class (with $n^j_i$ data points) consists of $\{\mathbf{x}_{i,1}^j, \cdots , \mathbf{x}_{i,n^j_i}^j\}, i \in  \{ 1, \cdots, m \} $.
-For standard bar charts and line charts, $m$ is equal to $n_j$ but often is smaller than $n_j$ in scatterplots.
-All visualizations use the same  background color $\mathbf{c}_b$ and the same color mapping scheme $\tau: L \mapsto c$. Our goal is to find the best mapping $\tau$ that supports effective comparison of multiple categorical scatterplots.
+For standard bar and line charts, $m$ is equal to $n_j$ but it is often smaller than $n_j$ for scatterplots.
+All visualizations use the same  background color $\mathbf{c}_b$ and the same color mapping scheme $\tau: L \mapsto c$. Our goal is to find the best mapping $\tau$ that supports an effective comparison of multiple categorical \od{visualizations}.
+% scatterplots.
 
-In line with the design requirements of natural image comparison and categorial data visualization ~\cite{Jacobs10,Gleicher18,Lu21},
+In line with the design requirements for natural image comparison and categorial data visualization~\cite{Jacobs10,Gleicher18,Lu21},
 %~\cite{itti1998model,cheng2014global,zhang2018review},
 our problem is formulated based on the following three design requirements:
 \begin{enumerate}[label=(\roman*),nosep]
 \item \textbf{DR1:} highlighting the most concerned classes between visualizations as much as possible for an efficient comparison;
-\item \textbf{DR2:} maximizing the visual discrimination between classes in individual visualizations for an efficient exploration of multi-class data; and
+\item \textbf{DR2:} maximizing the visual discrimination between classes in the individual visualizations for an efficient exploration of multi-class data; and
 \item \textbf{DR3:} providing flexible interactions for the exploration of relationships among the compared datasets.
 %co-salient classes should follow the principles of visual salience in individual visualizations so that the co-salient classes can be easily identified.
 \end{enumerate}
 Although visual comparison is an essential part of interactive data analysis, most of  the existing  colorization techniques~\cite{Gramazio17, Lu21} attempt to meet DR2. The key challenge in meeting DR1 is that we need a proper model to characterize the most salient features in multiple visualizations.
-To address this issue, we propose a categorical visualization co-saliency model that calculates the saliency of each data item in the context of other similar visualizations. Integrating this model into the objective of the state-of-the-art color mapping generation framework~\cite{Lu21}, we can
-generate proper color mappings to highlight salient differences between juxtaposed categorical visualizations while fostering better visual discrimination of classes.
-
+To address this issue, we propose our %a categorical visualization 
+co-saliency model that calculates the saliency of each data item in the context of other similar visualizations. Integrating this model into the objective of a state-of-the-art color mapping generation framework~\cite{Lu21}, we can
+generate proper color mappings that highlight salient differences between juxtaposed categorical visualizations while fostering a better visual discrimination of classes.
 
 \subsection{Co-saliency for Multi-class Scatterplots }
-Following the definition of image co-saliency~\cite{Jacobs10}, we model the class co-saliency with two factors: class importance between visualizations and class contrast within visualizations. The class importance describes how much each class should stand out from the visualization.
-describes how much each class stands out from neighboring classes and the background,
+Following the definition of image co-saliency~\cite{Jacobs10}, we model class co-saliency with two factors: class importance between visualizations and class contrast within visualizations. The class importance describes how much each class should stand out from the visualization.
+Class contrast describes how much each class stands out from neighboring classes and the background,
 which is similar to perceptual class separability~\cite{Aupetit02,Wang2018}. Hence,
-we define two types of class contrasts: a local contrast with neighboring classes and a background contrast with the background.
+we define two types of class contrasts: a local contrast with neighboring classes and a contrast with the background.
 
-Since point-based representation is general in 2D visualizations, we use scatterplots to illustrate our method.
-Analogous to bottom-up image co-saliency models~\cite{Jacobs10,Fu13}, the co-saliency of the $i$th class is defined as the product between class importance and  class contrast score to emphasize the target class, and the co-saliency for $M$ classes:
+Since point-based representations are very general in 2D visualization, we use scatterplots to illustrate our method.
+Analogous to bottom-up image co-saliency models~\cite{Jacobs10,Fu13}, the co-saliency of the $i$th class is defined as the product between the class importance and  class contrast scores to emphasize the target class and the co-saliency for $M$ classes:
 \begin{equation}
 % E_{CoS} = \sum_i   \sum_j (1-\lambda) \alpha^j_i  \exp(\theta_i) + \lambda \beta_i  f(\theta_i)
 E_{CoS} = \sum_i    \left(\sum_j \frac{1}{n^j_i}\bigg(\lambda \alpha^j_i\exp(\theta_i) + (1-\lambda) \beta^j_i f(\theta_i) \bigg) \right)
 	\label{eq:cosaliency}
 \end{equation}
 where $\theta_i$ is the importance of the $i$th class,
-$n^j_i$ is the number of point of the $i$th class in the $j$th scatterplot,
-$\alpha^j_i$ is the local contrast with neighboring classes of the $i$th class in the $j$th scatterplot, $\beta^j_i$  is the contrast to the background, and $\lambda$ is a weight between them. The weight $1/{n^j_i}$  is used to alleviate class imbalance  so that the classes with small numbers of points and large changes can be highlighted.
+$n^j_i$ is the number of points of the $i$th class in the $j$th scatterplot,
+$\alpha^j_i$ is the local contrast with the neighboring classes of the $i$th class in the $j$th scatterplot, $\beta^j_i$  is the contrast of the class to the background, and $\lambda$ is the weight between them. The weight $1/{n^j_i}$  is used to alleviate class imbalances  so that  classes with small numbers of points and large changes can be highlighted.
 
-To better support DR1, we apply an exponential function to enlarge the weight of class structure changes, while using a piecewise function to weight the background contrast:
+To better support DR1, we apply an exponential function to enlarge the weight of structural class changes, while using a piecewise function weighting the background contrast:
 \begin{align}
 f(\theta_i) =  \left\{ \begin{array}{ll}
 \exp(\theta_i) & \textrm{if $\theta_i>\kappa$}\\
@@ -43,8 +44,7 @@ f(\theta_i) =  \left\{ \begin{array}{ll}
 \end{array} \right.
 \label{eq:energyfunc}
 \end{align}
-$\kappa$ is a user-specified threshold with the default zero. The reason for the two different weighting schemes is that classes with less or no changes might be treated as the background by viewers~\cite{zhang2018review}. To suppress the saliency of such classes, we introduce a negative importance for them.
-
+$\kappa$ is a user-specified threshold with a default of zero. The reason for the two different weighting schemes is that classes with less or no changes might be treated as the background by viewers~\cite{zhang2018review}. To suppress the saliency of such classes, we introduce a negative importance for them.
 
 \vspace{2mm}
 \noindent\textbf{Local Contrast}.
@@ -53,18 +53,18 @@ $\kappa$ is a user-specified threshold with the default zero. The reason for the
 %refer to Lu et al.~\cite{Lu21} for more details.
 %Given the data point $\mathbf{x}^j_t$, its distinctness is defined as the sum of the color differences from its neighbourhoods weighted by the inverse Euclidean distance.
 %Then, the distinctness of the $i$th class is the sum of all points with the same class label in the scatterplot, which is further normalized by ${n^j_i}$.  
-Given the $j$th scatterplot, we define the local class contrast based on the $\alpha$-shape based point distinctness~\cite{Lu21}.  For each data point $\mathbf{x}^j_t$, we define its point distinctness value as:
+Given the $j$th scatterplot, we define the local class contrast based on the $\alpha$-shape based point distinctness~\cite{Lu21}.  For each data point $\mathbf{x}^j_t$, we define its point distinctness  as:
 \begin{align}
  \gamma (\mathbf{x}^j_t)=\frac{1}{|\Omega^j_t|} \sum_{\mathbf{x}^j_p \in \Omega^j_t}  \frac{\Delta\epsilon(\tau(l(\mathbf{x}^j_t)),\tau(l(\mathbf{x}^j_p)))}{d(\mathbf{x}^j_t,\mathbf{x}^j_p)} \nonumber ,
 \end{align}
-where $\Omega^j_t$ is set of $k$ nearest neighbors of $\mathbf{x}^j_t$, $\tau(l(\mathbf{x}^j_p))$ is the color of $\mathbf{x}^j_p$,  $d$ is the Euclidean distance and $\Delta\epsilon$ is CIELAB color distance.
+where $\Omega^j_t$ is set of $k$ nearest neighbors of $\mathbf{x}^j_t$, $\tau(l(\mathbf{x}^j_p))$ is the color of $\mathbf{x}^j_p$,  $d$ is the Euclidean distance and $\Delta\epsilon$ is the CIELAB color distance.
 For the $i$th class, its local contrast is the sum of all points with the same class label in the scatterplot:
 \begin{align}\label{eq:nc}
  \phi^j_i = \frac{1}{n_j}\sum^{n_j}_{p}\gamma(\mathbf{x}^j_p) \delta(l(\mathbf{x}^j_p),i)
 \end{align}
 where $\delta(l(\mathbf{x}^j_p),i)$ is one if the class label $l(\mathbf{x}^j_p)$ is $i$ and else zero.
 
-If one class overlaps with different classes, the local contrast value is high and the value is small for a well separated class. Hence, the black class in two scatterplots shown in Fig.~\ref{fig:map}(a) both has a low contrast value (see Fig.~\ref{fig:map}(b)) and the cyan class has a large value.
+If a class overlaps with different classes, the local contrast value will be high and the value will be small for a well separated class. Hence, the black class  in the  two scatterplots shown in Fig.~\ref{fig:map}(a)  has a low contrast value (see Fig.~\ref{fig:map}(b)) and the cyan class has a large value.
 
 
 %\begin{align}\label{eq:pdc}
@@ -84,6 +84,8 @@ If one class overlaps with different classes, the local contrast value is high a
 % \alpha^j_i  = \phi^j_i  + \omega \varphi^j_i,
 %\end{align}
 %where the weight $\omega$ is 1.0 in our experiment.
+
+\od{\large edited until here}
 
 \vspace{2mm}
 \noindent\textbf{Background Contrast}.

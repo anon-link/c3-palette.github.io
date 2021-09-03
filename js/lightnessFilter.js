@@ -42,7 +42,7 @@ var lightnessFilterBar = d3.select('#lightnessFilterBar').attr("width", 180).att
     .attr('height', 2 * m_height / 3);
 
   let lightness_high = 95,
-    lightness_low = 45;
+    lightness_low = 55;
 
   var dragExtent = lightnessFilterBar_group.append('rect')
     .attr("x", stripeX(lightness_low))

@@ -14,7 +14,7 @@ Import packages and set global configuration variables.
 source('analysis.R')
 library(forcats)
 library(tidyverse)
-file_study_folder <- "./data/"#"./data/formal/"
+file_study_folder <- "./data/formal/"#"./data/"#
 
 save_img_sign <- FALSE#TRUE#
 saveImg <- function(name){

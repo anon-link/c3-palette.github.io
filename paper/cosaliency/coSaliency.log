@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/W32TeX) (preloaded format=pdflatex 2018.3.31)  3 SEP 2021 00:13
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/W32TeX) (preloaded format=pdflatex 2018.3.31)  3 SEP 2021 11:27
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1159,10 +1159,10 @@ LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
 (Font)              scaled to size 10.95pt on input line 160.
 LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/m/n' will be
 (Font)              scaled to size 10.95pt on input line 160.
-<figures/teaser5.pdf, id=87, 2539.55783pt x 914.04787pt>
-File: figures/teaser5.pdf Graphic file (type pdf)
-<use figures/teaser5.pdf>
-Package pdftex.def Info: figures/teaser5.pdf  used on input line 160.
+<figures/teaser6.pdf, id=87, 2539.55783pt x 914.04787pt>
+File: figures/teaser6.pdf Graphic file (type pdf)
+<use figures/teaser6.pdf>
+Package pdftex.def Info: figures/teaser6.pdf  used on input line 160.
 (pdftex.def)             Requested size: 430.00462pt x 154.75845pt.
 LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/m/n' will be
 (Font)              scaled to size 9.0pt on input line 160.
@@ -1213,24 +1213,24 @@ LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/b/n' will be
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
 (Font)              scaled to size 6.0pt on input line 6.
  [1.1{d:/Installation_position/texlive/2017/texmf-var/fonts/map/pdftex/updmap/p
-dftex.map} <./figures/teaser5.pdf>]
+dftex.map} <./figures/teaser6.pdf>]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/m/n' will be
-(Font)              scaled to size 7.0pt on input line 35.
+(Font)              scaled to size 7.0pt on input line 41.
  [2.2]
 LaTeX Font Info:    Font shape `OT1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 9.0pt on input line 48.
+(Font)              scaled to size 9.0pt on input line 54.
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 7.3pt on input line 48.
+(Font)              scaled to size 7.3pt on input line 54.
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 5.5pt on input line 48.
+(Font)              scaled to size 5.5pt on input line 54.
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/b/n' will be
-(Font)              scaled to size 9.0pt on input line 48.
+(Font)              scaled to size 9.0pt on input line 54.
 )
 (./02_related.tex
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/it' will be
-(Font)              scaled to size 9.0pt on input line 7.
+(Font)              scaled to size 9.0pt on input line 6.
  [3.3]
 
 Class acmart Warning: \vspace should only be used to provide space above/below 
@@ -1238,11 +1238,11 @@ surrounding objects on input line 15.
 
 
 Class acmart Warning: \vspace should only be used to provide space above/below 
-surrounding objects on input line 27.
+surrounding objects on input line 29.
 
 
 Class acmart Warning: \vspace should only be used to provide space above/below 
-surrounding objects on input line 37.
+surrounding objects on input line 40.
 
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
@@ -1250,11 +1250,11 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
  [4.4]
 
 Class acmart Warning: \vspace should only be used to provide space above/below 
-surrounding objects on input line 48.
+surrounding objects on input line 49.
 
 
 Class acmart Warning: \vspace should only be used to provide space above/below 
-surrounding objects on input line 59.
+surrounding objects on input line 62.
 
 ) (./03_method.tex
 LaTeX Font Info:    Font shape `OT1/LinuxLibertineT-TLF/sb/n' will be
@@ -1272,30 +1272,30 @@ surrounding objects on input line 49.
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [6.6]
+LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
+(Font)              scaled to size 10.0pt on input line 88.
+
 
 Class acmart Warning: \vspace should only be used to provide space above/below 
-surrounding objects on input line 88.
+surrounding objects on input line 90.
 
 
 Class acmart Warning: \vspace should only be used to provide space above/below 
-surrounding objects on input line 130.
+surrounding objects on input line 132.
 
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [7.7]
+[7.7]
 <figures/saliencymap.pdf, id=307, 2039.96124pt x 843.6047pt>
 File: figures/saliencymap.pdf Graphic file (type pdf)
 <use figures/saliencymap.pdf>
-Package pdftex.def Info: figures/saliencymap.pdf  used on input line 150.
+Package pdftex.def Info: figures/saliencymap.pdf  used on input line 152.
 (pdftex.def)             Requested size: 430.00462pt x 177.8187pt.
 
 
-Class acmart Warning: A possible image without description on input line 154.
+Class acmart Warning: A possible image without description on input line 156.
 
 
 Class acmart Warning: \vspace should only be used to provide space above/below 
-surrounding objects on input line 155.
+surrounding objects on input line 157.
 
 ) (./04_colormap.tex
 <figures/colorbrewer.pdf, id=314, 1669.32655pt x 432.86017pt>
@@ -1509,11 +1509,11 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 19940 strings out of 492982
- 314271 string characters out of 6125995
- 438769 words of memory out of 5000000
- 22193 multiletter control sequences out of 15000+600000
- 263102 words of font info for 583 fonts, out of 8000000 for 9000
+ 19955 strings out of 492982
+ 314666 string characters out of 6125995
+ 438779 words of memory out of 5000000
+ 22195 multiletter control sequences out of 15000+600000
+ 269182 words of font info for 591 fonts, out of 8000000 for 9000
  1302 hyphenation exceptions out of 8191
  60i,19n,94p,1275b,659s stack positions out of 5000i,500n,10000p,200000b,80000s
 {d:/Installation_position/texlive/2017/texmf-dist/fonts/enc/dvips/libertine/l
@@ -1546,10 +1546,10 @@ xlive/2017/texmf-dist/fonts/type1/public/txfonts/txsyb.pfb><d:/Installation_pos
 ition/texlive/2017/texmf-dist/fonts/type1/public/newtx/txsys.pfb><d:/Installati
 on_position/texlive/2017/texmf-dist/fonts/type1/public/newtx/zxlr.pfb><d:/Insta
 llation_position/texlive/2017/texmf-dist/fonts/type1/public/newtx/zxlri.pfb>
-Output written on coSaliency.pdf (22 pages, 7917054 bytes).
+Output written on coSaliency.pdf (22 pages, 7922104 bytes).
 PDF statistics:
  886 PDF objects out of 1000 (max. 8388607)
  649 compressed objects within 7 object streams
  119 named destinations out of 1000 (max. 500000)
- 67801 words of extra memory for PDF output out of 74296 (max. 10000000)
+ 71897 words of extra memory for PDF output out of 74296 (max. 10000000)
 
