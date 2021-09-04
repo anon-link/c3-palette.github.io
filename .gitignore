@@ -14,4 +14,5 @@ user-data-analysis/.Rhistory
 *.svn-base
 paper/cosaliency/.svn
 *.svg
-user-data-analysis/results
+user-data-analysis/results/formal
+user-data-analysis/results/pilot
