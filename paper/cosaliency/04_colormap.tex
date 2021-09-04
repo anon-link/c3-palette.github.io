@@ -64,6 +64,9 @@ The importance threshold $\kappa$ selects classes with large importance to be hi
 With a default value of zero, all classes with an importance value larger than zero are ensured to be highlighted. Likewise, a large $\kappa$ will de-emphasize classes with a small importance.
 We further allow users to specify $\kappa$ by interaction through a widget in our interactive application. %(see Sec.~\ref{sec:interaction}).
 
+Note that our optimization inherently works for more than two categorical visualizations and the data with many classes. Since our contrast measures are built on the data-space nearest neighbour graphs, its produced palettes also work well for scatterplots with significant overlap between classes (see Fig.1 in the supplemental material).
+
+
 %\begin{figure}[h]
 %\centering
 %\includegraphics[width=0.8\textwidth]{figures/nij.pdf}

@@ -5,6 +5,19 @@ Gapminder.
 \newblock The gapminder visualization system.
 \newblock \url{https://www.gapminder.org/data/}.
 
+\bibitem{Lu21}
+K.~{Lu}, M.~{Feng}, X.~{Chen}, M.~{Sedlmair}, O.~{Deussen}, D.~{Lischinski},
+  Z.~{Cheng}, and Y.~{Wang}.
+\newblock Palettailor: discriminable colorization for categorical data.
+\newblock {\em IEEE Transactions on Visualization and Computer Graphics},
+  27(2):475--484, 2021. doi: {{%
+10\hspace{.1pt}\discretionary{.}{%
+}{.}\hspace{.4pt}1109\discretionary{/}{%
+}{/}TVCG\hspace{.1pt}\discretionary{.}{%
+}{.}\hspace{.4pt}2020\hspace{.1pt}\discretionary{.}{%
+}{.}\hspace{.4pt}3030406}}
+
+
 \bibitem{Wang2018}
 Y.~Wang, X.~Chen, T.~Ge, C.~Bao, M.~Sedlmair, C.-W. Fu, O.~Deussen, and
   B.~Chen.

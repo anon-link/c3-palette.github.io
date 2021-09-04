@@ -130,7 +130,7 @@ for (file in filelist) {
   
   for(i in 1:6){
     data_group <- data_total[data_total$conditionId==(i-1),]
-    #data_group <- data_group[order(data_group$testId)]
+    data_group <- data_group[order(data_group$testId), ]
     last_rows <- tail(data_group, n=5)
     data_part <- rbind(data_part, last_rows)
   }
