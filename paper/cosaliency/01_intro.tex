@@ -7,7 +7,7 @@ While color codings are known to play an important role in helping viewers see d
 %For example, a market analyst
 A typical scenario would be  a market analyst who uses comparisons to
 %examines the annual and monthly profits of various products in these countries with bar and line charts, respectively. Using the product name for color encoding, he is able to  efficiently search the product with the largest differences from side-by-side \od{shown} bar and line charts.
-investigate the performance of a company across different countries over the last two years.
+investigate the performance of a company across different countries over the last couple years.
 \od{S/he first would create a scatterplot for each year by showing the annual revenue and profit of each product by colorizing each point of the plot with a country label.
 After finding the two countries with the largest changes, s/he then examines the annual and monthly profits of various products in these countries with bar and line charts. Using the product name for color encoding, s/he is able to  efficiently search the product with the largest differences from side-by-side shown bar and line charts}.
 
@@ -23,19 +23,19 @@ As far as we know, few existing visualization-oriented color selection tools (e.
 %There are two simple ways to assist comparison task, one is using alpha-blending to highlight concerned classes, the other is using faceting by groups with the groups highlighted on top of all the cases~\cite{}\lk{These two are the alternatives the reviewer asked to compare.}. These two methods only cared about highlighting the concerned classes while make other classes invisible or hard to discriminate. However, user might want to explore one of the scatterplot. In this situation, alpha-blending need to set all classes' opacity back to 1.0 while facet need to show other classes to previous colors which might confuse people. As far as we know, there does not exist a method that unifies both highlighting important parts while maintaining good class separability for comparison task.
 
 To fill this gap, we propose a comparison-driven color palette generation framework, which automatically generates appropriate color mappings for efficiently searching the largest \od{differences} from one categorical visualization to another.
-To achieve this goal, we propose a co-saliency model to characterize the most salient features among juxtaposed categorical visualizations that are likely to attract visual attention. We borrow the idea from the concept of image co-saliency~\cite{Jacobs10}, which was originally designed for summarizing salient differences between two similar natural images. 
+To achieve this goal, we propose a co-saliency model to characterize the most salient features among juxtaposed categorical visualizations that are likely to attract visual attention. We borrow the idea from the concept of image co-saliency~\cite{Jacobs10}, which was originally designed for summarizing salient differences between two similar natural images.
 %  by fusing image changes and single image saliency together.
-% In line with this, we devise 
+% In line with this, we devise
 Our co-saliency model allows to easily identify important features (e.g., changed classes) from juxtaposed categorical visualizations while maximizing the visual discrimination of classes in the individual visualizations. \od{It is achieved by fusing \od{two separate goals}: class importance between visualizations and class contrast within them.} Class contrast is based on perceptual separability \od{between}
 % with
 neighboring classes and with the background~\cite{Wang2018}, while
 class \od{importance}
 % change
-is measured by summing up the changes of point positions and point numbers  of each class, where the position change is quantified by using the Earth Mover's Distance (EMD)~\cite{rubner2000earth}, a perceptual distance metric.  
+is measured by summing up the changes of point positions and point numbers  of each class, where the position change is quantified by using the Earth Mover's Distance (EMD)~\cite{rubner2000earth}, a perceptual distance metric.
 Classes with large importance and small class separability (strong overlap with other classes) are more co-salient, while classes with small importance or large separability (more compact) are less co-salient.
 
 By integrating our co-saliency model into existing categorical data colorization tools~\cite{Lu21}, we can automatically generate color mappings that maximize co-saliency among juxtaposed visualizations. The resulting color mapping schemes let classes with large importance pop out from the context and will attract viewers' attention,  while at the same time maximizing the perceptual separability between classes in the individual visualizations. By doing so,
-the major issue of a juxtaposition, that human have limited visual memory (see~\cite{Tominski12}), is greatly alleviated and visual searches can be performed with less cognitive costs~\cite{healey1995visualizing}. 
+the major issue of a juxtaposition, that human have limited visual memory (see~\cite{Tominski12}), is greatly alleviated and visual searches can be performed with less cognitive costs~\cite{healey1995visualizing}.
 %
 The top of Fig.~\ref{fig:teaser} shows the results generated by our colorization method, where the changed classes pop out and can easier be spotted than the ones in the bottom of Fig.~\ref{fig:teaser}. Our results are similar to the ones of alpha blending, but still maintain the separability between classes due to the different hues.
 
@@ -51,7 +51,7 @@ Next, we carried out studies with multi-class scatterplots generated by Lu et al
 Lastly, we conducted a case study to demonstrate how our system helps comparing juxtaposed visualizations with multiple line charts.}
 The results show that our approach is able to produce color mappings optimized for supporting comparison and aligned with the state-of-the-art palettes in maximizing perceptual class separability.
 
-A web-based color design tool, \toolname-palette\footnote{\small \url{https://c3-palette.github.io/}}, named by \textbf{C}o-saliency based \textbf{C}olorization for \textbf{C}omparing multi-class scatterplots, allows to show coordinated views and let users  explore the relationship between multiple data sets with different color mapping schemes. 
+A web-based color design tool, \toolname-palette\footnote{\small \url{https://c3-palette.github.io/}}, named by \textbf{C}o-saliency based \textbf{C}olorization for \textbf{C}omparing multi-class scatterplots, allows to show coordinated views and let users  explore the relationship between multiple data sets with different color mapping schemes.
 %Inspired by volume visualization~\cite{kindlmann1998semi}, we provide a transfer function view for users to highlight different classes of interest.
 %First, users can specify some classes of interest like the ones with subtle differences and our approach can generate  color mappings with the maximized co-saliency for these classes.
 %Second, users might prefer specific colors for some classes based on semantics and accordingly our approach generates color mapping schemes that meet these constraints.

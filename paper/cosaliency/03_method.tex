@@ -25,7 +25,7 @@ Class contrast describes how much each class stands out from neighboring classes
 which is similar to perceptual class separability~\cite{Aupetit02,Wang2018}. Hence,
 we define two types of class contrasts: a local contrast with neighboring classes and a contrast with the background.
 
-Since point-based representations are very general in 2D visualization, we use two ($M=2$) horizonally juxtaposed scatterplots to illustrate our method.
+Since point-based representations are very general in 2D visualization, we use two ($M=2$) horizontally juxtaposed scatterplots to illustrate our method.
 Analogous to bottom-up image co-saliency models~\cite{Jacobs10,Fu13}, the co-saliency of the $i$th class is defined as the product between the class importance and  class contrast scores to emphasize the target class and the co-saliency for $M$ classes:
 \begin{equation}
 % E_{CoS} = \sum_i   \sum_j (1-\lambda) \alpha^j_i  \exp(\theta_i) + \lambda \beta_i  f(\theta_i)
