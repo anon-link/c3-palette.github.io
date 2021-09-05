@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/W32TeX) (preloaded format=pdflatex 2018.3.31)  4 SEP 2021 21:18
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/W32TeX) (preloaded format=pdflatex 2018.3.31)  5 SEP 2021 15:42
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1410,11 +1410,11 @@ Class acmart Warning: \vspace should only be used to provide space above/below
 surrounding objects on input line 251.
 
 [16.16 <./figures/user-result-formal-variables.pdf>]) (./07_caseStudy.tex
-<figures/interface.pdf, id=562, 2675.4253pt x 1303.28912pt>
+<figures/interface.pdf, id=562, 3012.29395pt x 1303.28912pt>
 File: figures/interface.pdf Graphic file (type pdf)
 <use figures/interface.pdf>
 Package pdftex.def Info: figures/interface.pdf  used on input line 6.
-(pdftex.def)             Requested size: 430.00462pt x 209.46518pt.
+(pdftex.def)             Requested size: 430.00462pt x 186.03882pt.
 
 
 Class acmart Warning: A possible image without description on input line 10.
@@ -1427,8 +1427,10 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 Class acmart Warning: \vspace should only be used to provide space above/below 
 surrounding objects on input line 30.
 
-[18.18 <./figures/interface.pdf>]) (./08_conclusion.tex [19.19])
-(./coSaliency.bbl
+[18.18 <./figures/interface.pdf>]) (./08_conclusion.tex) (./coSaliency.bbl
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [19.19]
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/it' will be
 (Font)              scaled to size 7.0pt on input line 48.
 LaTeX Info: Redefining \tempurl on input line 66.
@@ -1453,11 +1455,11 @@ LaTeX Info: Redefining \tempurl on input line 380.
 LaTeX Info: Redefining \tempurl on input line 396.
 LaTeX Info: Redefining \tempurl on input line 412.
 LaTeX Info: Redefining \tempurl on input line 426.
+LaTeX Info: Redefining \tempurl on input line 442.
 
-Underfull \vbox (badness 10000) has occurred while \output is active []
+Underfull \vbox (badness 2478) has occurred while \output is active []
 
  [20.20]
-LaTeX Info: Redefining \tempurl on input line 442.
 LaTeX Info: Redefining \tempurl on input line 460.
 LaTeX Info: Redefining \tempurl on input line 489.
 LaTeX Info: Redefining \tempurl on input line 508.
@@ -1496,11 +1498,11 @@ LaTeX Warning: There were multiply-defined labels.
 Here is how much of TeX's memory you used:
  19937 strings out of 492982
  313982 string characters out of 6125995
- 438710 words of memory out of 5000000
+ 439414 words of memory out of 5000000
  22185 multiletter control sequences out of 15000+600000
  267862 words of font info for 596 fonts, out of 8000000 for 9000
  1302 hyphenation exceptions out of 8191
- 60i,19n,94p,1367b,651s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 60i,19n,94p,1367b,653s stack positions out of 5000i,500n,10000p,200000b,80000s
 {d:/Installation_position/texlive/2017/texmf-dist/fonts/enc/dvips/libertine/l
 btn_25tcsq.enc}{d:/Installation_position/texlive/2017/texmf-dist/fonts/enc/dvip
 s/newtx/libertinealt.enc}{d:/Installation_position/texlive/2017/texmf-dist/font
@@ -1531,10 +1533,10 @@ xlive/2017/texmf-dist/fonts/type1/public/txfonts/txsyb.pfb><d:/Installation_pos
 ition/texlive/2017/texmf-dist/fonts/type1/public/newtx/txsys.pfb><d:/Installati
 on_position/texlive/2017/texmf-dist/fonts/type1/public/newtx/zxlr.pfb><d:/Insta
 llation_position/texlive/2017/texmf-dist/fonts/type1/public/newtx/zxlri.pfb>
-Output written on coSaliency.pdf (21 pages, 7154252 bytes).
+Output written on coSaliency.pdf (21 pages, 7363000 bytes).
 PDF statistics:
- 822 PDF objects out of 1000 (max. 8388607)
- 610 compressed objects within 7 object streams
+ 932 PDF objects out of 1000 (max. 8388607)
+ 665 compressed objects within 7 object streams
  114 named destinations out of 1000 (max. 500000)
  67788 words of extra memory for PDF output out of 74296 (max. 10000000)
 
