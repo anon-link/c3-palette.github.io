@@ -1,0 +1,378 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: inline
+---
+# ---------------------------------------------------------
+# This is the analysis for the study, mainly contains: interaction effect, confident interval, time plot
+# ---------------------------------------------------------
+
+# Preparation
+Import packages and set global configuration variables.
+```{r eval=FALSE}
+# Load the magic package
+source('analysis.R')
+library(forcats)
+library(tidyverse)
+
+file_study_folder <- "./data/pilot/"
+save_img_sign <- TRUE#FALSE#
+saveImg <- function(name){
+  if(save_img_sign){
+    ggsave(paste("results", "pilot", paste(name,".pdf"), sep = "/"), width = 10, height = 6, useDingbats=FALSE)
+    #ggsave(paste("results", "formal", paste(name,".pdf"), sep = "/"), width = 8, height = 4, useDingbats=FALSE)
+  }
+}
+# Generate the result table for error in the discrimination tasks.
+stat_table_error <- function(data, compared_condition) {
+  print(attr)
+  columns <- c("Condition", "μ~95%CI", "W", "p-value", "d")
+  conditions <- levels(data$conditionName) %>% rev
+  print(conditions)
+  df_stats <- matrix("", ncol = length(columns), nrow = length(conditions)) %>% 
+    data.frame() %>% 
+    mutate_if(is.factor, as.character)
+  names(df_stats) <- columns
+  df_stats$Condition <- conditions
+  print(conditions)
+  
+  for (index in 1:length(conditions)) {
+    current_condition <- conditions[index]
+    sub_data_one_group <- data %>% filter(conditionName==current_condition)
+    # 95%CI
+    df_stats[index, "μ~95%CI"] <- reportCI(sub_data_one_group, "error")
+    
+    if(current_condition != compared_condition) {
+      sub_data_two_groups <- data %>% filter(conditionName==compared_condition | conditionName==current_condition)
+      # W test
+      wt <- wilcox.test(error ~ conditionName, 
+                        data = sub_data_two_groups, 
+                        conf.int=TRUE)
+      df_stats[index, "W"] <- as.character(wt$statistic)
+      df_stats[index, "p-value"] <- format(wt$p.value, format = "e", digits = 2)
+      
+      # alternative report: with breaks.
+      # if(wt$p.value < 0.05) { df_stats[index, "p-value"] <- "< 0.05"}
+      # if(wt$p.value < 0.01) { df_stats[index, "p-value"] <- "< 0.01"}
+      # if(wt$p.value < 0.001) { df_stats[index, "p-value"] <- "< 0.001"}
+      # else { df_stats[index, "p-value"] <- "≥ 0.05" }
+      
+      # Effect size
+      df_stats[index, "d"] <- reportES(sub_data_two_groups, "error", "conditionName")
+    }
+  }
+  print(df_stats)
+  
+  return(df_stats)
+}
+# Generate the result table for time in the discrimination tasks.
+stat_table_time <- function(data, compared_condition) {
+  print(attr)
+  columns <- c("Condition", "μ~95%CI", "W", "p-value", "d")
+  conditions <- levels(data$conditionName) %>% rev
+  print(conditions)
+  df_stats <- matrix("", ncol = length(columns), nrow = length(conditions)) %>% 
+    data.frame() %>% 
+    mutate_if(is.factor, as.character)
+  names(df_stats) <- columns
+  df_stats$Condition <- conditions
+  print(conditions)
+  
+  for (index in 1:length(conditions)) {
+    current_condition <- conditions[index]
+    sub_data_one_group <- data %>% filter(conditionName==current_condition)
+    # 95%CI
+    df_stats[index, "μ~95%CI"] <- reportCI(sub_data_one_group, "totalTime")
+    
+    if(current_condition != compared_condition) {
+      sub_data_two_groups <- data %>% filter(conditionName==compared_condition | conditionName==current_condition)
+      # W test
+      wt <- wilcox.test(totalTime ~ conditionName, 
+                        data = sub_data_two_groups, 
+                        conf.int=TRUE)
+      df_stats[index, "W"] <- as.character(wt$statistic)
+      df_stats[index, "p-value"] <- format(wt$p.value, format = "e", digits = 2)
+      
+      # alternative report: with breaks.
+      # if(wt$p.value < 0.05) { df_stats[index, "p-value"] <- "< 0.05"}
+      # if(wt$p.value < 0.01) { df_stats[index, "p-value"] <- "< 0.01"}
+      # if(wt$p.value < 0.001) { df_stats[index, "p-value"] <- "< 0.001"}
+      # else { df_stats[index, "p-value"] <- "≥ 0.05" }
+      
+      # Effect size
+      df_stats[index, "d"] <- reportES(sub_data_two_groups, "totalTime", "conditionName")
+    }
+  }
+  print(df_stats)
+  
+  return(df_stats)
+}
+
+```
+
+
+
+# Task: co-separability
+## Import and pre-process the user data
+```{r}
+# Get the list of files.
+file_path <- paste(file_study_folder, "co-separability", "", sep = "/")
+filelist <- list.files(path = file_path, pattern = '*coSeparability.*?\\.csv$')
+
+# Compute data_total
+data_total <- rbind()
+total_time <- c()
+for (file in filelist) {
+  print(file)
+  # read data
+  data_temp <- read.csv(paste(file_path, file, sep = ""), header = TRUE) %>%
+    # Remove duplicated rows with extremely long time
+    filter(totalTime < 1000)
+
+  # Remove another type of duplicated rows, if any
+  test <- data_temp %>%
+    group_by(userName, fileId, conditionId, changeMagnitude) %>%
+    summarise(count = n())
+  if(nrow(test) != nrow(data_temp)) {
+    print("------------------------")
+    # Print the dataframe if there're duplicated rows.
+    print(data_temp)
+    print(test)
+    data_temp <- data_temp %>%
+      group_by(userName, fileId, conditionId, changeMagnitude) %>%
+      slice(c(n())) %>%
+      ungroup()
+  }
+  xx <- strsplit(file, "-")
+  group_id <- xx[[1]][1]
+  
+  
+  # sum the time of each user
+  total_time <- c(total_time, sum(data_temp$totalTime))
+  
+  
+  data_t <- data_temp[data_temp$conditionId==-1 & data_temp$userResult!=6, ]
+  cat("distractor trials error rate is ", nrow(data_t)/4,"\n")
+  if(nrow(data_t)/4>0){
+    print("=============================")
+  }
+  
+  data_t <- data_temp[data_temp$totalTime==60, ]
+  cat("totalTime==60 rate is ", nrow(data_t)/nrow(data_temp),"\n")
+  if(nrow(data_t)/nrow(data_temp)>0){
+    print("=============================")
+  }
+  print(nrow(data_temp))
+  
+  if(nrow(data_temp)!=40){
+    print("*********************************")
+  }
+  
+  # removing the distractors
+  data_temp <- data_temp[data_temp$conditionId!=-1, ]
+  data_temp <- data_temp %>%
+    #mutate(error=ifelse(userResult==8, 0, 1)) %>%
+    mutate(error=abs(userResult-8)) %>%
+    mutate(datasetGroup = rep(as.numeric(group_id),times=nrow(data_temp)))
+  
+  # bind the data to the total data frame
+  data_total <- rbind(data_total, data_temp)
+  
+  # check each data: error rate of each condition
+  group_data <- dplyr::summarise(group_by(data_temp,conditionId, error),count=n(), time=sum(totalTime))
+  group_data_total <- dplyr::summarise(group_by(data_temp,conditionId),count=n(), time=sum(totalTime))
+  for(i in 1:nrow(group_data_total)){
+    x <- group_data_total[i,]
+    x1 <- group_data[group_data$conditionId==x["conditionId"][[1]] & group_data$error==1,]
+    if(nrow(x1)==0){
+      cat(toString(x["conditionId"][[1]]), " error rate is ", 0, ", time is ",x["time"][[1]],"\n")
+    }else{
+      cat(toString(x["conditionId"][[1]]), " error rate is ", x1["count"][[1]]/x["count"][[1]], ", time is ",x1["time"][[1]],"\n")
+    }
+  }
+  
+}
+#write.csv(data_total, paste(file_path, "statics.csv", sep = ""))
+cat("\n", "average time is ", toString(mean(total_time)/60), "min\n")
+mean_time <- (sum(total_time)-max(total_time)-min(total_time))/(length(total_time)-2)
+cat("average time (remove max and min) is ", toString(mean_time/60), "min\n")
+cat("max time is ", toString(max(total_time)), "\n")
+cat("min time is ", toString(min(total_time)), "\n")
+
+# Uncomment if want to check the trial numbers per participant.
+# temp <- data_total %>%
+#   group_by(userName) %>%
+#   summarise(trials = n()) %>%
+#   filter(trials != 30)
+
+# Prep Plot Consistency
+data_total <- data_total %>%
+  mutate(conditionName = conditionId) %>%
+  mutate(conditionMagnitude = conditionId)
+data_total[data_total$conditionId==0, ]$conditionName <- "Random Assignment"
+data_total[data_total$conditionId==1, ]$conditionName <- "Optimized Assignment"
+data_total[data_total$conditionId==2, ]$conditionName <- "Alpha Blending"
+data_total[data_total$conditionId==3, ]$conditionName <- "C3-Palette Assignment"
+data_total[data_total$conditionId==4, ]$conditionName <- "Palettailor"
+data_total[data_total$conditionId==5, ]$conditionName <- "C3-Palette Generation"
+
+data_total <- data_total %>%
+  mutate(conditionName = fct_relevel(conditionName, 
+                                 "C3-Palette Generation",
+                                 "C3-Palette Assignment", "Palettailor", 
+                                 "Alpha Blending", "Optimized Assignment", "Random Assignment"))
+
+condition_names <- c("Random Assignment", "Optimized Assignment", "Alpha Blending", "C3-Palette Assignment", "Palettailor", "C3-Palette Generation")
+# 0 is small, 1 is medium, 2 is large
+for(i in 1:6){
+  for(j in 0:2){
+    data_total[data_total$conditionId==(i-1) & data_total$changeMagnitude==j, ]$conditionMagnitude <- paste(condition_names[i], j, sep = "-")
+  }
+}
+
+
+# compute the time threshold
+data_time_correct <- data_total[data_total$error==0, ]
+data_time_threshold_correct <- data_total[data_total$totalTime<=30 & data_total$error==0, ]
+threshold <- nrow(data_time_threshold_correct)/nrow(data_time_correct)
+cat("time threshold is ", threshold, "\n")
+
+print(data_total)
+
+```
+
+## Check the interaction effect of Dataset x Condition
+```{r}
+
+data <- data_total
+
+# Model: error ~ ... datasetGroup + condition ...
+model <- lm(error ~ conditionName + datasetGroup + conditionName * datasetGroup, data)
+anova(model)
+summary(model)
+
+# Model: error ~ ... condition + magnitude ...
+model <- lm(error ~ conditionName + changeMagnitude + conditionName * changeMagnitude, data)
+anova(model)
+summary(model)
+
+# Model: error ~ ... condition + change type ...
+model <- lm(error ~ conditionName + changeType + conditionName * changeType, data)
+anova(model)
+summary(model)
+
+# Model: for each change type: error ~ ... condition + magnitude ...
+model <- lm(error ~ conditionName + changeMagnitude + conditionName * changeMagnitude, data[data$changeType=="pos", ])
+anova(model)
+summary(model)
+
+# Model: for each change type: error ~ ... condition + magnitude ...
+model <- lm(error ~ conditionName + changeMagnitude + conditionName * changeMagnitude, data[data$changeType=="num", ])
+anova(model)
+summary(model)
+
+```
+
+
+
+## CI Plots and Statistical Tests
+```{r}
+
+data <- data_total
+file_prefix <- "coseparability"#"cosaliency"#
+
+#Statistical Test Results: mu~95% CI, W, p-value, d.
+
+# error~conditionName and time~conditionName
+df_stat_output <- stat_table_error(data,"C3-Palette Generation")
+df_stat_output <- stat_table_time(data,"C3-Palette Generation")
+
+df_stat_output <- stat_table_error(data,"C3-Palette Assignment")
+df_stat_output <- stat_table_time(data,"C3-Palette Assignment")
+
+ciplot(data, "error", "conditionName", "Total")
+saveImg(paste(file_prefix, "error", "conditionName", "Total",sep="-"))
+ciplot(data, "totalTime", "conditionName", "Total")
+saveImg(paste(file_prefix,"totalTime", "conditionName", "Total",sep="-"))
+
+# change type == number: error~conditionName and time~conditionName
+df_stat_output <- stat_table_error(data[data$changeType=="num", ],"C3-Palette Generation")
+df_stat_output <- stat_table_time(data[data$changeType=="num", ],"C3-Palette Generation")
+
+df_stat_output <- stat_table_error(data[data$changeType=="num", ],"C3-Palette Assignment")
+df_stat_output <- stat_table_time(data[data$changeType=="num", ],"C3-Palette Assignment")
+
+ciplot(data[data$changeType=="num", ], "error", "conditionName", "num")
+saveImg(paste(file_prefix,"error", "conditionName", "num",sep="-"))
+ciplot(data[data$changeType=="num", ], "totalTime", "conditionName", "num")
+saveImg(paste(file_prefix,"totalTime", "conditionName", "num",sep="-"))
+
+# change type == position: error~conditionName and time~conditionName
+df_stat_output <- stat_table_error(data[data$changeType=="pos", ],"C3-Palette Generation")
+df_stat_output <- stat_table_time(data[data$changeType=="pos", ],"C3-Palette Generation")
+
+df_stat_output <- stat_table_error(data[data$changeType=="pos", ],"C3-Palette Assignment")
+df_stat_output <- stat_table_time(data[data$changeType=="pos", ],"C3-Palette Assignment")
+
+ciplot(data[data$changeType=="pos", ], "error", "conditionName", "pos")
+saveImg(paste(file_prefix,"error", "conditionName", "pos",sep="-"))
+ciplot(data[data$changeType=="pos", ], "totalTime", "conditionName", "pos")
+saveImg(paste(file_prefix,"totalTime", "conditionName", "pos",sep="-"))
+
+
+# change magnitude & change type
+ciplot(data, "error", "changeMagnitude", "Total")
+saveImg(paste(file_prefix,"error", "changeMagnitude", "Total",sep="-"))
+ciplot(data, "totalTime", "changeMagnitude", "Total")
+saveImg(paste(file_prefix,"totalTime", "changeMagnitude", "Total",sep="-"))
+ciplot(data, "error", "changeType", "Total")
+saveImg(paste(file_prefix, "error", "changeType", "Total",sep="-"))
+ciplot(data, "totalTime", "changeType", "Total")
+saveImg(paste(file_prefix, "totalTime", "changeType", "Total",sep="-"))
+
+data <- data %>%
+  mutate(conditionMagnitude = fct_relevel(conditionMagnitude, 
+                                 "C3-Palette Generation-0", "Palettailor-0", "C3-Palette Assignment-0", "Alpha Blending-0", "Optimized Assignment-0", "Random Assignment-0",
+                                 "C3-Palette Generation-1", "Palettailor-1", "C3-Palette Assignment-1", "Alpha Blending-1", "Optimized Assignment-1", "Random Assignment-1",
+                                 "C3-Palette Generation-2", "Palettailor-2", "C3-Palette Assignment-2", "Alpha Blending-2", "Optimized Assignment-2", "Random Assignment-2"))
+
+ciplotManual(data, "error", "conditionMagnitude", "total")
+saveImg(paste(file_prefix, "error", "conditionMagnitude", "total",sep="-"))
+ciplotManual(data, "totalTime", "conditionMagnitude", "total")
+saveImg(paste(file_prefix, "totalTime", "conditionMagnitude", "total",sep="-"))
+
+ciplotManual(data[data$changeType=="num", ], "error", "conditionMagnitude", "num")
+saveImg(paste(file_prefix, "error", "conditionMagnitude", "num",sep="-"))
+ciplotManual(data[data$changeType=="num", ], "totalTime", "conditionMagnitude", "num")
+saveImg(paste(file_prefix, "totalTime", "conditionMagnitude", "num",sep="-"))
+
+ciplotManual(data[data$changeType=="pos", ], "error", "conditionMagnitude", "pos")
+saveImg(paste(file_prefix, "error", "conditionMagnitude", "pos",sep="-"))
+ciplotManual(data[data$changeType=="pos", ], "totalTime", "conditionMagnitude", "pos")
+saveImg(paste(file_prefix, "totalTime", "conditionMagnitude", "pos",sep="-"))
+
+
+```
+
+
+## Power Analysis
+### error for co-separability
+```{r}
+data <- data_total#[data_total$changeType=="pos", ]
+
+#error
+df1 <- data %>% 
+  filter(conditionName == "C3-Palette Generation") %>% 
+  select(error) 
+df2 <- data %>%
+  filter(conditionName == "Alpha Blending") %>% 
+  select(error) 
+
+abs(mean(df1$error) - mean(df2$error))
+df <- df1 %>% rbind(df2)
+
+powerAnalysisGraph(mean(df1$error), mean(df2$error), sd(df$error))
+saveImg(paste(file_prefix, "error", "conditionName", "powerAnalysis.pdf",sep="-"))
+```
+
+

@@ -9,7 +9,6 @@
 
   <script type="text/javascript" src="js/lib/jquery-3.2.1.min.js"></script>
   <script type="text/javascript" src="js/lib/d3.v4.min.js"></script>
-  <script type="text/javascript" src="js/lib/flann.js"></script>
   <script type="text/javascript" src="js/lib/munkres.js"></script>
 
   <!-- Bootstrap CSS -->
@@ -36,7 +35,7 @@
 <body>
   <!-- container section start -->
   <section id="container" class="">
-    <header class="header gray-bg">
+    <header class="header dark-bg">
 
       <!--logo start-->
       <p><a href="index.html" class="logo">C<sup
@@ -51,9 +50,9 @@
               <i class="icon_folder-open_alt"></i>
             </a>
             <ul class="dropdown-menu extended tasks-bar">
-              <div class="notify-arrow notify-arrow-blue"></div>
+              <div class="notify-arrow notify-arrow-black"></div>
               <li>
-                <p class="blue">Load Example Data</p>
+                <p class="black">Load Example Data</p>
               </li>
               <li>
                 <a href="#" onclick="loadScatterplotExample()">
@@ -95,9 +94,9 @@
               <i class="icon_folder-alt"></i>
             </a>
             <ul class="dropdown-menu extended inbox">
-              <div class="notify-arrow notify-arrow-blue"></div>
+              <div class="notify-arrow notify-arrow-black"></div>
               <li>
-                <p class="blue">Load Your Data</p>
+                <p class="black">Load Your Data</p>
               </li>
               <li>
                 <a href="#" onclick="F_Open_dialog('SCATTERPLOT')">
@@ -174,41 +173,32 @@
         color: white;
         font-size: 20px;
         font-weight: bold;
-        line-height: 20px;
-        padding: 15px 0 15px 10px;">
-          <div>
-            <i class="icon_menu"></i>
-            <span>Menu</span>
-          </div>
+        /* line-height: 20px;
+        padding: 15px 0 15px 10px; */">
         </div>
         <!-- sidebar menu start-->
         <ul class="sidebar-menu">
-          <!-- <li class="active">
-            <a class="" href="index.html">
-              <i class="icon_house_alt"></i>
-              <span>Menu</span>
-            </a>
-          </li> -->
           <li class="sub-menu">
             <a href="javascript:;" class="">
-              <i class="icon_circle-slelected"></i>
               <span>Generation Mode</span>
               <span class="menu-arrow arrow_carrot-down"></span>
             </a>
             <ul class="sub" style="display: block;">
               <li>
-                <div class="menu-sidebar-div" style="padding-left: 32px;height: 100px;">
-                  <label style="font-size: 16px;font-weight: bold;"><input type="radio" name="generationMode"
-                      id="caRatioId" value="colorAssignment" checked>&nbsp;&nbsp;Color
-                    Assignment</label><br>
-                  <select class="form-control paletteFnt" style="width: 120px;float: left;">
+                <div class="menu-sidebar-div" style="padding-left: 32px;">
+                  <label style="font-size: 16px;font-weight: bold;margin-right: 10px;"><input type="radio"
+                      name="generationMode" id="caRatioId" value="colorAssignment" checked>&nbsp;&nbsp;Color
+                    Assignment for</label>
+                  <select class="form-control paletteFnt" style="width: 120px;display: inline-block;">
                     <option>Tableau 10</option>
                     <option selected>Tableau 20</option>
                     <option>ColorBrewer 12-class Paired</option>
                     <option>ColorBrewer 12-class Set3</option>
+                    <option>Input your own palette:</option>
                   </select>
                   <input type="text" id="inputPaletteText" size="200"
-                    style="width: 200px;height:36px;float: left;margin-left: 20px;font-size: 6px;" value="">
+                    style="width: 200px;height:36px;float: left;margin-left: 20px;font-size: 6px;display: none;"
+                    value="">
                 </div>
               </li>
               <li>
@@ -249,68 +239,113 @@
           </li>
           <li class="sub-menu">
             <a href="javascript:;" class="">
-              <i class="icon_adjust-horiz"></i>
-              <span>Score Importance</span>
+              <!-- <i class="icon_adjust-horiz"></i> -->
+              <span>Weights</span>
               <span class="menu-arrow arrow_carrot-down"></span>
             </a>
             <ul class="sub" style="display: block;">
               <li>
                 <div class="menu-sidebar-div" style="padding-left: 32px;">
-                  <label><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Co-Saliency:
-                      &nbsp; </strong> </label>
-                  <input id="slider_0" name="slider_0" type="range" min=0 max=100 value=100
+                  <label style="width: 180px;"><strong>Co-Saliency:</strong> </label>
+                  <input class="form-control" id="inputBox_cos" type="number" value="100" step="1" min="0" max="100"
+                    style="width: 80px;display: inline-block;" oninput="changeSlider(this.id, this.value)">
+                  <label>%</label>
+                  <span class="arrow_carrot-down" onclick="showSlider('slider_0_div',this);"
+                    style="margin-left: 10px;font-size: large;background-color: #f6f6f6;"></span>
+                </div>
+                <div class="menu-sidebar-div" id="slider_0_div" style="padding-left: 32px;display: none;">
+                  <input id="slider_0" name="slider_0" type="range" min=0 max=100 value=100 style="margin-left: 160px;"
                     oninput="changeSlider(this.name, this.value)" />
-                  <label id="slider_0_label">1.00</label>
                 </div>
               </li>
               <li>
                 <div class="menu-sidebar-div" style="padding-left: 32px;">
-                  <label><strong>&nbsp; &nbsp; &nbsp; &nbsp; Name Difference: &nbsp; </strong> </label>
-                  <input id="slider_1" name="slider_1" type="range" min=0 max=100 value=0
+                  <label style="width: 180px;"><strong>Name Difference:</strong> </label>
+                  <input class="form-control" id="inputBox_nd" type="number" value="0" step="1" min="0" max="100"
+                    style="width: 80px;display: inline-block;" oninput="changeSlider(this.id, this.value)">
+                  <label>%</label>
+                  <span class="arrow_carrot-down" onclick="showSlider('slider_1_div',this);"
+                    style="margin-left: 10px;font-size: large;background-color: #f6f6f6;"></span>
+                </div>
+                <div class="menu-sidebar-div" id="slider_1_div" style="padding-left: 32px;display: none;">
+                  <input id="slider_1" name="slider_1" type="range" min=0 max=100 value=100 style="margin-left: 160px;"
                     oninput="changeSlider(this.name, this.value)" />
-                  <label id="slider_1_label">0.00</label>
                 </div>
               </li>
               <li>
                 <div class="menu-sidebar-div" style="padding-left: 32px;">
-                  <label><strong>Color Discrimination: &nbsp; </strong> </label>
-                  <input id="slider_2" name="slider_2" type="range" min=0 max=100 value=0
+                  <label style="width: 180px;"><strong>Color Discrimination:</strong> </label>
+                  <input class="form-control" id="inputBox_cd" type="number" value="0" step="1" min="0" max="100"
+                    style="width: 80px;display: inline-block;" oninput="changeSlider(this.id, this.value)">
+                  <label>%</label>
+                  <span class="arrow_carrot-down" onclick="showSlider('slider_2_div',this);"
+                    style="margin-left: 10px;font-size: large;background-color: #f6f6f6;"></span>
+                </div>
+                <div class="menu-sidebar-div" id="slider_2_div" style="padding-left: 32px;display: none;">
+                  <input id="slider_2" name="slider_2" type="range" min=0 max=100 value=100 style="margin-left: 160px;"
                     oninput="changeSlider(this.name, this.value)" />
-                  <label id="slider_2_label">0.00</label>
                 </div>
               </li>
-              <li>
-                <div class="menu-sidebar-div" style="padding-left: 32px; display: inline-block;">
-                  <label><strong>Lambda: &nbsp; </strong> </label>
-                  <input id="slider_3" name="slider_3" type="range" min=0 max=100 value=40
-                    oninput="changeSlider(this.name, this.value)" />
-                  <label id="slider_3_label">0.40</label>
-                </div>
-              </li>
-            </ul>
-          </li>
-          <li class="sub-menu" style="display: none;">
-            <a href="javascript:;" class="">
-              <i class="arrow_left-right_alt"></i>
-              <span>Change Threshold</span>
-              <span class="menu-arrow arrow_carrot-down"></span>
-            </a>
-            <ul class="sub" style="display: block;">
-              <li>
+              <li style="display: none;">
                 <div class="menu-sidebar-div" style="padding-left: 32px;">
-                  <input type="checkbox" name="popout" id="popout" checked>
-                  <label for="popout"><strong>&nbsp;&nbsp;Popout Changes?</strong></label>
-                  <br><br>
-                  <input id="slider_4" name="slider_4" type="range" min=0 max=100 value=0
+                  <label style="width: 180px;"><strong>Lambda:</strong> </label>
+                  <input class="form-control" id="inputBox_lambda" type="number" value="40" step="1" min="0" max="100"
+                    style="width: 80px;display: inline-block;" oninput="changeSlider(this.id, this.value)">
+                  <label>%</label>
+                  <span class="arrow_carrot-down" onclick="showSlider('slider_3_div',this);"
+                    style="margin-left: 10px;font-size: large;background-color: #f6f6f6;"></span>
+                </div>
+                <div class="menu-sidebar-div" id="slider_3_div" style="padding-left: 32px;display: none;">
+                  <input id="slider_3" name="slider_3" type="range" min=0 max=100 value=40 style="margin-left: 160px;"
                     oninput="changeSlider(this.name, this.value)" />
-                  <label id="slider_4_label">0.00</label>
                 </div>
               </li>
             </ul>
           </li>
           <li class="sub-menu">
             <a href="javascript:;" class="">
-              <i class="arrow_left-right_alt"></i>
+              <span>Importance Adjustment</span>
+              <span class="menu-arrow arrow_carrot-right"></span>
+            </a>
+            <ul class="sub" style="display: block;">
+              <li>
+                <div class="menu-sidebar-div" id="tfDiv">
+                </div>
+                <div class="menu-sidebar-div">
+                  <table>
+                    <colgroup>
+                      <col style="width:10%">
+                      </col>
+                      <col style="width:10%">
+                      </col>
+                      <col style="width:20%">
+                      </col>
+                      <col style="width:20%">
+                      </col>
+                      <col style="width:20%">
+                      </col>
+                      <col style="width:20%">
+                      </col>
+                    </colgroup>
+                    <thead>
+                      <tr>
+                        <th><span class="icon_lock_alt" style="font-size: large;"></span></th>
+                        <th></th>
+                        <th>Attr.</th>
+                        <th>Impo.</th>
+                        <th>Color Name</th>
+                        <th>Hex</th>
+                      </tr>
+                    </thead>
+                    <tbody id="tfInfoLabel">
+                    </tbody>
+                  </table>
+                </div>
+              </li>
+            </ul>
+          </li>
+          <li class="sub-menu">
+            <a href="javascript:;" class="">
               <span>Lightness Range</span>
               <span class="menu-arrow arrow_carrot-right"></span>
             </a>
@@ -332,7 +367,6 @@
 
           <li class="sub-menu">
             <a href="javascript:;" class="">
-              <i class="icon_box-checked"></i>
               <span>Hue Filter</span>
               <span class="menu-arrow arrow_carrot-right"></span>
             </a>
@@ -370,7 +404,6 @@
           </li>
           <li class="sub-menu">
             <a href="javascript:;" class="">
-              <i class="icon_circle-slelected"></i>
               <span>Color Blindness</span>
               <span class="menu-arrow arrow_carrot-right"></span>
             </a>
@@ -394,7 +427,7 @@
             </ul>
           </li>
           <div>
-            <div class="panel-body-svg">
+            <div class="panel-body-svg" style="display: none;">
               <div style="margin-top: 10px;display: none;">
                 <label>
                   <h4><strong>Click on the point to choose clusters to emphasize:</strong></h4>
@@ -439,7 +472,7 @@
                 <button style="background-color:#6c757d; border-color:#6c757d;" id="generateResultID"
                   onclick="renderResult()">
                   <i class="icon_refresh"></i>
-                  <h2><strong style="font-weight: bold;">Generate</strong></h2>
+                  <h2><strong style="font-weight: bold;">Re-Colorizing</strong></h2>
                 </button>
                 <!-- <a href="#" class="btn-setting" style="margin-left: 10px;text-align: center;">
                   <i><img class="icon_efficiency_choosed" id="effi_icon" title="High Efficiency"
@@ -472,11 +505,8 @@
                 </div>
               </div>
               <div class="panel-body-svg" style="text-align: center;">
-                <div id="tfDiv"
-                  style="height:420px;width:30%;overflow-x:scroll;overflow-y:hidden;white-space: nowrap;float: left;">
-                </div>
-                <div id="renderDiv"
-                  style="height:420px;width:70%;overflow-x:scroll;overflow-y:hidden;white-space: nowrap;">
+
+                <div id="renderDiv" style="height:420px;overflow-x:scroll;overflow-y:hidden;white-space: nowrap;">
                 </div>
               </div>
             </div>
@@ -526,7 +556,6 @@
 
 <script type="text/javascript" src="js/lib/d3.color.min.js"></script>
 <script type="text/javascript" src="js/lib/c3.min.js"></script>
-<script type="text/javascript" src="js/lib/FRNN.js"></script>
 <script type="text/javascript" src="js/lib/hcirn_colorblind_simulation.js"></script>
 
 <script type="text/javascript" src="js/global.js"></script>
@@ -535,13 +564,6 @@
 <script type="text/javascript" src="js/dataLoader.js"></script>
 <script type="text/javascript" src="js/distanceCalculator.js"></script>
 <script type="text/javascript" src="js/optimizeFunc.js"></script>
-<script type="text/javascript" src="js/renderOrder.js"></script>
-
 <script type="text/javascript" src="js/index.js"></script>
-
-
-<script type="text/javascript" src="js/drawImages.js"></script>
-<!-- <script type="text/javascript" src="dataGenerator/GA.js"></script>
-<script type="text/javascript" src="dataGenerator/color-assignment.js"></script> -->
 
 </html>

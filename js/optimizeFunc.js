@@ -22,13 +22,8 @@ function doColorization() {
 
     color_names_checked = collectColorNames();
     if (color_names_checked.length > 0) {
-        // document.getElementById("caRatioId").checked = false;
-        document.getElementById("pgRatioId").checked = true;
+        document.getElementById("pgRatioId").checked = true; // change mode to palette generation
         generation_mode = 0;
-        // document.getElementById("slider_1").value = 100;
-        // changeSlider("slider_1", 100)
-        // document.getElementById("slider_2").value = 100;
-        // changeSlider("slider_2", 100)
     }
     color_blind_type = document.querySelector('input[name = "colorblindType"]:checked').value;
 
@@ -122,10 +117,8 @@ function getPaletteScore(p) {
         initial_scores[1] = tmp_cb;
     }
     cosaliency_score = cosaliency_lambda * tmp_pd / initial_scores[0] + (1 - cosaliency_lambda) * tmp_cb / Math.abs(initial_scores[1]);
-    // console.log(tmp_pd / initial_scores[0], tmp_cb / Math.abs(initial_scores[1]), cosaliency_score);
     name_difference /= palette.length * (palette.length - 1) * 0.25;
     color_discrimination_constraint *= 0.1;
-    // console.log(cosaliency_score, name_difference, color_discrimination_constraint);
 
     return score_importance_weight[0] * cosaliency_score + score_importance_weight[1] * name_difference + score_importance_weight[2] * color_discrimination_constraint;
 }
@@ -153,8 +146,6 @@ function simulatedAnnealing2FindBestPalette(palette_size, colors_scope = { "hue_
         var result = d3.select("#paletteText")
         color_palette = result.attr('data-palette').split(';');
         initial_palette = color_palette.slice();
-        // initial_palette = ["#7eff5f", "#feef3e", "#ff076e", "#3a7aff", "#b852f3"]//["#06d524","#fbf49e","#3e7bff","#ff1f19","#ca41f4"]
-        // color_palette = initial_palette
     }
     //evaluate the default palette
     let o = {

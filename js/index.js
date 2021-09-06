@@ -20,52 +20,64 @@ function changeSlider(name, value) {
   let label_value = value / 100;
   switch (name) {
     case "slider_0":
-      document.getElementById("slider_0_label").innerText = label_value.toFixed(2);
+      document.getElementById("inputBox_cos").value = value;
       score_importance_weight[0] = label_value;
       break;
     case "slider_1":
-      document.getElementById("slider_1_label").innerText = label_value.toFixed(2);
+      document.getElementById("inputBox_nd").value = value;
       score_importance_weight[1] = label_value;
       break;
     case "slider_2":
-      document.getElementById("slider_2_label").innerText = label_value.toFixed(2);
+      document.getElementById("inputBox_cd").value = value;
       score_importance_weight[2] = label_value;
       break;
     case "slider_3":
-      document.getElementById("slider_3_label").innerText = label_value.toFixed(2);
-      // changeAlpha(label_value);
+      document.getElementById("inputBox_lambda").value = value;
       cosaliency_lambda = label_value
       break;
-    case "slider_4":
-      document.getElementById("slider_4_label").innerText = label_value.toFixed(2);
-      score_importance_weight[3] = label_value;
-      delta_change_distance = getDeltaDistance(change_distance);
+    case "inputBox_cos":
+      document.getElementById("slider_0").value = value;
+      score_importance_weight[0] = label_value;
+      break;
+    case "inputBox_nd":
+      document.getElementById("slider_1").value = value;
+      score_importance_weight[1] = label_value;
+      break;
+    case "inputBox_cd":
+      document.getElementById("slider_2").value = value;
+      score_importance_weight[2] = label_value;
+      break;
+    case "inputBox_lambda":
+      document.getElementById("slider_3").value = value;
+      cosaliency_lambda = label_value
       break;
     default:
-
+  }
+}
+function showSlider(name, item) {
+  if (d3.select("#" + name).style("display") === 'none') {
+    d3.select("#" + name).style("display", "block");
+    d3.select(item).style("background-color", "#cccccc");
+  } else {
+    d3.select("#" + name).style("display", "none");
+    d3.select(item).style("background-color", "#f6f6f6");
   }
 }
 
 $("input[name='generationMode']").change(function () {
   if ($(this).val() === "paletteGeneration") {
-    d3.select("#inputDiv").style("display", "none");
     generation_mode = 0;
     document.getElementById("slider_1").value = 100;
-    changeSlider("slider_1", 100)
-    document.getElementById("slider_2").value = 100;
-    changeSlider("slider_2", 100)
+    changeSlider("slider_1", document.getElementById("slider_1").value)
+    document.getElementById("slider_2").value = 0;
+    changeSlider("slider_2", document.getElementById("slider_2").value)
   } else {
-    d3.select("#inputDiv").style("display", "inline-block");
     generation_mode = 1;
     document.getElementById("slider_1").value = 0;
-    changeSlider("slider_1", 0)
+    changeSlider("slider_1", document.getElementById("slider_1").value)
     document.getElementById("slider_2").value = 0;
-    changeSlider("slider_2", 0)
+    changeSlider("slider_2", document.getElementById("slider_2").value)
   }
-});
-
-$("input[name='popout']").change(function () {
-  delta_change_distance = getDeltaDistance(change_distance);
 });
 
 c3.load("js/lib/c3_data.json");
@@ -166,16 +178,7 @@ function renderResult() {
 
 function appendScatterplot() {
   let used_palette = doColorization();
-  // used_palette = ["#76b7b2", "#59a14f", "#ff9da7", "#edc948", "#e15759", "#b07aa1", "#bab0ac", "#4e79a7"]// tableau 20 optimized: -1.13
-  // used_palette = Tableau_10_palette
-  // used_palette = shuffle(Tableau_20_palette.slice(0,used_palette.length));
-  // used_palette = ["#59a14f","#f28e2b","#f1ce63","#ffbe7d","#a0cbe8","#b6992d","#8cd17d","#4e79a7"]["#f28e2b","#59a14f","#f1ce63","#a0cbe8","#b6992d","#4e79a7","#8cd17d","#ffbe7d"]
-  // used_palette = ["#d7b5a6","#79706e","#a0cbe8","#bab0ac","#86bcb6","#f2c5d4","#4e79a7","#f28e2b"]
-  // used_palette = ["#fecb68","#fe5dff","#bdff4f","#fed4fe","#9c9da6","#bffed8","#2357ff","#de7045"]
-  // let [alpha_scores, beta_scores, total_scores] = outputCoSaliency(used_palette)
   for (let i = 0; i < source_datasets.length; i++) {
-    // xScale.domain(d3.extent(source_datasets[i], xValue));
-    // yScale.domain(d3.extent(source_datasets[i], yValue));
     let scatterplot_svg = d3.select("#renderDiv").append("svg")
       .attr("width", SVGWIDTH).attr("height", SVGHEIGHT);
     let scatterplot = scatterplot_svg.style("background-color", bgcolor).append("g")
@@ -203,44 +206,8 @@ function appendScatterplot() {
     scatterplot.append("g")
       .call(d3.axisLeft(yScale));//.tickFormat("")
 
-
-    // let circle = scatterplot.append("circle")
-    //   .attr("id", "choosed_cluster")
-    //   .attr("r", 0)
-    //   .style("stroke", bgcolor)
-    //   .style("stroke-width", "1.5px");
-
-    // scatterplot_svg.on("mousemove", function () {
-    //   let mouse_pos = [d3.mouse(this)[0] - svg_margin.left, d3.mouse(this)[1] - svg_margin.top];
-    //   // check all points to find the desired
-    //   let min_dis = 10000000000, desired_point = null;
-    //   for (let d of source_datasets[i]) {
-    //     let point_pos = [xMap(d), yMap(d)];
-    //     let dis = (point_pos[0] - mouse_pos[0]) * (point_pos[0] - mouse_pos[0]) + (point_pos[1] - mouse_pos[1]) * (point_pos[1] - mouse_pos[1]);
-    //     if (min_dis >= dis) {
-    //       min_dis = dis;
-    //       desired_point = d;
-    //     }
-    //   }
-    //   if (min_dis > 100) {
-    //     circle.attr("r", 0);
-    //   } else {
-    //     let id = cValue(desired_point);
-    //     circle.attr("cx", mouse_pos[0])
-    //       .attr("cy", mouse_pos[1])
-    //       .attr("fill", used_palette[labelToClass[id]])
-    //       .attr("r", 10)
-    //       .attr("display", "block")
-    //   }
-
-    // });
-
     scatterplot_svg.append("text").attr("x", 0).attr("y", 20).text(source_datasets_names[i]);
 
-    // drawSaliencyMap(source_datasets[i], alpha_scores, "alpha-" + i)
-    // drawSaliencyMap(source_datasets[i], beta_scores, "beta-" + i)
-    // drawSaliencyMap(source_datasets[i], change_distance, "change-" + i)
-    // drawSaliencyMap(source_datasets[i], total_scores, "total-" + i)
   }
   if (color_blind_type != "Normal") {
     // show results seen from color blindness
@@ -251,8 +218,6 @@ function appendScatterplot() {
       used_palette[i] = d3.rgb(c1[0], c1[1], c1[2]);
     }
     for (let i = 0; i < source_datasets.length; i++) {
-      // xScale.domain(d3.extent(source_datasets[i], xValue));
-      // yScale.domain(d3.extent(source_datasets[i], yValue));
       let scatterplot_svg = d3.select("#renderDiv").append("svg")
         .attr("width", SVGWIDTH).attr("height", SVGHEIGHT);
       let scatterplot = scatterplot_svg.style("background-color", bgcolor).append("g")
@@ -288,9 +253,6 @@ function appendScatterplot() {
 
 function appendBarchart() {
   let used_palette = doColorization();
-  // let sigma = Tableau_20_palette.slice()
-  // shuffle(sigma)
-  // used_palette = sigma.slice(0, used_palette.length);
   for (let i = 0; i < source_datasets.length; i++) {
     let barchart_svg = d3.select("#renderDiv").append("svg")
       .attr("width", SVGWIDTH).attr("height", SVGHEIGHT);
@@ -302,11 +264,11 @@ function appendBarchart() {
     // add the x Axis
     barchart.append("g")
       .attr("transform", "translate(0," + svg_height + ")")
-      .call(d3.axisBottom(xScale).tickFormat(""));
+      .call(d3.axisBottom(xScale));//.tickFormat("")
 
     // add the y Axis
     barchart.append("g")
-      .call(d3.axisLeft(yScale).tickFormat(""));
+      .call(d3.axisLeft(yScale));//.tickFormat("")
 
     barchart.selectAll("bars")
       .data(source_datasets[i])
@@ -341,10 +303,6 @@ function appendBarchart() {
 
 function appendLinechart() {
   let used_palette = doColorization();
-  // let [knng_metric, ns_weight] = processData(scaled_datasets[0])
-  // let [best_palette, sigmaAndScore] = _doColorAssignment(Tableau_20_palette, used_palette.length, knng_metric, ns_weight);
-  // used_palette = best_palette
-  // used_palette = ["#7eff5f", "#feef3e", "#ff076e", "#3a7aff", "#b852f3"]
   for (let i = 0; i < source_datasets.length; i++) {
     let linechart_svg = d3.select("#renderDiv").append("svg")
       .attr("width", SVGWIDTH).attr("height", SVGHEIGHT);
@@ -398,52 +356,15 @@ function appendLinechart() {
     // Add the X Axis
     linechart.append("g")
       .attr("transform", "translate(0," + svg_height + ")")
-      .call(d3.axisBottom(xScale).tickFormat(""));
+      .call(d3.axisBottom(xScale));//.tickFormat("")
 
     // Add the Y Axis
     linechart.append("g")
-      .call(d3.axisLeft(yScale).tickFormat(""));
+      .call(d3.axisLeft(yScale));//.tickFormat("")
 
     linechart_svg.append("text").attr("x", 0).attr("y", 20).text(source_datasets_names[i]);
   }
   return used_palette;
-}
-
-function appendClickEvent(d) {
-  let color = d3.select(this).attr("item-color");
-  for (let i = 0; i < choosed_emphasized_clusters.length; i++) {
-    if (+choosed_emphasized_clusters[i].attr("clusterId") === labelToClass[d.label]) {
-      return;
-    }
-  }
-  let div = d3.select("#choosedDiv");
-  let span = div.append("span").attr("class", "rect").attr("id", "choosedCluster-" + labelToClass[d.label]).attr("clusterId", labelToClass[d.label])
-    .style("width", "30px").style("height", "30px").style("display", "inline-block")
-    .style("margin-left", "10px").style("padding", "5px").style("background", color).style("text-align", "center");
-  // append lock and unlock sign
-  let img = span.append("img").attr("class", "icon_delete").style("display", "none")
-    .on("click", function () {
-      let j = 0;
-      for (j = 0; j < choosed_emphasized_clusters.length; j++) {
-        if (+choosed_emphasized_clusters[j].attr("clusterId") === labelToClass[d.label]) {
-          break;
-        }
-      }
-      choosed_emphasized_clusters.splice(j, 1);
-      span.remove();
-      if (choosed_emphasized_clusters.length === 0) {
-        d3.select("#specifyDiv").style("display", "none");
-      }
-    });
-  span.on("mouseover", function () {
-    d3.select(this).select("img").style("display", "block");
-  })
-    .on("mouseout", function () {
-      d3.select(this).select("img").style("display", "none");
-    })
-
-  choosed_emphasized_clusters.push(span)
-  d3.select("#specifyDiv").style("display", "inline-block");
 }
 
 function appendPaletteResult(palette) {
@@ -517,21 +438,29 @@ $('.resultFnt').change(function () {
 
 $('.paletteFnt').change(function () {
   let selection_text = $(this).children("option:selected").text();
-  let paletteStr = "[";
-  if (selection_text === "Tableau 10") {
-    assignment_palette = Tableau_10_palette;
-  } else if (selection_text === "Tableau 20") {
-    assignment_palette = Tableau_20_palette;
-  } else if (selection_text === "ColorBrewer 12-class Paired") {
-    assignment_palette = ['#a6cee3', '#1f78b4', '#b2df8a', '#33a02c', '#fb9a99', '#e31a1c', '#fdbf6f', '#ff7f00', '#cab2d6', '#6a3d9a', '#ffff99', '#b15928']
+  if (selection_text === "Input your own palette:") {
+    let paletteStr = window.prompt("Input your own palette:", "[\"#4E79A7\", \"#F28E2B\", \"#E15759\", \"#76B7B2\", \"#59A14F\", \"#EDC948\", \"#B07AA1\", \"#FF9DA7\", \"#9C755F\", \"#BAB0AC\"]")
+    if (paletteStr == "" || paletteStr == null) {
+      return;
+    }
+    d3.select("#inputPaletteText").property('value', paletteStr);
   } else {
-    assignment_palette = ['#8dd3c7', '#ffffb3', '#bebada', '#fb8072', '#80b1d3', '#fdb462', '#b3de69', '#fccde5', '#d9d9d9', '#bc80bd', '#ccebc5', '#ffed6f']
+    let paletteStr = "[";
+    if (selection_text === "Tableau 10") {
+      assignment_palette = Tableau_10_palette;
+    } else if (selection_text === "Tableau 20") {
+      assignment_palette = Tableau_20_palette;
+    } else if (selection_text === "ColorBrewer 12-class Paired") {
+      assignment_palette = ['#a6cee3', '#1f78b4', '#b2df8a', '#33a02c', '#fb9a99', '#e31a1c', '#fdbf6f', '#ff7f00', '#cab2d6', '#6a3d9a', '#ffff99', '#b15928']
+    } else {
+      assignment_palette = ['#8dd3c7', '#ffffb3', '#bebada', '#fb8072', '#80b1d3', '#fdb462', '#b3de69', '#fccde5', '#d9d9d9', '#bc80bd', '#ccebc5', '#ffed6f']
+    }
+    for (let i = 0; i < assignment_palette.length - 1; i++) {
+      paletteStr += "\"" + assignment_palette[i] + "\",";
+    }
+    paletteStr += "\"" + assignment_palette[assignment_palette.length - 1] + "\"]";
+    d3.select("#inputPaletteText").property('value', paletteStr);
   }
-  for (let i = 0; i < assignment_palette.length - 1; i++) {
-    paletteStr += "\"" + assignment_palette[i] + "\",";
-  }
-  paletteStr += "\"" + assignment_palette[assignment_palette.length - 1] + "\"]";
-  d3.select("#inputPaletteText").property('value', paletteStr);
 });
 $('.paletteFnt').change();
 
@@ -562,15 +491,24 @@ function saMode(mode) {
 
 function drawTransferFunction(palette) {
   d3.select("#tfDiv").selectAll("svg").remove();
-  let tf_svg = d3.select("#tfDiv").append("svg")
-    .attr("width", SVGWIDTH).attr("height", SVGHEIGHT);
+  let m_SVGWIDTH = 380, m_SVGHEIGHT = 380;
+  let m_svg_margin = {
+    top: 30,
+    right: 30,
+    bottom: 30,
+    left: 30
+  }
+  let m_svg_width = m_SVGWIDTH - m_svg_margin.left - m_svg_margin.right,
+    m_svg_height = m_SVGHEIGHT - m_svg_margin.top - m_svg_margin.bottom;
 
+  let tf_svg = d3.select("#tfDiv").append("svg")
+    .attr("width", m_SVGWIDTH).attr("height", m_SVGHEIGHT);
   let tf = tf_svg.style("background-color", bgcolor)
     .append("g")
-    .attr("transform", "translate(" + (svg_margin.left + 30) + "," + svg_margin.top + ")");
+    .attr("transform", "translate(" + (m_svg_margin.left) + "," + m_svg_margin.top + ")");
 
-  let m_xScale = d3.scaleBand().range([0, svg_width]);
-  let m_yScale = d3.scaleLinear().range([svg_height - 30, 0])
+  let m_xScale = d3.scaleBand().range([0, m_svg_width]);
+  let m_yScale = d3.scaleLinear().range([m_svg_height, 0])
 
   let x_labels = Object.keys(labelToClass)
   // Scale the range of the data
@@ -580,7 +518,7 @@ function drawTransferFunction(palette) {
 
   // Add the X Axis
   tf.append("g")
-    .attr("transform", "translate(0," + (svg_height - 30) + ")")
+    .attr("transform", "translate(0," + (m_svg_height) + ")")
     .call(d3.axisBottom(m_xScale));
 
   // Add the Y Axis
@@ -594,7 +532,8 @@ function drawTransferFunction(palette) {
       .attr("y1", b)
       .attr("x2", c)
       .attr("y2", d)
-      .style("stroke", "#000");
+      .style("stroke", "rgb(166,166,166)")
+      .attr("stroke-width", 2);
     if (dash) {
       line.style("stroke-dasharray", ("3, 3"));
     }
@@ -604,26 +543,6 @@ function drawTransferFunction(palette) {
     .on("drag", dragged)
     .on("end", dragended);
   for (let i = 0; i < x_labels.length; i++) {
-    // draw class rects
-    tf.append("rect")
-      .attr("x", m_xScale(x_labels[i]) + m_xScale.bandwidth() / 2 - 10)
-      .attr("y", function () {
-        return svg_height - 10;
-      })
-      .attr("width", 20)
-      .attr("height", 20)
-      .attr("fill", palette[labelToClass[x_labels[i]]])
-      .attr("id", labelToClass[x_labels[i]])
-      .attr('stroke', '#727171')
-      .attr('stroke-dasharray', '10,5')
-      .attr('stroke-linecap', 'butt')
-      .attr('stroke-width', hue_constraints[labelToClass[x_labels[i]]] ? '3' : '0')
-      .on("click", function () {
-        let choosed_id = +d3.select(this).attr("id")
-        hue_constraints[choosed_id] = hue_constraints[choosed_id] === 1 ? 0 : 1
-        d3.select(this)
-          .attr('stroke-width', hue_constraints[choosed_id] ? '3' : '0')
-      });
 
     if (i < x_labels.length - 1)
       drawLine(m_xScale(x_labels[i]) + m_xScale.bandwidth() / 2, m_yScale(change_distance[labelToClass[x_labels[i]]]), m_xScale(x_labels[i + 1]) + m_xScale.bandwidth() / 2, m_yScale(change_distance[labelToClass[x_labels[i + 1]]]))
@@ -640,7 +559,7 @@ function drawTransferFunction(palette) {
       .attr("cy", function () {
         return m_yScale(change_distance[labelToClass[x_labels[i]]]);
       })
-      .style("stroke", "#000")
+      .style("stroke", "#fff")
       .attr("fill", () => palette[labelToClass[x_labels[i]]])
       .call(drag);
 
@@ -658,14 +577,14 @@ function drawTransferFunction(palette) {
     .attr("cy", function () {
       return m_yScale(kappa);
     })
-    .style("stroke", "#000")
+    .style("stroke", "#fff")
     .attr("fill", "#000")
     .call(drag);
-  drawLine(0, m_yScale(kappa), svg_width, m_yScale(kappa), true)
+  drawLine(0, m_yScale(kappa), m_svg_width, m_yScale(kappa), true)
 
   function dragstarted() {
     //d3.event.sourceEvent.stopPropagation();
-    d3.select(this).attr("stroke", "red").attr("stroke-width", 3);
+    d3.select(this).attr("stroke-width", 5);
     d3.select(this).attr("cy", d3.event.y);
   }
 
@@ -674,7 +593,7 @@ function drawTransferFunction(palette) {
   }
 
   function dragended() {
-    d3.select(this).attr("stroke", "#000").attr("stroke-width", 0);
+    d3.select(this).attr("stroke", "#fff").attr("stroke-width", 0);
     d3.select(this).attr("cy", d3.event.y);
     let circle_index = this.id.split("_")[1];
     if (circle_index == "kappa")
@@ -687,6 +606,32 @@ function drawTransferFunction(palette) {
     drawTransferFunction(palette);
   }
 
+  // draw information table
+  var dataForm = "";
+  for (let i = 0; i < x_labels.length; i++) {
+    let id = labelToClass[x_labels[i]]
+    let c = getColorNameIndex(d3.rgb(palette[id])),
+      t = c3.color.relatedTerms(c, 1);
+    let color_name = "undefined"
+    if (t[0] != undefined) {
+      color_name = c3.terms[t[0].index]
+    }
+    dataForm += ("<tr><td><span class=\'icon_lock\' id=\'icon_lock-" + labelToClass[x_labels[i]] + "\' style=\'display:" + (hue_constraints[id] ? ("inline-block;\'></span>") : ("none;\'></span>"))
+      + "</td><td>"
+      + "<span class=\'tf_rect\' id=\'" + labelToClass[x_labels[i]] + "\' style=\'background:" + palette[id] + ";\' onclick=\'lockThisRect(this);\'></span>"
+      + "</td><td>"
+      + x_labels[i]
+      + "</td><td>"
+      + change_distance[id].toFixed(2)
+      + "</td><td>"
+      + color_name
+      + "</td><td>"
+      + colorConversionFns['Hex'](palette[id])
+      + "</td></tr>");
+  }
+  document.getElementById("tfInfoLabel").innerHTML = dataForm;
+  d3.selectAll(".tf_rect")
+    .append("img").attr("class", "rect_lock")
 }
 
 function reOrderClusters() {
@@ -712,4 +657,10 @@ function reOrderClusters() {
     }
     source_datasets[i] = data;
   }
+}
+
+function lockThisRect(item) {
+  let choosed_id = +d3.select(item).attr("id")
+  hue_constraints[choosed_id] = hue_constraints[choosed_id] === 1 ? 0 : 1
+  d3.select("#icon_lock-" + choosed_id).style("display", hue_constraints[choosed_id] ? 'inline-block' : 'none')
 }

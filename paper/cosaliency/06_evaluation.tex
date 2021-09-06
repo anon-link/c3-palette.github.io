@@ -1,58 +1,65 @@
 \section {Evaluation}
 \label{sec:results}
 
-We evaluated the effectiveness of our method on supporting juxtaposed visual comparisons for different visualization types.
-This is achieved by comparing different colorized visualizations(i.e., bar charts and scatterplots) between our method and some existing methods.
-We conducted two online controlled experiments through Amazon Mechanical Turk (AMT) with $217$ participants in total, each experiment contains different tasks for different visualization types:
-\begin{enumerate}
-%\vspace{-3mm}
-\item [(i)] Bar chart experiment:
-    \begin{itemize}
-         \item \emph{Finding max delta task}. To evaluate how well our method can support people in \emph{observing the largest change} for juxtaposed categorical bar charts;
-    \end{itemize}
-%\vspace{-3mm}
-\item [(ii)] Scatterplot experiment:
-    \begin{itemize}
-         \item \emph{Spotting the difference task}. To evaluate how well our method can support people in \emph{observing changes} for juxtaposed categorical scatterplots;
-         \item \emph{Counting class number task}. To evaluate whether our method can support the \emph{visual separability} in each individual scatterplot, which is considered fundamental to juxtaposed comparison.
-    \end{itemize}
-\end{enumerate}
+We evaluated the effectiveness of our method on supporting juxtaposed visual comparisons by comparing it against the existing methods across different visualization types.
+We conducted two online controlled experiments (i.e., for bar chart and scatterplot respectively) through Amazon Mechanical Turk (AMT) with $247$ participants in total. 
+\mf{Explain why choosing bar chart and scatterplot instead of other visualization types.}
+%In each experiment we evaluated one visualization type using the tasks listed below:
+%\begin{enumerate}
+%%\vspace{-3mm}
+%\item [(i)] Experiment 1: Bar chart experiment:
+%    \begin{itemize}
+%         \item \emph{Finding max delta task}. To evaluate how well our method can support people in \emph{observing the largest change} for juxtaposed categorical bar charts;
+%    \end{itemize}
+%%\vspace{-3mm}
+%\item [(ii)] Scatterplot experiment:
+%    \begin{itemize}
+%         \item \emph{Spotting the difference task}. To evaluate how well our method can support people in \emph{observing changes} for juxtaposed categorical scatterplots;
+%         \item \emph{Counting class number task}. To evaluate whether our method can support the \emph{visual separability} in each individual scatterplot, which is considered fundamental to juxtaposed comparison.
+%    \end{itemize}
+%\end{enumerate}
 %we use synthetic data for the first three studies while use real world data for the case study.
 
 \vspace{.3em}
-\noindent{\textbf{Colorization Methods.}} In each of our studies, we used six different ways to colorize datasets, including four benchmark methods (\emph{Random Assignment}, \emph{Optimized Assignment}, \emph{Alpha Blending} and \emph{Palettailor}) and two experimental methods based on our approach (\emph{$C^3$-Palette Assignment}, \emph{$C^3$-Palette Generation}):
-\begin{itemize}
-     \item \emph{Random Assignment} is randomly selecting and assigning colors from Tableau-20~\cite{tableau} palette to the classes.
-     \item \emph{Optimized Assignment} uses the optimized assignment approach~\cite{Wang2018} for one of the two datasets with an input of Tableau-20 color palette.
-     \item \emph{Alpha Blending} is achieved by setting the opacity of each unchanged class to $0.5$ while the changed classes remain to $1.0$ based on \emph{Optimized Assignment} result. We choose $0.5$ since the results will be used in the discrimination task later.
-     \item \emph{Palettailor} uses the method proposed by Lu et.al~\cite{Lu21} for palette generation. The palette is generated for one of the two datasets with the default settings.
-     \item \emph{$C^3$-Palette Assignment} uses the color assignment optimization solution(Eq.~\ref{eq:cosaliency}) based on Tableau-20.
-     \item \emph{$C^3$-Palette Generation} uses the unified color generation and assignment optimization method(Eq.~\ref{eq:energyfunc}), and produced the results with the default settings($\omega_0=1.0$, $\omega_1=1.0$, $\omega_2=1.0$ and $\kappa=0$).
-\end{itemize}
+\noindent{\textbf{Colorization Methods (Conditions).}} In each of our experiments, we compared six different colorization methods, specifically including four benchmark methods (\emph{Random Assignment}, \emph{Optimized Assignment}, \emph{Alpha Blending} and \emph{Palettailor}) that colorize based on one of the two input datasets, and two experimental methods based on our approach (\emph{$C^3$-Palette Assignment}, \emph{$C^3$-Palette Generation}) that colorize based on both input datasets. These methods are ordered by level of optimization applied.
+\begin{enumerate}
+     \item \emph{Random Assignment:} Randomly selecting and assigning colors from the Tableau-20~\cite{tableau} palette to one of the two datasets.
+     \item \emph{Optimized Assignment:} Using the optimized color assignment approach~\cite{Wang2018} to select and assign colors from the Tableau-20 color palette to one of the two datasets.
+     \item \emph{Alpha Blending:} After applying the \emph{Optimized Assignment} method, setting the unchanged classes to be half-transparent (i.e., $alpha=0.5$) while the changed classes to be the same (i.e., $alpha=1.0$. We choose the $0.5$ threshold through empirical tests to balance between saliency and discriminability among classes. \mf{Question: can we use "empirical tests" to justify the choice of 0.5 here?}
+     \item \emph{Palettailor:} Generating and assigning colors based on one of the two datasets using the method proposed by Lu et.al~\cite{Lu21} with the default settings.
+     \item \emph{$C^3$-Palette Assignment:} Selecting and assigning colors from the Tableau-20 palette based on \emph{both} datasets as input, using the color assignment optimization solution (Eq.~\ref{eq:cosaliency}) proposed in this paper. This condition aims to reflect the effectiveness of our assignment approach given a palette input with relatively diverse options, such as Tableau-20 containing colors with a large range of brightness and saturation.
+     \item \emph{$C^3$-Palette Generation:} Generating and assigning colors based on \emph{both} datasets as input, using the unified color generation and assignment optimization method (Eq.~\ref{eq:energyfunc}) proposed in this paper with the default settings ($\omega_0=1.0$, $\omega_1=1.0$, $\omega_2=1.0$ and $\kappa=0$).
+\end{enumerate}
 %\emph{Change magnitude}: While the colorization method is the primary independent variable to be investigated, we are also interested in how the effect of different methods would vary based on the level of change between the two scatterplots. Thus we first define two types of changes that a class would have across multiple scatterplots: \emph{point number} and \emph{point position}. Then for each change type, we define three levels of change magnitude calculated using Eq.~\ref{eq:cm}: \emph{small}, \emph{medium}, and \emph{large}. (See the next paragraph for the detailed calculation.)
+
 
 \subsection{Experiment 1: Bar Chart Experiment}
 \label{subsec:barchartExp}
-We test the performance of our method for bar charts through the \emph{MAXDELTA} task which is used in Ondov et al.'s~\cite{Ondov19} comparison evaluation. Since the setup of this task is very similar to their work, we briefly describe the experimental design.
-%\subsubsection{Experimental Design}
-%\
-%\newline
+We evaluated the effectiveness of our method on supporting juxtaposed visual comparisons using bar charts by following Ondov et al.'s~\cite{Ondov19} comparison evaluation, in which the participants performed the \emph{MAXDELTA} task.
+We hypothesized that our method would generally be more effective than the benchmark methods on the task performance, and specifically we had the following two hypotheses:
+\begin{itemize}[noitemsep]
+\setlength{\itemsep}{5pt}
+    \item[\textbf{H1.}] Our color generation method (\emph{$C^3$-Palette Generation}) outperforms the benchmark conditions (\emph{Random Assignment}, \emph{Optimized Assignment}, \emph{Alpha Blending} and \emph{Palettailor}) on the task performance.
+    \item [\textbf{H2.}] Our color assignment method (\emph{$C^3$-Palette Assignment}) using a color palette with a large range of brightness and saturation (\emph{Tableau-20}) outperforms the benchmark conditions (\emph{Random Assignment}, \emph{Optimized Assignment}, \emph{Alpha Blending} and \emph{Palettailor}) on the task performance.
+\end{itemize}
 
-\noindent{\textbf{Task \& Measure. }}
-\emph{MAXDELTA task}. Following the methodology by Ondov et al.~\cite{Ondov19}, we asked participants to find the bar that had the largest difference in the two charts. The titer value which is used to control the largest difference between the two bar charts, is recorded to measure the precision degree for people to make judgments about adjacent bar charts. Larger titer value indicates an easier trial. In addition to titer value(ranging from 0 to 1), we also recorded the answer, where a correct response recorded as 1 and wrong is 0.
+\noindent{\textbf{Task \& Measure. }
+Following the methodology by Ondov et al.~\cite{Ondov19}, we asked the participants perform the \emph{MAXDELTA task}, or finding the maximum delta task. Specifically, the participants were asked to find the bar that had the largest difference in the two bar charts. 
+%The titer value which is used to control the largest difference between the two bar charts, is recorded to measure the precision degree for people to make judgments about adjacent bar charts. Larger titer value indicates an easier trial. In addition to titer value (ranging from 0 to 1), we also record the answer, where a correct response recorded as 1 and wrong is 0.
+For each trial, we measured the error (using 0 and 1) and the time taken to complete it.
 
 
-\noindent{\textbf{Conditions \& sample palette. }}
-Similar to the scatterplot experiment, we also tested the six conditions, including two experimental methods(\emph{$C^3$-Palette Assignment} and \emph{$C^3$-Palette Generation}), as well as four benchmark conditions(\emph{Random Assignment}, \emph{Optimized Assignment}, \emph{Alpha Blending} and \emph{Palettailor}). We used Tableau 20 palette for the assignment method due to its large range of brightness and saturation. Specifically, the original \emph{Optimized Assignment}~\cite{Wang2018} did not apply their method to bar chart, we extended it by treating each bar as a point. \emph{Alpha Blending} is based on the result of \emph{Optimized Assignment} by changing the opacity of each class. Different to the scatterplot experiment, we run these methods in real-time since the bar charts are generated dynamically.
+\noindent{\textbf{Sample palettes for the conditions. }}
+We generated the sample palettes for each of the six conditions using their respective methods. For more details about this process please see the supplemental materials. Here we note a few special points. First, for the \emph{Optimized Assignment} condition, in the original paper~\cite{Wang2018} the method was not applied to a bar chart. We applied their method in our experiment by extending the approach, i.e., treating each bar as a point and then computing the bar chart as a scatterplot. Second, we ran the six methods in real-time and generated bar charts dynamically following Ondov et al.~\cite{Ondov19}, instead of pre-computing all the palettes.
 
-\noindent{\textbf{Bar chart generation. }}
+\noindent{\textbf{Bar chart dataset generation. }}
 All the stimulus datasets used in this experiment are generated by the titer staircase method~\cite{Ondov19} in real time. Each pair of bar charts are generated differently depending on participant performance in the previous trial. For each condition method, the first trial generated bar charts with a titer of $0.5$. An erroneous response made the titer of the next trial increase with $+0.3$(easier) while a correct answer lead to a decrease of $-0.1$(harder). To prevent participants from too many trials with low difficulty, we set $0.75$ as the largest titer value. Each bar chart consists of 7 data points same as Ondov et al.~\cite{Ondov19}.
 
 \noindent{\textbf{Procedure. }}
 At the beginning of this task, we gave participants $4$ training trials to make them familiar with our experiment. The first training trial is time-unconstrained which must be answered correctly while the time of other three trials are identical to the real test(1.5 seconds for impression) with the easiest(largest) titer value($0.75$). We also inform participants how to do these trials. There were twenty trials for each condition methods($120$ trials in total) and the order of the conditions are different between participants.
 
 \noindent{\textbf{Results. }}
-We recruited 32 participants through the AMT, each participant went though all the six condition methods with random order. After the experiment, we run an accuracy-based outlier exclusion to filter participants whose overall proportion of correct trials was lower than two standard deviations from the mean of other workers. This procedure result in 2 participants be excluded from the results. Then we plotted the total error of all trials for each condition and the titrated signal with mean of final titers. As shown in Fig.~\ref{fig:userResults}(a), we can see that \emph{$C^3$-Palette Generation} has a significant difference than other conditions in the error plot. For titrated signal, \emph{$C^3$-Palette Generation} has a better performance than existing methods while is comparable to \emph{$C^3$-Palette Assignment} with designer-crafted palette.
+We recruited 32 participants through the AMT, each participant went through all the six condition methods with random order. After the experiment, we run an accuracy-based outlier exclusion to filter participants whose overall proportion of correct trials was lower than two standard deviations from the mean of other workers. This procedure result in 2 participants be excluded from the results. Then we plotted the total error of all trials for each condition and the titrated signal with mean of final titers. As shown in Fig.~\ref{fig:userResults}(a), we can see that \emph{$C^3$-Palette Generation} has a significant difference than other conditions in the error plot. For titrated signal, \emph{$C^3$-Palette Generation} has a better performance than existing methods while is comparable to \emph{$C^3$-Palette Assignment} with designer-crafted palette.
 
 \begin{figure*}[t]
 \centering
@@ -119,7 +126,7 @@ Next, without loss of fairness, we randomly selected $2$ pairs from each change 
 \noindent{\textbf{Experiment Organization.}} We tested the effects of the $6$ method conditions across $36$ paired multi-class scatterplot datasets using a \emph{between-subject} experiment design. To avoid ordering effects, where the participant would get familiar with a dataset after seeing it several times, each participant was assigned to a group and saw a specific subset of datasets under different conditions. We used a Latin Square grouping (see Table.~\ref{tab:latinsquare}) to organize the trials for each participant. %$Thus, there were $6$ participant groups and each of them had $40$ trials in total. See the supplementary material for more details.
 
 In addition, during the \emph{spotting the difference} task, some participants might apply a ``shortcut'' strategy when seeing a class that is obviously more salient than the others, especially under the \emph{$C^3$-Palette Assignment} and \emph{$C^3$-Palette Generation} conditions.
-And for \emph{spotting the difference} task, some participants might simply select 8 for all trials since they find many simple trials are 8 classes. 
+And for \emph{spotting the difference} task, some participants might simply select 8 for all trials since they find many simple trials are 8 classes.
 Thus, for quality control, we added $4$ sentinels which were very simple trials with 6 classes, including only one changed class with a large change magnitude, and we assigned a de-saturated color to the changed class that made it less salient. All the classes are well separated. We add these 4 distractor trials to each group to identify whether the participant is doing the task seriously and reject the results with more than two wrong trials.
 
 Finally, there were $6$ participant groups and each of them had $40$ trials in total. To further avoid learning effects between trials, we randomly shuffled the display orders of all scatterplot pairs, and randomly placed the two scatterplots in each pair on the left or right side.

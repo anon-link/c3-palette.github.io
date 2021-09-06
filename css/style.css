@@ -458,7 +458,7 @@ a.logo {
     font-family: Geforce;
     font-size: 50px;
     font-weight: 1000;
-    color: #464544;
+    color: white;
     float: left;
     /* margin-top: 10px; */
     text-transform: uppercase;
@@ -496,7 +496,7 @@ a.logo span {
 }
 
 ul.top-menu>li>a {
-    color: #464544;
+    color: white;
     font-size: 40px;
     padding: 2px 6px;
     margin-right: 15px;
@@ -605,7 +605,7 @@ div[data-role="editor-toolbar"] {
 
 .dropdown-menu.extended li p {
     background-color: #F1F2F7;
-    color: #666666;
+    color: white;
     margin: 0;
     padding: 10px;
 }
@@ -627,6 +627,11 @@ div[data-role="editor-toolbar"] {
 
 .dropdown-menu.extended li p.yellow {
     background-color: #fcb322;
+    color: #fff;
+}
+
+.dropdown-menu.extended li p.black {
+    background-color: #676767;
     color: #fff;
 }
 
@@ -1014,15 +1019,15 @@ div[data-role="editor-toolbar"] {
 }
 
 .gray-bg {
-    color: #768399;
+    color: #676767;
     background: #e4e9eb;
     background-color: #e4e9eb;
 }
 
 .dark-bg {
     color: #fff;
-    background: #1a2732;
-    background-color: #1a2732;
+    background: #53585d;
+    background-color: #53585d;
 }
 
 .facebook-bg {
@@ -1654,6 +1659,12 @@ div[data-role="editor-toolbar"] {
     border-color: transparent transparent #688a7e;
     border-bottom-color: #688a7e !important;
     border-top-color: #688a7e !important;
+}
+
+.notify-arrow-black {
+    border-color: transparent transparent #676767;
+    border-bottom-color: #676767 !important;
+    border-top-color: #676767 !important;
 }
 
 .notify-arrow-yellow {
@@ -5219,6 +5230,34 @@ button#generateResultID:active {
 
 @font-face {
     font-family: "Geforce";
-    src: url("../fonts/GeForce-Bold.ttf") format("ttf"),
-    url("../fonts/GeForce-Bold.woff") format("woff")
-  }
+    src: url("../fonts/GeForce-Bold.ttf") format("ttf"), url("../fonts/GeForce-Bold.woff") format("woff")
+}
+
+table {
+    border-collapse: collapse;
+}
+
+table, table tr th, table tr td {
+    color: #676767;
+    border: 1px solid #ccc;
+    text-align: center;
+}
+
+.tf_rect {
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+}
+
+img.rect_lock {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    border: none;
+    opacity: 0;
+}
+
+img.rect_lock:hover {
+    content: url("../img/lock.png");
+    opacity: 1;
+}

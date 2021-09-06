@@ -13,10 +13,10 @@ let svg_width = SVGWIDTH - svg_margin.left - svg_margin.right,
     svg_height = SVGHEIGHT - svg_margin.top - svg_margin.bottom;
 
 let score_importance_weight = new Array(3);
-score_importance_weight[0] = document.getElementById("slider_0").value / 100;
-score_importance_weight[1] = document.getElementById("slider_1").value / 100;
-score_importance_weight[2] = document.getElementById("slider_2").value / 100;
-score_importance_weight[3] = document.getElementById("slider_3").value / 100;
+score_importance_weight[0] = document.getElementById("inputBox_cos").value / 100;
+score_importance_weight[1] = document.getElementById("inputBox_nd").value / 100;
+score_importance_weight[2] = document.getElementById("inputBox_cd").value / 100;
+score_importance_weight[3] = document.getElementById("inputBox_lambda").value / 100;
 
 let generation_mode = 1;
 let source_datasets, source_datasets_names, labelToClass, assignment_palette, scaled_datasets;

@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+
+    <!-- Example based on http://bl.ocks.org/mbostock/3887118 -->
+    <!-- Coding style based on http://gist.github.com/mbostock/5977197 -->
+
+    <style>
+        body {
+            font: 11px sans-serif;
+        }
+
+        table {
+            width: 100%;
+            vertical-align: top;
+            text-align: center;
+            font-size: 14px;
+            color: #eee;
+            background-color: #555;
+            border-collapse: collapse;
+        }
+
+        tbody {
+            color: #555;
+            background-color: #eee;
+        }
+
+        button {
+            background: #555;
+            color: #eee;
+            border: none;
+            border-radius: 5px;
+            width: 180px;
+            padding: 10px;
+            margin: 20px;
+            box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.2);
+            text-shadow: 3px 3px 3px rgba(0, 0, 0, 0.3);
+        }
+
+        button:hover {
+            background: #333;
+            color: #ccc;
+            box-shadow: 0 0 0 rgba(0, 0, 0, 0.2);
+            text-shadow: 0 0 0 rgba(0, 0, 0, 0.3);
+        }
+
+        #control_panel {
+            width: 960px;
+            text-align: center;
+        }
+
+        .axis path,
+        .axis line {
+            fill: none;
+            stroke: #000;
+            shape-rendering: crispEdges;
+        }
+
+        /* .dot {
+            stroke: #000;
+        } */
+
+        .label {
+            font-size: 16px;
+        }
+
+        #progress_container {
+            width: 90%;
+            height: 20px;
+            border-radius: 10px;
+            background: #ddd;
+            margin: 0 auto;
+            margin-top: 10px;
+            box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.3) inset;
+        }
+
+        #progress {
+            width: 100px;
+            height: 20px;
+            /*padding: 5px;*/
+            line-height: 20px;
+            background: #007acd;
+            border-radius: 10px;
+        }
+
+        #progress p {
+            text-align: center;
+            color: white;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid black;
+        }
+
+        /* Style the tab */
+        .tab {
+            overflow: hidden;
+            border: 1px solid #ccc;
+            background-color: #f1f1f1;
+        }
+
+        /* Style the buttons that are used to open the tab content */
+        .tab button {
+            background-color: inherit;
+            float: left;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 14px 16px;
+            transition: 0.3s;
+            color: #000;
+        }
+
+        /* Change background color of buttons on hover */
+        .tab button:hover {
+            background-color: #ddd;
+        }
+
+        /* Create an active/current tablink class */
+        .tab button.active {
+            background-color: #ccc;
+        }
+
+        /* Style the tab content */
+        .tabcontent {
+            display: none;
+            padding: 6px 12px;
+            border: 1px solid #ccc;
+            border-top: none;
+        }
+
+        .tabcontent {
+            animation: fadeEffect 1s;
+            /* Fading effect takes 1 second */
+        }
+
+        /* Go from zero to full opacity */
+        @keyframes fadeEffect {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+
+    <script type="text/javascript" src="../../js/lib/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="../../js/lib/d3.v4.min.js"></script>
+    <script type="text/javascript" src="./trials_data.js"></script>
+</head>
+
+<body>
+    <div class="tab">
+        <button class="tablinks" onclick="openTab(event, 'all')">All</button>
+        <button class="tablinks" onclick="openTab(event, 'group-1')">Random Assignment</button>
+        <button class="tablinks" onclick="openTab(event, 'group-2')">Optimized Assignment</button>
+        <button class="tablinks" onclick="openTab(event, 'group-3')">Alpha Blending</button>
+        <button class="tablinks" onclick="openTab(event, 'group-4')">C3-palette Assignment</button>
+        <button class="tablinks" onclick="openTab(event, 'group-5')">Palettailor</button>
+        <button class="tablinks" onclick="openTab(event, 'group-6')">C3-palette Generation</button>
+    </div>
+    <div id="all" class="tabcontent">
+        <div id="control_panel">
+            <button id="next" onclick="next()">next</button>
+            <button id="prev" onclick="previous()">previous</button>
+        </div>
+        <div><label id="file_id_label" style="font-size: 30pt;"></label><br>
+            <label id="change_magnitude_label" style="font-size: 30pt;"></label><br>
+            <label id="change_type_label" style="font-size: 30pt;"></label>
+        </div>
+
+        <div id="div1" style="width: 1000px;height: 500px;font-size: large;float:left;">
+            <div style="width: 100%;height: 50px;font-size: large;float:left;">Random Assignment</div>
+        </div>
+        <div id="div2" style="width: 1000px;height: 500px;font-size: large;float:left;">
+            <div style="width: 100%;height: 50px;font-size: large;float:left;">Optimized Assignment</div>
+        </div>
+        <div id="div3" style="width: 1000px;height: 500px;font-size: large;float:left;">
+            <div style="width: 100%;height: 50px;font-size: large;float:left;">Alpha Blending</div>
+        </div>
+        <div id="div4" style="width: 1000px;height: 500px;font-size: large;float:left;">
+            <div style="width: 100%;height: 50px;font-size: large;float:left;">C3-palette Assignment</div>
+        </div>
+        <div id="div5" style="width: 1000px;height: 500px;font-size: large;float:left;">
+            <div style="width: 100%;height: 50px;font-size: large;float:left;">Palettailor</div>
+        </div>
+        <div id="div6" style="width: 1000px;height: 500px;font-size: large;float:left;">
+            <div style="width: 100%;height: 50px;font-size: large;float:left;">C3-palette Generation</div>
+        </div>
+        <div style="width:720px; height: 120px; overflow-y:auto; margin: 20px; display: inline;">
+            <table>
+                <caption style="font-weight: bold; font-size: 20px; padding-bottom: 5px; color: #555">Change
+                    Information(color corresponding to C3-palette Assignment)
+                </caption>
+                <colgroup>
+                    <col style="width:30%">
+                    </col>
+                    <col style="width:40%">
+                    </col>
+                    <col style="width:30%">
+                    </col>
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>change magnitude</th>
+                        <th>cluster type</th>
+                        <th>change type</th>
+                    </tr>
+                </thead>
+                <tbody id="changeInfoLabel">
+                </tbody>
+            </table>
+        </div>
+        <br />
+        <div id="progress_container">
+            <div id="progress">
+                <p id="progressNum">10%</p>
+            </div>
+        </div>
+    </div>
+    <div id="group-1" class="tabcontent">
+        <h3>Random Assignment</h3>
+    </div>
+    <div id="group-2" class="tabcontent">
+        <h3>Optimized Assignment</h3>
+    </div>
+    <div id="group-3" class="tabcontent">
+        <h3>Alpha Blending</h3>
+    </div>
+    <div id="group-4" class="tabcontent">
+        <h3>C3-palette Assignment</h3>
+    </div>
+    <div id="group-5" class="tabcontent">
+        <h3>Palettailor</h3>
+    </div>
+    <div id="group-6" class="tabcontent">
+        <h3>C3-palette Generation</h3>
+    </div>
+    <script type="text/javascript">
+        let svg_margin = {
+            top: 20,
+            right: 20,
+            bottom: 20,
+            left: 20
+        },
+            radius = 4,
+            SVGWIDTH = 400,
+            SVGHEIGHT = 400;
+
+        Tableau_20_palette = ['#4E79A7', '#A0CBE8', '#F28E2B', '#FFBE7D', '#59A14F', '#8CD17D', '#B6992D', '#F1CE63', '#499894', '#86BCB6', '#E15759', '#FF9D9A', '#79706E', '#BAB0AC', '#D37295', '#FABFD2',
+            '#B07AA1', '#D4A6C8', '#9D7660', '#D7B5A6'];
+        Tableau_10_palette = ["#4E79A7", "#F28E2B", "#E15759", "#76B7B2", "#59A14F", "#EDC948", "#B07AA1", "#FF9DA7", "#9C755F", "#BAB0AC"];
+        palettes = Tableau_20_palette;
+        var count = 0;
+
+    </script>
+    <script>
+
+        let file_count = -1;
+        let result_info;
+        let bgcolor = "#fff";
+        let magnitude_str = ["small", "medium", "large"]
+        let condition_names = ["Random Assignment", "Optimized Assignment", "Alpha Blending", "C3-palette Assignment", "Palettailor", "C3-palette Generation"]
+        let source_datasets = [];
+        let svg_width = SVGWIDTH - svg_margin.left - svg_margin.right,
+            svg_height = SVGHEIGHT - svg_margin.top - svg_margin.bottom;
+        let xScale = d3.scaleLinear().range([0, svg_width]), // value -> display
+            xMap = function (d) {
+                return xScale(d.x);
+            }, // data -> display
+            xAxis = d3.axisBottom().scale(xScale).ticks(0);
+        let yScale = d3.scaleLinear().range([svg_height, 0]), // value -> display
+            yMap = function (d) {
+                return yScale(d.y);
+            }, // data -> display
+            yAxis = d3.axisLeft().scale(yScale).ticks(0);
+
+        function reorderData(change_info, cluster_num, source_datasets) {
+            let change_ids = change_info.map(function (d) { return d["cluster_id"] })
+            let order = []
+            for (let i = 0; i < cluster_num; i++) {
+                if (change_ids.indexOf(i) === -1) {
+                    order.push(i)
+                }
+            }
+            order = order.concat(change_ids);
+            var clusters = {};
+            for (let i = 0; i < source_datasets.length; i++) {
+                let d = source_datasets[i]
+                if (clusters[d.label] == undefined)
+                    clusters[d.label] = [];
+                clusters[d.label].push(d);
+            }
+            let data = []
+            for (let j = 0; j < order.length; j++) {
+                data = data.concat(clusters[order[j]])
+            }
+            return data;
+
+        }
+        // draw the two images
+        function drawScatterplotsMy(divId, conditionId, options, change_info) {
+            let change_ids = change_info.map(function (d) { return d["cluster_id"] })
+            let used_palette = options;
+
+            for (let i = 0; i < source_datasets.length; i++) {
+                source_datasets[i] = reorderData(change_info, options.length, source_datasets[i])
+                let scatterplot_svg = d3.select("#" + divId).append("svg")
+                    .attr("width", SVGWIDTH).attr("height", SVGHEIGHT);
+                let scatterplot = scatterplot_svg.style("background-color", bgcolor).append("g")
+                    .attr("transform", "translate(" + svg_margin.left + "," + svg_margin.top + ")");
+                // draw dots
+                let dots = scatterplot.append("g").selectAll(".dot")
+                    .data(source_datasets[i])
+                    .enter().append("circle")
+                    .attr("class", "dot")
+                    .attr("id", function (d) {
+                        return "class_" + d.label;
+                    })
+                    .attr("r", radius)
+                    .attr("cx", xMap)
+                    .attr("cy", yMap)
+                    .attr("fill", function (d, i) {
+                        return used_palette[+d.label];
+                    })
+                    .style("opacity", function (d) {
+                        if (conditionId === 2 && change_ids.indexOf(+d.label) === -1) {
+                            return "0.5";
+                        } else {
+                            return "1";
+                        }
+                    })
+                // add the x Axis
+                scatterplot.append("g")
+                    .attr("transform", "translate(0," + svg_height + ")")
+                    .call(d3.axisBottom(xScale).tickFormat(""));
+
+                // add the y Axis
+                scatterplot.append("g")
+                    .call(d3.axisLeft(yScale).tickFormat(""));
+
+                // calculate class visibility for each scatterplot
+                // var data_clusters = {};
+                // for (let d of source_datasets[i]) {
+                //     if (data_clusters[+d.label] == undefined)
+                //         data_clusters[+d.label] = [];
+                //     data_clusters[+d.label].push({
+                //         x: xMap(d),
+                //         y: yMap(d)
+                //     });
+                // }
+                // calculateVisibility(scatterplot_svg, used_palette, scatterplot, file_count);
+            }
+        }
+        function loadData(text, labelSet) {
+            //parse pure text to data, and cast string to number
+            let source_data = d3.csvParseRows(text, function (d) {
+                if (!isNaN(d[0]) && !isNaN(d[1])) {
+                    return d; //.map(Number);
+                }
+            }).map(function (d) { // change the array to an object, use the first two feature as the position
+                //source data
+                var row = {};
+                row.label = d[2];
+                labelSet.add(row.label);
+                row.x = +d[0];
+                row.y = +d[1];
+                return row;
+            });
+            source_datasets.push(source_data);
+        }
+        function getLabelToClassMapping(labelSet) {
+            var i = 0;
+            var label2class = {};
+            for (let e of labelSet.values()) {
+                label2class[e] = +e;
+            }
+            return label2class;
+        }
+
+        function show(id) {
+            d3.select("#file_id_label").text("file id is: " + trials_data[id]["file_id"])
+            d3.select("#change_magnitude_label").text("change magnitude is: " + magnitude_str[trials_data[id]["magnitude"]])
+            d3.select("#change_type_label").text("change type is: " + trials_data[id]["change_type"])
+
+            source_datasets = []
+            d3.selectAll("#all svg").remove();
+
+            // loading data
+            source_datasets = [];
+            d3.text("./" + trials_data[id]["file_name"] + "-ref.csv", function (error, text) {
+                if (error) throw error;
+                let labelSet = new Set();
+                loadData(text, labelSet);
+
+                d3.text("./" + trials_data[id]["file_name"] + "-comp.csv", function (error, text) {
+                    if (error) throw error;
+                    loadData(text, labelSet);
+
+                    let dataset = [];
+                    for (let i = 0; i < source_datasets.length; i++) {
+                        dataset = dataset.concat(source_datasets[i]);
+                    }
+                    xScale.domain(d3.extent(dataset, (d) => { return d.x }));
+                    yScale.domain(d3.extent(dataset, (d) => { return d.y }));
+                    all_visibility[id] = [];
+                    drawScatterplotsMy("div1", 0, trials_data[id]["options"][0], trials_data[id]["change_info"]);
+                    drawScatterplotsMy("div2", 1, trials_data[id]["options"][1], trials_data[id]["change_info"]);
+                    drawScatterplotsMy("div3", 2, trials_data[id]["options"][2], trials_data[id]["change_info"]);
+                    drawScatterplotsMy("div4", 3, trials_data[id]["options"][3], trials_data[id]["change_info"]);
+                    drawScatterplotsMy("div5", 4, trials_data[id]["options"][4], trials_data[id]["change_info"]);
+                    drawScatterplotsMy("div6", 5, trials_data[id]["options"][5], trials_data[id]["change_info"]);
+                    // if (all_visibility[trials_data.length - 1][11]) {
+                    //     //     file_count++;
+                    //     //     show(file_count);
+                    //     // } else {
+                    //     console.log(all_visibility);
+                    //     saveTable(all_visibility)
+                    // }
+                });
+            });
+
+
+
+            //show data in table
+            var dataForm = "";
+            let options = trials_data[id]["options"][3];
+            // console.log(options);
+            for (let i = 0; i < trials_data[id]["change_info"].length; i++) {
+                dataForm += "<tr style='background-color:" + options[trials_data[id]["change_info"][i]["cluster_id"]] + "\'><td>" + magnitude_str[trials_data[id]["magnitude"]] + "</td><td>" + trials_data[id]["change_info"][i]["cluster_type"] + "</td><td>" + trials_data[id]["change_type"] + "</td></tr>";
+            }
+            document.getElementById("changeInfoLabel").innerHTML = dataForm;
+
+            let containerWidth = document.getElementById("progress_container").offsetWidth;
+            document.getElementById("progress").style.width = (containerWidth * (file_count + 1) / trials_data.length) + "px";
+            document.getElementById("progressNum").innerHTML = (file_count + 1) + "/" + trials_data.length;
+        }
+
+        function next() {
+            file_count++;
+            if (file_count === trials_data.length) file_count = trials_data.length - 1;
+            show(file_count);
+        }
+        function previous() {
+            file_count--;
+            if (file_count < 0) file_count = 0;
+            show(file_count);
+        }
+
+
+    </script>
+    <script>
+        /**
+         * show each group data
+        */
+        let groups_trials_data = new Array(6);
+        for (let i = 0; i < 6; i++) {
+            groups_trials_data[i] = [];
+            for (let j = 0; j < trials_data.length; j++) {
+                trial = JSON.parse(JSON.stringify(trials_data[j]));
+                trial["assignmentId"] = i
+                trial["options"] = trials_data[j]["options"][trial["assignmentId"]]
+                groups_trials_data[i].push(trial)
+            }
+        }
+        console.log(groups_trials_data);
+
+        let group_count = 1, group_data_count = 0;
+        function drawGroupData(divId, group_data) {
+            // loading data
+            source_datasets = [];
+            d3.text("./" + trials_data[group_data_count]["file_name"] + "-ref.csv", function (error, text) {
+                if (error) throw error;
+                let labelSet = new Set();
+                loadData(text, labelSet);
+
+                d3.text("./" + trials_data[group_data_count]["file_name"] + "-comp.csv", function (error, text) {
+                    if (error) throw error;
+                    loadData(text, labelSet);
+
+                    let dataset = [];
+                    for (let i = 0; i < source_datasets.length; i++) {
+                        dataset = dataset.concat(source_datasets[i]);
+                    }
+                    xScale.domain(d3.extent(dataset, (d) => { return d.x }));
+                    yScale.domain(d3.extent(dataset, (d) => { return d.y }));
+
+                    drawScatterplotsMy(divId, group_data[group_data_count]["assignmentId"], group_data[group_data_count]["options"], group_data[group_data_count]["change_info"]);
+
+                    group_data_count++;
+                    if (group_data_count === group_data.length) {
+                        group_data_count = 0;
+                        group_count++;
+                        group_data = groups_trials_data[group_count - 1];
+                    }
+                    if (group_count <= groups_trials_data.length) {
+
+                        div = d3.select("#group-" + group_count).append("div").attr("id", "div-group-" + group_count + "-data-" + group_data_count).style("float", "left").style("margin-left", "100px").style("margin-top", "20px");
+                        div.append("div").append("label").text(group_data[group_data_count]["file_id"] + ", " + group_data[group_data_count]["file_name"] + ", " + group_data[group_data_count]["change_info"].length + " changed")
+                        drawGroupData("div-group-" + group_count + "-data-" + group_data_count, group_data)
+                    }
+                });
+            });
+        }
+        let div = d3.select("#group-" + group_count).append("div").attr("id", "div-group-" + group_count + "-data-" + group_data_count).style("float", "left").style("margin-left", "100px").style("margin-top", "20px");
+        div.append("div").append("label").text(groups_trials_data[group_count - 1][group_data_count]["file_id"] + ", " + condition_names[groups_trials_data[group_count - 1][group_data_count]["assignmentId"]] + ", " + groups_trials_data[group_count - 1][group_data_count]["change_info"].length + " changed")
+        drawGroupData("div-group-" + group_count + "-data-" + group_data_count, groups_trials_data[group_count - 1])
+    </script>
+    <script>
+        function openTab(evt, cityName) {
+            // Declare all variables
+            var i, tabcontent, tablinks;
+
+            // Get all elements with class="tabcontent" and hide them
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+
+            // Get all elements with class="tablinks" and remove the class "active"
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+
+            // Show the current tab, and add an "active" class to the button that opened the tab
+            document.getElementById(cityName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+
+    </script>
+    <script>
+
+        let all_visibility = new Array(trials_data.length);
+
+        function calculateVisibility(scatterplot_svg, palette, scatterplot, id) {
+            let image = new Image;
+            // get svg data
+            var xml = new XMLSerializer().serializeToString(scatterplot_svg._groups[0][0]);
+            // make it base64
+            var svg64 = btoa(xml);
+            var b64Start = 'data:image/svg+xml;base64,';
+
+            // prepend a "header"
+            var image64 = b64Start + svg64;
+
+            //create a temporary canvas
+            d3.select("body").append("canvas").attr("id", "virtual_canvas")
+                .attr("width", SVGWIDTH)
+                .attr("height", SVGHEIGHT)//.attr("style", "display:none");
+
+            image.onload = function () {
+                // draw the image onto the canvas
+                document.getElementById("virtual_canvas").getContext('2d').drawImage(image, 0, 0);
+                //get pixels image
+                let context = document.getElementById("virtual_canvas").getContext('2d');
+                let imgData = context.getImageData(0, 0, context.canvas.width, context.canvas.height);
+                let cv_score = calcMeanClassVisibility(imgData, palette);
+                scatterplot.append("text").attr("x", 0).attr("y", 0).text(cv_score.toFixed(2));
+                console.log(id, cv_score);
+                all_visibility[id].push(cv_score);
+                console.log(all_visibility);
+            }
+            image.onerror = function () { console.log("Image failed!"); };
+            // set it as the source of the img element
+            image.src = image64;
+        }
+
+        function calcMeanClassVisibility(imgData, palette) {
+            let distanceMetricForCV = function (a, b) {//lab distance
+                return Math.sqrt((a.l - b.l) * (a.l - b.l) + (a.a - b.a) * (a.a - b.a) + (a.b - b.b) * (a.b - b.b));
+            }
+
+            let colors = [];//colors array used to store palette color in rgb format
+            for (let i = 0; i < palette.length; i++) {
+                colors.push(d3.rgb(palette[i]));
+            }
+            colors.push(d3.rgb(255, 255, 255));
+
+            let getColorIndex = function (color) {//get the color index of the pixel
+                let idx = colors.length - 1;
+                for (let j = 0; j < colors.length; j++) {
+                    if (Math.abs(color.r - colors[j].r) <= 1 && Math.abs(color.g - colors[j].g) <= 1 && Math.abs(color.b - colors[j].b) <= 1) {
+                        idx = j;
+                        return idx;
+                    }
+                }
+                return idx;
+            }
+            //view area: 3x3
+            let img_width = svg_width + 2 * radius,
+                img_height = svg_height + 2 * radius,
+                index, color_p, color_q;
+            let total_class_visibility_array = new Array(colors.length),
+                average_cq;
+            for (let i = 0; i < total_class_visibility_array.length; i++) {
+                total_class_visibility_array[i] = [0];
+            }
+            for (let i = 1; i < img_height - 1; i++) {
+                for (let j = 1; j < img_width - 1; j++) {
+                    index = (i * img_width + j) * 4;
+                    color_p = d3.rgb(imgData.data[index], imgData.data[index + 1], imgData.data[index + 2]);
+
+                    let wp = 0;
+                    average_cq = {
+                        x: 0,
+                        y: 0,
+                        z: 0
+                    };
+                    for (let p = -1; p <= 1; p++) {
+                        for (let q = -1; q <= 1; q++) {
+                            if (p === 0 && q === 0) continue;
+                            index = ((i + p) * img_width + j + q) * 4;
+                            color_q = d3.rgb(imgData.data[index], imgData.data[index + 1], imgData.data[index + 2]);
+                            let color_q_lab = d3.lab(color_q);
+                            average_cq.x = +average_cq.x + color_q_lab.l;
+                            average_cq.y = +average_cq.y + color_q_lab.a;
+                            average_cq.z = +average_cq.z + color_q_lab.b;
+
+                            if (Math.abs(color_p.r - color_q.r) < 3 && Math.abs(color_p.g - color_q.g) < 3 && Math.abs(color_p.b - color_q.b) < 3) {
+                                wp++;
+                            }
+                        }
+                    }
+                    color_q = d3.lab((+average_cq.x) / 8, (+average_cq.y) / 8, (+average_cq.z) / 8);
+                    let distance_of_colors = distanceMetricForCV(d3.lab(color_p), color_q);
+                    distance_of_colors = (isNaN(distance_of_colors) ? 0 : distance_of_colors);
+
+
+                    total_class_visibility_array[getColorIndex(color_p)].push(distance_of_colors * wp);
+                }
+            }
+
+            let mean_class_visibility = 0;
+            for (let i = 0; i < total_class_visibility_array.length; i++) {
+                mean_class_visibility += d3.sum(total_class_visibility_array[i]) / total_class_visibility_array[i].length;
+            }
+            d3.select("#virtual_canvas").remove();
+            return mean_class_visibility;
+        }
+
+        // function saveTable(data) {
+        //     // source_data.push([final_reference_data, final_comparative_data])
+        //     let str = "Random 10, Random 20, Optimized Tableau, Ours 10, Ours 20, Ours Generation\n";
+        //     for (let i = 0; i < data.length; i++) {
+        //         for (let j = 0; j < data[i].length; j += 2) {
+        //             let score = (data[i][j] + data[i][j + 1]) / 2;
+        //             str += score.toFixed(2) + ",";
+        //         }
+        //         str += "\n";
+        //     }
+        //     downloadFile("classVisibilty.csv", str);
+        // }
+        // function downloadFile(fileName, content) {
+        //     var aTag = document.createElement('a');
+        //     var blob = new Blob(['\ufeff' + content], { type: "text/csv" });
+        //     aTag.download = fileName;
+        //     aTag.href = URL.createObjectURL(blob);
+        //     aTag.click();
+        //     URL.revokeObjectURL(blob);
+        // }
+    </script>
+</body>
+
+</html>

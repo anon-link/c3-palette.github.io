@@ -1,0 +1,2 @@
+userName,fileId,conditionId,changeMagnitude,changeType,clickOrder,clickClusterType,clickTime,userResult,rightAnswer,totalTime
+test-local,0,1,2,pos,,0,,0,3-4,60

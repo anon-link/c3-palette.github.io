@@ -1,0 +1,41 @@
+userName,fileId,conditionId,changeMagnitude,changeType,clickOrder,clickClusterType,clickTime,userResult,rightAnswer,totalTime
+test-cosaliency,0,1,2,pos,3-4,small&dense-small&sparse,6.88-5.18,1,3-4,13.318
+test-cosaliency,27,4,1,num,5,small&sparse,29.53,1,5,30.824
+test-cosaliency,12,1,0,pos,6,large&dense,9.79,1,6,11.096
+test-cosaliency,21,4,2,num,1,small&sparse,20.51,1,1,21.436
+test-cosaliency,29,0,1,num,4,small&sparse,12.25,1,4,13.253
+test-cosaliency,15,4,0,pos,7,small&sparse,5.35,1,7,6.363
+test-cosaliency,60,-1,2,center position,5,small&dense,2.61,1,5,3.558
+test-cosaliency,34,5,0,num,7-5-6,large&dense-large&dense-small&sparse,4.19-2.02-1.88,1,5-7-6,9.771
+test-cosaliency,1,2,2,pos,2,small&sparse,3.08,1,2,4.316
+test-cosaliency,20,3,2,num,4-7,small&dense-large&dense,2.11-1.08,1,4-7,4.206
+test-cosaliency,7,2,1,pos,5-7-3,small&sparse-small&sparse-large&sparse,2.73-1.43-2.36,1,5-3-7,8.499
+test-cosaliency,5,0,2,pos,0-3,large&dense-small&sparse,1.86-3.30,1,0-3,8.678
+test-cosaliency,10,5,1,pos,3-7,large&dense-small&dense,2.02-0.81,1,7-3,3.881
+test-cosaliency,13,2,0,pos,0-3-5,large&sparse-small&dense-large&dense,3.90-2.12-1.32,1,3-5-0,8.226
+test-cosaliency,14,3,0,pos,7-6-5,large&dense-small&sparse-large&dense,2.55-3.10-1.39,1,6-5-7,8.229
+test-cosaliency,32,-1,2,shape,4,large&dense,5.36,1,4,6.252
+test-cosaliency,22,5,2,num,7-0,small&sparse-large&sparse,4.85-5.84,1,0-7,11.627
+test-cosaliency,62,-1,2,center position,4,large&dense,2.07,1,4,3.204
+test-cosaliency,23,0,2,num,0-6-3,large&dense-large&dense-small&sparse,4.91-2.82-6.93,1,3-6-0,15.621
+test-cosaliency,17,0,0,pos,0-5,small&dense-small&sparse,4.34-17.81,1,0-5,23.233
+test-cosaliency,8,3,1,pos,1-6,large&dense-large&sparse,2.73-1.58,1,1-6,8.416
+test-cosaliency,35,0,0,num,6-5-0,small&dense-large&sparse-small&sparse,10.47-6.60-17.85,1,6-5-0,38.098
+test-cosaliency,3,4,2,pos,7,small&sparse,3.77,1,7,12.557
+test-cosaliency,33,4,0,num,5,small&sparse,10.88,1,5,11.996
+test-cosaliency,9,4,1,pos,1,small&dense,6.03,1,1,6.913
+test-cosaliency,4,5,2,pos,2-6-0,small&dense-small&sparse-small&dense,1.95-1.05-0.80,1,0-2-6,4.764
+test-cosaliency,3,-1,2,point number,1,large&dense,1.75,1,1,2.976
+test-cosaliency,6,1,1,pos,2,small&dense,2.25,1,2,3.454
+test-cosaliency,28,5,1,num,2-0-5,small&sparse-small&dense-small&sparse,2.07-1.30-1.15,1,0-2-5,5.701
+test-cosaliency,18,1,2,num,2-7-5,small&dense-small&dense-small&sparse,2.31-1.14-1.71,1,7-2-5,6.487
+test-cosaliency,11,0,1,pos,1-0-6,small&dense-large&sparse-small&dense,2.47-3.68-2.91,1,6-1-0,10.123
+test-cosaliency,30,1,0,num,0-5,small&dense-small&dense,37.58-16.47,1,5-0,56.231
+test-cosaliency,19,2,2,num,3,small&dense,2.14,1,3,4.644
+test-cosaliency,25,2,1,num,1-0,small&sparse-large&sparse,2.84-1.50,1,1-0,5.425
+test-cosaliency,31,2,0,num,6-5,large&sparse-large&dense,3.42-2.48,1,6-5,6.64
+test-cosaliency,32,3,0,num,7,small&sparse,2.26,1,7,3.479
+test-cosaliency,16,5,0,pos,0-1,small&dense-small&sparse,1.31-1.10,1,1-0,3.338
+test-cosaliency,2,3,2,pos,5-6-4,small&dense-small&sparse-large&sparse,1.93-1.22-1.62,1,5-4-6,5.763
+test-cosaliency,26,3,1,num,4-3-6,small&dense-small&sparse-large&sparse,1.78-1.25-1.26,1,3-4-6,5.195
+test-cosaliency,24,1,1,num,6-2,small&sparse-small&dense,11.16-4.96,1,2-6,17.235

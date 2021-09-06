@@ -1,0 +1,10 @@
+test-local,9,3,1,pos,,0,,0,1,60
+test-local,4,4,2,pos,,0,,0,0-2-6,60
+test-local,3,-1,2,point number,,0,,0,1,60
+test-local,6,0,1,pos,,0,,0,2,60
+test-local,28,4,1,num,,0,,0,0-2-5,60
+test-local,18,0,2,num,,0,,0,7-2-5,60
+test-local,11,5,1,pos,,0,,0,6-1-0,60
+test-local,30,0,0,num,,0,,0,5-0,60
+test-local,19,1,2,num,,0,,0,3,60
+test-local,25,1,1,num,,0,,0,1-0,60

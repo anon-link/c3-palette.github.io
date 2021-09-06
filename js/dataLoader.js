@@ -26,7 +26,14 @@ function loadScatterplotExample() {
             d3.select(".operationDiv").style('pointer-events', "auto");
             document.querySelector('#loading').classList.add('hide');
             data_changed_sign = true;
+            if (generation_mode === 0) {
+                document.getElementById("slider_1").value = 100;
+                changeSlider("inputBox_nd", document.getElementById("slider_1").value)
+                document.getElementById("slider_2").value = 0;
+                changeSlider("inputBox_cd", document.getElementById("slider_2").value)
+            }
             renderResult();
+
         });
     });
 }
@@ -51,6 +58,12 @@ function loadLinechartExample() {
             d3.select(".operationDiv").style('pointer-events', "auto");
             document.querySelector('#loading').classList.add('hide');
             data_changed_sign = true;
+            if (generation_mode === 0) {
+                document.getElementById("slider_1").value = 100;
+                changeSlider("slider_1", document.getElementById("slider_1").value)
+                document.getElementById("slider_2").value = 0;
+                changeSlider("slider_2", document.getElementById("slider_2").value)
+            }
             renderResult();
         });
     });
@@ -76,6 +89,12 @@ function loadBarchartExample() {
             d3.select(".operationDiv").style('pointer-events', "auto");
             document.querySelector('#loading').classList.add('hide');
             data_changed_sign = true;
+            if (generation_mode === 0) {
+                document.getElementById("slider_1").value = 100;
+                changeSlider("inputBox_nd", document.getElementById("slider_1").value)
+                document.getElementById("slider_2").value = 0;
+                changeSlider("inputBox_cd", document.getElementById("slider_2").value)
+            }
             renderResult();
         });
     });
