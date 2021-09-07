@@ -15,8 +15,8 @@ source('analysis.R')
 library(forcats)
 library(tidyverse)
 
-file_study_folder <- "./data/pilot/"
-save_img_sign <- TRUE#FALSE#
+file_study_folder <- "./data/formal/"
+save_img_sign <- FALSE#TRUE#
 saveImg <- function(name){
   if(save_img_sign){
     ggsave(paste("results", "pilot", paste(name,".pdf"), sep = "/"), width = 10, height = 6, useDingbats=FALSE)

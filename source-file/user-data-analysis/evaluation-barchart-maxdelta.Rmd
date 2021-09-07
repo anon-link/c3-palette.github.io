@@ -223,6 +223,14 @@ df_stat_output <- stat_table_error(data,"C3-Palette Assignment")
 ciplot(data, "error", "conditionName", "Part-mean")
 saveImg(paste(file_prefix, "error", "conditionName", "Part-mean",sep="-"))
 
+data <- dplyr::summarise(group_by(data_part, userName, conditionName), error=mean(error))
+#Statistical Test Results: mu~95% CI, W, p-value, d.
+# error~conditionName and time~conditionName
+df_stat_output <- stat_table_error(data,"C3-Palette Generation")
+df_stat_output <- stat_table_error(data,"C3-Palette Assignment")
+ciplot(data, "error", "conditionName", "Part-mean-error")
+saveImg(paste(file_prefix, "error", "conditionName", "Part-mean-error",sep="-"))
+
 ```
 ```{r}
 #draw bar plot
