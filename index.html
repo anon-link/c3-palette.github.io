@@ -178,7 +178,7 @@
         </div>
         <!-- sidebar menu start-->
         <ul class="sidebar-menu">
-          <li class="sub-menu">
+          <li class="sub-menu" hidden>
             <a href="javascript:;" class="">
               <span>Generation Mode</span>
               <span class="menu-arrow arrow_carrot-down"></span>
@@ -187,7 +187,7 @@
               <li>
                 <div class="menu-sidebar-div" style="padding-left: 32px;">
                   <label style="font-size: 16px;font-weight: bold;margin-right: 10px;"><input type="radio"
-                      name="generationMode" id="caRatioId" value="colorAssignment" checked>&nbsp;&nbsp;Color
+                      name="generationMode" id="caRatioId" value="colorAssignment">&nbsp;&nbsp;Color
                     Assignment for</label>
                   <select class="form-control paletteFnt" style="width: 120px;display: inline-block;">
                     <option>Tableau 10</option>
@@ -204,7 +204,7 @@
               <li>
                 <div class="menu-sidebar-div" style="padding-left: 32px;">
                   <label style="font-size: 16px;font-weight: bold;"><input type="radio" name="generationMode"
-                      id="pgRatioId" value="paletteGeneration">&nbsp;&nbsp;Palette
+                      id="pgRatioId" value="paletteGeneration" checked>&nbsp;&nbsp;Palette
                     Generation</label>
                 </div>
               </li>
@@ -261,7 +261,7 @@
               <li>
                 <div class="menu-sidebar-div" style="padding-left: 32px;">
                   <label style="width: 180px;"><strong>Name Difference:</strong> </label>
-                  <input class="form-control" id="inputBox_nd" type="number" value="0" step="1" min="0" max="100"
+                  <input class="form-control" id="inputBox_nd" type="number" value="100" step="1" min="0" max="100"
                     style="width: 80px;display: inline-block;" oninput="changeSlider(this.id, this.value)">
                   <label>%</label>
                   <span class="arrow_carrot-down" onclick="showSlider('slider_1_div',this);"

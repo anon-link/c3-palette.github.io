@@ -47,7 +47,7 @@ stat_table_error <- function(data, compared_condition) {
       # W test
       wt <- wilcox.test(error ~ conditionName, 
                         data = sub_data_two_groups, 
-                        conf.int=TRUE)
+                        conf.int=TRUE, paired=TRUE)
       df_stats[index, "W"] <- as.character(wt$statistic)
       df_stats[index, "p-value"] <- format(wt$p.value, format = "e", digits = 2)
       
@@ -125,6 +125,7 @@ for (file in filelist) {
   data_temp <- read.csv(paste(file_path, file, sep = ""), header = TRUE) %>%
     mutate(error=ifelse(userResult==1, 0, 1))
 
+  data_temp <- data_temp[data_temp$conditionId!=3,]
   # bind the data to the total data frame
   data_total <- rbind(data_total, data_temp)
   
@@ -155,14 +156,14 @@ data_total <- data_total %>%
 data_total[data_total$conditionId==0, ]$conditionName <- "Random Assignment"
 data_total[data_total$conditionId==1, ]$conditionName <- "Optimized Assignment"
 data_total[data_total$conditionId==2, ]$conditionName <- "Alpha Blending"
-data_total[data_total$conditionId==3, ]$conditionName <- "C3-Palette Assignment"
+#data_total[data_total$conditionId==3, ]$conditionName <- "C3-Palette Assignment"
 data_total[data_total$conditionId==4, ]$conditionName <- "Palettailor"
 data_total[data_total$conditionId==5, ]$conditionName <- "C3-Palette Generation"
 
 data_total <- data_total %>%
   mutate(conditionName = fct_relevel(conditionName, 
-                                 "C3-Palette Generation",
-                                 "C3-Palette Assignment", "Palettailor", 
+                                 "C3-Palette Generation",#"C3-Palette Assignment", 
+                                 "Palettailor", 
                                  "Alpha Blending", "Optimized Assignment", "Random Assignment"))
 
 # Prep Plot Consistency
@@ -171,14 +172,14 @@ data_part <- data_part %>%
 data_part[data_part$conditionId==0, ]$conditionName <- "Random Assignment"
 data_part[data_part$conditionId==1, ]$conditionName <- "Optimized Assignment"
 data_part[data_part$conditionId==2, ]$conditionName <- "Alpha Blending"
-data_part[data_part$conditionId==3, ]$conditionName <- "C3-Palette Assignment"
+#data_part[data_part$conditionId==3, ]$conditionName <- "C3-Palette Assignment"
 data_part[data_part$conditionId==4, ]$conditionName <- "Palettailor"
 data_part[data_part$conditionId==5, ]$conditionName <- "C3-Palette Generation"
 
 data_part <- data_part %>%
   mutate(conditionName = fct_relevel(conditionName, 
-                                 "C3-Palette Generation",
-                                 "C3-Palette Assignment", "Palettailor", 
+                                 "C3-Palette Generation",#"C3-Palette Assignment",
+                                  "Palettailor", 
                                  "Alpha Blending", "Optimized Assignment", "Random Assignment"))
 
 file_prefix <- "barchart"
@@ -219,7 +220,7 @@ data <- dplyr::summarise(group_by(data_part, userName, conditionName), error=mea
 #Statistical Test Results: mu~95% CI, W, p-value, d.
 # error~conditionName and time~conditionName
 df_stat_output <- stat_table_error(data,"C3-Palette Generation")
-df_stat_output <- stat_table_error(data,"C3-Palette Assignment")
+#df_stat_output <- stat_table_error(data,"C3-Palette Assignment")
 ciplot(data, "error", "conditionName", "Part-mean")
 saveImg(paste(file_prefix, "error", "conditionName", "Part-mean",sep="-"))
 
@@ -227,11 +228,12 @@ data <- dplyr::summarise(group_by(data_part, userName, conditionName), error=mea
 #Statistical Test Results: mu~95% CI, W, p-value, d.
 # error~conditionName and time~conditionName
 df_stat_output <- stat_table_error(data,"C3-Palette Generation")
-df_stat_output <- stat_table_error(data,"C3-Palette Assignment")
+#df_stat_output <- stat_table_error(data,"C3-Palette Assignment")
 ciplot(data, "error", "conditionName", "Part-mean-error")
 saveImg(paste(file_prefix, "error", "conditionName", "Part-mean-error",sep="-"))
 
 ```
+
 ```{r}
 #draw bar plot
 file_prefix <- "barchart"

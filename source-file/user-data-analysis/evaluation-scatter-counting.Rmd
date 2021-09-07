@@ -15,8 +15,8 @@ source('analysis.R')
 library(forcats)
 library(tidyverse)
 
-file_study_folder <- "./data/formal/"
-save_img_sign <- FALSE#TRUE#
+file_study_folder <- "./data/pilot/"
+save_img_sign <- TRUE#FALSE#
 saveImg <- function(name){
   if(save_img_sign){
     ggsave(paste("results", "pilot", paste(name,".pdf"), sep = "/"), width = 10, height = 6, useDingbats=FALSE)
@@ -205,6 +205,7 @@ cat("min time is ", toString(min(total_time)), "\n")
 #   summarise(trials = n()) %>%
 #   filter(trials != 30)
 
+data_total <- data_total[data_total$conditionId!=3, ]
 # Prep Plot Consistency
 data_total <- data_total %>%
   mutate(conditionName = conditionId) %>%
@@ -212,14 +213,14 @@ data_total <- data_total %>%
 data_total[data_total$conditionId==0, ]$conditionName <- "Random Assignment"
 data_total[data_total$conditionId==1, ]$conditionName <- "Optimized Assignment"
 data_total[data_total$conditionId==2, ]$conditionName <- "Alpha Blending"
-data_total[data_total$conditionId==3, ]$conditionName <- "C3-Palette Assignment"
+#data_total[data_total$conditionId==3, ]$conditionName <- "C3-Palette Assignment"
 data_total[data_total$conditionId==4, ]$conditionName <- "Palettailor"
 data_total[data_total$conditionId==5, ]$conditionName <- "C3-Palette Generation"
 
 data_total <- data_total %>%
   mutate(conditionName = fct_relevel(conditionName, 
-                                 "C3-Palette Generation",
-                                 "C3-Palette Assignment", "Palettailor", 
+                                 "C3-Palette Generation",#"C3-Palette Assignment", 
+                                 "Palettailor", 
                                  "Alpha Blending", "Optimized Assignment", "Random Assignment"))
 
 condition_names <- c("Random Assignment", "Optimized Assignment", "Alpha Blending", "C3-Palette Assignment", "Palettailor", "C3-Palette Generation")
@@ -287,8 +288,8 @@ file_prefix <- "coseparability"#"cosaliency"#
 df_stat_output <- stat_table_error(data,"C3-Palette Generation")
 df_stat_output <- stat_table_time(data,"C3-Palette Generation")
 
-df_stat_output <- stat_table_error(data,"C3-Palette Assignment")
-df_stat_output <- stat_table_time(data,"C3-Palette Assignment")
+# df_stat_output <- stat_table_error(data,"C3-Palette Assignment")
+# df_stat_output <- stat_table_time(data,"C3-Palette Assignment")
 
 ciplot(data, "error", "conditionName", "Total")
 saveImg(paste(file_prefix, "error", "conditionName", "Total",sep="-"))

@@ -18,7 +18,7 @@ score_importance_weight[1] = document.getElementById("inputBox_nd").value / 100;
 score_importance_weight[2] = document.getElementById("inputBox_cd").value / 100;
 score_importance_weight[3] = document.getElementById("inputBox_lambda").value / 100;
 
-let generation_mode = 1;
+let generation_mode = 0;
 let source_datasets, source_datasets_names, labelToClass, assignment_palette, scaled_datasets;
 let knng_distance, dsc_distance, change_distance, delta_change_distance, cosaliency_distance, alphaShape_distance, cluster_nums, non_separability_weights;
 let kappa = 0, delta_difference, cosaliency_lambda = 0.4;
