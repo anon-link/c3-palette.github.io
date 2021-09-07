@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/W32TeX) (preloaded format=pdflatex 2018.3.31)  6 SEP 2021 21:54
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/W32TeX) (preloaded format=pdflatex 2018.3.31)  8 SEP 2021 00:51
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -897,6 +897,9 @@ Include comment 'anonsuppress' (./coSaliency.aux
 
 LaTeX Warning: Label `eq:energyfunc' multiply defined.
 
+
+LaTeX Warning: Label `fig:userResults' multiply defined.
+
 )
 \openout1 = `coSaliency.aux'.
 
@@ -1159,10 +1162,10 @@ LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
 (Font)              scaled to size 10.95pt on input line 161.
 LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/m/n' will be
 (Font)              scaled to size 10.95pt on input line 161.
-<figures/teaser6.pdf, id=83, 2539.55783pt x 914.04787pt>
-File: figures/teaser6.pdf Graphic file (type pdf)
-<use figures/teaser6.pdf>
-Package pdftex.def Info: figures/teaser6.pdf  used on input line 161.
+<figures/teaser7.pdf, id=83, 2539.55783pt x 914.04787pt>
+File: figures/teaser7.pdf Graphic file (type pdf)
+<use figures/teaser7.pdf>
+Package pdftex.def Info: figures/teaser7.pdf  used on input line 161.
 (pdftex.def)             Requested size: 430.00462pt x 154.75845pt.
 LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/m/n' will be
 (Font)              scaled to size 9.0pt on input line 161.
@@ -1213,7 +1216,7 @@ LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/b/n' will be
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
 (Font)              scaled to size 6.0pt on input line 6.
  [1.1{d:/Installation_position/texlive/2017/texmf-var/fonts/map/pdftex/updmap/p
-dftex.map} <./figures/teaser6.pdf>]
+dftex.map} <./figures/teaser7.pdf>]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/m/n' will be
@@ -1248,7 +1251,10 @@ surrounding objects on input line 38.
 Class acmart Warning: \vspace should only be used to provide space above/below 
 surrounding objects on input line 47.
 
-[4.4]
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [4.4]
 
 Class acmart Warning: \vspace should only be used to provide space above/below 
 surrounding objects on input line 60.
@@ -1261,7 +1267,7 @@ LaTeX Font Info:    Font shape `OT1/LinuxLibertineT-TLF/sb/n' will be
 LaTeX Font Info:    Font shape `OT1/LinuxLibertineT-TLF/sb/n' will be
 (Font)              scaled to size 5.5pt on input line 2.
 
-Underfull \vbox (badness 1348) has occurred while \output is active []
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [5.5]
 
@@ -1269,22 +1275,27 @@ Class acmart Warning: \vspace should only be used to provide space above/below
 surrounding objects on input line 49.
 
 
-Class acmart Warning: \vspace should only be used to provide space above/below 
-surrounding objects on input line 88.
-
-
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [6.6]
 
 Class acmart Warning: \vspace should only be used to provide space above/below 
+surrounding objects on input line 88.
+
+
+Class acmart Warning: \vspace should only be used to provide space above/below 
 surrounding objects on input line 133.
 
-<figures/saliencymap.pdf, id=290, 2039.96124pt x 843.6047pt>
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [7.7]
+<figures/saliencymap.pdf, id=301, 2039.96124pt x 843.6047pt>
 File: figures/saliencymap.pdf Graphic file (type pdf)
 <use figures/saliencymap.pdf>
 Package pdftex.def Info: figures/saliencymap.pdf  used on input line 153.
 (pdftex.def)             Requested size: 430.00462pt x 177.8187pt.
+
 
 Class acmart Warning: A possible image without description on input line 159.
 
@@ -1293,9 +1304,6 @@ Class acmart Warning: \vspace should only be used to provide space above/below
 surrounding objects on input line 160.
 
 ) (./04_colormap.tex
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [7.7]
 <figures/colorbrewer.pdf, id=308, 1669.32655pt x 432.86017pt>
 File: figures/colorbrewer.pdf Graphic file (type pdf)
 <use figures/colorbrewer.pdf>
@@ -1305,8 +1313,8 @@ Package pdftex.def Info: figures/colorbrewer.pdf  used on input line 14.
 
 Class acmart Warning: A possible image without description on input line 19.
 
-[8.8 <./figures/saliencymap.pdf> <./figures/colorbrewer.pdf>]
-<figures/lambda.pdf, id=374, 1670.4809pt x 884.22246pt>
+[8.8 <./figures/saliencymap.pdf>]
+<figures/lambda.pdf, id=350, 1670.4809pt x 884.22246pt>
 File: figures/lambda.pdf Graphic file (type pdf)
 <use figures/lambda.pdf>
 Package pdftex.def Info: figures/lambda.pdf  used on input line 46.
@@ -1319,94 +1327,115 @@ LaTeX Font Info:    Font shape `OT1/LinuxLibertineT-TLF/sb/n' will be
 
 Class acmart Warning: A possible image without description on input line 50.
 
-[9.9 <./figures/lambda.pdf>]
 
 Class acmart Warning: \vspace should only be used to provide space above/below 
 surrounding objects on input line 61.
 
-) (./06_evaluation.tex
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [9.9 <./figures/colorbrewer.pdf>]) (./06_evaluation.tex
 
 Class acmart Warning: \vspace should only be used to provide space above/below 
 surrounding objects on input line 23.
 
-[10.10] [11.11]
-<figures/user-result-formal.pdf, id=450, 2133.91222pt x 1001.70132pt>
-File: figures/user-result-formal.pdf Graphic file (type pdf)
-<use figures/user-result-formal.pdf>
-Package pdftex.def Info: figures/user-result-formal.pdf  used on input line 66.
+[10.10 <./figures/lambda.pdf>]
 
-(pdftex.def)             Requested size: 430.00462pt x 201.8499pt.
+Class acmart Warning: \vspace should only be used to provide space above/below 
+surrounding objects on input line 64.
+
+[11.11]
+<figures/maxdelta-results.pdf, id=449, 1786.6951pt x 451.1796pt>
+File: figures/maxdelta-results.pdf Graphic file (type pdf)
+<use figures/maxdelta-results.pdf>
+Package pdftex.def Info: figures/maxdelta-results.pdf  used on input line 76.
+(pdftex.def)             Requested size: 430.00462pt x 108.58134pt.
 LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/m/it' will be
-(Font)              scaled to size 8.0pt on input line 67.
+(Font)              scaled to size 8.0pt on input line 77.
 
 
-Class acmart Warning: A possible image without description on input line 70.
+Class acmart Warning: A possible image without description on input line 80.
 
 
 Class acmart Warning: \vspace should only be used to provide space above/below 
-surrounding objects on input line 76.
+surrounding objects on input line 97.
 
-[12.12 <./figures/user-result-formal.pdf>]
+[12.12 <./figures/maxdelta-results.pdf>]
 
 Class acmart Warning: \vspace should only be used to provide space above/below 
-surrounding objects on input line 125.
+surrounding objects on input line 145.
+
+<figures/experiment-organization.pdf, id=501, 1409.21477pt x 441.09892pt>
+File: figures/experiment-organization.pdf Graphic file (type pdf)
+<use figures/experiment-organization.pdf>
+Package pdftex.def Info: figures/experiment-organization.pdf  used on input lin
+e 156.
+(pdftex.def)             Requested size: 430.00462pt x 134.59218pt.
+
+Class acmart Warning: A possible image without description on input line 160.
 
 [13.13]
 LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/m/it' will be
-(Font)              scaled to size 9.0pt on input line 135.
+(Font)              scaled to size 9.0pt on input line 163.
 
 
 Class acmart Warning: \vspace should only be used to provide space above/below 
-surrounding objects on input line 140.
+surrounding objects on input line 168.
 
 
 Class acmart Warning: \vspace should only be used to provide space above/below 
-surrounding objects on input line 152.
+surrounding objects on input line 180.
 
 
 Class acmart Warning: \vspace should only be used to provide space above/below 
-surrounding objects on input line 190.
-
-[14.14]
-
-Class acmart Warning: \vspace should only be used to provide space above/below 
-surrounding objects on input line 196.
+surrounding objects on input line 213.
 
 
 Class acmart Warning: \vspace should only be used to provide space above/below 
-surrounding objects on input line 202.
-
-<figures/user-result-formal-variables.pdf, id=520, 2310.16077pt x 661.49135pt>
-File: figures/user-result-formal-variables.pdf Graphic file (type pdf)
-<use figures/user-result-formal-variables.pdf>
-Package pdftex.def Info: figures/user-result-formal-variables.pdf  used on inpu
-t line 226.
-(pdftex.def)             Requested size: 430.00462pt x 123.1209pt.
-
-Class acmart Warning: A possible image without description on input line 230.
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
+surrounding objects on input line 219.
 
 
 Class acmart Warning: \vspace should only be used to provide space above/below 
-surrounding objects on input line 238.
+surrounding objects on input line 225.
 
-[15.15]
+[14.14 <./figures/experiment-organization.pdf>]
+<figures/difference-results.pdf, id=542, 1786.6951pt x 451.1796pt>
+File: figures/difference-results.pdf Graphic file (type pdf)
+<use figures/difference-results.pdf>
+Package pdftex.def Info: figures/difference-results.pdf  used on input line 245
+.
+(pdftex.def)             Requested size: 430.00462pt x 108.58134pt.
+
+
+Class acmart Warning: A possible image without description on input line 249.
+
+[15.15 <./figures/difference-results.pdf>]
 
 Class acmart Warning: \vspace should only be used to provide space above/below 
-surrounding objects on input line 249.
+surrounding objects on input line 274.
 
 
 Class acmart Warning: \vspace should only be used to provide space above/below 
-surrounding objects on input line 254.
+surrounding objects on input line 285.
 
 
 Class acmart Warning: \vspace should only be used to provide space above/below 
-surrounding objects on input line 258.
+surrounding objects on input line 290.
 
-[16.16 <./figures/user-result-formal-variables.pdf>]) (./07_caseStudy.tex
-<figures/interface.pdf, id=569, 3012.29395pt x 1303.28912pt>
+
+Class acmart Warning: \vspace should only be used to provide space above/below 
+surrounding objects on input line 294.
+
+<figures/counting-results.pdf, id=589, 1786.6951pt x 451.1796pt>
+File: figures/counting-results.pdf Graphic file (type pdf)
+<use figures/counting-results.pdf>
+Package pdftex.def Info: figures/counting-results.pdf  used on input line 314.
+(pdftex.def)             Requested size: 430.00462pt x 108.58134pt.
+
+Class acmart Warning: A possible image without description on input line 318.
+
+[16.16 <./figures/counting-results.pdf>]) (./07_caseStudy.tex
+<figures/interface.pdf, id=630, 3012.29395pt x 1303.28912pt>
 File: figures/interface.pdf Graphic file (type pdf)
 <use figures/interface.pdf>
 Package pdftex.def Info: figures/interface.pdf  used on input line 6.
@@ -1415,23 +1444,21 @@ Package pdftex.def Info: figures/interface.pdf  used on input line 6.
 
 Class acmart Warning: A possible image without description on input line 10.
 
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [17.17]
+[17.17]
 
 Class acmart Warning: \vspace should only be used to provide space above/below 
 surrounding objects on input line 30.
 
-[18.18 <./figures/interface.pdf>]) (./08_conclusion.tex) (./coSaliency.bbl
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [19.19]
+) (./08_conclusion.tex [18.18 <./figures/interface.pdf>]) (./coSaliency.bbl
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/it' will be
 (Font)              scaled to size 7.0pt on input line 48.
 LaTeX Info: Redefining \tempurl on input line 66.
 LaTeX Info: Redefining \tempurl on input line 95.
 LaTeX Info: Redefining \tempurl on input line 114.
+
+Underfull \vbox (badness 3428) has occurred while \output is active []
+
+ [19.19]
 LaTeX Info: Redefining \tempurl on input line 132.
 LaTeX Info: Redefining \tempurl on input line 146.
 LaTeX Info: Redefining \tempurl on input line 162.
@@ -1452,16 +1479,14 @@ LaTeX Info: Redefining \tempurl on input line 396.
 LaTeX Info: Redefining \tempurl on input line 412.
 LaTeX Info: Redefining \tempurl on input line 426.
 LaTeX Info: Redefining \tempurl on input line 442.
-
-Underfull \vbox (badness 2478) has occurred while \output is active []
-
- [20.20]
 LaTeX Info: Redefining \tempurl on input line 460.
 LaTeX Info: Redefining \tempurl on input line 489.
 LaTeX Info: Redefining \tempurl on input line 508.
 LaTeX Info: Redefining \tempurl on input line 524.
 LaTeX Info: Redefining \tempurl on input line 541.
 LaTeX Info: Redefining \tempurl on input line 558.
+
+[20.20]
 LaTeX Info: Redefining \tempurl on input line 576.
 LaTeX Info: Redefining \tempurl on input line 592.
 LaTeX Info: Redefining \tempurl on input line 607.
@@ -1493,16 +1518,16 @@ LaTeX Warning: There were multiply-defined labels.
  )
 (\end occurred inside a group at level 1)
 
-### simple group (level 1) entered at line 46 ({)
+### simple group (level 1) entered at line 47 ({)
 ### bottom level 
 Here is how much of TeX's memory you used:
- 19937 strings out of 492982
- 313858 string characters out of 6125995
- 439863 words of memory out of 5000000
- 22185 multiletter control sequences out of 15000+600000
- 267218 words of font info for 592 fonts, out of 8000000 for 9000
+ 19950 strings out of 492982
+ 314298 string characters out of 6125995
+ 438540 words of memory out of 5000000
+ 22190 multiletter control sequences out of 15000+600000
+ 267964 words of font info for 598 fonts, out of 8000000 for 9000
  1302 hyphenation exceptions out of 8191
- 60i,19n,94p,1367b,717s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 60i,19n,94p,1367b,735s stack positions out of 5000i,500n,10000p,200000b,80000s
 {d:/Installation_position/texlive/2017/texmf-dist/fonts/enc/dvi
 ps/libertine/lbtn_25tcsq.enc}{d:/Installation_position/texlive/2017/texmf-dist/
 fonts/enc/dvips/newtx/libertinealt.enc}{d:/Installation_position/texlive/2017/t
@@ -1534,10 +1559,10 @@ stallation_position/texlive/2017/texmf-dist/fonts/type1/public/newtx/txsys.pfb>
 <d:/Installation_position/texlive/2017/texmf-dist/fonts/type1/public/newtx/zxlr
 .pfb><d:/Installation_position/texlive/2017/texmf-dist/fonts/type1/public/newtx
 /zxlri.pfb>
-Output written on coSaliency.pdf (21 pages, 7362033 bytes).
+Output written on coSaliency.pdf (21 pages, 8565922 bytes).
 PDF statistics:
- 940 PDF objects out of 1000 (max. 8388607)
- 673 compressed objects within 7 object streams
- 120 named destinations out of 1000 (max. 500000)
- 67788 words of extra memory for PDF output out of 74296 (max. 10000000)
+ 1002 PDF objects out of 1200 (max. 8388607)
+ 702 compressed objects within 8 object streams
+ 117 named destinations out of 1000 (max. 500000)
+ 67798 words of extra memory for PDF output out of 74296 (max. 10000000)
 
