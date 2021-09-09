@@ -25,7 +25,7 @@ Class contrast describes how much each class stands out from neighboring classes
 which is similar to perceptual class separability~\cite{Aupetit02,Wang2018}. Hence,
 we define two types of class contrasts: a local contrast with neighboring classes and a contrast with the background.
 
-Since point-based representations are very general in 2D visualization, we use two ($M=2$) horizontally juxtaposed scatterplots to illustrate our method.
+Since point-based representations are very general in 2D visualization, we use two ($N=2$) horizontally juxtaposed scatterplots to illustrate our method.
 Analogous to bottom-up image co-saliency models~\cite{Jacobs10,Fu13}, the co-saliency of the $i$th class is defined as the product between the class importance and  class contrast scores to emphasize the target class and the co-saliency for $M$ classes:
 \begin{equation}
 % E_{CoS} = \sum_i   \sum_j (1-\lambda) \alpha^j_i  \exp(\theta_i) + \lambda \beta_i  f(\theta_i)
@@ -60,9 +60,9 @@ Given the $j$th scatterplot, we define the local class contrast based on the $\a
 where $\Omega^j_t$ is set of $k$ nearest neighbors of $\mathbf{x}^j_t$, $\tau(l(\mathbf{x}^j_p))$ is the color of $\mathbf{x}^j_p$,  $d$ is the Euclidean distance and $\Delta\epsilon$ is the CIELAB color distance~\cite{sharma2005ciede2000}.
 For the $i$th class, its local contrast is the sum of all points with the same class label in the scatterplot:
 \begin{align}\label{eq:nc}
- \phi^j_i = \frac{1}{n_j}\sum^{n_j}_{p}\gamma(\mathbf{x}^j_p) \delta(l(\mathbf{x}^j_p),i)
+ \phi^j_i = \frac{1}{n_i^j}\sum^{n_j}_{t}\gamma(\mathbf{x}^j_t) \delta(l(\mathbf{x}^j_t),i)
 \end{align}
-where $\delta(l(\mathbf{x}^j_p),i)$ is one if the class label $l(\mathbf{x}^j_p)$ is $i$ and else zero.
+where $\delta(l(\mathbf{x}^j_t),i)$ is one if the class label $l(\mathbf{x}^j_t)$ is $i$ and else zero.
 
 If a class overlaps with different classes, the local contrast value will be high and the value will be small for a well separated class. Hence, the black class  in the  two scatterplots shown in Fig.~\ref{fig:map}(a)  has a low contrast value (see Fig.~\ref{fig:map}(b)) and the cyan class has a large value.
 
@@ -87,7 +87,7 @@ If a class overlaps with different classes, the local contrast value will be hig
 
 \vspace{2mm}
 \noindent\textbf{Background Contrast}.
-The contrast with the background is based on the so-called point non-separability $\rho (\mathbf{x}^j_t)$ (rf.~\cite{Wang2018}), which is defined as the difference between two  separation degrees:
+The contrast to the background is based on the so-called point non-separability $\rho (\mathbf{x}^j_t)$ (rf.~\cite{Wang2018}), which is defined as the difference between two  separation degrees:
 \begin{align}
 \rho(\mathbf{x}^j_t)&= b(\mathbf{x}^j_t)-a(\mathbf{x}^j_t) \ .
 \end{align}
@@ -98,7 +98,7 @@ The measures are defined as weighted sums of  color differences of $\mathbf{x}^j
 a(\mathbf{x}^j_t)&=\frac{1}{|\Omega^j_t|}\sum_{\mathbf{x}^j_p \in \Omega^j_t } \frac{\delta(l(\mathbf{x}^j_t), l(\mathbf{x}^j_p))
 \Delta\epsilon(\tau(l(\mathbf{x}^j_t)),\mathbf{c}_b)
 }{d(\mathbf{x}^j_t,\mathbf{x}^j_p)} , \;\;
-b(\mathbf{x}^j_t)=\frac{1}{|\Omega^j_t|}\sum_{\mathbf{x}^j_p \in \Omega^j_t } \frac{1-\delta(l(\mathbf{x}^j_t), l(\mathbf{x}^j_p))\Delta\epsilon(\tau(l(\mathbf{x}^j_t)),\mathbf{c}_b)}{d(\mathbf{x}^j_t,\mathbf{x}^j_p)}  \nonumber
+b(\mathbf{x}^j_t)=\frac{1}{|\Omega^j_t|}\sum_{\mathbf{x}^j_p \in \Omega^j_t } \frac{(1-\delta(l(\mathbf{x}^j_t), l(\mathbf{x}^j_p)))\Delta\epsilon(\tau(l(\mathbf{x}^j_t)),\mathbf{c}_b)}{d(\mathbf{x}^j_t,\mathbf{x}^j_p)}  \nonumber
 \end{align}
 
 When most neighbor points of $\mathbf{x}^j_t$ have the same label as $\mathbf{x}^j_t$,  $\rho (\mathbf{x}^j_t)$ is negative.
