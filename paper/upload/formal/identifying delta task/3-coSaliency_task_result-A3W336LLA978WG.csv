@@ -1,0 +1,45 @@
+userName,fileId,conditionId,changeMagnitude,changeType,clickOrder,clickClusterType,clickTime,userResult,rightAnswer,totalTime
+A3W336LLA978WG,0,3,2,pos,3-6,small&dense-0,6.30-10.76,0,3-4,19.041
+A3W336LLA978WG,27,0,1,num,0,0,20.70,0,5,38.23
+A3W336LLA978WG,12,3,0,pos,1,0,7.21,0,6,11.358
+A3W336LLA978WG,21,0,2,num,4,0,58.31,0,1,60
+A3W336LLA978WG,21,0,2,num,4,0,58.31,0,1,60.99
+A3W336LLA978WG,29,2,1,num,3,0,10.16,0,4,60
+A3W336LLA978WG,15,0,0,pos,3,0,55.70,0,7,57.727
+A3W336LLA978WG,60,-1,2,center position,5,small&dense,18.60,1,5,20.409
+A3W336LLA978WG,34,1,0,num,,0,,0,5-7-6,60
+A3W336LLA978WG,1,4,2,pos,2,small&sparse,13.67,1,2,16.309
+A3W336LLA978WG,20,5,2,num,4-7,small&dense-large&dense,22.50-4.77,1,4-7,29.792
+A3W336LLA978WG,7,4,1,pos,5-7-3,small&sparse-small&sparse-large&sparse,8.16-5.45-11.99,1,5-3-7,26.841
+A3W336LLA978WG,5,2,2,pos,0-3,large&dense-small&sparse,8.60-12.14,1,0-3,22.399
+A3W336LLA978WG,10,1,1,pos,7-3,small&dense-large&dense,8.31-9.59,1,7-3,26.025
+A3W336LLA978WG,13,4,0,pos,0-5-3,large&sparse-large&dense-small&dense,6.01-22.82-3.96,1,3-5-0,46.872
+A3W336LLA978WG,14,5,0,pos,7-1-5,large&dense-0-large&dense,11.50-2.61-15.60,0,6-5-7,31.202
+A3W336LLA978WG,32,-1,2,shape,4,large&dense,11.69,1,4,14.129
+A3W336LLA978WG,22,1,2,num,0,large&sparse,24.03,0,0-7,60
+A3W336LLA978WG,62,-1,2,center position,4,large&dense,5.05,1,4,6.66
+A3W336LLA978WG,23,2,2,num,6-0-3,large&dense-large&dense-small&sparse,11.24-3.26-33.76,1,3-6-0,50.222
+A3W336LLA978WG,17,2,0,pos,0-4,small&dense-0,7.82-11.99,0,0-5,21.614
+A3W336LLA978WG,8,5,1,pos,1-0,large&dense-0,3.42-10.47,0,1-6,17.813
+A3W336LLA978WG,35,2,0,num,3-6-7,0-small&dense-0,36.87-13.70-7.97,0,6-5-0,60.372
+A3W336LLA978WG,35,2,0,num,3-6-7,0-small&dense-0,36.87-13.70-7.97,0,6-5-0,60
+A3W336LLA978WG,3,0,2,pos,3,0,11.76,0,7,12.991
+A3W336LLA978WG,33,0,0,num,1,0,58.69,0,5,60
+A3W336LLA978WG,33,0,0,num,1,0,58.69,0,5,60.046
+A3W336LLA978WG,9,0,1,pos,1,small&dense,4.05,1,1,5.097
+A3W336LLA978WG,4,1,2,pos,3-0-6,0-small&dense-small&sparse,5.53-7.91-4.74,0,0-2-6,19.484
+A3W336LLA978WG,3,-1,2,point number,1,large&dense,8.61,1,1,9.633
+A3W336LLA978WG,6,3,1,pos,2,small&dense,3.39,1,2,7.272
+A3W336LLA978WG,28,1,1,num,2,small&sparse,30.18,0,0-2-5,60
+A3W336LLA978WG,18,3,2,num,7-5-2,small&dense-small&sparse-small&dense,7.25-5.02-20.14,1,7-2-5,33.927
+A3W336LLA978WG,18,3,2,num,7-5-2,small&dense-small&sparse-small&dense,7.25-5.02-20.14,1,7-2-5,34.614
+A3W336LLA978WG,11,2,1,pos,0-6-3,large&sparse-small&dense-0,3.12-7.95-36.03,0,6-1-0,54.546
+A3W336LLA978WG,30,3,0,num,3-7,0-0,31.07-1.39,0,5-0,33.731
+A3W336LLA978WG,19,4,2,num,3,small&dense,6.85,1,3,9.515
+A3W336LLA978WG,25,4,1,num,0-1,large&sparse-small&sparse,8.10-30.95,1,1-0,40.423
+A3W336LLA978WG,31,4,0,num,6-5,large&sparse-large&dense,8.36-3.15,1,6-5,14.405
+A3W336LLA978WG,32,5,0,num,7,small&sparse,6.06,1,7,60
+A3W336LLA978WG,16,1,0,pos,0-1,small&dense-small&sparse,31.38-7.05,1,1-0,39.834
+A3W336LLA978WG,2,5,2,pos,4-7-5,large&sparse-0-small&dense,6.43-5.98-0.83,0,5-4-6,18.686
+A3W336LLA978WG,26,5,1,num,4-0-6,small&dense-0-large&sparse,4.62-13.73-9.38,0,3-4-6,29.045
+A3W336LLA978WG,24,3,1,num,2-6,small&dense-small&sparse,5.64-19.28,1,2-6,26.219

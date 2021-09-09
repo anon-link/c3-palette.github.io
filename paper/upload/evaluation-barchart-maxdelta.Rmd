@@ -1,0 +1,184 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: inline
+---
+# ---------------------------------------------------------
+# This is the analysis for the study, mainly contains: interaction effect, confident interval, time plot
+# ---------------------------------------------------------
+
+# Preparation
+Import packages and set global configuration variables.
+```{r eval=FALSE}
+# Load the magic package
+source('analysis.R')
+library(forcats)
+library(tidyverse)
+
+file_study_folder <- "./formal/"
+save_img_sign <- FALSE# TRUE#
+saveImg <- function(name){
+  if(save_img_sign){
+    ggsave(paste("results", paste(name,".pdf"), sep = "/"), width = 10, height = 6, useDingbats=FALSE)
+  }
+}
+# Generate the result table for error in the discrimination tasks.
+stat_table_error <- function(data, compared_condition) {
+  print(attr)
+  columns <- c("Condition", "μ~95%CI", "W", "p-value", "d")
+  conditions <- levels(data$conditionName) %>% rev
+  print(conditions)
+  df_stats <- matrix("", ncol = length(columns), nrow = length(conditions)) %>% 
+    data.frame() %>% 
+    mutate_if(is.factor, as.character)
+  names(df_stats) <- columns
+  df_stats$Condition <- conditions
+  print(conditions)
+  
+  for (index in 1:length(conditions)) {
+    current_condition <- conditions[index]
+    sub_data_one_group <- data %>% filter(conditionName==current_condition)
+    # 95%CI
+    df_stats[index, "μ~95%CI"] <- reportCI(sub_data_one_group, "error")
+    
+    if(current_condition != compared_condition) {
+      sub_data_two_groups <- data %>% filter(conditionName==compared_condition | conditionName==current_condition)
+      # W test
+      wt <- wilcox.test(error ~ conditionName, 
+                        data = sub_data_two_groups, 
+                        conf.int=TRUE, paired=TRUE)
+      df_stats[index, "W"] <- as.character(wt$statistic)
+      df_stats[index, "p-value"] <- format(wt$p.value, format = "e", digits = 2)
+      
+      # alternative report: with breaks.
+      # if(wt$p.value < 0.05) { df_stats[index, "p-value"] <- "< 0.05"}
+      # if(wt$p.value < 0.01) { df_stats[index, "p-value"] <- "< 0.01"}
+      # if(wt$p.value < 0.001) { df_stats[index, "p-value"] <- "< 0.001"}
+      # else { df_stats[index, "p-value"] <- "≥ 0.05" }
+      
+      # Effect size
+      df_stats[index, "d"] <- reportES(sub_data_two_groups, "error", "conditionName")
+    }
+  }
+  print(df_stats)
+  
+  return(df_stats)
+}
+# Generate the result table for time in the discrimination tasks.
+stat_table_time <- function(data, compared_condition) {
+  print(attr)
+  columns <- c("Condition", "μ~95%CI", "W", "p-value", "d")
+  conditions <- levels(data$conditionName) %>% rev
+  print(conditions)
+  df_stats <- matrix("", ncol = length(columns), nrow = length(conditions)) %>% 
+    data.frame() %>% 
+    mutate_if(is.factor, as.character)
+  names(df_stats) <- columns
+  df_stats$Condition <- conditions
+  print(conditions)
+  
+  for (index in 1:length(conditions)) {
+    current_condition <- conditions[index]
+    sub_data_one_group <- data %>% filter(conditionName==current_condition)
+    # 95%CI
+    df_stats[index, "μ~95%CI"] <- reportCI(sub_data_one_group, "totalTime")
+    
+    if(current_condition != compared_condition) {
+      sub_data_two_groups <- data %>% filter(conditionName==compared_condition | conditionName==current_condition)
+      # W test
+      wt <- wilcox.test(totalTime ~ conditionName, 
+                        data = sub_data_two_groups, 
+                        conf.int=TRUE)
+      df_stats[index, "W"] <- as.character(wt$statistic)
+      df_stats[index, "p-value"] <- format(wt$p.value, format = "e", digits = 2)
+      
+      # alternative report: with breaks.
+      # if(wt$p.value < 0.05) { df_stats[index, "p-value"] <- "< 0.05"}
+      # if(wt$p.value < 0.01) { df_stats[index, "p-value"] <- "< 0.01"}
+      # if(wt$p.value < 0.001) { df_stats[index, "p-value"] <- "< 0.001"}
+      # else { df_stats[index, "p-value"] <- "≥ 0.05" }
+      
+      # Effect size
+      df_stats[index, "d"] <- reportES(sub_data_two_groups, "totalTime", "conditionName")
+    }
+  }
+  print(df_stats)
+  
+  return(df_stats)
+}
+
+```
+
+## analysis for bar chart
+```{r}
+# Get the list of files.
+file_path <- paste(file_study_folder, "max delta task", "", sep = "/")
+filelist <- list.files(path = file_path, pattern = 'barchart.*?\\.csv$')
+
+# Compute data_total
+data_total <- rbind()
+data_part <- rbind()
+for (file in filelist) {
+  print(file)
+  # read data
+  data_temp <- read.csv(paste(file_path, file, sep = ""), header = TRUE) %>%
+    mutate(error=ifelse(userResult==1, 0, 1))
+
+  # bind the data to the total data frame
+  data_total <- rbind(data_total, data_temp)
+  
+  for(i in 1:6){
+    data_group <- data_temp[data_temp$conditionId==(i-1),]
+    data_group <- data_group[order(data_group$testId), ]
+    last_rows <- tail(data_group, n=5)
+    data_part <- rbind(data_part, last_rows)
+  }
+  
+}
+
+# accuracy-based ourlier exclusion
+accuracy_data <- dplyr::summarise(group_by(data_total, userName), accuracy=mean(userResult))
+sd_accuracy <- sd(accuracy_data$accuracy)
+threshold <- mean(accuracy_data$accuracy)-2*sd_accuracy
+excluded_data <- accuracy_data[accuracy_data$accuracy<threshold, ]
+print(excluded_data)
+
+# Prep Plot Consistency
+data_part <- data_part %>%
+  mutate(conditionName = conditionId)
+data_part[data_part$conditionId==0, ]$conditionName <- "Random Assignment"
+data_part[data_part$conditionId==1, ]$conditionName <- "Optimized Assignment"
+data_part[data_part$conditionId==2, ]$conditionName <- "Alpha Blending"
+data_part[data_part$conditionId==3, ]$conditionName <- "C3-Palette Assignment"
+data_part[data_part$conditionId==4, ]$conditionName <- "Palettailor"
+data_part[data_part$conditionId==5, ]$conditionName <- "C3-Palette Generation"
+
+data_part <- data_part %>%
+  mutate(conditionName = fct_relevel(conditionName, 
+                                 "C3-Palette Generation","C3-Palette Assignment",
+                                  "Palettailor", 
+                                 "Alpha Blending", "Optimized Assignment", "Random Assignment"))
+
+file_prefix <- "max delta task"
+
+# mean titer
+data <- dplyr::summarise(group_by(data_part, userName, conditionName), error=mean(titer))
+#Statistical Test Results: mu~95% CI, W, p-value, d.
+# error~conditionName and time~conditionName
+df_stat_output <- stat_table_error(data,"C3-Palette Generation")
+df_stat_output <- stat_table_error(data,"C3-Palette Assignment")
+ciplot(data, "error", "conditionName", "titer-mean")
+saveImg(paste(file_prefix, "error", "conditionName", "titer-mean",sep="-"))
+
+# mean error
+data <- dplyr::summarise(group_by(data_part, userName, conditionName), error=mean(error))
+#Statistical Test Results: mu~95% CI, W, p-value, d.
+# error~conditionName and time~conditionName
+df_stat_output <- stat_table_error(data,"C3-Palette Generation")
+df_stat_output <- stat_table_error(data,"C3-Palette Assignment")
+ciplot(data, "error", "conditionName", "error-mean")
+saveImg(paste(file_prefix, "error", "conditionName", "error-mean",sep="-"))
+
+```
+
+

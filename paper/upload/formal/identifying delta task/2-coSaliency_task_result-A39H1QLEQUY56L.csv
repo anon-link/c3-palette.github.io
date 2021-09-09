@@ -1,0 +1,41 @@
+userName,fileId,conditionId,changeMagnitude,changeType,clickOrder,clickClusterType,clickTime,userResult,rightAnswer,totalTime
+A39H1QLEQUY56L,0,2,2,pos,3-4,small&dense-small&sparse,36.44-9.98,1,3-4,50.686
+A39H1QLEQUY56L,27,5,1,num,5,small&sparse,20.59,1,5,24.125
+A39H1QLEQUY56L,12,2,0,pos,6,large&dense,8.14,1,6,12.936
+A39H1QLEQUY56L,21,5,2,num,1,small&sparse,9.53,1,1,11.431
+A39H1QLEQUY56L,29,1,1,num,4,small&sparse,16.02,1,4,18.881
+A39H1QLEQUY56L,15,5,0,pos,7,small&sparse,35.18,1,7,38.53
+A39H1QLEQUY56L,60,-1,2,center position,5,small&dense,4.63,1,5,6.611
+A39H1QLEQUY56L,34,0,0,num,1,0,37.97,0,5-7-6,60
+A39H1QLEQUY56L,1,3,2,pos,2,small&sparse,4.72,1,2,14.913
+A39H1QLEQUY56L,20,4,2,num,3-7,0-large&dense,16.48-8.86,0,4-7,27.246
+A39H1QLEQUY56L,7,3,1,pos,7-3-5,small&sparse-large&sparse-small&sparse,5.61-3.79-18.01,1,5-3-7,29.083
+A39H1QLEQUY56L,5,1,2,pos,3-0,small&sparse-large&dense,6.62-5.41,1,0-3,13.73
+A39H1QLEQUY56L,10,0,1,pos,7-6,small&dense-0,3.87-5.40,0,7-3,11.668
+A39H1QLEQUY56L,13,3,0,pos,5-3-0,large&dense-small&dense-large&sparse,3.16-2.50-6.88,1,3-5-0,14.291
+A39H1QLEQUY56L,14,4,0,pos,7-6-5,large&dense-small&sparse-large&dense,3.41-4.70-4.30,1,6-5-7,14.208
+A39H1QLEQUY56L,32,-1,2,shape,4,large&dense,3.27,1,4,12.85
+A39H1QLEQUY56L,22,0,2,num,7-0,small&sparse-large&sparse,6.27-10.85,1,0-7,19.173
+A39H1QLEQUY56L,62,-1,2,center position,4,large&dense,3.77,1,4,6.008
+A39H1QLEQUY56L,23,1,2,num,0-6-3,large&dense-large&dense-small&sparse,2.42-1.96-11.59,1,3-6-0,17.899
+A39H1QLEQUY56L,17,1,0,pos,7-0,0-small&dense,3.09-1.36,0,0-5,5.449
+A39H1QLEQUY56L,8,4,1,pos,1-6,large&dense-large&sparse,8.39-9.91,1,1-6,20.184
+A39H1QLEQUY56L,35,1,0,num,5-7,large&sparse-0,12.04-19.83,0,6-5-0,60
+A39H1QLEQUY56L,3,5,2,pos,7,small&sparse,3.95,1,7,6.288
+A39H1QLEQUY56L,33,5,0,num,5,small&sparse,12.82,1,5,14.849
+A39H1QLEQUY56L,9,5,1,pos,1,small&dense,3.03,1,1,4.612
+A39H1QLEQUY56L,4,0,2,pos,0-6-2,small&dense-small&sparse-small&dense,1.81-7.95-3.87,1,0-2-6,16.017
+A39H1QLEQUY56L,3,-1,2,point number,1,large&dense,6.05,1,1,7.892
+A39H1QLEQUY56L,6,2,1,pos,2,small&dense,1.85,1,2,3.834
+A39H1QLEQUY56L,28,0,1,num,2-0-5,small&sparse-small&dense-small&sparse,18.33-2.73-22.71,1,0-2-5,45.973
+A39H1QLEQUY56L,18,2,2,num,2-7-5,small&dense-small&dense-small&sparse,4.48-1.41-4.06,1,7-2-5,12.269
+A39H1QLEQUY56L,11,1,1,pos,6-1-0,small&dense-small&dense-large&sparse,2.70-3.40-4.86,1,6-1-0,12.96
+A39H1QLEQUY56L,30,2,0,num,0-5,small&dense-small&dense,13.48-11.13,1,5-0,26.174
+A39H1QLEQUY56L,19,3,2,num,1,0,6.42,0,3,8.255
+A39H1QLEQUY56L,25,3,1,num,0-1,large&sparse-small&sparse,6.10-1.68,1,1-0,15.211
+A39H1QLEQUY56L,31,3,0,num,5-6,large&dense-large&sparse,7.71-27.65,1,6-5,37.711
+A39H1QLEQUY56L,32,4,0,num,7,small&sparse,20.17,1,7,25.708
+A39H1QLEQUY56L,16,0,0,pos,0-1,small&dense-small&sparse,5.41-13.65,1,1-0,20.753
+A39H1QLEQUY56L,2,4,2,pos,5-4-7,small&dense-large&sparse-0,12.42-8.45-15.18,0,5-4-6,42.441
+A39H1QLEQUY56L,26,4,1,num,6-4-3,large&sparse-small&dense-small&sparse,25.98-2.56-8.48,1,3-4-6,39.197
+A39H1QLEQUY56L,24,2,1,num,2-6,small&dense-small&sparse,5.71-4.21,1,2-6,11.387

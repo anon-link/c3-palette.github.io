@@ -1,0 +1,41 @@
+userName,fileId,conditionId,changeMagnitude,changeType,clickOrder,clickClusterType,clickTime,userResult,rightAnswer,totalTime
+A28REIMVLGRV8Z,0,0,2,pos,5-3,0-small&dense,4.21-1.44,0,3-4,13.394
+A28REIMVLGRV8Z,27,3,1,num,5-1,small&sparse-0,2.85-37.40,0,5,60
+A28REIMVLGRV8Z,12,0,0,pos,6,large&dense,5.45,1,6,8.834
+A28REIMVLGRV8Z,21,3,2,num,1,small&sparse,13.77,1,1,14.989
+A28REIMVLGRV8Z,29,5,1,num,4,small&sparse,4.10,1,4,6.417
+A28REIMVLGRV8Z,15,3,0,pos,7,small&sparse,8.42,1,7,10.366
+A28REIMVLGRV8Z,60,-1,2,center position,5,small&dense,3.36,1,5,5.514
+A28REIMVLGRV8Z,34,4,0,num,5-7-6,large&dense-large&dense-small&sparse,2.29-3.36-10.11,1,5-7-6,16.537
+A28REIMVLGRV8Z,1,1,2,pos,2,small&sparse,7.05,1,2,19.203
+A28REIMVLGRV8Z,20,2,2,num,4-7,small&dense-large&dense,11.96-9.48,1,4-7,22.328
+A28REIMVLGRV8Z,7,1,1,pos,7-5-3,small&sparse-small&sparse-large&sparse,2.02-1.03-6.44,1,5-3-7,10.982
+A28REIMVLGRV8Z,5,5,2,pos,0-3,large&dense-small&sparse,5.48-1.91,1,0-3,8.463
+A28REIMVLGRV8Z,10,4,1,pos,3-7,large&dense-small&dense,2.28-5.22,1,7-3,8.686
+A28REIMVLGRV8Z,13,1,0,pos,5-7-3,large&dense-0-small&dense,2.13-2.64-5.31,0,3-5-0,11.274
+A28REIMVLGRV8Z,14,2,0,pos,7-5-6,large&dense-large&dense-small&sparse,2.47-6.24-3.83,1,6-5-7,13.809
+A28REIMVLGRV8Z,32,-1,2,shape,4,large&dense,6.80,1,4,7.803
+A28REIMVLGRV8Z,22,4,2,num,0-7,large&sparse-small&sparse,9.26-19.16,1,0-7,29.613
+A28REIMVLGRV8Z,62,-1,2,center position,4,large&dense,2.73,1,4,3.969
+A28REIMVLGRV8Z,23,5,2,num,0-6-3,large&dense-large&dense-small&sparse,2.02-1.89-4.35,1,3-6-0,9.326
+A28REIMVLGRV8Z,17,5,0,pos,0-5,small&dense-small&sparse,2.50-3.53,1,0-5,7.108
+A28REIMVLGRV8Z,8,2,1,pos,6-2,large&sparse-0,2.86-3.21,0,1-6,7.041
+A28REIMVLGRV8Z,35,5,0,num,5-6-7,large&sparse-small&dense-0,2.67-1.74-3.79,0,6-5-0,9.321
+A28REIMVLGRV8Z,3,3,2,pos,7,small&sparse,4.92,1,7,5.848
+A28REIMVLGRV8Z,33,3,0,num,5,small&sparse,22.75,1,5,23.647
+A28REIMVLGRV8Z,9,3,1,pos,1,small&dense,2.51,1,1,3.747
+A28REIMVLGRV8Z,4,4,2,pos,0-2-6,small&dense-small&dense-small&sparse,1.69-1.20-5.08,1,0-2-6,14.072
+A28REIMVLGRV8Z,3,-1,2,point number,1,large&dense,4.96,1,1,6.408
+A28REIMVLGRV8Z,6,0,1,pos,2,small&dense,5.75,1,2,7.14
+A28REIMVLGRV8Z,28,4,1,num,2-0-7,small&sparse-small&dense-0,9.78-19.66-9.46,0,0-2-5,60
+A28REIMVLGRV8Z,18,0,2,num,5-7-2,small&sparse-small&dense-small&dense,3.64-2.47-1.28,1,7-2-5,8.382
+A28REIMVLGRV8Z,11,5,1,pos,6-1-0,small&dense-small&dense-large&sparse,3.08-2.53-1.69,1,6-1-0,8.226
+A28REIMVLGRV8Z,30,0,0,num,5-7,small&dense-0,7.47-5.16,0,5-0,13.658
+A28REIMVLGRV8Z,19,1,2,num,3,small&dense,4.37,1,3,5.431
+A28REIMVLGRV8Z,25,1,1,num,0-1,large&sparse-small&sparse,8.37-7.18,1,1-0,16.672
+A28REIMVLGRV8Z,31,1,0,num,3-0,0-0,20.35-4.13,0,6-5,25.624
+A28REIMVLGRV8Z,32,2,0,num,7,small&sparse,4.17,1,7,6.97
+A28REIMVLGRV8Z,16,4,0,pos,0-1,small&dense-small&sparse,12.58-3.54,1,1-0,17.277
+A28REIMVLGRV8Z,2,2,2,pos,4-5-6,large&sparse-small&dense-small&sparse,2.88-4.64-1.84,1,5-4-6,10.959
+A28REIMVLGRV8Z,26,2,1,num,6-5-3,large&sparse-0-small&sparse,4.53-3.10-3.14,0,3-4-6,11.807
+A28REIMVLGRV8Z,24,0,1,num,2-6,small&dense-small&sparse,4.90-3.12,1,2-6,9.339

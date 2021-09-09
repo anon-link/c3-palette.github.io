@@ -1,0 +1,41 @@
+userName,fileId,conditionId,changeMagnitude,changeType,userResult,totalTime
+i agree,0,5,2,pos,8,6.595
+i agree,27,2,1,num,5,9.899
+i agree,12,5,0,pos,8,7.263
+i agree,21,2,2,num,5,8.678
+i agree,29,4,1,num,8,5.909
+i agree,15,2,0,pos,6,7.316
+i agree,60,-1,2,center position,6,5.108
+i agree,34,3,0,num,8,14.703
+i agree,1,0,2,pos,7,8.006
+i agree,20,1,2,num,8,7.882
+i agree,7,0,1,pos,8,7.395
+i agree,5,4,2,pos,8,7.476
+i agree,10,3,1,pos,8,6.439
+i agree,13,0,0,pos,7,16.711
+i agree,14,1,0,pos,8,7.518
+i agree,32,-1,2,shape,6,4.463
+i agree,22,3,2,num,8,10.594
+i agree,62,-1,2,center position,6,6.779
+i agree,23,4,2,num,8,45.809
+i agree,17,4,0,pos,7,8.434
+i agree,8,1,1,pos,0,60
+i agree,35,4,0,num,7,8.912
+i agree,3,2,2,pos,7,6.668
+i agree,33,2,0,num,5,8.517
+i agree,9,2,1,pos,8,8.096
+i agree,4,3,2,pos,8,5.149
+i agree,3,-1,2,point number,6,4.748
+i agree,6,5,1,pos,8,8.631
+i agree,28,3,1,num,7,20.197
+i agree,18,5,2,num,7,4.276
+i agree,11,4,1,pos,8,18.951
+i agree,30,5,0,num,7,6.934
+i agree,19,0,2,num,8,11.483
+i agree,25,0,1,num,7,9.817
+i agree,31,0,0,num,5,8.892
+i agree,32,1,0,num,6,13.949
+i agree,16,3,0,pos,6,6.32
+i agree,2,1,2,pos,8,8.767
+i agree,26,1,1,num,7,11.85
+i agree,24,5,1,num,7,7.82

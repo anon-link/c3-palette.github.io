@@ -1,0 +1,41 @@
+userName,fileId,conditionId,changeMagnitude,changeType,clickOrder,clickClusterType,clickTime,userResult,rightAnswer,totalTime
+A2FGP5K2VWW23G,0,2,2,pos,3-4,small&dense-small&sparse,6.76-4.16,1,3-4,29.826
+A2FGP5K2VWW23G,27,5,1,num,5,small&sparse,15.09,1,5,17.501
+A2FGP5K2VWW23G,12,2,0,pos,6,large&dense,17.87,1,6,20.416
+A2FGP5K2VWW23G,21,5,2,num,1,small&sparse,15.13,1,1,17.012
+A2FGP5K2VWW23G,29,1,1,num,4,small&sparse,29.84,1,4,33.406
+A2FGP5K2VWW23G,15,5,0,pos,7,small&sparse,13.13,1,7,18.252
+A2FGP5K2VWW23G,60,-1,2,center position,5,small&dense,8.37,1,5,10.315
+A2FGP5K2VWW23G,34,0,0,num,6-7,small&sparse-large&dense,29.85-15.60,0,5-7-6,60
+A2FGP5K2VWW23G,1,3,2,pos,2,small&sparse,3.32,1,2,6.099
+A2FGP5K2VWW23G,20,4,2,num,4-7,small&dense-large&dense,6.59-5.03,1,4-7,27.013
+A2FGP5K2VWW23G,7,3,1,pos,7-5-3,small&sparse-small&sparse-large&sparse,5.66-5.31-7.23,1,5-3-7,21.66
+A2FGP5K2VWW23G,5,1,2,pos,0-3,large&dense-small&sparse,9.58-8.35,1,0-3,19.714
+A2FGP5K2VWW23G,10,0,1,pos,3-7,large&dense-small&dense,8.58-4.70,1,7-3,15.985
+A2FGP5K2VWW23G,13,3,0,pos,5-0-3,large&dense-large&sparse-small&dense,4.20-5.20-39.84,1,3-5-0,50.578
+A2FGP5K2VWW23G,14,4,0,pos,7-5-6,large&dense-large&dense-small&sparse,6.23-10.21-21.48,1,6-5-7,40.711
+A2FGP5K2VWW23G,32,-1,2,shape,4,large&dense,13.59,1,4,15.991
+A2FGP5K2VWW23G,22,0,2,num,0-7,large&sparse-small&sparse,9.11-34.93,1,0-7,46.955
+A2FGP5K2VWW23G,62,-1,2,center position,4,large&dense,4.04,1,4,6.871
+A2FGP5K2VWW23G,23,1,2,num,0-6-3,large&dense-large&dense-small&sparse,5.39-14.34-24.79,1,3-6-0,45.932
+A2FGP5K2VWW23G,17,1,0,pos,0,small&dense,26.62,0,0-5,60
+A2FGP5K2VWW23G,8,4,1,pos,6-1,large&sparse-large&dense,3.15-4.37,1,1-6,9.034
+A2FGP5K2VWW23G,35,1,0,num,,0,,0,6-5-0,60
+A2FGP5K2VWW23G,3,5,2,pos,7,small&sparse,4.87,1,7,7.489
+A2FGP5K2VWW23G,33,5,0,num,5,small&sparse,9.96,1,5,17.463
+A2FGP5K2VWW23G,9,5,1,pos,1,small&dense,3.36,1,1,5.895
+A2FGP5K2VWW23G,4,0,2,pos,0-6-2,small&dense-small&sparse-small&dense,4.95-4.70-5.70,1,0-2-6,17.286
+A2FGP5K2VWW23G,3,-1,2,point number,1,large&dense,11.01,1,1,12.861
+A2FGP5K2VWW23G,6,2,1,pos,2,small&dense,7.65,1,2,11.16
+A2FGP5K2VWW23G,28,0,1,num,2-0,small&sparse-small&dense,8.33-12.93,0,0-2-5,60
+A2FGP5K2VWW23G,18,2,2,num,5-7-2,small&sparse-small&dense-small&dense,5.83-4.06-3.30,1,7-2-5,14.987
+A2FGP5K2VWW23G,11,1,1,pos,6-0-1,small&dense-large&sparse-small&dense,3.94-6.50-5.90,1,6-1-0,18.698
+A2FGP5K2VWW23G,30,2,0,num,5,small&dense,9.47,0,5-0,60
+A2FGP5K2VWW23G,19,3,2,num,3,small&dense,3.76,1,3,5.657
+A2FGP5K2VWW23G,25,3,1,num,0-1,large&sparse-small&sparse,6.07-34.72,1,1-0,46.806
+A2FGP5K2VWW23G,31,3,0,num,6-5,large&sparse-large&dense,13.84-28.70,1,6-5,43.842
+A2FGP5K2VWW23G,32,4,0,num,7,small&sparse,46.18,1,7,48.912
+A2FGP5K2VWW23G,16,0,0,pos,0-1,small&dense-small&sparse,7.47-17.09,1,1-0,26.511
+A2FGP5K2VWW23G,2,4,2,pos,4-5-6,large&sparse-small&dense-small&sparse,3.69-12.18-3.28,1,5-4-6,21.344
+A2FGP5K2VWW23G,26,4,1,num,4-3-6,small&dense-small&sparse-large&sparse,4.06-9.38-13.44,1,3-4-6,28.436
+A2FGP5K2VWW23G,24,2,1,num,2-6,small&dense-small&sparse,3.69-19.87,1,2-6,28.976

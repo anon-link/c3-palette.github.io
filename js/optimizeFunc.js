@@ -235,9 +235,8 @@ function randomDisturbColors(palette, colors_scope) {
     }
 }
 function disturbColorBySL(palette, colors_scope) {
-    // console.log("sllllll");
-    let disturb_step = 10;
-    let idx, hsl, color;
+    let disturb_step = 50;
+    let idx, hsl, color, rgb;
     // random disturb one color
     idx = getRandomIntInclusive(0, palette.length - 1)
     if (hue_constraints[idx]) {

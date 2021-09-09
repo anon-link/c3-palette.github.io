@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/W32TeX) (preloaded format=pdflatex 2018.3.31)  7 SEP 2021 21:44
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/W32TeX) (preloaded format=pdflatex 2018.3.31)  9 SEP 2021 16:11
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -496,6 +496,14 @@ Package color Info: Redefining color green on input line 70.
 Package color Info: Redefining color red on input line 72.
 Package color Info: Redefining color blue on input line 76.
 
+(d:/Installation_position/texlive/2017/texmf-dist/tex/latex/multirow/multirow.s
+ty
+Package: multirow 2016/11/25 v2.2 Span multiple rows of a table
+\multirow@colwidth=\skip66
+\multirow@cntb=\count129
+\multirow@dima=\skip67
+\bigstrutjot=\dimen154
+)
 (d:/Installation_position/texlive/2017/texmf-dist/tex/latex/hyperref/hyperref.s
 ty
 Package: hyperref 2018/02/06 v6.86b Hypertext links for LaTeX
@@ -553,14 +561,14 @@ Package: auxhook 2016/05/16 v1.4 Hooks for auxiliary files (HO)
 sty
 Package: kvoptions 2016/05/16 v3.12 Key value format for package options (HO)
 )
-\@linkdim=\dimen154
-\Hy@linkcounter=\count129
-\Hy@pagecounter=\count130
+\@linkdim=\dimen155
+\Hy@linkcounter=\count130
+\Hy@pagecounter=\count131
 
 (d:/Installation_position/texlive/2017/texmf-dist/tex/latex/hyperref/pd1enc.def
 File: pd1enc.def 2018/02/06 v6.86b Hyperref: PDFDocEncoding definition (HO)
 )
-\Hy@SavedSpaceFactor=\count131
+\Hy@SavedSpaceFactor=\count132
 
 (d:/Installation_position/texlive/2017/texmf-dist/tex/latex/latexconfig/hyperre
 f.cfg
@@ -581,12 +589,12 @@ Package hyperref Info: Plain pages OFF on input line 4524.
 Package hyperref Info: Backreferencing OFF on input line 4529.
 Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
 Package hyperref Info: Bookmarks ON on input line 4762.
-\c@Hy@tempcnt=\count132
+\c@Hy@tempcnt=\count133
 LaTeX Info: Redefining \url on input line 5115.
-\XeTeXLinkMargin=\dimen155
-\Fld@menulength=\count133
-\Field@Width=\dimen156
-\Fld@charsize=\dimen157
+\XeTeXLinkMargin=\dimen156
+\Fld@menulength=\count134
+\Field@Width=\dimen157
+\Fld@charsize=\dimen158
 Package hyperref Info: Hyper figures OFF on input line 6369.
 Package hyperref Info: Link nesting OFF on input line 6374.
 Package hyperref Info: Hyper index ON on input line 6377.
@@ -596,17 +604,17 @@ Package hyperref Info: Link coloring with OCG OFF on input line 6394.
 Package hyperref Info: PDF/A mode OFF on input line 6399.
 LaTeX Info: Redefining \ref on input line 6439.
 LaTeX Info: Redefining \pageref on input line 6443.
-\Hy@abspage=\count134
-\c@Item=\count135
-\c@Hfootnote=\count136
+\Hy@abspage=\count135
+\c@Item=\count136
+\c@Hfootnote=\count137
 )
 Package hyperref Info: Driver (autodetected): hpdftex.
 
 (d:/Installation_position/texlive/2017/texmf-dist/tex/latex/hyperref/hpdftex.de
 f
 File: hpdftex.def 2018/02/06 v6.86b Hyperref driver for pdfTeX
-\Fld@listcount=\count137
-\c@bookmark@seq@number=\count138
+\Fld@listcount=\count138
+\c@bookmark@seq@number=\count139
 
 (d:/Installation_position/texlive/2017/texmf-dist/tex/latex/oberdiek/rerunfilec
 heck.sty
@@ -614,38 +622,38 @@ Package: rerunfilecheck 2016/05/16 v1.8 Rerun checks for auxiliary files (HO)
 Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 82.
 )
-\Hy@SectionHShift=\skip66
+\Hy@SectionHShift=\skip68
 )
-Package hyperref Info: Option `colorlinks' set `true' on input line 133.
-Package hyperref Info: Option `pageanchor' set `true' on input line 133.
-Package hyperref Info: Option `plainpages' set `false' on input line 133.
-Package hyperref Info: Option `linktocpage' set `true' on input line 133.
+Package hyperref Info: Option `colorlinks' set `true' on input line 134.
+Package hyperref Info: Option `pageanchor' set `true' on input line 134.
+Package hyperref Info: Option `plainpages' set `false' on input line 134.
+Package hyperref Info: Option `linktocpage' set `true' on input line 134.
  (./supp.aux)
 \openout1 = `supp.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 166.
-LaTeX Font Info:    ... okay on input line 166.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 166.
-LaTeX Font Info:    ... okay on input line 166.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 166.
-LaTeX Font Info:    ... okay on input line 166.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 166.
-LaTeX Font Info:    ... okay on input line 166.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 166.
-LaTeX Font Info:    ... okay on input line 166.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 166.
-LaTeX Font Info:    ... okay on input line 166.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 166.
-LaTeX Font Info:    Try loading font information for TS1+cmr on input line 166.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 167.
+LaTeX Font Info:    ... okay on input line 167.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 167.
+LaTeX Font Info:    ... okay on input line 167.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 167.
+LaTeX Font Info:    ... okay on input line 167.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 167.
+LaTeX Font Info:    ... okay on input line 167.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 167.
+LaTeX Font Info:    ... okay on input line 167.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 167.
+LaTeX Font Info:    ... okay on input line 167.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 167.
+LaTeX Font Info:    Try loading font information for TS1+cmr on input line 167.
 
 
 (d:/Installation_position/texlive/2017/texmf-dist/tex/latex/base/ts1cmr.fd
 File: ts1cmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
-LaTeX Font Info:    ... okay on input line 166.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 166.
-LaTeX Font Info:    ... okay on input line 166.
-LaTeX Font Info:    Try loading font information for OT1+ptm on input line 166.
+LaTeX Font Info:    ... okay on input line 167.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 167.
+LaTeX Font Info:    ... okay on input line 167.
+LaTeX Font Info:    Try loading font information for OT1+ptm on input line 167.
 
 
 (d:/Installation_position/texlive/2017/texmf-dist/tex/latex/psnfss/ot1ptm.fd
@@ -654,16 +662,16 @@ File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
 (d:/Installation_position/texlive/2017/texmf-dist/tex/context/base/mkii/supp-pd
 f.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count139
-\scratchdimen=\dimen158
+\scratchcounter=\count140
+\scratchdimen=\dimen159
 \scratchbox=\box34
-\nofMPsegments=\count140
-\nofMParguments=\count141
+\nofMPsegments=\count141
+\nofMParguments=\count142
 \everyMPshowfont=\toks30
-\MPscratchCnt=\count142
-\MPscratchDim=\dimen159
-\MPnumerator=\count143
-\makeMPintoPDFobject=\count144
+\MPscratchCnt=\count143
+\MPscratchDim=\dimen160
+\MPnumerator=\count144
+\makeMPintoPDFobject=\count145
 \everyMPtoPDFconversion=\toks31
 )
 (d:/Installation_position/texlive/2017/texmf-dist/tex/latex/oberdiek/epstopdf-b
@@ -734,7 +742,7 @@ Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: subfig package v1.3 is loaded.
 Package caption Info: hyperref package is loaded.
 Package caption Info: End \AtBeginDocument code.
-Package hyperref Info: Link coloring ON on input line 166.
+Package hyperref Info: Link coloring ON on input line 167.
 
 (d:/Installation_position/texlive/2017/texmf-dist/tex/latex/hyperref/nameref.st
 y
@@ -744,67 +752,67 @@ Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
 string.sty
 Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
-\c@section@level=\count145
+\c@section@level=\count146
 )
-LaTeX Info: Redefining \ref on input line 166.
-LaTeX Info: Redefining \pageref on input line 166.
-LaTeX Info: Redefining \nameref on input line 166.
+LaTeX Info: Redefining \ref on input line 167.
+LaTeX Info: Redefining \pageref on input line 167.
+LaTeX Info: Redefining \nameref on input line 167.
  (./supp.out) (./supp.out)
 \@outlinefile=\write3
 \openout3 = `supp.out'.
 
-\c@partextdummy=\count146
-LaTeX Font Info:    Try loading font information for OT1+phv on input line 192.
+\c@partextdummy=\count147
+LaTeX Font Info:    Try loading font information for OT1+phv on input line 193.
 
 
 (d:/Installation_position/texlive/2017/texmf-dist/tex/latex/psnfss/ot1phv.fd
 File: ot1phv.fd 2001/06/04 scalable font definitions for OT1/phv.
 )
 LaTeX Font Info:    Font shape `OT1/phv/bx/n' in size <14.4> not available
-(Font)              Font shape `OT1/phv/b/n' tried instead on input line 192.
+(Font)              Font shape `OT1/phv/b/n' tried instead on input line 193.
 LaTeX Font Info:    Try loading font information for OT1+ztmcm on input line 19
-2.
+3.
 
 (d:/Installation_position/texlive/2017/texmf-dist/tex/latex/psnfss/ot1ztmcm.fd
 File: ot1ztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OT1/ztmcm.
 )
 LaTeX Font Info:    Try loading font information for OML+ztmcm on input line 19
-2.
+3.
 (d:/Installation_position/texlive/2017/texmf-dist/tex/latex/psnfss/omlztmcm.fd
 File: omlztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OML/ztmcm.
 )
 LaTeX Font Info:    Try loading font information for OMS+ztmcm on input line 19
-2.
+3.
 (d:/Installation_position/texlive/2017/texmf-dist/tex/latex/psnfss/omsztmcm.fd
 File: omsztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OMS/ztmcm.
 )
 LaTeX Font Info:    Try loading font information for OMX+ztmcm on input line 19
-2.
+3.
 (d:/Installation_position/texlive/2017/texmf-dist/tex/latex/psnfss/omxztmcm.fd
 File: omxztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OMX/ztmcm.
 )
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <14.4> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 192.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 193.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10.95> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 192.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 193.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <8> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 192.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 193.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <9> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 193.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 194.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 193.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 194.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <5> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 193.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 194.
 <../figures/scatter-overlap.pdf, id=6, 1700.0213pt x 912.96281pt>
 File: ../figures/scatter-overlap.pdf Graphic file (type pdf)
 <use ../figures/scatter-overlap.pdf>
-Package pdftex.def Info: ../figures/scatter-overlap.pdf  used on input line 220
+Package pdftex.def Info: ../figures/scatter-overlap.pdf  used on input line 221
 .
 (pdftex.def)             Requested size: 418.25368pt x 224.60423pt.
 <../figures/badcaseAB.pdf, id=11, 1699.68999pt x 916.80818pt>
 File: ../figures/badcaseAB.pdf Graphic file (type pdf)
 <use ../figures/badcaseAB.pdf>
-Package pdftex.def Info: ../figures/badcaseAB.pdf  used on input line 233.
+Package pdftex.def Info: ../figures/badcaseAB.pdf  used on input line 234.
 (pdftex.def)             Requested size: 401.52634pt x 216.58308pt.
 [1{d:/Installation_position/texlive/2017/texmf-var/fonts/map/pdftex/updmap/pdft
 ex.map}
@@ -812,74 +820,85 @@ ex.map}
 
 
  <../figures/scatter-overlap.pdf>]
-<../figures/user-result-pilot.pdf, id=1428, 1932.6704pt x 895.49455pt>
+<../figures/user-result-pilot.pdf, id=1429, 1932.6704pt x 895.49455pt>
 File: ../figures/user-result-pilot.pdf Graphic file (type pdf)
 <use ../figures/user-result-pilot.pdf>
 Package pdftex.def Info: ../figures/user-result-pilot.pdf  used on input line 2
-48.
+49.
 (pdftex.def)             Requested size: 418.25368pt x 193.78467pt.
  [2 <../figures/badcaseAB.pdf> <../figures/user-result-pilot.pdf>]
-<../figures/formal-statistics-results.pdf, id=1539, 3415.87177pt x 998.64793pt>
-
+<../figures/formal-statistics-results.pdf, id=1549, 2585.55952pt x 1408.12071pt
+>
 File: ../figures/formal-statistics-results.pdf Graphic file (type pdf)
 <use ../figures/formal-statistics-results.pdf>
 Package pdftex.def Info: ../figures/formal-statistics-results.pdf  used on inpu
-t line 262.
-(pdftex.def)             Requested size: 418.25368pt x 122.27068pt.
+t line 288.
+(pdftex.def)             Requested size: 418.25368pt x 227.77483pt.
+<../figures/hue-preserving.pdf, id=1552, 3175.2928pt x 878.19897pt>
+File: ../figures/hue-preserving.pdf Graphic file (type pdf)
+<use ../figures/hue-preserving.pdf>
+Package pdftex.def Info: ../figures/hue-preserving.pdf  used on input line 329.
+
+(pdftex.def)             Requested size: 418.25368pt x 115.6707pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
 Missing character: There is no ï in font ptmr7t!
 Missing character: There is no ¼ in font ptmr7t!
 Missing character: There is no š in font ptmr7t!
-LaTeX Font Info:    Try loading font information for OT1+pcr on input line 298.
-
+LaTeX Font Info:    Try loading font information for OT1+pcr on input line 338.
 
 (d:/Installation_position/texlive/2017/texmf-dist/tex/latex/psnfss/ot1pcr.fd
 File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
 )
-<../figures/blindness.pdf, id=1542, 1670.49094pt x 437.92809pt>
+[3 <../figures/formal-statistics-results.pdf>]
+<../figures/blindness.pdf, id=1618, 1670.49094pt x 437.92809pt>
 File: ../figures/blindness.pdf Graphic file (type pdf)
 <use ../figures/blindness.pdf>
-Package pdftex.def Info: ../figures/blindness.pdf  used on input line 302.
+Package pdftex.def Info: ../figures/blindness.pdf  used on input line 342.
 (pdftex.def)             Requested size: 401.52634pt x 105.25858pt.
-
-(./supp.bbl
+ (./supp.bbl
 LaTeX Font Info:    Font shape `OT1/phv/bx/n' in size <9> not available
 (Font)              Font shape `OT1/phv/b/n' tried instead on input line 1.
 LaTeX Font Info:    Font shape `OT1/phv/bx/sc' in size <9> not available
 (Font)              Font shape `OT1/phv/b/sc' tried instead on input line 1.
 )
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 314.
- [3 <../figures/formal-statistics-results.pdf> <../figures/blindness.pdf>]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 314.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 354.
+ [4 <../figures/hue-preserving.pdf> <../figures/blindness.pdf>]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 354.
  (./supp.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 314.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 314.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 354.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 354.
 Package rerunfilecheck Info: File `supp.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 314.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 354.
  ) 
 Here is how much of TeX's memory you used:
- 10215 strings out of 492982
- 157439 string characters out of 6125995
- 250017 words of memory out of 5000000
- 13560 multiletter control sequences out of 15000+600000
+ 10280 strings out of 492982
+ 158602 string characters out of 6125995
+ 253229 words of memory out of 5000000
+ 13616 multiletter control sequences out of 15000+600000
  42511 words of font info for 93 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 36i,6n,43p,1153b,346s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 36i,11n,43p,1154b,346s stack positions out of 5000i,500n,10000p,200000b,80000s
 {d:/Installation_position/texlive/2017/texmf-dist/fonts/enc/dvips/base/8r.enc
 }<d:/Installation_position/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/
 cm/cmmi10.pfb><d:/Installation_position/texlive/2017/texmf-dist/fonts/type1/pub
-lic/amsfonts/cm/cmsy10.pfb><d:/Installation_position/texlive/2017/texmf-dist/fo
-nts/type1/public/amsfonts/symbols/msbm10.pfb><d:/Installation_position/texlive/
-2017/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb><d:/Installation_position/te
-xlive/2017/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb><d:/Installation_posi
-tion/texlive/2017/texmf-dist/fonts/type1/urw/symbol/usyr.pfb><d:/Installation_p
-osition/texlive/2017/texmf-dist/fonts/type1/urw/times/utmb8a.pfb><d:/Installati
-on_position/texlive/2017/texmf-dist/fonts/type1/urw/times/utmr8a.pfb><d:/Instal
-lation_position/texlive/2017/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on supp.pdf (3 pages, 4575151 bytes).
+lic/amsfonts/cm/cmr10.pfb><d:/Installation_position/texlive/2017/texmf-dist/fon
+ts/type1/public/amsfonts/cm/cmsy10.pfb><d:/Installation_position/texlive/2017/t
+exmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb><d:/Installation_posit
+ion/texlive/2017/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb><d:/Installation
+_position/texlive/2017/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb><d:/Insta
+llation_position/texlive/2017/texmf-dist/fonts/type1/urw/symbol/usyr.pfb><d:/In
+stallation_position/texlive/2017/texmf-dist/fonts/type1/urw/times/utmb8a.pfb><d
+:/Installation_position/texlive/2017/texmf-dist/fonts/type1/urw/times/utmr8a.pf
+b><d:/Installation_position/texlive/2017/texmf-dist/fonts/type1/urw/times/utmri
+8a.pfb>
+Output written on supp.pdf (4 pages, 5599679 bytes).
 PDF statistics:
- 1661 PDF objects out of 1728 (max. 8388607)
- 843 compressed objects within 9 object streams
- 17 named destinations out of 1000 (max. 500000)
- 26 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1917 PDF objects out of 2073 (max. 8388607)
+ 974 compressed objects within 10 object streams
+ 21 named destinations out of 1000 (max. 500000)
+ 31 words of extra memory for PDF output out of 10000 (max. 10000000)
 

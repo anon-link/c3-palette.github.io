@@ -1,0 +1,41 @@
+userName,fileId,conditionId,changeMagnitude,changeType,clickOrder,clickClusterType,clickTime,userResult,rightAnswer,totalTime
+A25DDYVEO4GFDQ,0,3,2,pos,3-4,small&dense-small&sparse,4.57-2.84,1,3-4,10.089
+A25DDYVEO4GFDQ,27,0,1,num,5,small&sparse,27.54,1,5,39.483
+A25DDYVEO4GFDQ,12,3,0,pos,6,large&dense,6.50,1,6,8.618
+A25DDYVEO4GFDQ,21,0,2,num,1,small&sparse,13.41,1,1,18.616
+A25DDYVEO4GFDQ,29,2,1,num,4,small&sparse,26.66,1,4,28.81
+A25DDYVEO4GFDQ,15,0,0,pos,7,small&sparse,14.31,1,7,16.262
+A25DDYVEO4GFDQ,60,-1,2,center position,5,small&dense,5.43,1,5,7.554
+A25DDYVEO4GFDQ,34,1,0,num,6-7-5,small&sparse-large&dense-large&dense,15.51-13.47-4.18,1,5-7-6,35.603
+A25DDYVEO4GFDQ,1,4,2,pos,2,small&sparse,10.40,1,2,12.106
+A25DDYVEO4GFDQ,20,5,2,num,4-7,small&dense-large&dense,4.90-9.22,1,4-7,16.715
+A25DDYVEO4GFDQ,7,4,1,pos,3-5-7,large&sparse-small&sparse-small&sparse,5.76-3.16-8.23,1,5-3-7,19.192
+A25DDYVEO4GFDQ,5,2,2,pos,0-3,large&dense-small&sparse,4.53-5.11,1,0-3,11.557
+A25DDYVEO4GFDQ,10,1,1,pos,7-3,small&dense-large&dense,4.21-6.09,1,7-3,13.007
+A25DDYVEO4GFDQ,13,4,0,pos,5-0-3,large&dense-large&sparse-small&dense,4.83-3.62-42.27,1,3-5-0,53.295
+A25DDYVEO4GFDQ,14,5,0,pos,7-5-6,large&dense-large&dense-small&sparse,9.26-9.58-3.63,1,6-5-7,27.738
+A25DDYVEO4GFDQ,32,-1,2,shape,4,large&dense,10.35,1,4,12.33
+A25DDYVEO4GFDQ,22,1,2,num,0,large&sparse,9.13,0,0-7,60
+A25DDYVEO4GFDQ,62,-1,2,center position,4,large&dense,6.75,1,4,8.777
+A25DDYVEO4GFDQ,23,2,2,num,0-3-6,large&dense-small&sparse-large&dense,5.90-5.20-14.72,1,3-6-0,28.049
+A25DDYVEO4GFDQ,17,2,0,pos,0-5,small&dense-small&sparse,4.51-4.73,1,0-5,14.307
+A25DDYVEO4GFDQ,8,5,1,pos,6-1,large&sparse-large&dense,5.14-3.73,1,1-6,13.395
+A25DDYVEO4GFDQ,35,2,0,num,6-5,small&dense-large&sparse,5.18-4.14,0,6-5-0,60
+A25DDYVEO4GFDQ,3,0,2,pos,7,small&sparse,18.18,1,7,23.711
+A25DDYVEO4GFDQ,33,0,0,num,5,small&sparse,26.80,1,5,29.713
+A25DDYVEO4GFDQ,9,0,1,pos,1,small&dense,5.62,1,1,7.447
+A25DDYVEO4GFDQ,4,1,2,pos,0-2-6,small&dense-small&dense-small&sparse,5.17-2.38-3.51,1,0-2-6,16.652
+A25DDYVEO4GFDQ,3,-1,2,point number,1,large&dense,8.40,1,1,11.112
+A25DDYVEO4GFDQ,6,3,1,pos,2,small&dense,4.73,1,2,6.736
+A25DDYVEO4GFDQ,28,1,1,num,2-5-0,small&sparse-small&sparse-small&dense,10.20-8.17-3.77,1,0-2-5,24.83
+A25DDYVEO4GFDQ,18,3,2,num,2-7-5,small&dense-small&dense-small&sparse,4.46-1.70-5.66,1,7-2-5,13.95
+A25DDYVEO4GFDQ,11,2,1,pos,0-6-1,large&sparse-small&dense-small&dense,5.41-1.83-6.09,1,6-1-0,15.024
+A25DDYVEO4GFDQ,30,3,0,num,5-0,small&dense-small&dense,10.79-19.36,1,5-0,48.992
+A25DDYVEO4GFDQ,19,4,2,num,3,small&dense,4.34,1,3,11.957
+A25DDYVEO4GFDQ,25,4,1,num,0-1,large&sparse-small&sparse,12.13-37.43,1,1-0,53.845
+A25DDYVEO4GFDQ,31,4,0,num,5-6,large&dense-large&sparse,15.13-32.69,1,6-5,55.745
+A25DDYVEO4GFDQ,32,5,0,num,7,small&sparse,12.01,1,7,14.344
+A25DDYVEO4GFDQ,16,1,0,pos,1-0,small&sparse-small&dense,8.72-4.14,1,1-0,14.986
+A25DDYVEO4GFDQ,2,5,2,pos,5-4-6,small&dense-large&sparse-small&sparse,4.94-2.50-3.40,1,5-4-6,13.73
+A25DDYVEO4GFDQ,26,5,1,num,4-3-6,small&dense-small&sparse-large&sparse,6.60-2.98-8.46,1,3-4-6,23.511
+A25DDYVEO4GFDQ,24,3,1,num,2-6,small&dense-small&sparse,6.04-6.50,1,2-6,14.518

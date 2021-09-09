@@ -1,0 +1,42 @@
+userName,fileId,conditionId,changeMagnitude,changeType,clickOrder,clickClusterType,clickTime,userResult,rightAnswer,totalTime
+A1SISJL5ST2PWH,0,5,2,pos,3-4,small&dense-small&sparse,3.27-4.46,1,3-4,8.325
+A1SISJL5ST2PWH,27,2,1,num,1,0,9.25,0,5,10.382
+A1SISJL5ST2PWH,12,5,0,pos,6,large&dense,3.85,1,6,5.626
+A1SISJL5ST2PWH,21,2,2,num,1,small&sparse,3.72,1,1,4.561
+A1SISJL5ST2PWH,29,4,1,num,4,small&sparse,19.21,1,4,20.697
+A1SISJL5ST2PWH,15,2,0,pos,7,small&sparse,5.14,1,7,5.878
+A1SISJL5ST2PWH,60,-1,2,center position,5,small&dense,3.53,1,5,11.712
+A1SISJL5ST2PWH,34,3,0,num,5-7-6,large&dense-large&dense-small&sparse,3.60-3.03-33.59,1,5-7-6,41.205
+A1SISJL5ST2PWH,1,0,2,pos,2,small&sparse,4.39,1,2,5.062
+A1SISJL5ST2PWH,20,1,2,num,4-7,small&dense-large&dense,3.70-6.40,1,4-7,10.862
+A1SISJL5ST2PWH,7,0,1,pos,7-5-3,small&sparse-small&sparse-large&sparse,4.85-2.46-33.41,1,5-3-7,41.724
+A1SISJL5ST2PWH,5,4,2,pos,0-3,large&dense-small&sparse,4.12-12.29,1,0-3,17.071
+A1SISJL5ST2PWH,10,3,1,pos,3-7,large&dense-small&dense,3.08-5.25,1,7-3,9.127
+A1SISJL5ST2PWH,13,0,0,pos,5-0-3,large&dense-large&sparse-small&dense,3.88-3.83-8.59,1,3-5-0,17.311
+A1SISJL5ST2PWH,14,1,0,pos,5-7-6,large&dense-large&dense-small&sparse,4.56-6.29-5.13,1,6-5-7,16.633
+A1SISJL5ST2PWH,32,-1,2,shape,4,large&dense,6.97,1,4,14.568
+A1SISJL5ST2PWH,22,3,2,num,0-7,large&sparse-small&sparse,3.19-12.62,1,0-7,16.544
+A1SISJL5ST2PWH,62,-1,2,center position,4,large&dense,1.94,1,4,2.658
+A1SISJL5ST2PWH,23,4,2,num,0-6-3,large&dense-large&dense-small&sparse,2.90-2.60-22.96,0,3-6-0,60
+A1SISJL5ST2PWH,17,4,0,pos,0-5,small&dense-small&sparse,2.88-35.35,1,0-5,39.406
+A1SISJL5ST2PWH,8,1,1,pos,6-1,large&sparse-large&dense,2.34-8.78,1,1-6,12.93
+A1SISJL5ST2PWH,35,4,0,num,6,small&dense,12.98,0,6-5-0,60
+A1SISJL5ST2PWH,3,2,2,pos,7,small&sparse,5.87,1,7,6.586
+A1SISJL5ST2PWH,33,2,0,num,5,small&sparse,8.56,1,5,9.327
+A1SISJL5ST2PWH,9,2,1,pos,1,small&dense,4.62,1,1,5.347
+A1SISJL5ST2PWH,4,3,2,pos,0-2-6,small&dense-small&dense-small&sparse,3.74-1.83-3.40,1,0-2-6,10.402
+A1SISJL5ST2PWH,3,-1,2,point number,1,large&dense,4.10,1,1,4.736
+A1SISJL5ST2PWH,6,5,1,pos,2,small&dense,8.60,1,2,9.397
+A1SISJL5ST2PWH,28,3,1,num,2-0,small&sparse-small&dense,2.47-3.38,0,0-2-5,60
+A1SISJL5ST2PWH,18,5,2,num,5-7-2,small&sparse-small&dense-small&dense,3.15-5.07-18.91,1,7-2-5,28.109
+A1SISJL5ST2PWH,11,4,1,pos,6-0-1,small&dense-large&sparse-small&dense,4.43-2.27-4.45,1,6-1-0,22.415
+A1SISJL5ST2PWH,30,5,0,num,5,small&dense,9.96,0,5-0,60
+A1SISJL5ST2PWH,19,0,2,num,3,small&dense,6.57,1,3,7.425
+A1SISJL5ST2PWH,25,0,1,num,0-1,large&sparse-small&sparse,4.85-45.09,1,1-0,50.705
+A1SISJL5ST2PWH,31,0,0,num,5-6,large&dense-large&sparse,6.05-14.08,1,6-5,21.578
+A1SISJL5ST2PWH,32,1,0,num,7,small&sparse,15.35,1,7,17.474
+A1SISJL5ST2PWH,16,3,0,pos,1-0,small&sparse-small&dense,2.88-6.95,1,1-0,10.656
+A1SISJL5ST2PWH,2,1,2,pos,4-5-6,large&sparse-small&dense-small&sparse,2.92-2.10-3.15,1,5-4-6,8.92
+A1SISJL5ST2PWH,26,1,1,num,4-6,small&dense-large&sparse,6.20-13.25,0,3-4-6,60
+A1SISJL5ST2PWH,26,1,1,num,4-6,small&dense-large&sparse,6.20-13.25,0,3-4-6,60
+A1SISJL5ST2PWH,24,5,1,num,2-6,small&dense-small&sparse,4.99-13.90,1,2-6,21.355

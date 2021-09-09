@@ -15,12 +15,12 @@ source('analysis.R')
 library(forcats)
 library(tidyverse)
 
-file_study_folder <- "./data/pilot/"
+file_study_folder <- "./data/formal/"
 
-save_img_sign <- TRUE#FALSE#
+save_img_sign <- FALSE#TRUE#
 saveImg <- function(name){
   if(save_img_sign){
-    ggsave(paste("results", "pilot", paste(name,".pdf"), sep = "/"), width = 10, height = 6, useDingbats=FALSE)
+    ggsave(paste("results", "formal", paste(name,".pdf"), sep = "/"), width = 10, height = 6, useDingbats=FALSE)
     #ggsave(paste("results", "formal", paste(name,".pdf"), sep = "/"), width = 8, height = 4, useDingbats=FALSE)
   }
 }
@@ -220,7 +220,7 @@ data_total <- data_total %>%
 
 # removing the distractors
 data_total <- data_total[data_total$conditionId!=-1, ]
-data_total <- data_total[data_total$conditionId!=3, ]
+#data_total <- data_total[data_total$conditionId!=3, ]
 
 # Prep Plot Consistency
 data_total <- data_total %>%
@@ -229,13 +229,13 @@ data_total <- data_total %>%
 data_total[data_total$conditionId==0, ]$conditionName <- "Random Assignment"
 data_total[data_total$conditionId==1, ]$conditionName <- "Optimized Assignment"
 data_total[data_total$conditionId==2, ]$conditionName <- "Alpha Blending"
-#data_total[data_total$conditionId==3, ]$conditionName <- "C3-Palette Assignment"
+data_total[data_total$conditionId==3, ]$conditionName <- "C3-Palette Assignment"
 data_total[data_total$conditionId==4, ]$conditionName <- "Palettailor"
 data_total[data_total$conditionId==5, ]$conditionName <- "C3-Palette Generation"
 
 data_total <- data_total %>%
   mutate(conditionName = fct_relevel(conditionName, 
-                                 "C3-Palette Generation",#"C3-Palette Assignment", 
+                                 "C3-Palette Generation","C3-Palette Assignment", 
                                  "Palettailor", 
                                  "Alpha Blending", "Optimized Assignment", "Random Assignment"))
 
@@ -268,6 +268,11 @@ data <- data_total
 # Model: error ~ ... datasetGroup + condition ...
 model <- lm(error ~ conditionName + datasetGroup + conditionName * datasetGroup, data)
 anova(model)
+summary(model)
+
+library(GFD)
+set.seed(1234)
+model <- GFD(error ~ conditionName * changeMagnitude, data = data, nperm = 1000, alpha = 0.05)
 summary(model)
 
 # Model: error ~ ... condition + magnitude ...

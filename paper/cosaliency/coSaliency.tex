@@ -21,12 +21,10 @@
 \acmDOI{10.1145/1122445.1122456}
 
 %% These commands are for a PROCEEDINGS abstract or paper.
-\acmConference[Woodstock '18]{Woodstock '18: ACM Symposium on Neural
-  Gaze Detection}{June 03--05, 2018}{Woodstock, NY}
-\acmBooktitle{Woodstock '18: ACM Symposium on Neural Gaze Detection,
-  June 03--05, 2018, Woodstock, NY}
-\acmPrice{15.00}
-\acmISBN{978-1-4503-XXXX-X/18/06}
+\acmConference[]{}{}{}
+\acmBooktitle{}
+\acmPrice{}
+\acmISBN{}
 
 \usepackage{enumitem}
 \usepackage{wrapfig}
@@ -38,7 +36,11 @@
 \newcommand{\lk}[1]{{\color[rgb]{0.26,0.3,0.94} [#1]}}
 \newcommand{\mf}[1]{{\color[rgb]{0,0.75,1} [#1]}}
 \newcommand{\bpstart}[1]{\vspace{1mm} \noindent{\textbf{#1.}}}
+\usepackage{color}
+\definecolor{mscolor}{rgb}{0,0,0.7}
+\newcommand\ms[1]{{\color{mscolor}MS: #1}}
 
+\raggedbottom
 %%
 %% Submission ID.
 %% Use this when submitting an article to a sponsored event. You'll
@@ -149,7 +151,7 @@ Based on this model, we present a comparison-driven color design framework, enab
   \includegraphics[width=\textwidth]{teaser7}
   \caption{
   Results for different types of categorical data visualizations: (left) $C^3$-palette versus Tableau palette with random assignment; (center) $C^3$-palette  versus
-Tableau palette with optimal assignment; (right) $C^3$-palette versus Palettailor~\cite{Lu21}. Our co-saliency methods (top) can highlight the changed classes while
+Tableau palette with optimal discrimination assignment~\cite{Wang2018}; (right) $C^3$-palette versus Palettailor~\cite{Lu21}. Our co-saliency methods (top) can highlight the changed classes while
 maintaining discrimination of classes.}
   \Description{Illustrating the different conditions used in the online experiment.}
   \label{fig:teaser}

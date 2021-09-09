@@ -1,8 +1,8 @@
 \subsection{Co-Saliency based Palette Generation}
 \label{subsec:solver}
-On the basis of our co-saliency model we meet DR1 and DR2 by a co-saliency based generation of color palettes %color assignment palette generation.
-Taking the model in Eq.~\ref{eq:cosaliency} as the objective within a state-of-the-art color assignment method~\cite{Wang2018}, an optimal color mapping can be obtained from a given  good palette. However, there are two major limitations \od{by not taking palette generation itself into account}: i) the model requires users to try many palettes for selecting a good one; and ii) the design of most existing palettes is not oriented towards visual comparison so that even the best color assignment cannot provide prominent cues for this task.
-Fig.~\ref{fig:colorbrewer} shows examples with the Tableau-10 palette and ColorBrewer palette~\cite{harrower2003colorbrewer}. Both results highlight several classes with minor changes (e.g., the bottom left purple class), and make it hard to identify the red class with the largest change  even though it is very distinctive. Thus, we prompt users to use our co-saliency based palette generation method.
+On the basis of our co-saliency model we meet DR1 and DR2 by a co-saliency based generation of color palettes. %color assignment palette generation.
+Taking the model in Eq.~\ref{eq:cosaliency} as the objective within a state-of-the-art optimal discrimination assignment method~\cite{Wang2018}, an optimal color mapping can be obtained from a given  good palette. However, there are two major limitations by not taking palette generation itself into account: i) the model requires users to try many palettes for selecting a good one; and ii) the design of most existing palettes is not oriented towards visual comparison so that even the best color assignment cannot provide prominent cues for this task.
+Fig.~\ref{fig:colorbrewer} shows examples with the Tableau-10 palette and ColorBrewer palette~\cite{harrower2003colorbrewer}. Both results highlight several classes with minor changes (e.g., the bottom left purple class in Fig.~\ref{fig:colorbrewer} (b)), and make it hard to identify the red class with the largest change  even though it is very distinctive. Thus, we prompt users to use our co-saliency based palette generation method.
 
 %\vspace{1.5mm}
 %\noindent\textbf{Co-saliency based Color Assignment}.
@@ -32,7 +32,7 @@ By replacing the first measure with our co-saliency model, palette generation ca
 \label{eq:energyfunc}
 \end{equation}
 consisting of a co-saliency term $E_{CoS}$ (see Eq.~\ref{eq:cosaliency}), a name difference term $E_{ND}$ and a color discrimination term $E_{CD}$, balanced by $\omega_0$, $\omega_1$ and $\omega_2$. For more details about $E_{ND}$ and $E_{CD}$, we refer readers to~\cite{Lu21}. By using their optimization method, we are able to generate desired color palettes up to 40 colors in real time. %see Fig.~\ref{fig:teaser} (d).
-For example, Fig.~\ref{fig:lambda}(b) shows an example which uses the same dataset as in Fig.~\ref{fig:colorbrewer}, but improves the distinctness of the two changed classes while maintaining class separability.
+For example, Fig.~\ref{fig:lambda} (b) shows an example which uses the same dataset as in Fig.~\ref{fig:colorbrewer}, but improves the distinctness of the two changed classes while maintaining class separability.
 
 
 
@@ -52,19 +52,19 @@ Since $\nu$ is fixed in our experiments and the class importance can be specifie
 
 \noindent\textbf{Balancing Weight $\lambda$}.
 Although this parameter modulates the influence between class contrast with its neighbors and  background, it offers a compromise between DR1 and DR2.
-As shown in Fig.~\ref{fig:lambda}(a), considering only the contrast to the background would result in a good 'pop out' effect, but other classes might be hard to discriminate. While considering only the contrast with nearest neighbors, such as done in Fig.~\ref{fig:lambda}(d), all the classes are easy to distinguish but the changed classes are hard to find out.
+As shown in Fig.~\ref{fig:lambda} (a), considering only the contrast to the background would result in a good ``pop-out'' effect, but other classes might be hard to discriminate. While considering only the contrast with nearest neighbors, such as done in Fig.~\ref{fig:lambda} (d), all the classes are easy to distinguish but the changed classes are hard to find out.
 This is reasonable, because pre-attentive vision
 % processing mechanism
-lets a bright and saturated color region within regions of de-saturated colors ``pop-out'' to the viewer~\cite{healey1995visualizing}.
-In our experiments, we found that setting  $\lambda=0.4$ as a default value allows to simultaneously emphasize changes and preserve the discriminability between classes, see the  example in Fig.~\ref{fig:lambda}(b).
+lets a bright and saturated color region within regions of de-saturated colors ``pop out'' to the viewer~\cite{healey1995visualizing}.
+In our experiments, we found that setting  $\lambda=0.4$ as a default value allows to simultaneously emphasize changes and preserve the discriminability between classes, see the  example in Fig.~\ref{fig:lambda} (b).
 
 \vspace{1.5mm}
 \noindent\textbf{Importance Threshold $\kappa$}.
 The importance threshold $\kappa$ selects classes with large importance to be highlighted.
-With a default value of zero, all classes with an importance value larger than zero are ensured to be highlighted. Likewise, a large $\kappa$ will de-emphasize classes with a small importance.
+With a default value of zero, all classes with an importance value larger than zero are ensured to be highlighted. Likewise, a large $\kappa$ will de-emphasize classes with small importance.
 We further allow users to specify $\kappa$ by interaction through a widget in our interactive application. %(see Sec.~\ref{sec:interaction}).
 
-Note that our optimization inherently works for more than two categorical visualizations and the data with many classes. Since our contrast measures are built on the data-space nearest neighbour graphs, its produced palettes also work well for scatterplots with significant overlap between classes (see Fig.1 in the supplemental material).
+Note that our optimization inherently works for more than two categorical visualizations and the data with many classes. Since our contrast measures are built on the data-space nearest neighbour graphs, its produced palettes also work well for scatterplots with significant overlap between classes (see the supplementary material).
 
 
 %\begin{figure}[h]

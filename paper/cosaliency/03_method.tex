@@ -2,10 +2,10 @@
 Given $N$ ($N\geq 2$) categorical visualizations with the same class labels (or a subset thereof), the $j$th visualization has $M$ classes and $n_j$ data items $\{\mathbf{x}^j_1, \cdots, \mathbf{x}^j_{n_j}\}$, where each $\mathbf{x}^j_t$ has a label
 $l(\mathbf{x}^j_t)$ and the $i$-th class (with $n^j_i$ data points) consists of $\{\mathbf{x}_{i,1}^j, \cdots , \mathbf{x}_{i,n^j_i}^j\}, i \in  \{ 1, \cdots, m \} $.
 For standard bar and line charts, $M$ is equal to $n_j$ but it is often smaller than $n_j$ for scatterplots.
-All visualizations use the same  background color $\mathbf{c}_b$ and the same color mapping scheme $\tau: L \mapsto c$. Our goal is to find the best mapping $\tau$ that supports an effective comparison of multiple categorical \od{visualizations}.
+All visualizations use the same  background color $\mathbf{c}_b$ and the same color mapping scheme $\tau: L \mapsto c$. Our goal is to find the best mapping $\tau$ that supports an effective comparison of multiple categorical visualizations.
 % scatterplots.
 
-In line with the design requirements for natural image comparison and categorial data visualization~\cite{Jacobs10,Gleicher18,Lu21},
+In line with the design requirements for natural image comparison and categorical data visualization~\cite{Jacobs10,Gleicher18,Lu21},
 %~\cite{itti1998model,cheng2014global,zhang2018review},
 our problem is formulated based on the following three design requirements:
 \begin{enumerate}[label=(\roman*),nosep]
@@ -44,7 +44,7 @@ f(\theta_i) =  \left\{ \begin{array}{ll}
 \end{array} \right.
 \label{eq:energyfunc}
 \end{align}
-$\kappa$ is a user-specified threshold with a default of zero. The reason for the two different weighting schemes is that classes with less or no changes might be treated as the background by viewers~\cite{zhang2018review}. To suppress the saliency of such classes, we introduce a negative importance for them.
+$\kappa$ is a user-specified threshold with a default of zero. The reason for the two different weighting schemes is that classes with less or no changes might be treated as the background by viewers~\cite{zhang2018review}. To suppress the saliency of such classes, we introduce negative importance for them.
 
 \vspace{2mm}
 \noindent\textbf{Local Contrast}.
@@ -57,7 +57,7 @@ Given the $j$th scatterplot, we define the local class contrast based on the $\a
 \begin{align}
  \gamma (\mathbf{x}^j_t)=\frac{1}{|\Omega^j_t|} \sum_{\mathbf{x}^j_p \in \Omega^j_t}  \frac{\Delta\epsilon(\tau(l(\mathbf{x}^j_t)),\tau(l(\mathbf{x}^j_p)))}{d(\mathbf{x}^j_t,\mathbf{x}^j_p)} \nonumber ,
 \end{align}
-where $\Omega^j_t$ is set of $k$ nearest neighbors of $\mathbf{x}^j_t$, $\tau(l(\mathbf{x}^j_p))$ is the color of $\mathbf{x}^j_p$,  $d$ is the Euclidean distance and $\Delta\epsilon$ is the CIELAB color distance.
+where $\Omega^j_t$ is set of $k$ nearest neighbors of $\mathbf{x}^j_t$, $\tau(l(\mathbf{x}^j_p))$ is the color of $\mathbf{x}^j_p$,  $d$ is the Euclidean distance and $\Delta\epsilon$ is the CIELAB color distance~\cite{sharma2005ciede2000}.
 For the $i$th class, its local contrast is the sum of all points with the same class label in the scatterplot:
 \begin{align}\label{eq:nc}
  \phi^j_i = \frac{1}{n_j}\sum^{n_j}_{p}\gamma(\mathbf{x}^j_p) \delta(l(\mathbf{x}^j_p),i)
@@ -87,13 +87,13 @@ If a class overlaps with different classes, the local contrast value will be hig
 
 \vspace{2mm}
 \noindent\textbf{Background Contrast}.
-The contrast with the background is based on the \od{so-called} point non-separability $\rho (\mathbf{x}^j_t)$ (rf.~\cite{Wang2018}), which is defined as the difference between two  separation degrees:
+The contrast with the background is based on the so-called point non-separability $\rho (\mathbf{x}^j_t)$ (rf.~\cite{Wang2018}), which is defined as the difference between two  separation degrees:
 \begin{align}
 \rho(\mathbf{x}^j_t)&= b(\mathbf{x}^j_t)-a(\mathbf{x}^j_t) \ .
 \end{align}
 where $b(\mathbf{x}^j_t)$ is the between-class separation degree and $a(\mathbf{x}^j_t)$ is the within-class separation degree.
 % of $\mathbf{x}^j_t$.
-\od{The measures are defined as weighted sums of  color differences of $\mathbf{x}^j_t$ with its neighborhood from the same and different classes:}
+The measures are defined as weighted sums of  color differences of $\mathbf{x}^j_t$ with its neighborhood from the same and different classes:
 \begin{align}
 a(\mathbf{x}^j_t)&=\frac{1}{|\Omega^j_t|}\sum_{\mathbf{x}^j_p \in \Omega^j_t } \frac{\delta(l(\mathbf{x}^j_t), l(\mathbf{x}^j_p))
 \Delta\epsilon(\tau(l(\mathbf{x}^j_t)),\mathbf{c}_b)
@@ -104,8 +104,8 @@ b(\mathbf{x}^j_t)=\frac{1}{|\Omega^j_t|}\sum_{\mathbf{x}^j_p \in \Omega^j_t } \f
 When most neighbor points of $\mathbf{x}^j_t$ have the same label as $\mathbf{x}^j_t$,  $\rho (\mathbf{x}^j_t)$ is negative.
 % and vice versa.
 %the corresponding class has large within-class separability and small between-class separability and thus $\rho (\mathbf{x}^j_t)$ is negative; and vice versa.
-However, such a negative $\rho (\mathbf{x}^j_t)$ makes the optimization in Eq.~\ref{eq:cosaliency} meaningless, \od{and the corresponding} classes might be highlighted no matter how large the change of this class is.
-\od{To address this issue, we use an exponential function to let $\rho (\mathbf{x}^j_t)$  always be positive while maintaining the monotonicity of the function.} Accordingly, we define
+However, such a negative $\rho (\mathbf{x}^j_t)$ makes the optimization in Eq.~\ref{eq:cosaliency} meaningless, and the corresponding classes might be highlighted no matter how large the change of this class is.
+To address this issue, we use an exponential function to let $\rho (\mathbf{x}^j_t)$  always be positive while maintaining the monotonicity of the function. Accordingly, we define
 %\begin{align}\label{eq:ctb}
 % \rho (\mathbf{x}^j_t)=\frac{1}{|\Omega^j_t|} \sum_{\mathbf{x}^j_p \in \Omega^j_t}  \frac{(1-2\delta(l(\mathbf{x}^j_t),l(\mathbf{x}^j_p)))\Delta\epsilon(\tau(l(\mathbf{x}^j_t)),\mathbf{c}_b)}{d(\mathbf{x}^j_t,\mathbf{x}^j_p)} ,
 %\end{align}
@@ -134,18 +134,18 @@ As illustrated in Fig.~\ref{fig:map}(c), well-separated classes with large color
 \noindent\textbf{Class Importance}.
 Class importance reflects whether a class should be highlighted or not. It can be specified by user or by some measures. In our paper, as a default we use the class change degree to represent the importance of each class.
 To quantify how users perceive structural changes of classes, we measure the difference between the class distributions in two scatterplots using the Earth Mover's Distance (EMD)~\cite{rubner2000earth}, a perceptual metric.
-Suppose the $i$th  class with two \od{representations by two} sets of points $\mathbf{X}^1_i = \{\mathbf{x}_{i,1}^1, \cdots , \mathbf{x}_{i,n^1_i}^1\}$ and $\mathbf{X}^2_i = \{\mathbf{x}_{i,1}^2, \cdots , \mathbf{x}_{i,n^2_i}^2\}$.
+Suppose the $i$th  class with two representations by two sets of points $\mathbf{X}^1_i = \{\mathbf{x}_{i,1}^1, \cdots , \mathbf{x}_{i,n^1_i}^1\}$ and $\mathbf{X}^2_i = \{\mathbf{x}_{i,1}^2, \cdots , \mathbf{x}_{i,n^2_i}^2\}$.
 Taking the Euclidian distance between points as the cost, we need to  minimize the total matching cost
 \begin{align}
  H(\mathbf{X}^1_i, \mathbf{X}^2_i)  = \min_\chi \sum_t d(\mathbf{x}_{i,t}^1, \mathbf{x}_{i,\chi(t)}^2), \nonumber
 \end{align}
 which constrains one-to-one mappings $\chi$ between points %(see an illustration in Fig.~\ref{fig:class-change-degree}).
 This is the classic bipartite matching problem, which can be solved by the Hungarian method~\cite{kuhn1955hungarian}.
-When the number of points of two sets is not equal, we further take the difference between the number of points into account. \od{In doing so, the class change degree contains  positional changes and changes of element numbers:}
+When the number of points of two sets is not equal, we further take the difference between the number of points into account. In doing so, the class change degree contains  positional changes and changes of element numbers:
 \begin{align}\label{eq:cm}
  \theta_i= \frac{H(\mathbf{X}^1_i, \mathbf{X}^2_i) }{\min\{n^1_i, n^2_i\}} + \nu \frac{||n^1_i- n^2_i||}{\max\{n^1_i, n^2_i\}}
 \end{align}
-both terms range within [0,1] and $\nu$ is 1.0 as default value.
+both terms range within [0,1] and $\nu$ is 1.0 as the default value.
 
 
 \begin{figure*}[!tb]
@@ -159,4 +159,4 @@ both terms range within [0,1] and $\nu$ is 1.0 as default value.
 \end{figure*}
 \vspace{1.5mm}
 
-Fig.~\ref{fig:map} shows an example of two 8-class scatterplots with three  changing classes (orange, blue and black). Combining the class change degree with the two above-given contrast measures allows us to highlight salient differences and maintain the visual discrimination of the classes (see Fig.~\ref{fig:map}(e)).
+Fig.~\ref{fig:map} shows an example of two 8-class scatterplots with three  changing classes (orange, blue and black). Combining the class change degree with the two above-given contrast measures allows us to highlight salient differences and maintain the visual discrimination of the classes (see Fig.~\ref{fig:map} (e)).

@@ -98,6 +98,7 @@
 
 \usepackage{enumitem}
 \usepackage{pdfpages}
+\usepackage{multirow}
 
 \newcommand{\yh}[1]{{\color{orange}[yunhai: #1]}}
 \newcommand{\od}[1]{{\color{red}[OD: #1]}}
@@ -190,7 +191,7 @@
 %% the only exception to this rule is the \firstsection command
 \maketitle
 
-This supplemental material file provides additional experimental results for our submitted paper titled ``\toolname-palette: Co-saliency based Colorization for Comparing Categorical Visualizations''.
+This supplementary material provides additional experimental results for our submitted paper titled ``\toolname-palette: Co-saliency based Colorization for Comparing Categorical Visualizations''.
 %
 %\paragraph{Overview}\\
 %We include materials for:
@@ -213,7 +214,7 @@ This supplemental material file provides additional experimental results for our
 
 \CreateLink{overlappedScatterplots}{Scatterplots with Significant Overlap}
 \paragraph{Scatterplots with Significant Overlap}.
-Since our contrast measures are built on the data-space nearest neighbour graphs, its produced palettes also work well for scatterplots with significant overlap between classes. For example, as shown in the results from \emph{Random Assignment} in Fig.~\ref{fig:scatterOverlap}, the light orange class is mixed with the light purple class and the teal class has a strong overlap with the grey class, they are hard to distinguish. The \emph{Alpha Blending} result is based on \emph{Optimized Assignment}~\cite{Wang2018} with Tableau palette, however, due to the changed opacity, classes are hard to split from each other and generated different colors. The results generated from \emph{Palettailor} and \emph{$C^3$-Palette} both have a well separability since they are all built on the data-space nearest neighbour graphs. Specifically, \emph{$C^3$-Palette} highlights the changed classes(classes with green, purple and red) while maintaining discrimination of strong overlapped classes, such as the blue and yellow, red and green classes.
+Since our contrast measures are built on the data-space nearest neighbour graphs, its produced palettes also work well for scatterplots with significant overlap between classes. For example, as shown in the results from \emph{Random Assignment} in Fig.~\ref{fig:scatterOverlap}, the light orange class is mixed with the light purple class and the teal class has a strong overlap with the grey class, they are hard to distinguish. The \emph{Alpha Blending} result is based on \emph{Optimized Assignment}~\cite{Wang2018} with Tableau palette, however, due to the changed opacity, classes are hard to split from each other and composite new colors. The results generated from \emph{Palettailor} and \emph{$C^3$-palette} both have a well separability since they are all built on the data-space nearest neighbour graphs. Specifically, \emph{$C^3$-palette} highlights the changed classes(classes with green, purple and red) while maintaining discrimination of strong overlapped classes, such as the blue and yellow, red and green classes.
 
 \begin{figure}[h]
 \centering
@@ -226,7 +227,7 @@ Since our contrast measures are built on the data-space nearest neighbour graphs
 
 \CreateLink{badcaseAB}{Bad Case for Alpha Blending on Different Visualizations}
 \paragraph{Bad Case for Alpha Blending on Different Visualizations}.
-Since scatterplot points would overlap, the alpha blending method will generate new colors. Here we show alpha blending is insufficient even for bar chart and line chart. Fig.~\ref{fig:badcaseAB} shows an example, where the left top two images show our auto-generated results and the left bottom are the alpha blending result based on Tableau 20 palette by maintaining the opacity of the bar with largest difference be 1.0 while changing others' opacity to 0.4. We still hard to find the largest change immediately. Similarly, this effect is existed in line chart as shown in Fig.~\ref{fig:badcaseAB} right. Due to the low contrast against the background, the yellow line is hard to pop out even the opacity of other classes set to 0.2.
+In the previous section, we show that overlapped scatterplot points would composite new colors from the alpha blending method. Here we show alpha blending is insufficient even for bar chart and line chart. Fig.~\ref{fig:badcaseAB} shows an example, where the left top two images show our auto-generated results and the left bottom are the alpha blending result based on Tableau 20 palette by maintaining the opacity of the bar with the largest difference being 1.0 while changing others' opacity to 0.4. We still hard to find the largest change immediately. Similarly, this effect exists in line chart as shown in Fig.~\ref{fig:badcaseAB} right. Due to the low contrast against the background, the yellow line is hard to pop out even the opacity of other classes set to 0.2.
 
 \begin{figure}[ht]
 \centering
@@ -239,9 +240,9 @@ Since scatterplot points would overlap, the alpha blending method will generate 
 
 \CreateLink{pilotStudy}{Pilot Study Details and Statistics}
 \paragraph{Pilot Study Details and Statistics}.
-We conducted two pilot studies for scatterplot experiment, one for \emph{spotting the difference task} and the other is for the \emph{counting classes number task}. The statistics results are shown in Fig.~\ref{fig:pilotResults}.
-As for \emph{spotting the difference} task, we recruited $28$ people through the Amazon Mechanical Turk. The power analysis is executed between \emph{$C^3$-Palette} and \emph{Random Assignment}. With an effect size Cohen's $d$ of $0.4$, alpha level of $0.05$ and beta level of $0.8$, the power analysis suggested a minimum number of $100$ participants for the spot-the-difference task.
-The procedure of \emph{counting class number} task is similar to the previous one. We recruited 29 participants from AMT whose approval rate is larger than $97\%$. Since we mainly want to compare the class discriminability between \emph{$C^3$-Palette} and \emph{Alpha Blending}, we executed power analysis based on these two conditions.  With an effect size Cohen's $d$ of $0.6$, the power analysis indicates that we need 50 participants for this task.
+We conducted two pilot studies for the scatterplot experiment, one for \emph{identifying delta task} and the other is for the \emph{counting class task}. The statistics results are shown in Fig.~\ref{fig:pilotResults}.
+As for \emph{identifying delta task}, we recruited $28$ people (see Table.~\ref{tab:participantDetail}) through the Amazon Mechanical Turk. The power analysis is executed between \emph{$C^3$-palette Generation} and \emph{Random Assignment}. With an effect size Cohen's $d$ of $0.4$, alpha level of $0.05$ and beta level of $0.8$, the power analysis suggested a minimum number of $100$ participants for the spot-the-difference task.
+The procedure of \emph{counting class task} is similar to the previous one. We recruited 29 participants from AMT whose approval rate is larger than $97\%$. Since we mainly want to compare the class discriminability between \emph{$C^3$-palette Generation} and \emph{Alpha Blending}, we executed power analysis based on these two conditions.  With an effect size Cohen's $d$ of $0.6$, the power analysis indicates that we need 50 participants for this task.
 
 \begin{figure*}[h]
 \centering
@@ -252,15 +253,40 @@ The procedure of \emph{counting class number} task is similar to the previous on
 \label{fig:pilotResults}
 \end{figure*}
 
+\begin{table}[ht]
+\renewcommand\arraystretch{1}
+\centering
+\caption{Participants details for each task of the scatterplot experiment.}
+\label{tab:participantDetail}
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+\multirow{2}{*}{\textbf{Task \& Group}} & \multicolumn{2}{c|}{identifying delta task} & \multicolumn{2}{c|}{counting class task} \\
+\cline{2-5}
+& Pilot(28) & Formal(108) & Pilot(29) & formal(52) \\
+\hline
+Group 1 & 5 & 18 & 5  & 9 \\
+\hline
+Group 2 & 5 & 17 & 5  & 8 \\
+\hline
+Group 3 & 5 & 19 & 4  & 8 \\
+\hline
+Group 4 & 3 & 17 & 5  & 9 \\
+\hline
+Group 5 & 5 & 19 & 5  & 9 \\
+\hline
+Group 6 & 5 & 18 & 5  & 9 \\
+\hline
+\end{tabular}
+\end{table}
 
 \CreateLink{formalStudy}{Formal Study Statistics Results}
 \paragraph{Formal Study Statistics Results}.
-Due to the limited space, we moved the detailed results to supplemental materials. The statistics are shown in Fig.~\ref{fig:formalStudy}.
+Due to the limited space, we moved the detailed results to supplementary materials. The statistics are shown in Fig.~\ref{fig:formalStudy}.
 
 \begin{figure*}[h]
 \centering
 \includegraphics[width=1\linewidth]{formal-statistics-results.pdf}
-\caption{Confidence interval plots and statistical tables for the online controlled experiment. Error bars represent 95\% confidence intervals. Each table shows the statistical test results of \emph{$C^3$-Palette} condition compared to the benchmark conditions, including the mean with 95\% confidence interval ($\mu\sim$95\%CI), the W-value and p-value from the Mann-Whitney test, and the effect size ($d\sim$95\%CI).
+\caption{Confidence interval plots and statistical tables for the online controlled experiment. Error bars represent 95\% confidence intervals. Each table shows the statistical test results of \emph{$C^3$-palette Generation} condition compared to the other conditions, including the mean with 95\% confidence interval ($\mu\sim$95\%CI), the W-value and p-value from the Mann-Whitney test, and the effect size ($d\sim$95\%CI).
 }
 \vspace*{-5mm}
 \label{fig:formalStudy}
@@ -293,14 +319,28 @@ Due to the limited space, we moved the detailed results to supplemental material
 %
 %Our system also supports manually class importance adjustment, we illustrate this in Fig.~\ref{fig:casestudyinteraction}. For example, we are interested in \emph{America}, thus we can increase the importance value of the corresponding circle and meanwhile, decrease other classes' importance value until lower than $\kappa$. We show both assignment result for user provided palette and automatic palette generation result. It's obvious that both results highlight the interested class while palette generation method leads to a much better visual separability between different classes.
 
+
+\CreateLink{huePreserving}{Hue-preserving Palette Generation}
+\paragraph{Hue-preserving Palette Generation}.
+We also implemented the hue-preserving palette generation which is achieved by adjusting saturation and lightness while maintaining the hue of each color. However, this method cannot produce satisfactory results. As shown in Fig.~\ref{fig:huepreserving} (a), for a single hue value, there exist many different colors. For example, with the same hue (50), we can get black, yellow, grey, brown, etc. Applying this method into our optimization process leads to different colors. Fig.~\ref{fig:huepreserving} (b) shows two examples for different visualization types: the left top scatterplots were generated by default settings, then we maintained the hue of the yellow class in the bottom right and generated new palette, the yellow class changed to grey; this process is similar to line chart, while we maintain the hue of the brown line and finally it changed to grey too. This method is not consistent for user exploration. Hence, we choose color name constraint to maintain consistent color schemes.
+
+\begin{figure*}[h]
+\centering
+\includegraphics[width=1\linewidth]{hue-preserving.pdf}
+\caption{Hue-preserving palette generation. (a) $Hue=50$, quantizing the HSL color space into 100 discrete colors by sampling every 10 units along saturation and lightness axis starting at the origin, their color name is below each color; (b) Palette generation results for different visualization types (i.e., scatterplot and line chart): (top) result with default settings; (bottom) hue-preserving result for limit the hue of the yellow cluster in the top scatterplot and brown line in the top line chart.
+}
+\vspace*{-5mm}
+\label{fig:huepreserving}
+\end{figure*}
+
 \CreateLink{colorBlindness}{Palette Generation for Color Vision Deficiency}
 \paragraph{Palette Generation for Color Vision Deficiency}.
-To help people with a color vision deficiency, we allow users to generate palettes that can be used for different types of vision problem, such as protanomaly and deuteranomaly which result in poor red-green hue discrimination. This is achieved by adopting a color blindness simulator(the source code can be find at github： \url{https://github.com/MaPePeR/jsColorblindSimulator}) and then used our matrix for palette evaluation. Fig.~\ref{fig:blindness} shows an example, where the left two images show the auto-generated results and the right are the simulated results perceived by people with protanomaly. That is, the purple and red classes seen by normal vision will be perceived as dark blue and dark purple by protanomaly. We can see that our results are easy to find changes between scatterplots for people with color vision deficiency and it is still can be distinguished by normal vision. This preliminary result proves that our method can integrates start-of-the-art color blindness simulation algorithm to generate palettes for color vision deficiency.
+To help people with a color vision deficiency, we allow users to generate palettes that can be used for different types of vision problem, such as protanomaly and deuteranomaly which result in poor red-green hue discrimination. This is achieved by adopting a color blindness simulator (the source code can be found at GitHub： \url{https://github.com/MaPePeR/jsColorblindSimulator}) and then used our matrix for palette evaluation. Fig.~\ref{fig:blindness} shows an example, where the left two images show the auto-generated results and the right are the simulated results perceived by people with protanomaly. That is, the purple and red classes seen by normal vision will be perceived as dark blue and dark purple by protanomaly. We can see that our results are easy to find changes between scatterplots for people with color vision deficiency and it is still can be distinguished by normal vision. This preliminary result proves that our method can integrate start-of-the-art color blindness simulation algorithm to generate palettes for color vision deficiency.
 
 \begin{figure}[ht]
 \centering
 \includegraphics[width=0.96\linewidth]{blindness.pdf}
-\caption{Exploring the ability of our system to generate palettes for both people with normal vision and color blindness. (a) The automatic generated palette makes the two changed classes with large saliency while maintains good separability between other classes. (b) Simulated results which is seen by people with protanomaly. We can see our results maintain a good performance for both people with normal vision and color vision deficiency.}
+\caption{Exploring the ability of our system to generate palettes for both people with normal vision and color blindness. (a) The automatically generated palette makes the two changed classes with large saliency while maintains good separability between other classes. (b) Simulated results which is seen by people with protanomaly. We can see our results maintain a good performance for both people with normal vision and color vision deficiency.}
 \vspace*{-3mm}
 \label{fig:blindness}
 \end{figure}

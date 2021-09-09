@@ -16,7 +16,7 @@ library(forcats)
 library(tidyverse)
 
 file_study_folder <- "./data/"#
-save_img_sign <- TRUE#FALSE#
+save_img_sign <-TRUE# FALSE#
 saveImg <- function(name){
   if(save_img_sign){
     ggsave(paste("results", "formal", paste(name,".pdf"), sep = "/"), width = 10, height = 6, useDingbats=FALSE)
@@ -125,7 +125,7 @@ for (file in filelist) {
   data_temp <- read.csv(paste(file_path, file, sep = ""), header = TRUE) %>%
     mutate(error=ifelse(userResult==1, 0, 1))
 
-  data_temp <- data_temp[data_temp$conditionId!=3,]
+  #data_temp <- data_temp[data_temp$conditionId!=3,]
   # bind the data to the total data frame
   data_total <- rbind(data_total, data_temp)
   
@@ -156,13 +156,13 @@ data_total <- data_total %>%
 data_total[data_total$conditionId==0, ]$conditionName <- "Random Assignment"
 data_total[data_total$conditionId==1, ]$conditionName <- "Optimized Assignment"
 data_total[data_total$conditionId==2, ]$conditionName <- "Alpha Blending"
-#data_total[data_total$conditionId==3, ]$conditionName <- "C3-Palette Assignment"
+data_total[data_total$conditionId==3, ]$conditionName <- "C3-Palette Assignment"
 data_total[data_total$conditionId==4, ]$conditionName <- "Palettailor"
 data_total[data_total$conditionId==5, ]$conditionName <- "C3-Palette Generation"
 
 data_total <- data_total %>%
   mutate(conditionName = fct_relevel(conditionName, 
-                                 "C3-Palette Generation",#"C3-Palette Assignment", 
+                                 "C3-Palette Generation","C3-Palette Assignment", 
                                  "Palettailor", 
                                  "Alpha Blending", "Optimized Assignment", "Random Assignment"))
 
@@ -172,13 +172,13 @@ data_part <- data_part %>%
 data_part[data_part$conditionId==0, ]$conditionName <- "Random Assignment"
 data_part[data_part$conditionId==1, ]$conditionName <- "Optimized Assignment"
 data_part[data_part$conditionId==2, ]$conditionName <- "Alpha Blending"
-#data_part[data_part$conditionId==3, ]$conditionName <- "C3-Palette Assignment"
+data_part[data_part$conditionId==3, ]$conditionName <- "C3-Palette Assignment"
 data_part[data_part$conditionId==4, ]$conditionName <- "Palettailor"
 data_part[data_part$conditionId==5, ]$conditionName <- "C3-Palette Generation"
 
 data_part <- data_part %>%
   mutate(conditionName = fct_relevel(conditionName, 
-                                 "C3-Palette Generation",#"C3-Palette Assignment",
+                                 "C3-Palette Generation","C3-Palette Assignment",
                                   "Palettailor", 
                                  "Alpha Blending", "Optimized Assignment", "Random Assignment"))
 
@@ -220,7 +220,7 @@ data <- dplyr::summarise(group_by(data_part, userName, conditionName), error=mea
 #Statistical Test Results: mu~95% CI, W, p-value, d.
 # error~conditionName and time~conditionName
 df_stat_output <- stat_table_error(data,"C3-Palette Generation")
-#df_stat_output <- stat_table_error(data,"C3-Palette Assignment")
+df_stat_output <- stat_table_error(data,"C3-Palette Assignment")
 ciplot(data, "error", "conditionName", "Part-mean")
 saveImg(paste(file_prefix, "error", "conditionName", "Part-mean",sep="-"))
 
@@ -228,7 +228,7 @@ data <- dplyr::summarise(group_by(data_part, userName, conditionName), error=mea
 #Statistical Test Results: mu~95% CI, W, p-value, d.
 # error~conditionName and time~conditionName
 df_stat_output <- stat_table_error(data,"C3-Palette Generation")
-#df_stat_output <- stat_table_error(data,"C3-Palette Assignment")
+df_stat_output <- stat_table_error(data,"C3-Palette Assignment")
 ciplot(data, "error", "conditionName", "Part-mean-error")
 saveImg(paste(file_prefix, "error", "conditionName", "Part-mean-error",sep="-"))
 
@@ -252,5 +252,31 @@ for(i in 1:6){
   saveImg(paste(file_prefix, "titer", "frequency", condition_names[i],sep="-"))
 }
 
+```
+
+```{r}
+# Get the list of files.
+file_path <- paste("max delta task", "", sep = "/")
+filelist <- list.files(path = file_path, pattern = 'barchart.*?\\.csv$')
+
+user_info <- read.csv(paste(file_path, "user_info.csv", sep = ""), header = TRUE) 
+
+# Compute data_total
+data_total <- rbind()
+for (file in filelist) {
+  print(file)
+  # read data
+  data_temp <- read.csv(paste(file_path, file, sep = ""), header = TRUE)
+
+  xx <- strsplit(file, "-")
+  xx <- strsplit(xx[[1]][2], ".")
+  worker_id <- xx[[1]][1]
+  data_temp <- data_temp[data_temp$workerId == worker_id,]
+  # bind the data to the total data frame
+  data_total <- rbind(data_total, data_temp)
+  
+  
+}
+print(data_total)
 ```
 

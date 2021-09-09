@@ -664,3 +664,35 @@ function lockThisRect(item) {
   hue_constraints[choosed_id] = hue_constraints[choosed_id] === 1 ? 0 : 1
   d3.select("#icon_lock-" + choosed_id).style("display", hue_constraints[choosed_id] ? 'inline-block' : 'none')
 }
+
+
+function appendHSL() {
+  let barchart_svg = d3.select("body").append("svg")
+    .attr("width", 1000).attr("height", 600).style("margin-left", "500px");
+
+  let barchart = barchart_svg.style("background-color", bgcolor)
+    .append("g")
+    .attr("transform", "translate(" + svg_margin.left + "," + svg_margin.top + ")");
+
+  let hue = 50, step = 10;
+  for (let s = 0; s < 100; s += step) {
+    for (let l = 0; l < 100; l += step) {
+      let hsl = d3.hsl(hue, s / 100, l / 100)
+      barchart.append("rect")
+        .style("fill", hsl)
+        .attr("x", Math.floor(s / step) * 45)
+        .attr("y", Math.floor(l / step) * 25)
+        .attr("width", 40)
+        .attr("height", 10)
+      barchart.append("text").attr("x", Math.floor(s / step) * 45).attr("y", Math.floor(l / step) * 25 + 20).text(function () {
+        let c = getColorNameIndex(d3.rgb(hsl)),
+          t = c3.color.relatedTerms(c, 1);
+        if (t[0] === undefined) {
+          return "undefined"
+        }
+        return c3.terms[t[0].index]
+      });
+    }
+  }
+}
+// appendHSL()
