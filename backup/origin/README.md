@@ -1,1 +1,0 @@
-# c3-palette.github.io
