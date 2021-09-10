@@ -59,7 +59,7 @@
 \bibfield{author}{\bibinfo{person}{M. {Aupetit}} {and} \bibinfo{person}{M.
   {Sedlmair}}.} \bibinfo{year}{2016}\natexlab{}.
 \newblock \showarticletitle{SepMe: 2002 New visual separation measures}. In
-  \bibinfo{booktitle}{\emph{2016 IEEE Pacific Visualization Symposium}}.
+  \bibinfo{booktitle}{\emph{IEEE Pacific Visualization Symposium}}.
   \bibinfo{pages}{1--8}.
 \newblock
 \urldef\tempurl%
@@ -77,6 +77,9 @@
   \bibinfo{booktitle}{\emph{Proceedings of the SIGCHI conference on Human
   factors in computing systems}}. \bibinfo{pages}{367--374}.
 \newblock
+\urldef\tempurl%
+\url{https://doi.org/10.1145/985692.985739}
+\showDOI{\tempurl}
 
 
 \bibitem[\protect\citeauthoryear{Borji, Cheng, Hou, Jiang, and Li}{Borji
@@ -159,6 +162,9 @@
   Computer Graphics}} \bibinfo{volume}{15}, \bibinfo{number}{6}
   (\bibinfo{year}{2009}), \bibinfo{pages}{1275--1282}.
 \newblock
+\urldef\tempurl%
+\url{https://doi.org/10.1109/TVCG.2009.150}
+\showDOI{\tempurl}
 
 
 \bibitem[\protect\citeauthoryear{Connor, Egeth, and Yantis}{Connor
@@ -503,6 +509,9 @@
   in Scatterplots}. In \bibinfo{booktitle}{\emph{Proceedings of the 2021 CHI
   Conference on Human Factors in Computing Systems}}. \bibinfo{pages}{1--16}.
 \newblock
+\urldef\tempurl%
+\url{https://doi.org/10.1145/3411764.3445751}
+\showDOI{\tempurl}
 
 
 \bibitem[\protect\citeauthoryear{Lobo, Pietriga, and Appert}{Lobo
@@ -699,6 +708,9 @@
   CHI Conference on Human Factors in Computing Systems}}.
   \bibinfo{pages}{1--14}.
 \newblock
+\urldef\tempurl%
+\url{https://doi.org/10.1145/3290605.3300899}
+\showDOI{\tempurl}
 
 
 \bibitem[\protect\citeauthoryear{Software.}{Software.}{[n.d.]}]%

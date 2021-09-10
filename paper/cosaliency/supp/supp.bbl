@@ -1,30 +1,78 @@
-\begin{thebibliography}{1}
+%%% -*-BibTeX-*-
+%%% Do NOT edit. File created by BibTeX with style
+%%% ACM-Reference-Format-Journals [18-Jan-2012].
 
-\bibitem{Lu21}
-K.~{Lu}, M.~{Feng}, X.~{Chen}, M.~{Sedlmair}, O.~{Deussen}, D.~{Lischinski},
-  Z.~{Cheng}, and Y.~{Wang}.
-\newblock Palettailor: discriminable colorization for categorical data.
-\newblock {\em IEEE Transactions on Visualization and Computer Graphics},
-  27(2):475--484, 2021. doi: {{%
-10\hspace{.1pt}\discretionary{.}{%
-}{.}\hspace{.4pt}1109\discretionary{/}{%
-}{/}TVCG\hspace{.1pt}\discretionary{.}{%
-}{.}\hspace{.4pt}2020\hspace{.1pt}\discretionary{.}{%
-}{.}\hspace{.4pt}3030406}}
+\begin{thebibliography}{2}
+
+%%% ====================================================================
+%%% NOTE TO THE USER: you can override these defaults by providing
+%%% customized versions of any of these macros before the \bibliography
+%%% command.  Each of them MUST provide its own final punctuation,
+%%% except for \shownote{}, \showDOI{}, and \showURL{}.  The latter two
+%%% do not use final punctuation, in order to avoid confusing it with
+%%% the Web address.
+%%%
+%%% To suppress output of a particular field, define its macro to expand
+%%% to an empty string, or better, \unskip, like this:
+%%%
+%%% \newcommand{\showDOI}[1]{\unskip}   % LaTeX syntax
+%%%
+%%% \def \showDOI #1{\unskip}           % plain TeX syntax
+%%%
+%%% ====================================================================
+
+\ifx \showCODEN    \undefined \def \showCODEN     #1{\unskip}     \fi
+\ifx \showDOI      \undefined \def \showDOI       #1{#1}\fi
+\ifx \showISBNx    \undefined \def \showISBNx     #1{\unskip}     \fi
+\ifx \showISBNxiii \undefined \def \showISBNxiii  #1{\unskip}     \fi
+\ifx \showISSN     \undefined \def \showISSN      #1{\unskip}     \fi
+\ifx \showLCCN     \undefined \def \showLCCN      #1{\unskip}     \fi
+\ifx \shownote     \undefined \def \shownote      #1{#1}          \fi
+\ifx \showarticletitle \undefined \def \showarticletitle #1{#1}   \fi
+\ifx \showURL      \undefined \def \showURL       {\relax}        \fi
+% The following commands are used for tagged output and should be
+% invisible to TeX
+\providecommand\bibfield[2]{#2}
+\providecommand\bibinfo[2]{#2}
+\providecommand\natexlab[1]{#1}
+\providecommand\showeprint[2][]{arXiv:#2}
+
+\bibitem[\protect\citeauthoryear{{Lu}, {Feng}, {Chen}, {Sedlmair}, {Deussen},
+  {Lischinski}, {Cheng}, and {Wang}}{{Lu} et~al\mbox{.}}{2021}]%
+        {Lu21}
+\bibfield{author}{\bibinfo{person}{K. {Lu}}, \bibinfo{person}{M. {Feng}},
+  \bibinfo{person}{X. {Chen}}, \bibinfo{person}{M. {Sedlmair}},
+  \bibinfo{person}{O. {Deussen}}, \bibinfo{person}{D. {Lischinski}},
+  \bibinfo{person}{Z. {Cheng}}, {and} \bibinfo{person}{Y. {Wang}}.}
+  \bibinfo{year}{2021}\natexlab{}.
+\newblock \showarticletitle{Palettailor: discriminable colorization for
+  categorical data}.
+\newblock \bibinfo{journal}{\emph{IEEE Transactions on Visualization and
+  Computer Graphics}} \bibinfo{volume}{27}, \bibinfo{number}{2}
+  (\bibinfo{year}{2021}), \bibinfo{pages}{475--484}.
+\newblock
+\urldef\tempurl%
+\url{https://doi.org/10.1109/TVCG.2020.3030406}
+\showDOI{\tempurl}
 
 
-\bibitem{Wang2018}
-Y.~Wang, X.~Chen, T.~Ge, C.~Bao, M.~Sedlmair, C.-W. Fu, O.~Deussen, and
-  B.~Chen.
-\newblock Optimizing color assignment for perception of class separability in
-  multiclass scatterplots.
-\newblock {\em IEEE Transactions on Visualization and Computer Graphics},
-  25(1):820--829, 2019. doi: {{%
-10\hspace{.1pt}\discretionary{.}{%
-}{.}\hspace{.4pt}1109\discretionary{/}{%
-}{/}TVCG\hspace{.1pt}\discretionary{.}{%
-}{.}\hspace{.4pt}2018\hspace{.1pt}\discretionary{.}{%
-}{.}\hspace{.4pt}2864912}}
+\bibitem[\protect\citeauthoryear{Wang, Chen, Ge, Bao, Sedlmair, Fu, Deussen,
+  and Chen}{Wang et~al\mbox{.}}{2019}]%
+        {Wang2018}
+\bibfield{author}{\bibinfo{person}{Yunhai Wang}, \bibinfo{person}{Xin Chen},
+  \bibinfo{person}{Tong Ge}, \bibinfo{person}{Chen Bao},
+  \bibinfo{person}{Michael Sedlmair}, \bibinfo{person}{Chi-Wing Fu},
+  \bibinfo{person}{Oliver Deussen}, {and} \bibinfo{person}{Baoquan Chen}.}
+  \bibinfo{year}{2019}\natexlab{}.
+\newblock \showarticletitle{Optimizing color assignment for perception of class
+  separability in multiclass scatterplots}.
+\newblock \bibinfo{journal}{\emph{IEEE Transactions on Visualization and
+  Computer Graphics}} \bibinfo{volume}{25}, \bibinfo{number}{1}
+  (\bibinfo{year}{2019}), \bibinfo{pages}{820--829}.
+\newblock
+\urldef\tempurl%
+\url{https://doi.org/10.1109/TVCG.2018.2864912}
+\showDOI{\tempurl}
 
 
 \end{thebibliography}

@@ -28,7 +28,7 @@ Tableau-10 palette (a) and the ColorBrewer palette (b). Many existing palettes c
 A recently proposed data-aware palette generation method by Lu et al.~\cite{Lu21} automatically generates discriminable and preferable palettes by maximizing the combination of three palette quality measures: point distinctness, name difference, and color discrimination.
 By replacing the first measure with our co-saliency model, palette generation can be formulated as an optimization problem:
 \begin{equation}
-\arg\max_{\mathbf{\tau}} E(\mathbf{\tau}) = \omega_0 E_{CoS} + \omega_1 E_{ND} + \omega_2 E_{CD}.
+\arg\max_{\mathbf{\tau}} E(\mathbf{\tau}) = \omega_0 E_{CoS} + \omega_1 E_{ND} + \omega_2 E_{CD},
 \label{eq:energyfunc}
 \end{equation}
 consisting of a co-saliency term $E_{CoS}$ (see Eq.~\ref{eq:cosaliency}), a name difference term $E_{ND}$ and a color discrimination term $E_{CD}$, balanced by $\omega_0$, $\omega_1$ and $\omega_2$. For more details about $E_{ND}$ and $E_{CD}$, we refer readers to~\cite{Lu21}. By using their optimization method, we are able to generate desired color palettes up to 40 colors in real time. %see Fig.~\ref{fig:teaser} (d).
@@ -64,7 +64,7 @@ The importance threshold $\kappa$ selects classes with large importance to be hi
 With a default value of zero, all classes with an importance value larger than zero are ensured to be highlighted. Likewise, a large $\kappa$ will de-emphasize classes with small importance.
 We further allow users to specify $\kappa$ by interaction through a widget in our interactive application. %(see Sec.~\ref{sec:interaction}).
 
-Note that our optimization inherently works for more than two categorical visualizations and the data with many classes. Since our contrast measures are built on the data-space nearest neighbour graphs, its produced palettes also work well for scatterplots with significant overlap between classes (see the supplementary material).
+\textbf{Note that our optimization inherently works for more than two categorical visualizations and data with many classes.} Since our contrast measures are built on data-space nearest neighbour graphs, their produced palettes also work well for scatterplots with significant overlap between classes (see supplementary material).
 
 
 %\begin{figure}[h]

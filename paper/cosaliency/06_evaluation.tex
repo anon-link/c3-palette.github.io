@@ -41,7 +41,7 @@ To achieve these evaluation goals, we conducted three online controlled experime
 \label{subsec:barchartExp}
 We evaluated the effectiveness of our method on supporting juxtaposed visual comparisons using bar charts by following Ondov et al.'s~\cite{Ondov19} comparison evaluation, in which the participants performed the \emph{max delta task}. The \emph{max delta task} can reflect how well our method can support people to \emph{observe the changes} for juxtaposed comparisons. We did not evaluate the other perspective: discriminating classes in individual charts, because the task is considered trivial in the context of bar chart, and so that it could lead to ceiling effect.
 
-For the \emph{max delta task}, we hypothesized that our method would generally be more effective than the benchmark methods on the task performance, and specifically we had the following hypothesis:
+For the \emph{max delta task}, we hypothesized that our method would generally be more effective than the benchmark methods on the task performance, and specifically we had the following hypotheses:
 \begin{itemize}[noitemsep]
 \setlength{\itemsep}{5pt}
     \item[\textbf{H1.}] Our palette generation method (\emph{$C^3$-palette Generation}) outperforms the benchmark conditions (\emph{Random Assignment}, \emph{Optimized Assignment}, \emph{Alpha Blending} and \emph{Palettailor}) on the task performance.
@@ -78,7 +78,7 @@ We ran an accuracy-based outlier exclusion to filter participants whose overall 
 \begin{figure*}[!tb]
 \centering
 \includegraphics[width=1\linewidth]{figures/maxdelta-results.pdf}
-\caption{Confidence interval plots and p-value from the Mann-Whitney test for the \emph{max delta task} of the bar chart experiment. Error bars represent $95\%$ confidence intervals. Each p-value shows the statistical test result of one base with the other conditions. Smaller value means a better performance.}
+\caption{Confidence intervals and p-values from the Mann-Whitney test for the \emph{max delta task} of the bar chart experiment. Error bars represent $95\%$ confidence intervals. Each p-value shows the statistical test result of one base with the other conditions. Smaller value means a better performance.}
 \vspace*{-3mm}
 \label{fig:barResults}
 \end{figure*}
@@ -144,7 +144,10 @@ Finally, without loss of fairness, we randomly selected $2$ pairs from each chan
 %\end{table}
 
 \vspace{.3em}
-\noindent{\textbf{Experiment Organization.}} Instead of using a \emph{within-subject} design that each participant need to do all the $36*6=216$ condition-dataset combinations, we tested the effects of the $6$ method conditions across $36$ paired multi-class scatterplot datasets using a \emph{between-subject} experiment design. To avoid ordering effects, where the participant would get familiar with a dataset after seeing it several times (six times in our case), each participant was assigned to a group and saw a specific subset of datasets under different conditions. We used a Latin Square grouping (see Fig.~\ref{fig:experimentOrgan} (a)) to organize the trials for each participant. %$Thus, there were $6$ participant groups and each of them had $40$ trials in total. See the supplementary material for more details.
+\noindent{\textbf{Experiment Organization.}}
+We did not follow the \emph{within-subject}  experiment design as the above experiment, since it will inevitably introduce the learning effect with 216 trials (6 conditions and 36 datasets) for each participant.
+Instead, we adopted  a \emph{between-subject} experiment design to test the effects on scatterplots.
+To avoid ordering effects, where the participant would get familiar with a dataset after seeing it several times (six times in our case), each participant was assigned to a group and saw a specific subset of datasets under different conditions. We used a Latin Square grouping (see Fig.~\ref{fig:experimentOrgan} (a)) to organize the trials for each participant. %$Thus, there were $6$ participant groups and each of them had $40$ trials in total. See the supplementary material for more details.
 
 For attention check, we added four additional validation stimuli for both tasks. Each stimulus has a pair of scatterplots with 6 well-separated classes, including only one changed class with a large change magnitude, and we assigned a de-saturated color to the changed class that made it less salient. Accordingly, there are $36+4 = 40$ trials in total for each participant group. To alleviate learning effects, we randomly shuffled the display orders of all scatterplot pairs, and randomly placed the two scatterplots in each pair on the left or right side.
 
@@ -251,7 +254,7 @@ The result indicates that our palette generation method (\emph{$C^3$-palette Gen
 \begin{figure*}[!tb]
 \centering
 \includegraphics[width=1\linewidth]{figures/difference-results.pdf}
-\caption{Confidence interval plots and p-value from the Mann-Whitney test for the \emph{identifying delta task} of the scatterplot experiment. Error bars represent $95\%$ confidence intervals. Each p-value shows the statistical test result of one base with the other conditions. Smaller value means a better performance.}
+\caption{Confidence intervals and p-values from the Mann-Whitney test for the \emph{identifying delta task} of the scatterplot experiment. Error bars represent $95\%$ confidence intervals. Each p-value shows the statistical test result of one base with the other conditions. Smaller value means a better performance.}
 \vspace*{-3mm}
 \label{fig:difference-results}
 \end{figure*}
@@ -322,7 +325,7 @@ Finally, we did not find a significant interaction effect between \emph{coloriza
 \begin{figure*}[!tb]
 \centering
 \includegraphics[width=1\linewidth]{figures/counting-results.pdf}
-\caption{Confidence interval plots and p-value from the Mann-Whitney test for the \emph{counting class task} of the scatterplot experiment. Error bars represent $95\%$ confidence intervals. Each p-value shows the statistical test result of one base with the other conditions. Smaller value means a better performance.}
+\caption{Confidence intervals and p-values from the Mann-Whitney test for the \emph{counting class task} of the scatterplot experiment. Error bars represent $95\%$ confidence intervals. Each p-value shows the statistical test result of one base with the other conditions. Smaller value means a better performance.}
 \vspace*{-3mm}
 \label{fig:counting-results}
 \end{figure*}
